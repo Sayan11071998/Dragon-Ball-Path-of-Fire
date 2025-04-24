@@ -3,7 +3,6 @@ using DragonBall.Player;
 using DragonBall.Utilities;
 using Unity.Cinemachine;
 
-
 namespace DragonBall.Core
 {
     public class GameService : GenericMonoSingleton<GameService>
