@@ -30,12 +30,11 @@ namespace DragonBall.Player
         public void OnMove(InputValue value) => moveInput = value.Get<Vector2>().x;
 
         public void OnJump() => isJumping = true;
+
         public void ResetJumpInput() => isJumping = false;
+
         public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
 
-        public void FlipSprite(bool isFacingRight)
-        {
-            spriteRenderer.flipX = !isFacingRight;
-        }
+        public void FlipSprite(bool isFacingRight) => spriteRenderer.flipX = !isFacingRight;
     }
 }

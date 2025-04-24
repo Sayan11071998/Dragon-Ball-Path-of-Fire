@@ -17,9 +17,6 @@ namespace DragonBall.Player
             playerController = new PlayerController(playerModel, playerPrefab);
         }
 
-        public void Update()
-        {
-            playerController.Update();
-        }
+        public void Update() => playerController.Update();
     }
 }
