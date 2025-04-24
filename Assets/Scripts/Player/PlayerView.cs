@@ -6,6 +6,7 @@ namespace DragonBall.Player
     public class PlayerView : MonoBehaviour
     {
         [SerializeField] private ParticleSystem jumpEffect;
+        [SerializeField] private ParticleSystem vanishEffect;
 
         private Animator animator;
         private SpriteRenderer spriteRenderer;
@@ -14,6 +15,7 @@ namespace DragonBall.Player
 
         private float moveInput;
         private bool isJumping;
+        private bool isVanishing;
 
         public ParticleSystem JumpEffect => jumpEffect;
 
@@ -22,6 +24,7 @@ namespace DragonBall.Player
 
         public float MoveInput => moveInput;
         public bool JumpInput => isJumping;
+        public bool VanishInput => isVanishing;
 
         private void Awake()
         {
@@ -35,10 +38,23 @@ namespace DragonBall.Player
 
         public void OnJump() => isJumping = true;
 
+        public void OnVanish() => isVanishing = true;
+
         public void ResetJumpInput() => isJumping = false;
+
+        public void ResetVanishInput() => isVanishing = false;
 
         public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
 
         public void FlipSprite(bool isFacingRight) => spriteRenderer.flipX = !isFacingRight;
+
+        public void PlayVanishEffect()
+        {
+            if (vanishEffect != null)
+            {
+                ParticleSystem effect = Instantiate(vanishEffect, transform.position, Quaternion.identity);
+                effect.Play();
+            }
+        }
     }
 }

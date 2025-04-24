@@ -23,6 +23,7 @@ namespace DragonBall.Player
 
             HandleMovement(moveInput);
             HandleJump();
+            HandleVanish();
             UpdateAnimations(moveInput);
         }
 
@@ -55,6 +56,7 @@ namespace DragonBall.Player
                 {
                     Vector2 velocity = playerView.Rigidbody.linearVelocity;
                     velocity.y = playerModel.JumpSpeed;
+                    velocity.x *= playerModel.JumpHorizontalDampening;
                     playerView.Rigidbody.linearVelocity = velocity;
                     playerModel.JumpCount++;
                 }
@@ -62,12 +64,30 @@ namespace DragonBall.Player
                 {
                     Vector2 velocity = playerView.Rigidbody.linearVelocity;
                     velocity.y = playerModel.JumpSpeed;
+                    velocity.x *= playerModel.JumpHorizontalDampening;
                     playerView.Rigidbody.linearVelocity = velocity;
                     playerView.JumpEffect.Play();
                     playerModel.JumpCount++;
                 }
 
                 playerView.ResetJumpInput();
+            }
+        }
+
+        private void HandleVanish()
+        {
+            if (playerView.VanishInput)
+            {
+                playerView.PlayVanishEffect();
+                Vector2 originalPosition = playerView.transform.position;
+                Vector2 randomOffset = Random.insideUnitCircle * playerModel.VanishRange;
+
+                if (randomOffset.y < 0)
+                    randomOffset.y = Mathf.Abs(randomOffset.y);
+
+                Vector2 newPosition = originalPosition + randomOffset;
+                playerView.transform.position = new Vector3(newPosition.x, newPosition.y, playerView.transform.position.z);
+                playerView.ResetVanishInput();
             }
         }
 

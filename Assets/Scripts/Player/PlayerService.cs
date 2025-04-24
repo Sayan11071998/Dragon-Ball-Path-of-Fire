@@ -15,7 +15,15 @@ namespace DragonBall.Player
             playerPrefab = Object.Instantiate(_playerPrefab);
             playerPrefab.name = "Songoku";
 
-            playerModel = new PlayerModel(_config.PlayerHealth, _config.MoveSpeed, _config.JumpSpeed);
+            playerModel = new PlayerModel
+                (
+                    _config.PlayerHealth,
+                    _config.MoveSpeed,
+                    _config.JumpSpeed,
+                    _config.JumpHorizontalDampening,
+                    _config.vanishRange
+                );
+
             playerController = new PlayerController(playerModel, playerPrefab);
         }
 
