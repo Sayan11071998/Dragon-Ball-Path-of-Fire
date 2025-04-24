@@ -19,5 +19,10 @@ namespace DragonBall.Core
 
             playerService = new PlayerService(playerView, playerScriptableObject);
         }
+
+        private void Update()
+        {
+            playerService.Update();
+        }
     }
 }
