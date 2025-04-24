@@ -10,6 +10,6 @@ namespace DragonBall.Player
 
         [Header("Movement")]
         public float MoveSpeed = 5f;
-        public float JumpForce = 10f;
+        public float JumpSpeed = 10f;
     }
 }
