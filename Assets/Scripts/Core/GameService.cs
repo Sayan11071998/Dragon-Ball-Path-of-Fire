@@ -1,6 +1,7 @@
 using UnityEngine;
 using DragonBall.Player;
 using DragonBall.Utilities;
+using Unity.Cinemachine;
 
 
 namespace DragonBall.Core
@@ -13,11 +14,15 @@ namespace DragonBall.Core
         [SerializeField] private PlayerView playerView;
         [SerializeField] private PlayerScriptableObject playerScriptableObject;
 
+        [Header("Camera")]
+        [SerializeField] CinemachineCamera cinemachineCamera;
+
         protected override void Awake()
         {
             base.Awake();
 
             playerService = new PlayerService(playerView, playerScriptableObject);
+            cinemachineCamera.Follow = playerService.PlayerPrefab.transform;
         }
 
         private void Update()

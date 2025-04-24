@@ -8,6 +8,8 @@ namespace DragonBall.Player
         private PlayerController playerController;
         private PlayerView playerPrefab;
 
+        public PlayerView PlayerPrefab => playerPrefab;
+
         public PlayerService(PlayerView _playerPrefab, PlayerScriptableObject _config)
         {
             playerPrefab = Object.Instantiate(_playerPrefab);
