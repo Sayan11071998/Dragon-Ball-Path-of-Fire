@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace DragonBall.Player
 {
     public class PlayerController
@@ -9,6 +11,52 @@ namespace DragonBall.Player
         {
             playerModel = _playerModel;
             playerView = _playerView;
+        }
+
+        public void Update()
+        {
+            float moveInput = playerView.MoveInput;
+            // bool jumpInput = playerView.JumpInput;
+            // playerModel.IsGrounded = playerView.CheckGrounded();
+
+            HandleMovement(moveInput);
+            // HandleJump(jumpInput);
+            UpdateAnimations(moveInput);
+        }
+
+        private void HandleMovement(float moveInput)
+        {
+            Vector2 velocity = playerView.Rigidbody.linearVelocity;
+            velocity.x = moveInput * playerModel.MoveSpeed;
+            playerView.Rigidbody.linearVelocity = velocity;
+
+            if (moveInput > 0 && !playerModel.IsFacingRight)
+            {
+                playerModel.IsFacingRight = true;
+                playerView.FlipSprite(true);
+            }
+            else if (moveInput < 0 && playerModel.IsFacingRight)
+            {
+                playerModel.IsFacingRight = false;
+                playerView.FlipSprite(false);
+            }
+        }
+
+        // private void HandleJump(bool jumpInput)
+        // {
+        //     if (jumpInput && playerModel.IsGrounded)
+        //     {
+        //         Vector2 velocity = playerView.Rigidbody.linearVelocity;
+        //         velocity.y = playerModel.JumpForce;
+        //         playerView.Rigidbody.linearVelocity = velocity;
+        //     }
+        // }
+
+        private void UpdateAnimations(float moveInput)
+        {
+            playerView.Animator.SetBool("isRunning", Mathf.Abs(moveInput) > 0.1f);
+            // playerView.Animator.SetBool("isJumping", !playerModel.IsGrounded);
+            // playerView.Animator.SetFloat("verticalVelocity", playerView.Rigidbody.linearVelocity.y);
         }
     }
 }
