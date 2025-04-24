@@ -51,11 +51,19 @@ namespace DragonBall.Player
         {
             if (playerView.JumpInput)
             {
-                if (playerModel.IsGrounded || (!playerModel.IsGrounded && playerModel.JumpCount < 1))
+                if (playerModel.IsGrounded)
                 {
                     Vector2 velocity = playerView.Rigidbody.linearVelocity;
                     velocity.y = playerModel.JumpSpeed;
                     playerView.Rigidbody.linearVelocity = velocity;
+                    playerModel.JumpCount++;
+                }
+                else if (!playerModel.IsGrounded && playerModel.JumpCount < 1)
+                {
+                    Vector2 velocity = playerView.Rigidbody.linearVelocity;
+                    velocity.y = playerModel.JumpSpeed;
+                    playerView.Rigidbody.linearVelocity = velocity;
+                    playerView.JumpEffect.Play();
                     playerModel.JumpCount++;
                 }
 
