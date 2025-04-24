@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerHealth: 100
   MoveSpeed: 7
-  JumpForce: 10
+  JumpSpeed: 7

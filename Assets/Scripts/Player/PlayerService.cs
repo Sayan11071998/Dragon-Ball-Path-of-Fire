@@ -8,18 +8,17 @@ namespace DragonBall.Player
         private PlayerController playerController;
         private PlayerView playerPrefab;
 
+        public PlayerView PlayerPrefab => playerPrefab;
+
         public PlayerService(PlayerView _playerPrefab, PlayerScriptableObject _config)
         {
             playerPrefab = Object.Instantiate(_playerPrefab);
             playerPrefab.name = "Songoku";
 
-            playerModel = new PlayerModel(_config.PlayerHealth, _config.MoveSpeed, _config.JumpForce);
+            playerModel = new PlayerModel(_config.PlayerHealth, _config.MoveSpeed, _config.JumpSpeed);
             playerController = new PlayerController(playerModel, playerPrefab);
         }
 
-        public void Update()
-        {
-            playerController.Update();
-        }
+        public void Update() => playerController.Update();
     }
 }
