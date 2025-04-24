@@ -15,3 +15,4 @@ MonoBehaviour:
   PlayerHealth: 100
   MoveSpeed: 7
   JumpSpeed: 7
+  vanishRange: 7

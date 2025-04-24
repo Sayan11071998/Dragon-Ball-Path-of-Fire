@@ -11,5 +11,8 @@ namespace DragonBall.Player
         [Header("Movement")]
         public float MoveSpeed = 5f;
         public float JumpSpeed = 10f;
+
+        [Header("Vanish Special Attack")]
+        public float vanishRange = 5f;
     }
 }

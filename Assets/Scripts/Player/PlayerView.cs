@@ -18,7 +18,6 @@ namespace DragonBall.Player
         private bool isVanishing;
 
         public ParticleSystem JumpEffect => jumpEffect;
-        public ParticleSystem VanishEffect => vanishEffect;
 
         public Animator Animator => animator;
         public Rigidbody2D Rigidbody => rb;
