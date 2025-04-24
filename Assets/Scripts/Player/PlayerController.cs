@@ -56,6 +56,7 @@ namespace DragonBall.Player
                 {
                     Vector2 velocity = playerView.Rigidbody.linearVelocity;
                     velocity.y = playerModel.JumpSpeed;
+                    velocity.x *= playerModel.JumpHorizontalDampening;
                     playerView.Rigidbody.linearVelocity = velocity;
                     playerModel.JumpCount++;
                 }
@@ -63,6 +64,7 @@ namespace DragonBall.Player
                 {
                     Vector2 velocity = playerView.Rigidbody.linearVelocity;
                     velocity.y = playerModel.JumpSpeed;
+                    velocity.x *= playerModel.JumpHorizontalDampening;
                     playerView.Rigidbody.linearVelocity = velocity;
                     playerView.JumpEffect.Play();
                     playerModel.JumpCount++;
