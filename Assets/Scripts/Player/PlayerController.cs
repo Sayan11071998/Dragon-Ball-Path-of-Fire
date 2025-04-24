@@ -6,6 +6,7 @@ namespace DragonBall.Player
     {
         private PlayerModel playerModel;
         private PlayerView playerView;
+        private float vanishRange = 2f;
 
         public PlayerController(PlayerModel _playerModel, PlayerView _playerView)
         {
@@ -23,6 +24,7 @@ namespace DragonBall.Player
 
             HandleMovement(moveInput);
             HandleJump();
+            HandleVanish();
             UpdateAnimations(moveInput);
         }
 
@@ -68,6 +70,19 @@ namespace DragonBall.Player
                 }
 
                 playerView.ResetJumpInput();
+            }
+        }
+
+        private void HandleVanish()
+        {
+            if (playerView.VanishInput)
+            {
+                playerView.PlayVanishEffect();
+                Vector2 originalPosition = playerView.transform.position;
+                Vector2 randomOffset = Random.insideUnitCircle * vanishRange;
+                Vector2 newPosition = originalPosition + randomOffset;
+                playerView.transform.position = new Vector3(newPosition.x, newPosition.y, playerView.transform.position.z);
+                playerView.ResetVanishInput();
             }
         }
 

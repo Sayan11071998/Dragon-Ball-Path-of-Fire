@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpEffect: {fileID: 4407550098917696798}
+  vanishEffect: {fileID: 5829611034632733628, guid: 05f09726dd48bea47badfc8e01ad69f4, type: 3}
 --- !u!1001 &2626685685349825280
 PrefabInstance:
   m_ObjectHideFlags: 0
