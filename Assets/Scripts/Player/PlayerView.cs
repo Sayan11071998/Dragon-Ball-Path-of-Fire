@@ -26,25 +26,10 @@ namespace DragonBall.Player
         }
 
         public void OnMove(InputValue value) => moveInput = value.Get<Vector2>().x;
-        // public void OnJump(InputValue value)
-        // {
-        //     isJumping = value.isPressed;
-        // }
 
         public void FlipSprite(bool isFacingRight)
         {
             spriteRenderer.flipX = !isFacingRight;
         }
-
-        // public bool CheckGrounded()
-        // {
-        //     float rayLength = 0.1f;
-
-        //     RaycastHit2D hit = Physics2D.Raycast(
-        //         transform.position - new Vector3(0, GetComponent<Collider2D>().bounds.extents.y, 0),
-        //         Vector2.down, rayLength, LayerMask.GetMask("Ground"));
-
-        //     return hit.collider != null;
-        // }
     }
 }

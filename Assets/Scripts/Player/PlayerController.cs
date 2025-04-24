@@ -16,11 +16,8 @@ namespace DragonBall.Player
         public void Update()
         {
             float moveInput = playerView.MoveInput;
-            // bool jumpInput = playerView.JumpInput;
-            // playerModel.IsGrounded = playerView.CheckGrounded();
 
             HandleMovement(moveInput);
-            // HandleJump(jumpInput);
             UpdateAnimations(moveInput);
         }
 
@@ -42,21 +39,9 @@ namespace DragonBall.Player
             }
         }
 
-        // private void HandleJump(bool jumpInput)
-        // {
-        //     if (jumpInput && playerModel.IsGrounded)
-        //     {
-        //         Vector2 velocity = playerView.Rigidbody.linearVelocity;
-        //         velocity.y = playerModel.JumpForce;
-        //         playerView.Rigidbody.linearVelocity = velocity;
-        //     }
-        // }
-
         private void UpdateAnimations(float moveInput)
         {
             playerView.Animator.SetBool("isRunning", Mathf.Abs(moveInput) > 0.1f);
-            // playerView.Animator.SetBool("isJumping", !playerModel.IsGrounded);
-            // playerView.Animator.SetFloat("verticalVelocity", playerView.Rigidbody.linearVelocity.y);
         }
     }
 }

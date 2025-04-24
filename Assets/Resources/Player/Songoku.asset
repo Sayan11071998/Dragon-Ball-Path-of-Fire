@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Songoku
   m_EditorClassIdentifier: 
   PlayerHealth: 100
+  MoveSpeed: 7
+  JumpForce: 10
