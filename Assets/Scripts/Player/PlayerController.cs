@@ -26,9 +26,9 @@ namespace DragonBall.Player
             HandleMovement(moveInput);
             HandleJump();
             HandleVanish();
-            UpdateAnimations(moveInput);
             HandleDodge();
             HandleKick();
+            UpdateAnimations(moveInput);
         }
 
         private void HandleMovement(float moveInput)
@@ -36,7 +36,7 @@ namespace DragonBall.Player
             if (playerModel.IsDodging)
                 return;
 
-            Vector2 velocity = playerView.Rigidbody.linearVelocity;
+            var velocity = playerView.Rigidbody.linearVelocity;
             velocity.x = moveInput * playerModel.MoveSpeed;
             playerView.Rigidbody.linearVelocity = velocity;
 
@@ -54,85 +54,80 @@ namespace DragonBall.Player
 
         private void HandleJump()
         {
-            if (playerView.JumpInput)
-            {
-                if (playerModel.IsGrounded)
-                {
-                    Vector2 velocity = playerView.Rigidbody.linearVelocity;
-                    velocity.y = playerModel.JumpSpeed;
-                    velocity.x *= playerModel.JumpHorizontalDampening;
-                    playerView.Rigidbody.linearVelocity = velocity;
-                    playerModel.JumpCount++;
-                }
-                else if (!playerModel.IsGrounded && playerModel.JumpCount < 1)
-                {
-                    Vector2 velocity = playerView.Rigidbody.linearVelocity;
-                    velocity.y = playerModel.JumpSpeed;
-                    velocity.x *= playerModel.JumpHorizontalDampening;
-                    playerView.Rigidbody.linearVelocity = velocity;
-                    GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.JumpEffect, playerView.transform.position);
-                    playerModel.JumpCount++;
-                }
+            if (!playerView.JumpInput)
+                return;
 
-                playerView.ResetJumpInput();
+            var velocity = playerView.Rigidbody.linearVelocity;
+
+            if (playerModel.IsGrounded)
+            {
+                velocity.y = playerModel.JumpSpeed;
+                velocity.x *= playerModel.JumpHorizontalDampening;
+                playerModel.JumpCount++;
             }
+            else if (!playerModel.IsGrounded && playerModel.JumpCount < 1)
+            {
+                velocity.y = playerModel.JumpSpeed;
+                velocity.x *= playerModel.JumpHorizontalDampening;
+                GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.JumpEffect, playerView.transform.position);
+                playerModel.JumpCount++;
+            }
+
+            playerView.Rigidbody.linearVelocity = velocity;
+            playerView.ResetJumpInput();
         }
 
         private void HandleVanish()
         {
-            if (playerView.VanishInput)
-            {
-                Vector2 originalPosition = playerView.transform.position;
-                Vector2 randomOffset = Random.insideUnitCircle * playerModel.VanishRange;
+            if (!playerView.VanishInput)
+                return;
 
-                GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.VanishEffect, originalPosition);
+            Vector2 originalPosition = playerView.transform.position;
+            Vector2 randomOffset = Random.insideUnitCircle * playerModel.VanishRange;
+            if (randomOffset.y < 0)
+                randomOffset.y = Mathf.Abs(randomOffset.y);
 
-                if (randomOffset.y < 0)
-                    randomOffset.y = Mathf.Abs(randomOffset.y);
-
-                Vector2 newPosition = originalPosition + randomOffset;
-                playerView.transform.position = new Vector3(newPosition.x, newPosition.y, playerView.transform.position.z);
-                playerView.ResetVanishInput();
-            }
+            GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.VanishEffect, originalPosition);
+            Vector2 newPosition = originalPosition + randomOffset;
+            playerView.transform.position = new Vector3(newPosition.x, newPosition.y, playerView.transform.position.z);
+            playerView.ResetVanishInput();
         }
 
         private void HandleDodge()
         {
-            if (playerView.DodgeInput)
+            if (playerView.DodgeInput && playerModel.IsGrounded && Time.time > playerModel.LastDodgeTime + playerModel.DodgeCooldown)
             {
-                if (playerModel.IsGrounded && Time.time > playerModel.LastDodgeTime + playerModel.DodgeCooldown)
-                {
-                    playerModel.IsDodging = true;
-                    playerModel.DodgeEndTime = Time.time + playerModel.DodgeDuration;
-                    playerModel.LastDodgeTime = Time.time;
-                    Vector2 dodgeDirection = playerModel.IsFacingRight ? Vector2.left : Vector2.right;
-                    playerView.Rigidbody.linearVelocity = new Vector2(dodgeDirection.x * playerModel.DodgeSpeed, playerView.Rigidbody.linearVelocity.y);
-                    playerView.Animator.SetBool("isDodging", true);
-                }
-                playerView.ResetDodgeInput();
+                playerModel.IsDodging = true;
+                playerModel.DodgeEndTime = Time.time + playerModel.DodgeDuration;
+                playerModel.LastDodgeTime = Time.time;
+                Vector2 dir = playerModel.IsFacingRight ? Vector2.left : Vector2.right;
+                playerView.Rigidbody.linearVelocity = new Vector2(dir.x * playerModel.DodgeSpeed, playerView.Rigidbody.linearVelocity.y);
+                playerView.SetDodgeAnimation(true);
             }
+
+            playerView.ResetDodgeInput();
 
             if (playerModel.IsDodging && Time.time > playerModel.DodgeEndTime)
             {
                 playerModel.IsDodging = false;
-                playerView.Animator.SetBool("isDodging", false);
+                playerView.SetDodgeAnimation(false);
             }
         }
 
         private void HandleKick()
         {
-            if (playerView.KickInput)
-            {
-                playerView.Animator.SetTrigger("isKickingTrigger");
-                playerView.ResetKickInput();
-            }
+            if (!playerView.KickInput)
+                return;
+
+            playerView.PlayKickAnimation();
+            playerView.ResetKickInput();
         }
 
         private void UpdateAnimations(float moveInput)
         {
-            playerView.Animator.SetBool("isRunning", Mathf.Abs(moveInput) > 0.1f && !playerModel.IsDodging);
-            playerView.Animator.SetBool("isJumping", !playerModel.IsGrounded);
-            playerView.Animator.SetBool("isDodging", playerModel.IsDodging);
+            playerView.UpdateRunAnimation(Mathf.Abs(moveInput) > 0.1f && !playerModel.IsDodging);
+            playerView.UpdateJumpAnimation(!playerModel.IsGrounded);
+            playerView.SetDodgeAnimation(playerModel.IsDodging);
         }
     }
 }

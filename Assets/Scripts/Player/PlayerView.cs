@@ -16,8 +16,8 @@ namespace DragonBall.Player
         private bool isDodging;
         private bool isKicking;
 
-        public Animator Animator => animator;
         public Rigidbody2D Rigidbody => rb;
+        public Animator Animator => animator;
 
         public float MoveInput => moveInput;
         public bool JumpInput => isJumping;
@@ -47,5 +47,10 @@ namespace DragonBall.Player
         public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
 
         public void FlipSprite(bool isFacingRight) => spriteRenderer.flipX = !isFacingRight;
+
+        public void UpdateRunAnimation(bool isRunning) => animator.SetBool("isRunning", isRunning);
+        public void UpdateJumpAnimation(bool isJumping) => animator.SetBool("isJumping", isJumping);
+        public void SetDodgeAnimation(bool isDodging) => animator.SetBool("isDodging", isDodging);
+        public void PlayKickAnimation() => animator.SetTrigger("isKickingTrigger");
     }
 }
