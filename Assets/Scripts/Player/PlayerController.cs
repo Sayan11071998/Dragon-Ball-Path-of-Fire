@@ -36,10 +36,7 @@ namespace DragonBall.Player
                 return;
 
             Vector2 velocity = playerView.Rigidbody.linearVelocity;
-
-            if (playerModel.IsGrounded)
-                velocity.x = moveInput * playerModel.MoveSpeed;
-
+            velocity.x = moveInput * playerModel.MoveSpeed;
             playerView.Rigidbody.linearVelocity = velocity;
 
             if (moveInput > 0 && !playerModel.IsFacingRight)
@@ -100,14 +97,17 @@ namespace DragonBall.Player
 
         private void HandleDodge()
         {
-            if (playerView.DodgeInput && Time.time > playerModel.LastDodgeTime + playerModel.DodgeCooldown)
+            if (playerView.DodgeInput)
             {
-                playerModel.IsDodging = true;
-                playerModel.DodgeEndTime = Time.time + playerModel.DodgeDuration;
-                playerModel.LastDodgeTime = Time.time;
-                Vector2 dodgeDirection = playerModel.IsFacingRight ? Vector2.left : Vector2.right;
-                playerView.Rigidbody.linearVelocity = new Vector2(dodgeDirection.x * playerModel.DodgeSpeed, playerView.Rigidbody.linearVelocity.y);
-                playerView.Animator.SetBool("isDodging", true);
+                if (playerModel.IsGrounded && Time.time > playerModel.LastDodgeTime + playerModel.DodgeCooldown)
+                {
+                    playerModel.IsDodging = true;
+                    playerModel.DodgeEndTime = Time.time + playerModel.DodgeDuration;
+                    playerModel.LastDodgeTime = Time.time;
+                    Vector2 dodgeDirection = playerModel.IsFacingRight ? Vector2.left : Vector2.right;
+                    playerView.Rigidbody.linearVelocity = new Vector2(dodgeDirection.x * playerModel.DodgeSpeed, playerView.Rigidbody.linearVelocity.y);
+                    playerView.Animator.SetBool("isDodging", true);
+                }
                 playerView.ResetDodgeInput();
             }
 
