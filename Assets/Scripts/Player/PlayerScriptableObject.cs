@@ -22,5 +22,8 @@ namespace DragonBall.Player
         public float DodgeSpeed = 15f;
         public float DodgeDuration = 0.2f;
         public float DodgeCooldown = 0.5f;
+
+        [Header("Kick Attack")]
+        public int KickAttackPower = 10;
     }
 }

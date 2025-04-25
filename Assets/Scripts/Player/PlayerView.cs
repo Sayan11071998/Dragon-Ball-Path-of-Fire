@@ -14,6 +14,7 @@ namespace DragonBall.Player
         private bool isJumping;
         private bool isVanishing;
         private bool isDodging;
+        private bool isKicking;
 
         public Animator Animator => animator;
         public Rigidbody2D Rigidbody => rb;
@@ -22,6 +23,7 @@ namespace DragonBall.Player
         public bool JumpInput => isJumping;
         public bool VanishInput => isVanishing;
         public bool DodgeInput => isDodging;
+        public bool KickInput => isKicking;
 
         private void Awake()
         {
@@ -32,18 +34,15 @@ namespace DragonBall.Player
         }
 
         public void OnMove(InputValue value) => moveInput = value.Get<Vector2>().x;
-
         public void OnJump() => isJumping = true;
-
         public void OnVanish() => isVanishing = true;
-
         public void OnDodge() => isDodging = true;
+        public void OnKick() => isKicking = true;
 
         public void ResetJumpInput() => isJumping = false;
-
         public void ResetVanishInput() => isVanishing = false;
-
         public void ResetDodgeInput() => isDodging = false;
+        public void ResetKickInput() => isKicking = false;
 
         public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
 

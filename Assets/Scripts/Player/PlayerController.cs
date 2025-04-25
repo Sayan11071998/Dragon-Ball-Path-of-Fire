@@ -28,6 +28,7 @@ namespace DragonBall.Player
             HandleVanish();
             UpdateAnimations(moveInput);
             HandleDodge();
+            HandleKick();
         }
 
         private void HandleMovement(float moveInput)
@@ -115,6 +116,15 @@ namespace DragonBall.Player
             {
                 playerModel.IsDodging = false;
                 playerView.Animator.SetBool("isDodging", false);
+            }
+        }
+
+        private void HandleKick()
+        {
+            if (playerView.KickInput)
+            {
+                playerView.Animator.SetTrigger("isKickingTrigger");
+                playerView.ResetKickInput();
             }
         }
 
