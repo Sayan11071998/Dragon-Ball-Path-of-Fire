@@ -1,3 +1,5 @@
+using DragonBall.Core;
+using DragonBall.VFX;
 using UnityEngine;
 
 namespace DragonBall.Player
@@ -66,7 +68,7 @@ namespace DragonBall.Player
                     velocity.y = playerModel.JumpSpeed;
                     velocity.x *= playerModel.JumpHorizontalDampening;
                     playerView.Rigidbody.linearVelocity = velocity;
-                    playerView.JumpEffect.Play();
+                    GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.JumpEffect, playerView.transform.position);
                     playerModel.JumpCount++;
                 }
 
@@ -78,9 +80,10 @@ namespace DragonBall.Player
         {
             if (playerView.VanishInput)
             {
-                playerView.PlayVanishEffect();
                 Vector2 originalPosition = playerView.transform.position;
                 Vector2 randomOffset = Random.insideUnitCircle * playerModel.VanishRange;
+
+                GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.VanishEffect, originalPosition);
 
                 if (randomOffset.y < 0)
                     randomOffset.y = Mathf.Abs(randomOffset.y);
