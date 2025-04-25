@@ -5,9 +5,6 @@ namespace DragonBall.Player
 {
     public class PlayerView : MonoBehaviour
     {
-        [SerializeField] private ParticleSystem jumpEffect;
-        [SerializeField] private ParticleSystem vanishEffect;
-
         private Animator animator;
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D rb;
@@ -16,8 +13,6 @@ namespace DragonBall.Player
         private float moveInput;
         private bool isJumping;
         private bool isVanishing;
-
-        public ParticleSystem JumpEffect => jumpEffect;
 
         public Animator Animator => animator;
         public Rigidbody2D Rigidbody => rb;
@@ -47,14 +42,5 @@ namespace DragonBall.Player
         public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
 
         public void FlipSprite(bool isFacingRight) => spriteRenderer.flipX = !isFacingRight;
-
-        public void PlayVanishEffect()
-        {
-            if (vanishEffect != null)
-            {
-                ParticleSystem effect = Instantiate(vanishEffect, transform.position, Quaternion.identity);
-                effect.Play();
-            }
-        }
     }
 }

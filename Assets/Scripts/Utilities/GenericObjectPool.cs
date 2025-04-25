@@ -45,9 +45,9 @@ namespace DragonBall.Utilities
             pooledItem.isUsed = false;
         }
 
-        public class PooledItem<T>
+        public class PooledItem<TItem>
         {
-            public T Item;
+            public TItem Item;
             public bool isUsed;
         }
     }

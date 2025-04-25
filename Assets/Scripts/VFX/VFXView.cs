@@ -23,10 +23,13 @@ namespace DragonBall.VFX
                 if (item.type == type)
                 {
                     item.particleSystem.gameObject.SetActive(true);
+                    item.particleSystem.Play();
                     currentPlayingVFX = item.particleSystem;
                 }
                 else
+                {
                     item.particleSystem.gameObject.SetActive(false);
+                }
             }
         }
 
