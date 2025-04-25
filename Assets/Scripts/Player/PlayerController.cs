@@ -27,15 +27,16 @@ namespace DragonBall.Player
             HandleJump();
             HandleVanish();
             UpdateAnimations(moveInput);
+            HandleDodge();
         }
 
         private void HandleMovement(float moveInput)
         {
+            if (playerModel.IsDodging)
+                return;
+
             Vector2 velocity = playerView.Rigidbody.linearVelocity;
-
-            if (playerModel.IsGrounded)
-                velocity.x = moveInput * playerModel.MoveSpeed;
-
+            velocity.x = moveInput * playerModel.MoveSpeed;
             playerView.Rigidbody.linearVelocity = velocity;
 
             if (moveInput > 0 && !playerModel.IsFacingRight)
@@ -94,10 +95,34 @@ namespace DragonBall.Player
             }
         }
 
+        private void HandleDodge()
+        {
+            if (playerView.DodgeInput)
+            {
+                if (playerModel.IsGrounded && Time.time > playerModel.LastDodgeTime + playerModel.DodgeCooldown)
+                {
+                    playerModel.IsDodging = true;
+                    playerModel.DodgeEndTime = Time.time + playerModel.DodgeDuration;
+                    playerModel.LastDodgeTime = Time.time;
+                    Vector2 dodgeDirection = playerModel.IsFacingRight ? Vector2.left : Vector2.right;
+                    playerView.Rigidbody.linearVelocity = new Vector2(dodgeDirection.x * playerModel.DodgeSpeed, playerView.Rigidbody.linearVelocity.y);
+                    playerView.Animator.SetBool("isDodging", true);
+                }
+                playerView.ResetDodgeInput();
+            }
+
+            if (playerModel.IsDodging && Time.time > playerModel.DodgeEndTime)
+            {
+                playerModel.IsDodging = false;
+                playerView.Animator.SetBool("isDodging", false);
+            }
+        }
+
         private void UpdateAnimations(float moveInput)
         {
-            playerView.Animator.SetBool("isRunning", Mathf.Abs(moveInput) > 0.1f);
+            playerView.Animator.SetBool("isRunning", Mathf.Abs(moveInput) > 0.1f && !playerModel.IsDodging);
             playerView.Animator.SetBool("isJumping", !playerModel.IsGrounded);
+            playerView.Animator.SetBool("isDodging", playerModel.IsDodging);
         }
     }
 }
