@@ -1,4 +1,5 @@
 using DragonBall.Core;
+using DragonBall.Enemy;
 using DragonBall.VFX;
 using UnityEngine;
 
@@ -119,8 +120,32 @@ namespace DragonBall.Player
             if (!playerView.KickInput)
                 return;
 
+            if (playerModel.IsKickOnCooldown)
+            {
+                playerView.ResetKickInput();
+                return;
+            }
+
+            playerModel.LastKickTime = Time.time;
             playerView.PlayKickAnimation();
+            PerformKickAttack();
             playerView.ResetKickInput();
+        }
+
+        private void PerformKickAttack()
+        {
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(
+                playerView.AttackTransform.position,
+                playerModel.KickAttackRange,
+                playerView.transform.right,
+                0f,
+                playerView.AttackableLayer);
+
+            foreach (var hit in hits)
+            {
+                if (hit.collider.TryGetComponent<IDamageable>(out var target))
+                    target.Damage(playerModel.KickAttackPower);
+            }
         }
 
         private void UpdateAnimations(float moveInput)

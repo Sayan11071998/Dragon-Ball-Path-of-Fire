@@ -16,6 +16,10 @@ namespace DragonBall.Player
         public float DodgeCooldown { get; private set; }
 
         public int KickAttackPower { get; private set; }
+        public float KickAttackRange { get; private set; }
+        public float KickAttackCooldown { get; private set; }
+        public float LastKickTime { get; set; } = -10f;
+        public bool IsKickOnCooldown => UnityEngine.Time.time < LastKickTime + KickAttackCooldown;
 
         public bool IsGrounded { get; set; }
         public bool IsFacingRight { get; set; } = true;
@@ -35,7 +39,9 @@ namespace DragonBall.Player
             float _dodgeSpeed,
             float _dodgeDuration,
             float _dodgeCooldown,
-            int _kickAttackPower
+            int _kickAttackPower,
+            float _kickAttackRange,
+            float _kickAttackCooldown
         )
         {
             Health = _Health;
@@ -47,6 +53,8 @@ namespace DragonBall.Player
             DodgeDuration = _dodgeDuration;
             DodgeCooldown = _dodgeCooldown;
             KickAttackPower = _kickAttackPower;
+            KickAttackRange = _kickAttackRange;
+            KickAttackCooldown = _kickAttackCooldown;
             IsGrounded = true;
             IsDodging = false;
         }

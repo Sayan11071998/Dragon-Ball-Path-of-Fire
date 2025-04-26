@@ -25,7 +25,9 @@ namespace DragonBall.Player
                     _config.DodgeSpeed,
                     _config.DodgeDuration,
                     _config.DodgeCooldown,
-                    _config.KickAttackPower
+                    _config.KickAttackPower,
+                    _config.KickAttackRange,
+                    _config.KickAttackCooldown
                 );
 
             playerController = new PlayerController(playerModel, playerPrefab);

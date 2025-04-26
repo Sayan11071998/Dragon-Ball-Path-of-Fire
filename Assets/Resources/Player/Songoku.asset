@@ -17,3 +17,7 @@ MonoBehaviour:
   JumpSpeed: 7
   JumpHorizontalDampening: 0.5
   vanishRange: 7
+  DodgeSpeed: 15
+  DodgeDuration: 0.2
+  DodgeCooldown: 0.5
+  KickAttackPower: 10
