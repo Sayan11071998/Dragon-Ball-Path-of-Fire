@@ -33,6 +33,8 @@ namespace DragonBall.Player
         public bool IsDodging { get; set; }
         public float DodgeEndTime { get; set; }
 
+        public int DragonBallCount { get; private set; } = 0;
+
         public PlayerModel
         (
             int _Health,
@@ -64,5 +66,7 @@ namespace DragonBall.Player
             IsGrounded = true;
             IsDodging = false;
         }
+
+        public void IncrementDragonBallCount() => DragonBallCount++;
     }
 }

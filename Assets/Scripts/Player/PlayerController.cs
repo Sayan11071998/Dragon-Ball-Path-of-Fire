@@ -36,6 +36,12 @@ namespace DragonBall.Player
             UpdateAnimations(moveInput);
         }
 
+        public void CollectDragonBall()
+        {
+            playerModel.IncrementDragonBallCount();
+            Debug.Log("Dragon Ball collected! Total: " + playerModel.DragonBallCount);
+        }
+
         private void HandleMovement(float moveInput)
         {
             if (playerModel.IsDodging)
