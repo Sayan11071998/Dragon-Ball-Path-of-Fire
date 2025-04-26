@@ -21,6 +21,10 @@ namespace DragonBall.Player
         public float LastKickTime { get; set; } = -10f;
         public bool IsKickOnCooldown => UnityEngine.Time.time < LastKickTime + KickAttackCooldown;
 
+        public float FireCooldown { get; private set; }
+        public float LastFireTime { get; set; } = -10f;
+        public bool IsFireOnCooldown => UnityEngine.Time.time < LastFireTime + FireCooldown;
+
         public bool IsGrounded { get; set; }
         public bool IsFacingRight { get; set; } = true;
         public int JumpCount { get; set; } = 0;
@@ -41,7 +45,8 @@ namespace DragonBall.Player
             float _dodgeCooldown,
             int _kickAttackPower,
             float _kickAttackRange,
-            float _kickAttackCooldown
+            float _kickAttackCooldown,
+            float _fireCooldown
         )
         {
             Health = _Health;
@@ -55,6 +60,7 @@ namespace DragonBall.Player
             KickAttackPower = _kickAttackPower;
             KickAttackRange = _kickAttackRange;
             KickAttackCooldown = _kickAttackCooldown;
+            FireCooldown = _fireCooldown;
             IsGrounded = true;
             IsDodging = false;
         }

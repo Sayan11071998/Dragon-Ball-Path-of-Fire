@@ -9,6 +9,5 @@ namespace DragonBall.Bullet
         public float BulletSpeed = 15f;
         public int BulletDamage = 25;
         public float BulletLifetime = 2f;
-        public float BulletCooldown = 0.5f;
     }
 }

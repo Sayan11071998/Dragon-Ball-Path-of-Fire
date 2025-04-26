@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3971677143719591729}
   - component: {fileID: 6782688645948615218}
   - component: {fileID: 7338010494882675222}
+  - component: {fileID: 469067885124146360}
   - component: {fileID: 926417491160561663}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Power Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +126,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.017943501, y: 0}
   m_Radius: 0.3319624
+--- !u!50 &469067885124146360
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8222915919371350093}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!114 &926417491160561663
 MonoBehaviour:
   m_ObjectHideFlags: 0

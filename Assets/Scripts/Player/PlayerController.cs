@@ -157,9 +157,23 @@ namespace DragonBall.Player
             if (!playerView.FireInput)
                 return;
 
+            if (playerModel.IsFireOnCooldown)
+            {
+                playerView.ResetFireInput();
+                return;
+            }
+
+            playerModel.LastFireTime = Time.time;
             playerView.PlayFireAnimation();
-            Debug.Log("Fire Performed");
+            FireBullet();
             playerView.ResetFireInput();
+        }
+
+        private void FireBullet()
+        {
+            Vector2 position = playerView.FireTransform.position;
+            Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
+            GameService.Instance.bulletService.FireBullet(position, direction);
         }
 
         private void UpdateAnimations(float moveInput)
