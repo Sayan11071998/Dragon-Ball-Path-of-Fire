@@ -1,16 +1,8 @@
 using UnityEngine;
 
-public class BulletService : MonoBehaviour
+namespace DragonBall.Bullet
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class BulletService
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
