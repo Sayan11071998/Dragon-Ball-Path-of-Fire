@@ -1,5 +1,8 @@
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 namespace DragonBall.Player
 {
@@ -76,5 +79,21 @@ namespace DragonBall.Player
         public void PlayKickAnimation() => animator.SetTrigger("isKickingTrigger");
         public void PlayFireAnimation() => animator.SetTrigger("isFiring");
         public void PlayKamehamehaAnimation() => animator.SetTrigger("isKamehameha");
+
+        public AnimationClip GetKamehamehaAnimationClip()
+        {
+            return animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "Kamehameha");
+        }
+
+        public void StartFireCoroutine(float delay, Action onComplete)
+        {
+            StartCoroutine(FireAfterDelay(delay, onComplete));
+        }
+
+        private IEnumerator FireAfterDelay(float delay, Action onComplete)
+        {
+            yield return new WaitForSeconds(delay);
+            onComplete?.Invoke();
+        }
     }
 }

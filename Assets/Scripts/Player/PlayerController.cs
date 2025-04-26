@@ -1,3 +1,4 @@
+using DragonBall.Bullet;
 using DragonBall.Core;
 using DragonBall.Enemy;
 using DragonBall.VFX;
@@ -174,7 +175,7 @@ namespace DragonBall.Player
         {
             Vector2 position = playerView.FireTransform.position;
             Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
-            GameService.Instance.bulletService.FireBullet(position, direction);
+            GameService.Instance.bulletService.FireBullet(BulletType.Regular, position, direction);
         }
 
         private void HandleKamehameha()
@@ -182,8 +183,17 @@ namespace DragonBall.Player
             if (!playerView.KamehamehaInput)
                 return;
 
+            AnimationClip kamehamehaClip = playerView.GetKamehamehaAnimationClip();
             playerView.PlayKamehamehaAnimation();
+            playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
             playerView.ResetKamehameha();
+        }
+
+        private void FireKamehameha()
+        {
+            Vector2 position = playerView.KamehamehaTransform.position;
+            Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
+            GameService.Instance.bulletService.FireBullet(BulletType.Kamehameha, position, direction);
         }
 
         private void UpdateAnimations(float moveInput)

@@ -937,8 +937,10 @@ MonoBehaviour:
   playerView: {fileID: -7997136349064081362, guid: dfd7fb31565fc3d40a0009adedb0b1ab, type: 3}
   playerScriptableObject: {fileID: 11400000, guid: 09fb821a8fb6cb94bbbbda45e410a423, type: 2}
   vFXPrefab: {fileID: 3632316703761638097, guid: fb9483b35bf18a54eac8ef68d5827bfc, type: 3}
-  bulletPrefab: {fileID: 926417491160561663, guid: 5fd10a9fd0c312a479a17bc0c0b61278, type: 3}
-  bulletScriptableObject: {fileID: 11400000, guid: f756d1ff24654764fa25002ca06a1f3f, type: 2}
+  regularBulletPrefab: {fileID: 926417491160561663, guid: 5fd10a9fd0c312a479a17bc0c0b61278, type: 3}
+  regularBulletSO: {fileID: 11400000, guid: f756d1ff24654764fa25002ca06a1f3f, type: 2}
+  kamehamehaPrefab: {fileID: 926417491160561663, guid: aeda240edb3b4cf48a43afd69f1a1ea9, type: 3}
+  kamehamehaSO: {fileID: 11400000, guid: f7f87b3c564c42e4183c85c2be5c54f8, type: 2}
   cinemachineStateDrivenCamera: {fileID: 1596175387}
   idleCamera: {fileID: 534543732}
   runCamera: {fileID: 1188416138}

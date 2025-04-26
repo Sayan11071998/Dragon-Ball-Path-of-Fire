@@ -8,13 +8,14 @@ namespace DragonBall.Bullet
     {
         private BulletModel model;
         private BulletView view;
-
+        private BulletPool pool;
         private float creationTime;
 
-        public BulletController(BulletModel _model, BulletView _view)
+        public BulletController(BulletModel _model, BulletView _view, BulletPool _pool)
         {
             model = _model;
             view = _view;
+            pool = _pool;
             view.SetController(this);
         }
 
@@ -41,7 +42,8 @@ namespace DragonBall.Bullet
         public void Deactivate()
         {
             view.Deactivate();
-            GameService.Instance.bulletService.ReturnBulletToPool(this);
+            pool.ReturnItem(this);
+            // GameService.Instance.bulletService.ReturnBulletToPool(this);
         }
     }
 }
