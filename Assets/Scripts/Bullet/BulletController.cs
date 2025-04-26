@@ -8,6 +8,7 @@ namespace DragonBall.Bullet
     {
         private BulletModel model;
         private BulletView view;
+
         private float creationTime;
 
         public BulletController(BulletModel _model, BulletView _view)
@@ -28,9 +29,7 @@ namespace DragonBall.Bullet
         public void Update()
         {
             if (Time.time > creationTime + model.Lifetime)
-            {
                 Deactivate();
-            }
         }
 
         public void OnCollision(IDamageable target)
