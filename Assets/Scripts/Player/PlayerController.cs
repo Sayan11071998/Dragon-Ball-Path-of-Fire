@@ -183,14 +183,15 @@ namespace DragonBall.Player
             if (!playerView.KamehamehaInput)
                 return;
 
+            AnimationClip kamehamehaClip = playerView.GetKamehamehaAnimationClip();
             playerView.PlayKamehamehaAnimation();
-            FireKamehameha();
+            playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
             playerView.ResetKamehameha();
         }
 
         private void FireKamehameha()
         {
-            Vector2 position = playerView.KamehamehaTransform.position; // Assumes KamehamehaTransform exists
+            Vector2 position = playerView.KamehamehaTransform.position;
             Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
             GameService.Instance.bulletService.FireBullet(BulletType.Kamehameha, position, direction);
         }
