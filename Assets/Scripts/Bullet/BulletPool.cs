@@ -19,7 +19,7 @@ namespace DragonBall.Bullet
         protected override BulletController CreateItem<T>()
         {
             BulletView view = Object.Instantiate(bulletPrefab);
-            return new BulletController(bulletModel, view);
+            return new BulletController(bulletModel, view, this);
         }
     }
 }

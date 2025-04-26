@@ -4,6 +4,7 @@ using DragonBall.Utilities;
 using Unity.Cinemachine;
 using DragonBall.VFX;
 using DragonBall.Bullet;
+using System.Collections.Generic;
 
 namespace DragonBall.Core
 {
@@ -21,8 +22,10 @@ namespace DragonBall.Core
         [SerializeField] private VFXView vFXPrefab;
 
         [Header("Bullet")]
-        [SerializeField] private BulletView bulletPrefab;
-        [SerializeField] private BulletScriptableObject bulletScriptableObject;
+        [SerializeField] private BulletView regularBulletPrefab;
+        [SerializeField] private BulletScriptableObject regularBulletSO;
+        [SerializeField] private BulletView kamehamehaPrefab;
+        [SerializeField] private BulletScriptableObject kamehamehaSO;
 
         [Header("Cinemachine Virtual Camera")]
         [SerializeField] private CinemachineStateDrivenCamera cinemachineStateDrivenCamera;
@@ -33,7 +36,6 @@ namespace DragonBall.Core
         protected override void Awake()
         {
             base.Awake();
-
             InitializeServices();
             InitializeVirtualCamera();
         }
@@ -42,7 +44,13 @@ namespace DragonBall.Core
         {
             playerService = new PlayerService(playerView, playerScriptableObject);
             vFXService = new VFXService(vFXPrefab);
-            bulletService = new BulletService(bulletPrefab, bulletScriptableObject);
+
+            var bulletConfigs = new Dictionary<BulletType, (BulletView, BulletScriptableObject)>
+            {
+                { BulletType.Regular, (regularBulletPrefab, regularBulletSO) },
+                { BulletType.Kamehameha, (kamehamehaPrefab, kamehamehaSO) }
+            };
+            bulletService = new BulletService(bulletConfigs);
         }
 
         private void Update()
