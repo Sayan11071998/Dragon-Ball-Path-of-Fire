@@ -44,12 +44,12 @@ namespace DragonBall.Player
             if (moveInput > 0 && !playerModel.IsFacingRight)
             {
                 playerModel.IsFacingRight = true;
-                playerView.FlipSprite(true);
+                playerView.FlipCharacter(true);
             }
             else if (moveInput < 0 && playerModel.IsFacingRight)
             {
                 playerModel.IsFacingRight = false;
-                playerView.FlipSprite(false);
+                playerView.FlipCharacter(false);
             }
         }
 
@@ -134,10 +134,12 @@ namespace DragonBall.Player
 
         private void PerformKickAttack()
         {
+            Vector2 attackDirection = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
+
             RaycastHit2D[] hits = Physics2D.CircleCastAll(
                 playerView.AttackTransform.position,
                 playerModel.KickAttackRange,
-                playerView.transform.right,
+                attackDirection,
                 0f,
                 playerView.AttackableLayer);
 

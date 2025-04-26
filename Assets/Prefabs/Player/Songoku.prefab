@@ -265,4 +265,3 @@ MonoBehaviour:
   attackableLayer:
     serializedVersion: 2
     m_Bits: 512
-  damageAmount: 10

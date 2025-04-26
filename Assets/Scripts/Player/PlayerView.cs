@@ -10,7 +10,6 @@ namespace DragonBall.Player
         [SerializeField] private LayerMask attackableLayer;
 
         private Animator animator;
-        private SpriteRenderer spriteRenderer;
         private Rigidbody2D rb;
         private CapsuleCollider2D capsuleCollider2D;
 
@@ -37,7 +36,6 @@ namespace DragonBall.Player
         private void Awake()
         {
             animator = GetComponent<Animator>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
             rb = GetComponent<Rigidbody2D>();
             capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         }
@@ -58,19 +56,17 @@ namespace DragonBall.Player
         // Character state checks
         public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
 
-        // Visual updates
-        public void FlipSprite(bool isFacingRight) => spriteRenderer.flipX = !isFacingRight;
+        // Character Flipping
+        public void FlipCharacter(bool isFacingRight)
+        {
+            Vector3 localScale = transform.localScale;
+            localScale.x = isFacingRight ? 1 : -1;
+            transform.localScale = localScale;
+        }
 
-        // Animation controls
         public void UpdateRunAnimation(bool isRunning) => animator.SetBool("isRunning", isRunning);
         public void UpdateJumpAnimation(bool isJumping) => animator.SetBool("isJumping", isJumping);
         public void SetDodgeAnimation(bool isDodging) => animator.SetBool("isDodging", isDodging);
         public void PlayKickAnimation() => animator.SetTrigger("isKickingTrigger");
-
-        private void OnDrawGizmosSelected()
-        {
-            if (attackTransform != null)
-                Gizmos.DrawWireSphere(attackTransform.position, attackRange);
-        }
     }
 }
