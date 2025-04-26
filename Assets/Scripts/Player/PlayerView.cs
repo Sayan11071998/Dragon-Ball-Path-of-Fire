@@ -18,6 +18,7 @@ namespace DragonBall.Player
         private bool isVanishing;
         private bool isDodging;
         private bool isKicking;
+        private bool isFiring;
 
         // Public accessors for Controller to use
         public Rigidbody2D Rigidbody => rb;
@@ -32,6 +33,7 @@ namespace DragonBall.Player
         public bool VanishInput => isVanishing;
         public bool DodgeInput => isDodging;
         public bool KickInput => isKicking;
+        public bool FireInput => isFiring;
 
         private void Awake()
         {
@@ -46,12 +48,14 @@ namespace DragonBall.Player
         public void OnVanish() => isVanishing = true;
         public void OnDodge() => isDodging = true;
         public void OnKick() => isKicking = true;
+        public void OnFire() => isFiring = true;
 
         // Reset input flags after processing
         public void ResetJumpInput() => isJumping = false;
         public void ResetVanishInput() => isVanishing = false;
         public void ResetDodgeInput() => isDodging = false;
         public void ResetKickInput() => isKicking = false;
+        public void ResetFireInput() => isFiring = false;
 
         // Character state checks
         public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
@@ -68,5 +72,6 @@ namespace DragonBall.Player
         public void UpdateJumpAnimation(bool isJumping) => animator.SetBool("isJumping", isJumping);
         public void SetDodgeAnimation(bool isDodging) => animator.SetBool("isDodging", isDodging);
         public void PlayKickAnimation() => animator.SetTrigger("isKickingTrigger");
+        public void PlayFireAnimation() => animator.SetTrigger("isFiring");
     }
 }

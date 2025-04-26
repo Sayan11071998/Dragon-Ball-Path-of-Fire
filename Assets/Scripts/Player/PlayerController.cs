@@ -29,6 +29,8 @@ namespace DragonBall.Player
             HandleVanish();
             HandleDodge();
             HandleKick();
+            HandleFire();
+
             UpdateAnimations(moveInput);
         }
 
@@ -148,6 +150,16 @@ namespace DragonBall.Player
                 if (hit.collider.TryGetComponent<IDamageable>(out var target))
                     target.Damage(playerModel.KickAttackPower);
             }
+        }
+
+        private void HandleFire()
+        {
+            if (!playerView.FireInput)
+                return;
+
+            playerView.PlayFireAnimation();
+            Debug.Log("Fire Performed");
+            playerView.ResetFireInput();
         }
 
         private void UpdateAnimations(float moveInput)
