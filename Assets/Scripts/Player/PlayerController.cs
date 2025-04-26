@@ -30,6 +30,7 @@ namespace DragonBall.Player
             HandleDodge();
             HandleKick();
             HandleFire();
+            HandleKamehameha();
 
             UpdateAnimations(moveInput);
         }
@@ -174,6 +175,15 @@ namespace DragonBall.Player
             Vector2 position = playerView.FireTransform.position;
             Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
             GameService.Instance.bulletService.FireBullet(position, direction);
+        }
+
+        private void HandleKamehameha()
+        {
+            if (!playerView.KamehamehaInput)
+                return;
+
+            playerView.PlayKamehamehaAnimation();
+            playerView.ResetKamehameha();
         }
 
         private void UpdateAnimations(float moveInput)

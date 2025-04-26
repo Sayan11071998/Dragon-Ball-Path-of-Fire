@@ -9,6 +9,7 @@ namespace DragonBall.Player
         [SerializeField] private float attackRange = 1.5f;
         [SerializeField] private LayerMask attackableLayer;
         [SerializeField] private Transform fireTransform;
+        [SerializeField] private Transform kamehamehaTransform;
 
         private Animator animator;
         private Rigidbody2D rb;
@@ -20,6 +21,7 @@ namespace DragonBall.Player
         private bool isDodging;
         private bool isKicking;
         private bool isFiring;
+        private bool isKamehameha;
 
         public Rigidbody2D Rigidbody => rb;
         public Animator Animator => animator;
@@ -27,6 +29,7 @@ namespace DragonBall.Player
         public LayerMask AttackableLayer => attackableLayer;
         public float AttackRange => attackRange;
         public Transform FireTransform => fireTransform;
+        public Transform KamehamehaTransform => kamehamehaTransform;
 
         public float MoveInput => moveInput;
         public bool JumpInput => isJumping;
@@ -34,6 +37,7 @@ namespace DragonBall.Player
         public bool DodgeInput => isDodging;
         public bool KickInput => isKicking;
         public bool FireInput => isFiring;
+        public bool KamehamehaInput => isKamehameha;
 
         private void Awake()
         {
@@ -48,12 +52,14 @@ namespace DragonBall.Player
         public void OnDodge() => isDodging = true;
         public void OnKick() => isKicking = true;
         public void OnFire() => isFiring = true;
+        public void OnKamehameha() => isKamehameha = true;
 
         public void ResetJumpInput() => isJumping = false;
         public void ResetVanishInput() => isVanishing = false;
         public void ResetDodgeInput() => isDodging = false;
         public void ResetKickInput() => isKicking = false;
         public void ResetFireInput() => isFiring = false;
+        public void ResetKamehameha() => isKamehameha = false;
 
         public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
 
@@ -69,5 +75,6 @@ namespace DragonBall.Player
         public void SetDodgeAnimation(bool isDodging) => animator.SetBool("isDodging", isDodging);
         public void PlayKickAnimation() => animator.SetTrigger("isKickingTrigger");
         public void PlayFireAnimation() => animator.SetTrigger("isFiring");
+        public void PlayKamehamehaAnimation() => animator.SetTrigger("isKamehameha");
     }
 }
