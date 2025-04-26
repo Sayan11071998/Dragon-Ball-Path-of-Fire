@@ -27,5 +27,8 @@ namespace DragonBall.Player
         public int KickAttackPower = 10;
         public float KickAttackRange = 1.5f;
         public float KickAttackCooldown = 0.5f;
+
+        [Header("Fire Attack")]
+        public float FireCooldown = 0.5f;
     }
 }

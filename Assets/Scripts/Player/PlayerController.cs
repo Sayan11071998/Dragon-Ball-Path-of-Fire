@@ -29,6 +29,8 @@ namespace DragonBall.Player
             HandleVanish();
             HandleDodge();
             HandleKick();
+            HandleFire();
+
             UpdateAnimations(moveInput);
         }
 
@@ -148,6 +150,30 @@ namespace DragonBall.Player
                 if (hit.collider.TryGetComponent<IDamageable>(out var target))
                     target.Damage(playerModel.KickAttackPower);
             }
+        }
+
+        private void HandleFire()
+        {
+            if (!playerView.FireInput)
+                return;
+
+            if (playerModel.IsFireOnCooldown)
+            {
+                playerView.ResetFireInput();
+                return;
+            }
+
+            playerModel.LastFireTime = Time.time;
+            playerView.PlayFireAnimation();
+            FireBullet();
+            playerView.ResetFireInput();
+        }
+
+        private void FireBullet()
+        {
+            Vector2 position = playerView.FireTransform.position;
+            Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
+            GameService.Instance.bulletService.FireBullet(position, direction);
         }
 
         private void UpdateAnimations(float moveInput)
