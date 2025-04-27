@@ -1,9 +1,11 @@
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Core
 {
     public interface IDamageable
     {
-        public void Damage(float DamageAmount);
+        void Damage(float damageAmount);
+        bool IsDead { get; }
+        void ReturnToPool();
     }
 }
