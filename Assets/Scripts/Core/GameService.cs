@@ -27,6 +27,14 @@ namespace DragonBall.Core
         [SerializeField] private BulletView kamehamehaPrefab;
         [SerializeField] private BulletScriptableObject kamehamehaSO;
 
+        [Header("Enemy")]
+        [SerializeField] private EnemyView friezaPrefab;
+        [SerializeField] private EnemyScriptableObject friezaSO;
+        [SerializeField] private EnemyView cellPrefab;
+        [SerializeField] private EnemyScriptableObject cellSO;
+        [SerializeField] private EnemyView buuPrefab;
+        [SerializeField] private EnemyScriptableObject buuSO;
+
         [Header("Cinemachine Virtual Camera")]
         [SerializeField] private CinemachineStateDrivenCamera cinemachineStateDrivenCamera;
         [SerializeField] private CinemachineCamera idleCamera;
@@ -51,11 +59,20 @@ namespace DragonBall.Core
                 { BulletType.Kamehameha, (kamehamehaPrefab, kamehamehaSO) }
             };
             bulletService = new BulletService(bulletConfigs);
+
+            var enemyConfigs = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>
+            {
+                { EnemyType.FRIEZA, (friezaPrefab, friezaSO) },
+                { EnemyType.CELL, (cellPrefab, cellSO) },
+                { EnemyType.BUU, (buuPrefab, buuSO) }
+            };
+            enemyService = new EnemyService(enemyConfigs);
         }
 
         private void Update()
         {
             playerService.Update();
+            enemyService.Update();
         }
 
         private void InitializeVirtualCamera()
