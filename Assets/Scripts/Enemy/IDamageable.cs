@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace DragonBall.Enemy
 {
     public interface IDamageable

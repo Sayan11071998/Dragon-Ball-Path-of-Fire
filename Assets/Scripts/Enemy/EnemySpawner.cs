@@ -6,11 +6,11 @@ namespace DragonBall.Environment
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private EnemyType enemyType;
+        // [SerializeField] private EnemyType enemyType;
 
-        private void Start()
-        {
-            GameService.Instance.enemyService.SpawnEnemy(enemyType, transform.position);
-        }
+        // private void Start()
+        // {
+        //     GameService.Instance.enemyService.SpawnEnemy(enemyType, transform.position);
+        // }
     }
 }

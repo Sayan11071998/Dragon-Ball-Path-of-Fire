@@ -2,20 +2,34 @@ namespace DragonBall.Enemy
 {
     public class EnemyModel
     {
-        public EnemyType Type => Data.enemyType;
-        public EnemyScriptableObject Data { get; }
+        public EnemyType EnemyType { get; private set; }
+
+        public float MaxHealth { get; private set; }
         public float CurrentHealth { get; private set; }
-        public bool IsDead => CurrentHealth <= 0;
+        public bool IsDead { get; private set; }
 
-        public EnemyModel(EnemyScriptableObject data)
+        public float MovementSpeed { get; private set; }
+        public float DetectionRange { get; private set; }
+        public float AttackRange { get; private set; }
+
+        public EnemyModel
+        (
+            EnemyType _enemyType,
+            float _maxHealth,
+            float _movementSpeed,
+            float _detectionRange,
+            float _attackRange
+        )
         {
-            Data = data;
-            CurrentHealth = data.maxHealth;
+            EnemyType = _enemyType;
+            MaxHealth = _maxHealth;
+            CurrentHealth = MaxHealth;
+            IsDead = false;
+            MovementSpeed = _movementSpeed;
+            DetectionRange = _detectionRange;
+            AttackRange = _attackRange;
         }
 
-        public void TakeDamage(float amount)
-        {
-            CurrentHealth -= amount;
-        }
+        public void TakeDamage(float damageAmount) => CurrentHealth -= damageAmount;
     }
 }

@@ -5,11 +5,11 @@ namespace DragonBall.Enemy
     [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/Enemy")]
     public class EnemyScriptableObject : ScriptableObject
     {
-        public EnemyType enemyType;
-        public EnemyView enemyPrefab;
-        public float maxHealth = 100f;
-        public float movementSpeed = 3f;
-        public float detectionRange = 10f;
-        public float attackRange = 2f;
+        public EnemyType EnemyType;
+        public EnemyView EnemyPrefab;
+        public float MaxHealth = 100f;
+        public float MovementSpeed = 3f;
+        public float DetectionRange = 10f;
+        public float AttackRange = 2f;
     }
 }

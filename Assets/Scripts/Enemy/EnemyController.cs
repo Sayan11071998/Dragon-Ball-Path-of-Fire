@@ -5,60 +5,63 @@ namespace DragonBall.Enemy
 {
     public class EnemyController
     {
-        private readonly EnemyModel model;
-        private readonly EnemyView view;
-        private readonly Transform playerTransform;
-        private bool hasDetectedPlayer = false;
+        private EnemyModel enemyModel;
+        private EnemyView enemyView;
+        private EnemyPool enemyPool;
 
-        public EnemyView View => view;
-        public EnemyType Type => model.Type;
+        // private readonly Transform playerTransform;
+        // private bool hasDetectedPlayer = false;
 
-        public EnemyController(EnemyModel model, EnemyView view)
+        // public EnemyView View => enemyView;
+        // public EnemyType Type => enemyModel.Type;
+
+        public EnemyController(EnemyModel _model, EnemyView _view, EnemyPool _pool)
         {
-            this.model = model;
-            this.view = view;
-            view.Initialize(this);
-            playerTransform = GameService.Instance.playerService.PlayerPrefab.transform;
+            enemyModel = _model;
+            enemyView = _view;
+            enemyPool = _pool;
+
+            enemyView.SetController(this);
         }
 
         public void Initialize(Vector3 spawnPosition)
         {
-            view.SetPosition(spawnPosition);
+            enemyView.SetPosition(spawnPosition);
         }
 
-        public void Update()
-        {
-            if (model.IsDead) return;
+        // public void Update()
+        // {
+        //     if (enemyModel.IsDead) return;
 
-            float distance = Vector3.Distance(view.Transform.position, playerTransform.position);
+        //     float distance = Vector3.Distance(enemyView.Transform.position, playerTransform.position);
 
-            if (!hasDetectedPlayer && distance <= model.Data.detectionRange)
-                hasDetectedPlayer = true;
+        //     if (!hasDetectedPlayer && distance <= enemyModel.Data.detectionRange)
+        //         hasDetectedPlayer = true;
 
-            if (hasDetectedPlayer)
-            {
-                if (distance > model.Data.attackRange)
-                {
-                    view.MoveTo(playerTransform.position, model.Data.movementSpeed);
-                }
-                else
-                {
-                    view.Attack();
-                }
-            }
-        }
+        //     if (hasDetectedPlayer)
+        //     {
+        //         if (distance > enemyModel.Data.attackRange)
+        //         {
+        //             enemyView.MoveTo(playerTransform.position, enemyModel.Data.movementSpeed);
+        //         }
+        //         else
+        //         {
+        //             enemyView.Attack();
+        //         }
+        //     }
+        // }
 
-        public void ReceiveDamage(float amount)
-        {
-            model.TakeDamage(amount);
-            if (model.IsDead)
-                HandleDeath();
-        }
+        // public void ReceiveDamage(float amount)
+        // {
+        //     enemyModel.TakeDamage(amount);
+        //     if (enemyModel.IsDead)
+        //         HandleDeath();
+        // }
 
-        private void HandleDeath()
-        {
-            view.Die();
-            EnemyService.Instance.HandleEnemyDeath(this);
-        }
+        // private void HandleDeath()
+        // {
+        //     enemyView.Die();
+        //     EnemyService.Instance.HandleEnemyDeath(this);
+        // }
     }
 }

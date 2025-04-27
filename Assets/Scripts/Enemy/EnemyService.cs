@@ -1,57 +1,32 @@
-using System.Collections.Generic;
 using UnityEngine;
-using DragonBall.Utilities;
 
 namespace DragonBall.Enemy
 {
     public class EnemyService
     {
-        public static EnemyService Instance { get; private set; }
+        private EnemyModel enemyModel;
+        private EnemyController enemyController;
+        private EnemyView enemyPrefab;
 
-        private readonly Dictionary<EnemyType, (EnemyView prefab, EnemyScriptableObject so)> configs;
-        private readonly Dictionary<EnemyType, GenericObjectPool<EnemyView>> pools;
-        private readonly List<EnemyController> controllers;
+        public EnemyView EnemyPrefab => enemyPrefab;
+        public EnemyController EnemyController => enemyController;
 
-        public EnemyService(Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)> enemyConfigs)
+        public EnemyService(EnemyView _enemyPrefab, EnemyScriptableObject _config)
         {
-            Instance = this;
-            configs = enemyConfigs;
-            pools = new Dictionary<EnemyType, GenericObjectPool<EnemyView>>();
-            controllers = new List<EnemyController>();
+            enemyPrefab = Object.Instantiate(_enemyPrefab);
 
-            foreach (var kvp in configs)
-            {
-                var type = kvp.Key;
-                var prefab = kvp.Value.prefab;
-                pools[type] = new EnemyPool(prefab);
-            }
+            enemyModel = new EnemyModel
+                (
+                    _config.EnemyType,
+                    _config.MaxHealth,
+                    _config.MovementSpeed,
+                    _config.DetectionRange,
+                    _config.AttackRange
+                );
+
+            enemyController = new EnemyController(enemyModel, enemyPrefab);
         }
 
-        public void Update()
-        {
-            for (int i = controllers.Count - 1; i >= 0; i--)
-                controllers[i].Update();
-        }
-
-        public void SpawnEnemy(EnemyType type, Vector3 position)
-        {
-            var pool = pools[type];
-            var view = pool.GetItem<EnemyView>();
-            view.gameObject.SetActive(true);
-
-            var data = configs[type].so;
-            var model = new EnemyModel(data);
-            var controller = new EnemyController(model, view);
-            controller.Initialize(position);
-            controllers.Add(controller);
-        }
-
-        public void HandleEnemyDeath(EnemyController controller)
-        {
-            var view = controller.View;
-            view.gameObject.SetActive(false);
-            pools[controller.Type].ReturnItem(view);
-            controllers.Remove(controller);
-        }
+        public void Update() => enemyController.Update();
     }
 }
