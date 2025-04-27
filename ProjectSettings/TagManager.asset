@@ -42,12 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 1326176975
-    locked: 0
-  - name: Background
-    uniqueID: 3998846777
-    locked: 0
   - name: 1Sky
     uniqueID: 2844007435
     locked: 0
@@ -59,6 +53,18 @@ TagManager:
     locked: 0
   - name: 4Foreground
     uniqueID: 1149954801
+    locked: 0
+  - name: Platform Tilemap
+    uniqueID: 3998846777
+    locked: 0
+  - name: Enemy
+    uniqueID: 3682655851
+    locked: 0
+  - name: Pickups
+    uniqueID: 4071020839
+    locked: 0
+  - name: Player
+    uniqueID: 1326176975
     locked: 0
   m_RenderingLayers:
   - Default
