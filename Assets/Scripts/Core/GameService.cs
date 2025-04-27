@@ -4,6 +4,7 @@ using DragonBall.Utilities;
 using Unity.Cinemachine;
 using DragonBall.VFX;
 using DragonBall.Bullet;
+using DragonBall.Enemy;
 using System.Collections.Generic;
 
 namespace DragonBall.Core
@@ -13,6 +14,7 @@ namespace DragonBall.Core
         public PlayerService playerService { get; private set; }
         public VFXService vFXService { get; private set; }
         public BulletService bulletService { get; private set; }
+        public EnemyService enemyService { get; private set; }
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
@@ -28,12 +30,9 @@ namespace DragonBall.Core
         [SerializeField] private BulletScriptableObject kamehamehaSO;
 
         [Header("Enemy")]
-        [SerializeField] private EnemyView friezaPrefab;
-        [SerializeField] private EnemyScriptableObject friezaSO;
-        [SerializeField] private EnemyView cellPrefab;
-        [SerializeField] private EnemyScriptableObject cellSO;
-        [SerializeField] private EnemyView buuPrefab;
-        [SerializeField] private EnemyScriptableObject buuSO;
+        [SerializeField] private EnemyType[] enemyTypes;
+        [SerializeField] private EnemyView[] enemyPrefabs;
+        [SerializeField] private EnemyScriptableObject[] enemySOs;
 
         [Header("Cinemachine Virtual Camera")]
         [SerializeField] private CinemachineStateDrivenCamera cinemachineStateDrivenCamera;
@@ -60,12 +59,11 @@ namespace DragonBall.Core
             };
             bulletService = new BulletService(bulletConfigs);
 
-            var enemyConfigs = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>
+            var enemyConfigs = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>();
+            for (int i = 0; i < enemyTypes.Length; i++)
             {
-                { EnemyType.FRIEZA, (friezaPrefab, friezaSO) },
-                { EnemyType.CELL, (cellPrefab, cellSO) },
-                { EnemyType.BUU, (buuPrefab, buuSO) }
-            };
+                enemyConfigs[enemyTypes[i]] = (enemyPrefabs[i], enemySOs[i]);
+            }
             enemyService = new EnemyService(enemyConfigs);
         }
 
