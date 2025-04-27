@@ -29,7 +29,10 @@ namespace DragonBall.Player
                     _config.KickAttackPower,
                     _config.KickAttackRange,
                     _config.KickAttackCooldown,
-                    _config.FireCooldown
+                    _config.FireCooldown,
+                    _config.DragonBallsRequiredForSuperSaiyan,
+                    _config.SuperSaiyanSpeedMultiplier,
+                    _config.SuperSaiyanPowerMultiplier
                 );
 
             playerController = new PlayerController(playerModel, playerPrefab);

@@ -64,6 +64,16 @@ namespace DragonBall.Player
         public void ResetFireInput() => isFiring = false;
         public void ResetKamehameha() => isKamehameha = false;
 
+        public void ResetAllInputs()
+        {
+            isJumping = false;
+            isVanishing = false;
+            isDodging = false;
+            isKicking = false;
+            isFiring = false;
+            isKamehameha = false;
+        }
+
         public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
 
         public void FlipCharacter(bool isFacingRight)

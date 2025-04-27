@@ -5,6 +5,7 @@ namespace DragonBall.Player
         public int Health { get; private set; }
 
         public float MoveSpeed { get; private set; }
+        public float OriginalMoveSpeed { get; private set; }
 
         public float JumpSpeed { get; private set; }
         public float JumpHorizontalDampening { get; private set; }
@@ -16,6 +17,7 @@ namespace DragonBall.Player
         public float DodgeCooldown { get; private set; }
 
         public int KickAttackPower { get; private set; }
+        public int OriginalKickAttackPower { get; private set; }
         public float KickAttackRange { get; private set; }
         public float KickAttackCooldown { get; private set; }
         public float LastKickTime { get; set; } = -10f;
@@ -34,6 +36,10 @@ namespace DragonBall.Player
         public float DodgeEndTime { get; set; }
 
         public int DragonBallCount { get; private set; } = 0;
+        public int DragonBallsRequiredForSuperSaiyan { get; private set; }
+
+        public float SuperSaiyanSpeedMultiplier { get; private set; }
+        public float SuperSaiyanPowerMultiplier { get; private set; }
 
         public PlayerModel
         (
@@ -48,11 +54,15 @@ namespace DragonBall.Player
             int _kickAttackPower,
             float _kickAttackRange,
             float _kickAttackCooldown,
-            float _fireCooldown
+            float _fireCooldown,
+            int _dragonBallsRequiredForSuperSaiyan,
+            float _superSaiyanSpeedMultiplier,
+            float _superSaiyanPowerMultiplier
         )
         {
             Health = _Health;
             MoveSpeed = _moveSpeed;
+            OriginalMoveSpeed = _moveSpeed;
             JumpSpeed = _jumpSpeed;
             JumpHorizontalDampening = _jumpHorizontalDampening;
             VanishRange = _vanishRange;
@@ -60,13 +70,29 @@ namespace DragonBall.Player
             DodgeDuration = _dodgeDuration;
             DodgeCooldown = _dodgeCooldown;
             KickAttackPower = _kickAttackPower;
+            OriginalKickAttackPower = _kickAttackPower;
             KickAttackRange = _kickAttackRange;
             KickAttackCooldown = _kickAttackCooldown;
             FireCooldown = _fireCooldown;
+            DragonBallsRequiredForSuperSaiyan = _dragonBallsRequiredForSuperSaiyan;
+            SuperSaiyanSpeedMultiplier = _superSaiyanSpeedMultiplier;
+            SuperSaiyanPowerMultiplier = _superSaiyanPowerMultiplier;
             IsGrounded = true;
             IsDodging = false;
         }
 
         public void IncrementDragonBallCount() => DragonBallCount++;
+
+        public void ApplySuperSaiyanBuffs()
+        {
+            MoveSpeed = OriginalMoveSpeed * SuperSaiyanSpeedMultiplier;
+            KickAttackPower = (int)(OriginalKickAttackPower * SuperSaiyanPowerMultiplier);
+        }
+
+        public void RemoveSuperSaiyanBuffs()
+        {
+            MoveSpeed = OriginalMoveSpeed;
+            KickAttackPower = OriginalKickAttackPower;
+        }
     }
 }
