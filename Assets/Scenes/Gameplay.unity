@@ -229,7 +229,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 8
+    OrthographicSize: 10
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -431,6 +431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 451967092}
   - component: {fileID: 451967091}
+  - component: {fileID: 451967093}
   m_Layer: 0
   m_Name: BG_Background
   m_TagString: Untagged
@@ -510,6 +511,20 @@ Transform:
   - {fileID: 1287499293}
   m_Father: {fileID: 1709203431}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &451967093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451967090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a3600650b9eb048b1f288764f17e2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 519420028}
+  parallaxEffect: 0.6
 --- !u!1 &483416352
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +669,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -679,7 +694,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8896909, y: 0.32828242, z: -12.783005}
+  m_LocalPosition: {x: -1.8896909, y: 3, z: -12.783005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -745,7 +760,7 @@ Transform:
   m_GameObject: {fileID: 534543728}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.889691, y: 0.32828242, z: -12.783005}
+  m_LocalPosition: {x: -1.889691, y: 3, z: -12.783005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -827,7 +842,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 6
+    OrthographicSize: 8
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1096,6 +1111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 862782789}
   - component: {fileID: 862782788}
+  - component: {fileID: 862782790}
   m_Layer: 0
   m_Name: BG_Foreground
   m_TagString: Untagged
@@ -1175,6 +1191,20 @@ Transform:
   - {fileID: 1274625829}
   m_Father: {fileID: 1709203431}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &862782790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862782787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a3600650b9eb048b1f288764f17e2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 519420028}
+  parallaxEffect: 0.3
 --- !u!4 &1020557421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1100779254503628016, guid: 4e70ac72ce2fb1e439e71e7e6cb80093, type: 3}
@@ -1437,7 +1467,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 7
+    OrthographicSize: 10
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1531,6 +1561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1191007469}
   - component: {fileID: 1191007468}
+  - component: {fileID: 1191007470}
   m_Layer: 0
   m_Name: BG_Sky
   m_TagString: Untagged
@@ -1610,6 +1641,20 @@ Transform:
   - {fileID: 52931619}
   m_Father: {fileID: 1709203431}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1191007470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191007467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a3600650b9eb048b1f288764f17e2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 519420028}
+  parallaxEffect: 1
 --- !u!1 &1191467366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2167,7 +2212,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 2.8722925, y: 1.2088223}
+  m_Offset: {x: 0.016059875, y: 4.850581}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2177,7 +2222,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 39.810593, y: 20.283104}
+  m_Size: {x: 108.08006, y: 20.252985}
   m_EdgeRadius: 0
 --- !u!1 &1543928494
 GameObject:
@@ -2276,6 +2321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1568243483}
   - component: {fileID: 1568243482}
+  - component: {fileID: 1568243484}
   m_Layer: 0
   m_Name: BG_Cloud
   m_TagString: Untagged
@@ -2355,6 +2401,20 @@ Transform:
   - {fileID: 1543928496}
   m_Father: {fileID: 1709203431}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1568243484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568243481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a3600650b9eb048b1f288764f17e2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 519420028}
+  parallaxEffect: 0.8
 --- !u!1 &1581175465
 GameObject:
   m_ObjectHideFlags: 0
