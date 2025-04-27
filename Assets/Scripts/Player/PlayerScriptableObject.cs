@@ -30,5 +30,10 @@ namespace DragonBall.Player
 
         [Header("Fire Attack")]
         public float FireCooldown = 0.5f;
+
+        [Header("Super Saiyan Transformation")]
+        public int DragonBallsRequiredForSuperSaiyan = 5;
+        public float SuperSaiyanSpeedMultiplier = 1.5f;
+        public float SuperSaiyanPowerMultiplier = 2f;
     }
 }
