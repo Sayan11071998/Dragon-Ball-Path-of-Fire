@@ -6,7 +6,7 @@ namespace DragonBall.Enemy
 
         public float MaxHealth { get; private set; }
         public float CurrentHealth { get; private set; }
-        public bool IsDead { get; private set; }
+        public bool IsDead { get; set; }
 
         public float MovementSpeed { get; private set; }
         public float DetectionRange { get; private set; }
@@ -30,6 +30,17 @@ namespace DragonBall.Enemy
             AttackRange = _attackRange;
         }
 
-        public void TakeDamage(float damageAmount) => CurrentHealth -= damageAmount;
+        public void TakeDamage(float damageAmount)
+        {
+            CurrentHealth -= damageAmount;
+            if (CurrentHealth < 0)
+                CurrentHealth = 0;
+        }
+
+        public void ResetHealth()
+        {
+            CurrentHealth = MaxHealth;
+            IsDead = false;
+        }
     }
 }

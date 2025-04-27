@@ -30,9 +30,9 @@ namespace DragonBall.Core
         [SerializeField] private BulletScriptableObject kamehamehaSO;
 
         [Header("Enemy")]
-        // [SerializeField] private EnemyType[] enemyTypes;
-        // [SerializeField] private EnemyView[] enemyPrefabs;
-        // [SerializeField] private EnemyScriptableObject[] enemySOs;
+        [SerializeField] private EnemyType[] enemyTypes;
+        [SerializeField] private EnemyView[] enemyPrefabs;
+        [SerializeField] private EnemyScriptableObject[] enemySOs;
 
         [Header("Cinemachine Virtual Camera")]
         [SerializeField] private CinemachineStateDrivenCamera cinemachineStateDrivenCamera;
@@ -59,18 +59,22 @@ namespace DragonBall.Core
             };
             bulletService = new BulletService(bulletConfigs);
 
-            // var enemyConfigs = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>();
-            // for (int i = 0; i < enemyTypes.Length; i++)
-            // {
-            //     enemyConfigs[enemyTypes[i]] = (enemyPrefabs[i], enemySOs[i]);
-            // }
-            // enemyService = new EnemyService(enemyConfigs);
+            // Initialize enemy service with all enemy types
+            var enemyConfigs = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>();
+            for (int i = 0; i < enemyTypes.Length; i++)
+            {
+                enemyConfigs[enemyTypes[i]] = (enemyPrefabs[i], enemySOs[i]);
+            }
+            enemyService = new EnemyService(enemyConfigs);
         }
 
         private void Update()
         {
             playerService.Update();
-            enemyService.Update();
+
+            // Only update enemy service if it's initialized
+            if (enemyService != null)
+                enemyService.Update();
         }
 
         private void InitializeVirtualCamera()
