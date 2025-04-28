@@ -10,6 +10,5 @@ namespace DragonBall.Enemy
         public float MaxHealth = 100f;
         public float MovementSpeed = 3f;
         public float DetectionRange = 10f;
-        public float AttackRange = 2f;
     }
 }

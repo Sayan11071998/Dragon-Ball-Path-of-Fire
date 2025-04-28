@@ -1,101 +1,34 @@
 using UnityEngine;
-using DragonBall.Core;
 
 namespace DragonBall.Enemy
 {
-    public class EnemyController : IDamageable
+    public class EnemyController
     {
-        private EnemyModel enemyModel;
         private EnemyView enemyView;
-        private EnemyPool enemyPool;
+        private EnemyModel enemyModel;
+        public EnemyType EnemyType { get; private set; }
 
-        private Transform playerTransform;
-        private bool hasDetectedPlayer = false;
-        
-        public bool NeedsInitialization => enemyModel == null;
-        public EnemyType EnemyType => enemyModel?.EnemyType ?? EnemyType.BUU;
-
-        public EnemyController(EnemyView _view)
+        public EnemyController(EnemyView view, EnemyScriptableObject enemyData)
         {
-            enemyView = _view;
+            enemyView = view;
             enemyView.SetController(this);
-        }
-        
-        public void SetModel(EnemyModel model)
-        {
-            enemyModel = model;
-        }
-        
-        public void SetPool(EnemyPool pool)
-        {
-            enemyPool = pool;
+            EnemyType = enemyView.GetEnemyType();
+
+            enemyModel = new EnemyModel(
+                enemyData.EnemyType,
+                enemyData.MaxHealth,
+                enemyData.MovementSpeed,
+                enemyData.DetectionRange
+            );
         }
 
         public void Initialize(Vector3 spawnPosition)
         {
-            // Reset state
-            hasDetectedPlayer = false;
-            
-            // Reset health if needed
-            if (enemyModel != null && enemyModel.IsDead)
-            {
-                enemyModel.ResetHealth();
-            }
-            
-            // Set position
             enemyView.SetPosition(spawnPosition);
-            
-            // Find player
-            playerTransform = GameService.Instance.playerService.PlayerPrefab.transform;
-            
-            // Activate the view
+            enemyModel.ResetHealth();
             enemyView.gameObject.SetActive(true);
         }
 
-        public void Update()
-        {
-            if (enemyModel == null || enemyModel.IsDead) return;
-
-            float distance = Vector3.Distance(enemyView.transform.position, playerTransform.position);
-
-            if (!hasDetectedPlayer && distance <= enemyModel.DetectionRange)
-                hasDetectedPlayer = true;
-
-            if (hasDetectedPlayer)
-            {
-                if (distance > enemyModel.AttackRange)
-                {
-                    enemyView.MoveTo(playerTransform.position, enemyModel.MovementSpeed);
-                }
-                else
-                {
-                    enemyView.Attack();
-                }
-            }
-        }
-
-        public void Damage(float damageAmount)
-        {
-            if (enemyModel == null || enemyModel.IsDead) return;
-            
-            enemyModel.TakeDamage(damageAmount);
-            
-            if (enemyModel.CurrentHealth <= 0 && !enemyModel.IsDead)
-            {
-                enemyModel.IsDead = true;
-                HandleDeath();
-            }
-        }
-
-        private void HandleDeath()
-        {
-            enemyView.Die();
-            GameService.Instance.enemyService.HandleEnemyDeath(this);
-        }
-        
-        public void ReturnToPool()
-        {
-            enemyView.gameObject.SetActive(false);
-        }
+        public void ReturnToPool() => enemyView.gameObject.SetActive(false);
     }
 }

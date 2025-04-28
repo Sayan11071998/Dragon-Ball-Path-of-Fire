@@ -52,14 +52,22 @@ namespace DragonBall.Core
             playerService = new PlayerService(playerView, playerScriptableObject);
             vFXService = new VFXService(vFXPrefab);
 
+            InitializeBulletService();
+            InitializeEnemyService();
+        }
+
+        private void InitializeBulletService()
+        {
             var bulletConfigs = new Dictionary<BulletType, (BulletView, BulletScriptableObject)>
             {
                 { BulletType.Regular, (regularBulletPrefab, regularBulletSO) },
                 { BulletType.Kamehameha, (kamehamehaPrefab, kamehamehaSO) }
             };
             bulletService = new BulletService(bulletConfigs);
+        }
 
-            // Initialize enemy service with all enemy types
+        private void InitializeEnemyService()
+        {
             var enemyConfigs = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>();
             for (int i = 0; i < enemyTypes.Length; i++)
             {
@@ -71,10 +79,6 @@ namespace DragonBall.Core
         private void Update()
         {
             playerService.Update();
-
-            // Only update enemy service if it's initialized
-            if (enemyService != null)
-                enemyService.Update();
         }
 
         private void InitializeVirtualCamera()
