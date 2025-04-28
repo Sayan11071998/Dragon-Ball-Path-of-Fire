@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6041808020186044118}
   - component: {fileID: 6296149188280680432}
   - component: {fileID: 1809292392966536459}
-  - component: {fileID: 4427259053734726150}
   - component: {fileID: 6669437096625215819}
-  m_Layer: 0
+  - component: {fileID: 7096286556424816484}
+  m_Layer: 11
   m_Name: Buu
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -112,33 +112,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!50 &4427259053734726150
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3609979397838449065}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!70 &6669437096625215819
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -176,3 +149,15 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 1.1781636}
   m_Size: {x: 0.8125, y: 2.1436727}
   m_Direction: 0
+--- !u!114 &7096286556424816484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3609979397838449065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9a094b486ba422449fd062f6d50f006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
