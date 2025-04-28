@@ -20,7 +20,7 @@ namespace DragonBall.Enemy
             this.enemySO = enemySO;
             this.view = view;
             this.pool = pool;
-            model = new EnemyModel(enemySO.MaxHealth);
+            model = new EnemyModel(enemySO.MaxHealth, enemySO.AttackDamage, enemySO.AttackCooldown);
             view.SetController(this);
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
@@ -30,22 +30,47 @@ namespace DragonBall.Enemy
             if (playerTransform == null)
                 return;
 
+            UpdateDetection();
+
+            if (ShouldMove())
+                HandleMovement();
+            else if (isInAttackRange)
+                HandleAttack();
+        }
+
+        private void UpdateDetection()
+        {
             float distanceToPlayer = Vector2.Distance(view.transform.position, playerTransform.position);
 
             isPlayerDetected = distanceToPlayer <= enemySO.DetectionRange;
             isInAttackRange = distanceToPlayer <= enemySO.AttackRange;
+        }
 
-            bool shouldMove = isPlayerDetected && !isInAttackRange;
-            view.SetMoving(shouldMove);
+        private bool ShouldMove() => isPlayerDetected && !isInAttackRange;
 
-            if (shouldMove)
+        private void HandleMovement()
+        {
+            view.SetMoving(true);
+            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)view.transform.position).normalized;
+            view.MoveInDirection(direction, enemySO.MoveSpeed);
+        }
+
+        private void HandleAttack()
+        {
+            view.SetMoving(false);
+            view.FaceTarget(playerTransform.position);
+            TryAttack();
+        }
+
+        private void TryAttack()
+        {
+            if (Time.time < model.lastAttackTime + enemySO.AttackCooldown)
+                return;
+
+            if (!view.IsAttacking)
             {
-                Vector2 direction = ((Vector2)playerTransform.position - (Vector2)view.transform.position).normalized;
-                view.MoveInDirection(direction, enemySO.MoveSpeed);
-            }
-            else if (isInAttackRange)
-            {
-                view.FaceTarget(playerTransform.position);
+                view.StartAttack();
+                model.lastAttackTime = Time.time;
             }
         }
 

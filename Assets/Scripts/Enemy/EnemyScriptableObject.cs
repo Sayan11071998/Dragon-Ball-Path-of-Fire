@@ -15,5 +15,9 @@ namespace DragonBall.Enemy
         public float MoveSpeed = 3f;
         public float DetectionRange = 10f;
         public float AttackRange = 2f;
+
+        [Header("Attack")]
+        public float AttackDamage = 10f;
+        public float AttackCooldown = 1f;
     }
 }
