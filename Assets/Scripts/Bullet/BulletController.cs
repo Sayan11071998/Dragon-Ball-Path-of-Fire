@@ -1,4 +1,3 @@
-using DragonBall.Core;
 using DragonBall.Enemy;
 using UnityEngine;
 
@@ -43,7 +42,6 @@ namespace DragonBall.Bullet
         {
             view.Deactivate();
             pool.ReturnItem(this);
-            // GameService.Instance.bulletService.ReturnBulletToPool(this);
         }
     }
 }

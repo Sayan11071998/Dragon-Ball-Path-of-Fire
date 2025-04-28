@@ -4,7 +4,6 @@ using DragonBall.Utilities;
 using Unity.Cinemachine;
 using DragonBall.VFX;
 using DragonBall.Bullet;
-using DragonBall.Enemy;
 using System.Collections.Generic;
 
 namespace DragonBall.Core
@@ -14,7 +13,6 @@ namespace DragonBall.Core
         public PlayerService playerService { get; private set; }
         public VFXService vFXService { get; private set; }
         public BulletService bulletService { get; private set; }
-        public EnemyService enemyService { get; private set; }
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
@@ -30,9 +28,7 @@ namespace DragonBall.Core
         [SerializeField] private BulletScriptableObject kamehamehaSO;
 
         [Header("Enemy")]
-        [SerializeField] private EnemyType[] enemyTypes;
-        [SerializeField] private EnemyView[] enemyPrefabs;
-        [SerializeField] private EnemyScriptableObject[] enemySOs;
+
 
         [Header("Cinemachine Virtual Camera")]
         [SerializeField] private CinemachineStateDrivenCamera cinemachineStateDrivenCamera;
@@ -53,7 +49,6 @@ namespace DragonBall.Core
             vFXService = new VFXService(vFXPrefab);
 
             InitializeBulletService();
-            InitializeEnemyService();
         }
 
         private void InitializeBulletService()
@@ -64,16 +59,6 @@ namespace DragonBall.Core
                 { BulletType.Kamehameha, (kamehamehaPrefab, kamehamehaSO) }
             };
             bulletService = new BulletService(bulletConfigs);
-        }
-
-        private void InitializeEnemyService()
-        {
-            var enemyConfigs = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>();
-            for (int i = 0; i < enemyTypes.Length; i++)
-            {
-                enemyConfigs[enemyTypes[i]] = (enemyPrefabs[i], enemySOs[i]);
-            }
-            enemyService = new EnemyService(enemyConfigs);
         }
 
         private void Update()
