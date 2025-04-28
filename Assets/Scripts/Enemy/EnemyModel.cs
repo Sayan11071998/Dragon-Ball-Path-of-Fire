@@ -1,16 +1,6 @@
-using UnityEngine;
-
-public class EnemyModel : MonoBehaviour
+namespace DragonBall.Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class EnemyModel
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
