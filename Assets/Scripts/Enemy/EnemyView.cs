@@ -5,67 +5,60 @@ namespace DragonBall.Enemy
 {
     public class EnemyView : MonoBehaviour, IDamageable
     {
-        [SerializeField] private Collider2D attackHitBox;
+        [Header("Attack Settings")]
         [SerializeField] private AnimationClip kickAnimation;
+        [SerializeField] private float attackRadius = 0.5f;
+        [SerializeField] private Vector2 attackOffset = new Vector2(0.5f, 0f);
+        [SerializeField] private float hitTime = 0.3f;
 
         private EnemyController controller;
         private Rigidbody2D rb;
         private Animator animator;
         private SpriteRenderer spriteRenderer;
-
-        private float kickAttackDuration;
-
         private bool isMoving = false;
         private bool isAttacking = false;
 
         public bool IsAttacking => isAttacking;
 
-        public void SetController(EnemyController controllerToSet) => controller = controllerToSet;
+        public void SetController(EnemyController c) => controller = c;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             spriteRenderer = GetComponent<SpriteRenderer>();
-
-            if (attackHitBox != null)
-                attackHitBox.enabled = false;
-
-            kickAttackDuration = kickAnimation.length;
         }
 
-        private void FixedUpdate() => controller?.FixedUpdate();
+        private void FixedUpdate()
+        {
+            controller?.FixedUpdate();
+        }
 
-        public void Damage(float damageAmount) => controller?.TakeDamage(damageAmount);
+        public void Damage(float dmg) => controller?.TakeDamage(dmg);
 
         public void SetMoving(bool moving)
         {
-            if (isMoving != moving)
-            {
-                isMoving = moving;
-                UpdateAnimator();
-            }
+            if (isMoving == moving) return;
+            isMoving = moving;
+            animator.SetBool("isMoving", isMoving);
         }
 
-        public void MoveInDirection(Vector2 direction, float speed)
+        public void MoveInDirection(Vector2 dir, float speed)
         {
-            float vx = direction.x * speed;
+            float vx = dir.x * speed;
             rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
-
-            FaceDirection(direction.x);
+            FaceDirection(dir.x);
         }
 
         public void FaceTarget(Vector2 targetPosition)
         {
-            float directionX = targetPosition.x - transform.position.x;
-            FaceDirection(directionX);
+            FaceDirection(targetPosition.x - transform.position.x);
             rb.linearVelocity = Vector2.zero;
         }
 
-        private void FaceDirection(float directionX)
+        private void FaceDirection(float dx)
         {
-            if (directionX != 0)
-                spriteRenderer.flipX = directionX < 0;
+            if (dx != 0) spriteRenderer.flipX = dx < 0;
         }
 
         public void StartAttack()
@@ -78,27 +71,25 @@ namespace DragonBall.Enemy
 
         private IEnumerator AttackCoroutine()
         {
-            attackHitBox.enabled = true;
-            yield return new WaitForSeconds(kickAttackDuration);
-            attackHitBox.enabled = false;
-            isAttacking = false;
+            float clipLength = kickAnimation != null ? kickAnimation.length : 0.5f;
+            yield return new WaitForSeconds(hitTime);
+            PerformCircleKick();
+            yield return new WaitForSeconds(clipLength - hitTime);
             animator.SetBool("isAttacking", false);
+            isAttacking = false;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void PerformCircleKick()
         {
-            if (!isAttacking) return;
-            if (other.CompareTag("Player"))
+            Vector2 dir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+            Vector2 origin = (Vector2)transform.position + Vector2.Scale(dir, attackOffset);
+
+            var hits = Physics2D.CircleCastAll(origin, attackRadius, Vector2.zero);
+            foreach (var hit in hits)
             {
-                Debug.Log("Player got damaged");
-                // later: other.GetComponent<PlayerController>().TakeDamage(enemySO.AttackDamage);
+                if (hit.collider.CompareTag("Player"))
+                    Debug.Log("Player got damaged");
             }
-        }
-
-        private void UpdateAnimator()
-        {
-            if (animator != null)
-                animator.SetBool("isMoving", isMoving);
         }
     }
 }
