@@ -59,14 +59,8 @@ namespace DragonBall.Player
 
         protected void PerformKickAttack()
         {
-            Vector2 attackDirection = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
-
-            RaycastHit2D[] hits = Physics2D.CircleCastAll(
-                playerView.AttackTransform.position,
-                playerModel.KickAttackRange,
-                attackDirection,
-                0f,
-                playerView.AttackableLayer);
+            Vector2 origin = playerView.AttackTransform.position;
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, playerModel.KickAttackRange, Vector2.zero, 0f);
 
             foreach (var hit in hits)
             {
