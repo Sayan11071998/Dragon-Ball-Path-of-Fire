@@ -5,6 +5,7 @@ using Unity.Cinemachine;
 using DragonBall.VFX;
 using DragonBall.Bullet;
 using System.Collections.Generic;
+using DragonBall.Enemy;
 
 namespace DragonBall.Core
 {
@@ -13,6 +14,7 @@ namespace DragonBall.Core
         public PlayerService playerService { get; private set; }
         public VFXService vFXService { get; private set; }
         public BulletService bulletService { get; private set; }
+        public EnemyService enemyService { get; private set; }
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
@@ -28,7 +30,8 @@ namespace DragonBall.Core
         [SerializeField] private BulletScriptableObject kamehamehaSO;
 
         [Header("Enemy")]
-
+        [SerializeField] private EnemyPool enemyPool;
+        [SerializeField] private EnemyScriptableObject enemyScriptableObject;
 
         [Header("Cinemachine Virtual Camera")]
         [SerializeField] private CinemachineStateDrivenCamera cinemachineStateDrivenCamera;
@@ -47,7 +50,7 @@ namespace DragonBall.Core
         {
             playerService = new PlayerService(playerView, playerScriptableObject);
             vFXService = new VFXService(vFXPrefab);
-
+            enemyService = new EnemyService(enemyPool, enemyScriptableObject);
             InitializeBulletService();
         }
 

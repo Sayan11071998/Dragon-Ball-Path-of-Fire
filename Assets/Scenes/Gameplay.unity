@@ -1101,6 +1101,24 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e70ac72ce2fb1e439e71e7e6cb80093, type: 3}
+--- !u!1 &748197563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 797684860986564218, guid: e5a52a8e37055284085f189752a9c096, type: 3}
+  m_PrefabInstance: {fileID: 1531294966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &748197566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748197563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad00235ef7ca05c46a36941405403e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPosition: {x: 5.06, y: 0, z: 0}
 --- !u!1 &862782787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,6 +1223,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 519420028}
   parallaxEffect: 0.3
+--- !u!1 &1004741874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1004741876}
+  - component: {fileID: 1004741875}
+  m_Layer: 0
+  m_Name: EnemyPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1004741875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004741874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9cee76c610e3f4d884d41969211ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 7096286556424816484, guid: 4420220a5cf9878479e86c3ee56939cd, type: 3}
+  initialPoolSize: 10
+--- !u!4 &1004741876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004741874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1020557421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1100779254503628016, guid: 4e70ac72ce2fb1e439e71e7e6cb80093, type: 3}
@@ -1941,11 +2005,8 @@ MonoBehaviour:
   regularBulletSO: {fileID: 11400000, guid: f756d1ff24654764fa25002ca06a1f3f, type: 2}
   kamehamehaPrefab: {fileID: 926417491160561663, guid: aeda240edb3b4cf48a43afd69f1a1ea9, type: 3}
   kamehamehaSO: {fileID: 11400000, guid: f7f87b3c564c42e4183c85c2be5c54f8, type: 2}
-  enemyTypes: 00000000
-  enemyPrefabs:
-  - {fileID: 8113552525193118116, guid: 4420220a5cf9878479e86c3ee56939cd, type: 3}
-  enemySOs:
-  - {fileID: 11400000, guid: 0b20f0350cea15d409750ba4a94fb539, type: 2}
+  enemyPool: {fileID: 0}
+  enemyScriptableObject: {fileID: 0}
   cinemachineStateDrivenCamera: {fileID: 1596175387}
   idleCamera: {fileID: 534543732}
   runCamera: {fileID: 1188416138}
@@ -2136,7 +2197,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 797684860986564218, guid: e5a52a8e37055284085f189752a9c096, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 748197566}
   m_SourcePrefab: {fileID: 100100000, guid: e5a52a8e37055284085f189752a9c096, type: 3}
 --- !u!1 &1543928494
 GameObject:
@@ -5268,3 +5332,4 @@ SceneRoots:
   - {fileID: 483416353}
   - {fileID: 1709203431}
   - {fileID: 1531294966}
+  - {fileID: 1004741876}
