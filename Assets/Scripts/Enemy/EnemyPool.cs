@@ -1,16 +1,9 @@
+using DragonBall.Utilities;
 using UnityEngine;
 
-public class EnemyPool : MonoBehaviour
+namespace DragonBall.Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class EnemyPool : GenericObjectPool<EnemyController>
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
