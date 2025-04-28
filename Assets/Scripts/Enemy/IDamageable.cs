@@ -1,4 +1,4 @@
-namespace DragonBall.Core
+namespace DragonBall.Enemy
 {
     public interface IDamageable
     {
