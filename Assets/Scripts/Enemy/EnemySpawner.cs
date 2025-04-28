@@ -5,7 +5,7 @@ namespace DragonBall.Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private EnemyType enemyType;
+        [SerializeField] public EnemyType enemyType;
 
         private void Start() => SpawnEnemy();
 
