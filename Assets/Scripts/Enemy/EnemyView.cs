@@ -6,12 +6,14 @@ namespace DragonBall.Enemy
     public class EnemyView : MonoBehaviour, IDamageable
     {
         [SerializeField] private Collider2D attackHitBox;
-        [SerializeField] private float attackDuration = 2f;
+        [SerializeField] private AnimationClip kickAnimation;
 
         private EnemyController controller;
         private Rigidbody2D rb;
         private Animator animator;
         private SpriteRenderer spriteRenderer;
+
+        private float kickAttackDuration;
 
         private bool isMoving = false;
         private bool isAttacking = false;
@@ -28,6 +30,8 @@ namespace DragonBall.Enemy
 
             if (attackHitBox != null)
                 attackHitBox.enabled = false;
+
+            kickAttackDuration = kickAnimation.length;
         }
 
         private void FixedUpdate() => controller?.FixedUpdate();
@@ -75,7 +79,7 @@ namespace DragonBall.Enemy
         private IEnumerator AttackCoroutine()
         {
             attackHitBox.enabled = true;
-            yield return new WaitForSeconds(attackDuration);
+            yield return new WaitForSeconds(kickAttackDuration);
             attackHitBox.enabled = false;
             isAttacking = false;
             animator.SetBool("isAttacking", false);

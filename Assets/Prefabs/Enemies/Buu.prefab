@@ -269,4 +269,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackHitBox: {fileID: 8363205114274433947}
-  attackDuration: 0.5
+  kickAnimation: {fileID: 7400000, guid: fbf6f899a1875cb4fb53a42f280d35c2, type: 2}
