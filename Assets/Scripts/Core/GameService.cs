@@ -70,15 +70,14 @@ namespace DragonBall.Core
         {
             var enemyConfigs = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>();
             for (int i = 0; i < enemyTypes.Length; i++)
-            {
                 enemyConfigs[enemyTypes[i]] = (enemyPrefabs[i], enemySOs[i]);
-            }
             enemyService = new EnemyService(enemyConfigs);
         }
 
         private void Update()
         {
             playerService.Update();
+            enemyService.Update();
         }
 
         private void InitializeVirtualCamera()

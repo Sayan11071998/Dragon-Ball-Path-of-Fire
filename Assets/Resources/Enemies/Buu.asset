@@ -15,6 +15,6 @@ MonoBehaviour:
   EnemyType: 0
   EnemyPrefab: {fileID: 8113552525193118116, guid: 4420220a5cf9878479e86c3ee56939cd, type: 3}
   MaxHealth: 100
-  MovementSpeed: 3
+  MovementSpeed: 5
   DetectionRange: 10
   AttackRange: 2

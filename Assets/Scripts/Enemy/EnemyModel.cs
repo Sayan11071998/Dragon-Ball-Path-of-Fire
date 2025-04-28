@@ -10,13 +10,15 @@ namespace DragonBall.Enemy
 
         public float MovementSpeed { get; private set; }
         public float DetectionRange { get; private set; }
+        public float AttackRange { get; private set; }
 
         public EnemyModel
         (
             EnemyType _enemyType,
             float _maxHealth,
             float _movementSpeed,
-            float _detectionRange
+            float _detectionRange,
+            float _attackRange
         )
         {
             EnemyType = _enemyType;
@@ -25,6 +27,7 @@ namespace DragonBall.Enemy
             IsDead = false;
             MovementSpeed = _movementSpeed;
             DetectionRange = _detectionRange;
+            AttackRange = _attackRange;
         }
 
         public void TakeDamage(float damageAmount)

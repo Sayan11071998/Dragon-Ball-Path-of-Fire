@@ -6,6 +6,7 @@ namespace DragonBall.Enemy
     public class EnemyService
     {
         private Dictionary<EnemyType, EnemyPool> enemyPools;
+        private List<EnemyController> activeEnemies = new List<EnemyController>();
 
         public EnemyService(Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)> enemyConfigs)
         {
@@ -26,9 +27,20 @@ namespace DragonBall.Enemy
 
             EnemyController enemy = enemyPools[enemyType].GetEnemy();
             enemy.Initialize(position);
+            activeEnemies.Add(enemy);
             return enemy;
         }
 
-        public void ReturnToPool(EnemyController enemy) => enemyPools[enemy.EnemyType].ReturnItem(enemy);
+        public void ReturnToPool(EnemyController enemy)
+        {
+            activeEnemies.Remove(enemy);
+            enemyPools[enemy.EnemyType].ReturnItem(enemy);
+        }
+
+        public void Update()
+        {
+            for (int i = activeEnemies.Count - 1; i >= 0; i--)
+                activeEnemies[i].Update();
+        }
     }
 }
