@@ -1,43 +1,45 @@
+using UnityEngine;
+
 namespace DragonBall.Enemy
 {
     public class EnemyModel
     {
-        public EnemyType EnemyType { get; private set; }
+        public int Health { get; private set; }
+        public int MaxHealth { get; private set; }
 
-        public float MaxHealth { get; private set; }
-        public float CurrentHealth { get; private set; }
-        public bool IsDead { get; set; }
+        public float MoveSpeed { get; private set; }
 
-        public float MovementSpeed { get; private set; }
-        public float DetectionRange { get; private set; }
+        public float AttackPower { get; private set; }
+        public float AttackRange { get; private set; }
+        public float AttackCooldown { get; private set; }
+        public float LastAttackTime { get; set; } = -10f;
 
-        public EnemyModel
-        (
-            EnemyType _enemyType,
-            float _maxHealth,
-            float _movementSpeed,
-            float _detectionRange
-        )
+        public float SensingRange { get; private set; }
+        public float StoppingDistance { get; private set; }
+
+        public bool IsAttackOnCooldown => Time.time < LastAttackTime + AttackCooldown;
+
+        public EnemyModel(
+            int health,
+            float moveSpeed,
+            float attackPower,
+            float attackRange,
+            float attackCooldown,
+            float sensingRange,
+            float stoppingDistance)
         {
-            EnemyType = _enemyType;
-            MaxHealth = _maxHealth;
-            CurrentHealth = MaxHealth;
-            IsDead = false;
-            MovementSpeed = _movementSpeed;
-            DetectionRange = _detectionRange;
+            MaxHealth = health;
+            Health = health;
+            MoveSpeed = moveSpeed;
+            AttackPower = attackPower;
+            AttackRange = attackRange;
+            AttackCooldown = attackCooldown;
+            SensingRange = sensingRange;
+            StoppingDistance = stoppingDistance;
         }
 
-        public void TakeDamage(float damageAmount)
-        {
-            CurrentHealth -= damageAmount;
-            if (CurrentHealth < 0)
-                CurrentHealth = 0;
-        }
+        public void TakeDamage(int damage) => Health = Mathf.Max(0, Health - damage);
 
-        public void ResetHealth()
-        {
-            CurrentHealth = MaxHealth;
-            IsDead = false;
-        }
+        public bool IsDead => Health <= 0;
     }
 }
