@@ -1,5 +1,3 @@
-using DragonBall.Core;
-
 namespace DragonBall.Enemy
 {
     public class EnemyController
@@ -11,26 +9,29 @@ namespace DragonBall.Enemy
 
         public EnemyView View => view;
 
-        public EnemyController(EnemyScriptableObject enemySO, EnemyView view)
+        public EnemyController(EnemyScriptableObject enemySO, EnemyView view, EnemyPool pool)
         {
             this.enemySO = enemySO;
             this.view = view;
-            model = new EnemyModel(enemySO);
+            this.pool = pool;
+            model = new EnemyModel(enemySO.MaxHealth);
             view.SetController(this);
         }
 
         public void TakeDamage(float damage)
         {
             model.TakeDamage(damage);
+
             if (model.CurrentHealth <= 0)
-            {
                 Die();
-            }
         }
 
         private void Die()
         {
-            GameService.Instance.enemyService.ReturnEnemy(view);
+            view.gameObject.SetActive(false);
+            pool.ReturnItem(this);
         }
+
+        public void Reset() => model.Reset();
     }
 }

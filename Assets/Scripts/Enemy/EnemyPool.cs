@@ -6,20 +6,26 @@ namespace DragonBall.Enemy
     public class EnemyPool : GenericObjectPool<EnemyController>
     {
         private EnemyView enemyPrefab;
-        private EnemyModel enemyModel;
+        private EnemyScriptableObject enemySO;
 
-        public EnemyPool(EnemyView enemyPrefab, EnemyModel enemyModel)
+        public EnemyPool(EnemyView enemyPrefab, EnemyScriptableObject enemySO)
         {
             this.enemyPrefab = enemyPrefab;
-            this.enemyModel = enemyModel;
+            this.enemySO = enemySO;
         }
 
-        public EnemyController GetEnemy() => GetItem<EnemyController>();
+        public EnemyController GetEnemy()
+        {
+            EnemyController enemy = GetItem<EnemyController>();
+            enemy.Reset();
+            return enemy;
+        }
 
         protected override EnemyController CreateItem<T>()
         {
             EnemyView view = Object.Instantiate(enemyPrefab);
-            return new EnemyController(enemyModel, view, this);
+            view.gameObject.SetActive(false);
+            return new EnemyController(enemySO, view, this);
         }
     }
 }

@@ -9,6 +9,6 @@ namespace DragonBall.Enemy
         public EnemyView EnemyPrefab;
 
         [Header("Stats")]
-        public float MaxHealth;
+        public float MaxHealth = 100f;
     }
 }

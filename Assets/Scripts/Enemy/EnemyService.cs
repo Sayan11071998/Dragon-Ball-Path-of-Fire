@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DragonBall.Enemy
 {
@@ -6,19 +7,31 @@ namespace DragonBall.Enemy
     {
         private Dictionary<EnemyType, EnemyPool> enemyPools = new Dictionary<EnemyType, EnemyPool>();
 
-        public EnemyService(Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)> EnemyConfigs)
+        public EnemyService(Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)> enemyConfigs)
         {
-            foreach (var config in EnemyConfigs)
+            foreach (var config in enemyConfigs)
             {
                 EnemyType type = config.Key;
                 EnemyView prefab = config.Value.Item1;
                 EnemyScriptableObject so = config.Value.Item2;
-                EnemyModel model = new EnemyModel(so.MaxHealth);
-                EnemyPool pool = new EnemyPool(prefab, model);
+                EnemyPool pool = new EnemyPool(prefab, so);
                 enemyPools[type] = pool;
             }
         }
 
-        public EnemyController SpawnEnemy() { }
+        public EnemyController SpawnEnemy(EnemyType type)
+        {
+            if (enemyPools.TryGetValue(type, out EnemyPool pool))
+            {
+                EnemyController enemy = pool.GetEnemy();
+                enemy.View.gameObject.SetActive(true);
+                return enemy;
+            }
+            else
+            {
+                Debug.LogError($"No pool for enemy type {type}");
+                return null;
+            }
+        }
     }
 }

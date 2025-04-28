@@ -166,7 +166,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1326176975
-  m_SortingLayer: 1
+  m_SortingLayer: 8
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 54669199194062d4a81d894ebc0896c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -297,7 +297,7 @@ MonoBehaviour:
   attackRange: 0.2
   attackableLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2560
   fireTransform: {fileID: 3304409233257761949}
   kamehamehaTransform: {fileID: 5036742877905417948}
 --- !u!1 &8652443258193641311

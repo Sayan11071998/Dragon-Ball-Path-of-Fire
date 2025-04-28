@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 using DragonBall.Player;
 using DragonBall.Utilities;
 using Unity.Cinemachine;
 using DragonBall.VFX;
 using DragonBall.Bullet;
-using System.Collections.Generic;
 using DragonBall.Enemy;
 
 namespace DragonBall.Core
@@ -30,8 +30,7 @@ namespace DragonBall.Core
         [SerializeField] private BulletScriptableObject kamehamehaSO;
 
         [Header("Enemy")]
-        [SerializeField] private EnemyPool enemyPool;
-        [SerializeField] private EnemyScriptableObject enemyScriptableObject;
+        [SerializeField] private List<EnemyConfig> enemyConfigs;
 
         [Header("Cinemachine Virtual Camera")]
         [SerializeField] private CinemachineStateDrivenCamera cinemachineStateDrivenCamera;
@@ -50,8 +49,17 @@ namespace DragonBall.Core
         {
             playerService = new PlayerService(playerView, playerScriptableObject);
             vFXService = new VFXService(vFXPrefab);
-            enemyService = new EnemyService(enemyPool, enemyScriptableObject);
+
+            InitializeEnemyService();
             InitializeBulletService();
+        }
+
+        private void InitializeEnemyService()
+        {
+            var enemyConfigsDict = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>();
+            foreach (var config in enemyConfigs)
+                enemyConfigsDict[config.type] = (config.prefab, config.so);
+            enemyService = new EnemyService(enemyConfigsDict);
         }
 
         private void InitializeBulletService()
@@ -76,5 +84,13 @@ namespace DragonBall.Core
             jumpCamera.Follow = playerService.PlayerPrefab.transform;
             cinemachineStateDrivenCamera.AnimatedTarget = playerService.PlayerPrefab.Animator;
         }
+    }
+
+    [System.Serializable]
+    public class EnemyConfig
+    {
+        public EnemyType type;
+        public EnemyView prefab;
+        public EnemyScriptableObject so;
     }
 }

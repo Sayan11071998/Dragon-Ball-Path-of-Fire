@@ -1,15 +1,19 @@
 using UnityEngine;
 using DragonBall.Core;
 
-public class EnemySpawner : MonoBehaviour
+namespace DragonBall.Enemy
 {
-    private void Start()
+    public class EnemySpawner : MonoBehaviour
     {
-        SpawnEnemy();
-    }
+        [SerializeField] private EnemyType enemyType;
 
-    private void SpawnEnemy()
-    {
-        GameService.Instance.enemyService.SpawnEnemy(transform.position);
+        private void Start() => SpawnEnemy();
+
+        private void SpawnEnemy()
+        {
+            EnemyController enemy = GameService.Instance.enemyService.SpawnEnemy(enemyType);
+            if (enemy != null)
+                enemy.View.transform.position = transform.position;
+        }
     }
 }
