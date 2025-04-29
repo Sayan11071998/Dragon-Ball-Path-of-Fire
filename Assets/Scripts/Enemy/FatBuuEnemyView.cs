@@ -13,7 +13,6 @@ namespace DragonBall.Enemy
 
         [Header("Bullet Settings")]
         [SerializeField] private Transform firePoint;
-        [SerializeField] private Vector2 bulletSpawnOffset = new Vector2(0.8f, 0.2f);
         [SerializeField] private BulletType bulletType = BulletType.EnemyRegularPowerBall;
 
         public override void StartAttack()
@@ -47,20 +46,9 @@ namespace DragonBall.Enemy
 
             Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
 
-            Vector3 spawnPos;
-            if (firePoint != null)
-            {
-                spawnPos = firePoint.position;
-            }
-            else
-            {
-                float xOff = spriteRenderer.flipX ? -bulletSpawnOffset.x : bulletSpawnOffset.x;
-                spawnPos = (Vector2)transform.position + new Vector2(xOff, bulletSpawnOffset.y);
-            }
-
             GameService.Instance.bulletService.FireBullet(
                 bulletType,
-                spawnPos,
+                firePoint.position,
                 direction,
                 BulletTargetType.Player
             );
