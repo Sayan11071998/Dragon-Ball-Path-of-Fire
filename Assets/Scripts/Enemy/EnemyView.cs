@@ -1,4 +1,6 @@
 using System.Collections;
+using DragonBall.Core;
+using DragonBall.Player;
 using UnityEngine;
 
 namespace DragonBall.Enemy
@@ -97,7 +99,7 @@ namespace DragonBall.Enemy
             foreach (var hit in hits)
             {
                 if (hit.collider.CompareTag("Player"))
-                    Debug.Log("Player got damaged");
+                    GameService.Instance.playerService.PlayerController.TakeDamage(enemyController.EnemyModel.AttackDamage);
             }
         }
 

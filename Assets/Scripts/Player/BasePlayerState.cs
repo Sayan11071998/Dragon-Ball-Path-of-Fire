@@ -25,6 +25,8 @@ namespace DragonBall.Player
 
         public virtual void Update()
         {
+            if (playerModel.IsDead) return;
+
             ResetUnhandledInputs();
             UpdateAnimations(playerView.MoveInput);
         }
@@ -42,7 +44,7 @@ namespace DragonBall.Player
 
         protected void HandleKick()
         {
-            if (!playerView.KickInput)
+            if (playerModel.IsDead || !playerView.KickInput)
                 return;
 
             if (playerModel.IsKickOnCooldown)
@@ -71,7 +73,7 @@ namespace DragonBall.Player
 
         protected void HandleFire()
         {
-            if (!playerView.FireInput)
+            if (playerModel.IsDead || !playerView.FireInput)
                 return;
 
             if (playerModel.IsFireOnCooldown)

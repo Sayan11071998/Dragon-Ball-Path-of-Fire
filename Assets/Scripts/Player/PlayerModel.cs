@@ -25,11 +25,11 @@ namespace DragonBall.Player
         public float KickAttackRange { get; private set; }
         public float KickAttackCooldown { get; private set; }
         public float LastKickTime { get; set; } = -10f;
-        public bool IsKickOnCooldown => UnityEngine.Time.time < LastKickTime + KickAttackCooldown;
+        public bool IsKickOnCooldown => Time.time < LastKickTime + KickAttackCooldown;
 
         public float FireCooldown { get; private set; }
         public float LastFireTime { get; set; } = -10f;
-        public bool IsFireOnCooldown => UnityEngine.Time.time < LastFireTime + FireCooldown;
+        public bool IsFireOnCooldown => Time.time < LastFireTime + FireCooldown;
 
         public bool IsGrounded { get; set; }
         public bool IsFacingRight { get; set; } = true;

@@ -21,3 +21,9 @@ MonoBehaviour:
   DodgeDuration: 0.2
   DodgeCooldown: 0.5
   KickAttackPower: 10
+  KickAttackRange: 1.5
+  KickAttackCooldown: 0.5
+  FireCooldown: 0.5
+  DragonBallsRequiredForSuperSaiyan: 5
+  SuperSaiyanSpeedMultiplier: 1.5
+  SuperSaiyanPowerMultiplier: 2

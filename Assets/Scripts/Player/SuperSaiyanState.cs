@@ -7,10 +7,7 @@ namespace DragonBall.Player
 {
     public class SuperSaiyanState : BasePlayerState
     {
-        public SuperSaiyanState(PlayerController controller, PlayerStateMachine stateMachine)
-            : base(controller, stateMachine)
-        {
-        }
+        public SuperSaiyanState(PlayerController controller, PlayerStateMachine stateMachine) : base(controller, stateMachine) { }
 
         public override void OnStateEnter()
         {
@@ -39,8 +36,7 @@ namespace DragonBall.Player
 
         private void HandleVanish()
         {
-            if (!playerView.VanishInput)
-                return;
+            if (playerModel.IsDead || !playerView.VanishInput) return;
 
             Vector2 originalPosition = playerView.transform.position;
             Vector2 randomOffset = Random.insideUnitCircle * playerModel.VanishRange;
@@ -55,6 +51,12 @@ namespace DragonBall.Player
 
         private void HandleDodge()
         {
+            if (playerModel.IsDead)
+            {
+                playerView.ResetDodgeInput();
+                return;
+            }
+
             if (playerView.DodgeInput && playerModel.IsGrounded && Time.time > playerModel.LastDodgeTime + playerModel.DodgeCooldown)
             {
                 playerModel.IsDodging = true;
@@ -83,8 +85,7 @@ namespace DragonBall.Player
 
         private void HandleKamehameha()
         {
-            if (!playerView.KamehamehaInput)
-                return;
+            if (playerModel.IsDead || !playerView.KamehamehaInput) return;
 
             AnimationClip kamehamehaClip = playerView.GetKamehamehaAnimationClip();
             playerView.PlayKamehamehaAnimation();
