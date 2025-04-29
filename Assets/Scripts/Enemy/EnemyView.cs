@@ -138,5 +138,12 @@ namespace DragonBall.Enemy
             isDying = false;
             animator.SetBool("isDead", false);
         }
+
+        public void ResetAllInputs()
+        {
+            animator.SetBool("isMoving", false);
+            animator.SetBool("isAttacking", false);
+            // Reset any other animation parameters
+        }
     }
 }

@@ -8,13 +8,14 @@ namespace DragonBall.Enemy
         private EnemyView view;
         private EnemyPool pool;
         private EnemyScriptableObject enemySO;
+        private EnemyStateMachine stateMachine;
 
-        private Transform playerTransform;
-        private bool isPlayerDetected = false;
-        private bool isInAttackRange = false;
         private bool isDead = false;
 
         public EnemyView View => view;
+        public EnemyModel Model => model;
+        public EnemyScriptableObject EnemySO => enemySO;
+        public bool IsDead => isDead;
 
         public EnemyController(EnemyScriptableObject enemySO, EnemyView view, EnemyPool pool)
         {
@@ -23,56 +24,18 @@ namespace DragonBall.Enemy
             this.pool = pool;
             model = new EnemyModel(enemySO.MaxHealth, enemySO.AttackDamage, enemySO.AttackCooldown);
             view.SetController(this);
-            playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+            // Initialize and setup state machine
+            stateMachine = new EnemyStateMachine(this);
+            stateMachine.ChangeState(EnemyStates.IDLE);
         }
 
         public void FixedUpdate()
         {
-            if (playerTransform == null || isDead)
+            if (isDead)
                 return;
 
-            UpdateDetection();
-
-            if (ShouldMove())
-                HandleMovement();
-            else if (isInAttackRange)
-                HandleAttack();
-        }
-
-        private void UpdateDetection()
-        {
-            float distanceToPlayer = Vector2.Distance(view.transform.position, playerTransform.position);
-
-            isPlayerDetected = distanceToPlayer <= enemySO.DetectionRange;
-            isInAttackRange = distanceToPlayer <= enemySO.AttackRange;
-        }
-
-        private bool ShouldMove() => isPlayerDetected && !isInAttackRange;
-
-        private void HandleMovement()
-        {
-            view.SetMoving(true);
-            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)view.transform.position).normalized;
-            view.MoveInDirection(direction, enemySO.MoveSpeed);
-        }
-
-        private void HandleAttack()
-        {
-            view.SetMoving(false);
-            view.FaceTarget(playerTransform.position);
-            TryAttack();
-        }
-
-        private void TryAttack()
-        {
-            if (Time.time < model.lastAttackTime + enemySO.AttackCooldown)
-                return;
-
-            if (!view.IsAttacking)
-            {
-                view.StartAttack();
-                model.lastAttackTime = Time.time;
-            }
+            stateMachine.Update();
         }
 
         public void TakeDamage(float damage)
@@ -86,8 +49,7 @@ namespace DragonBall.Enemy
         private void HandleDeath()
         {
             isDead = true;
-            view.StopMovement();
-            view.StartDeathAnimation();
+            stateMachine.ChangeState(EnemyStates.DEATH);
         }
 
         public void OnDeathAnimationComplete()
@@ -104,9 +66,8 @@ namespace DragonBall.Enemy
         public void Reset()
         {
             model.Reset();
-            isPlayerDetected = false;
-            isInAttackRange = false;
             isDead = false;
+            stateMachine.ChangeState(EnemyStates.IDLE);
         }
     }
 }

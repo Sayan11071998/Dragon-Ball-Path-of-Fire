@@ -1,0 +1,67 @@
+using System.Collections.Generic;
+using DragonBall.Utilities;
+using UnityEngine;
+
+namespace DragonBall.Enemy
+{
+    public class EnemyStateMachine
+    {
+        private IState currentState;
+        public Dictionary<EnemyStates, IState> states;
+        private EnemyStates currentEnemyStateEnum;
+        private EnemyController enemyController;
+        private EnemyView enemyView;
+
+        public EnemyStateMachine(EnemyController enemyController)
+        {
+            this.enemyController = enemyController;
+            this.enemyView = enemyController.View;
+            CreateStates(enemyController);
+        }
+
+        private void CreateStates(EnemyController enemyController)
+        {
+            states = new Dictionary<EnemyStates, IState>()
+            {
+                { EnemyStates.IDLE, new IdleState(enemyController, this) },
+                { EnemyStates.RUNNING, new RunningState(enemyController, this) },
+                { EnemyStates.ATTACK, new AttackState(enemyController, this) },
+                { EnemyStates.DEATH, new DeathState(enemyController, this) }
+            };
+        }
+
+        public void ChangeState(EnemyStates newState)
+        {
+            if (states.ContainsKey(newState))
+            {
+                // Only change state if it's different from the current state
+                if (currentEnemyStateEnum != newState || currentState == null)
+                {
+                    enemyView.ResetAllInputs();
+
+                    currentEnemyStateEnum = newState;
+                    ChangeState(states[newState]);
+
+                    Debug.Log($"Enemy changed to {newState} state");
+                }
+            }
+            else
+            {
+                Debug.LogError($"State {newState} doesn't exist in the state machine.");
+            }
+        }
+
+        private void ChangeState(IState newState)
+        {
+            currentState?.OnStateExit();
+            currentState = newState;
+            currentState?.OnStateEnter();
+        }
+
+        public void Update() => currentState?.Update();
+
+        public IState GetCurrentState() => currentState;
+        public EnemyStates GetCurrentPlayerState() => currentEnemyStateEnum;
+        public Dictionary<EnemyStates, IState> GetStates() => states;
+    }
+}
