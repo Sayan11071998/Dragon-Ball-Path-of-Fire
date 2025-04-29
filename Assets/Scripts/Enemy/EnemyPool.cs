@@ -5,15 +5,15 @@ namespace DragonBall.Enemy
 {
     public class EnemyPool : GenericObjectPool<BaseEnemyController>
     {
-        private BaseEnemyView enemyPrefab;
-        private EnemyScriptableObject enemySO;
+        private BaseEnemyView baseEnemyPrefab;
+        private EnemyScriptableObject enemyScriptableObject;
         private EnemyType enemyType;
 
-        public EnemyPool(BaseEnemyView enemyPrefab, EnemyScriptableObject enemySO, EnemyType enemyType)
+        public EnemyPool(BaseEnemyView enemyPrefabToSet, EnemyScriptableObject enemyScriptableObjectToSet, EnemyType enemyTypeToSet)
         {
-            this.enemyPrefab = enemyPrefab;
-            this.enemySO = enemySO;
-            this.enemyType = enemyType;
+            baseEnemyPrefab = enemyPrefabToSet;
+            enemyScriptableObject = enemyScriptableObjectToSet;
+            enemyType = enemyTypeToSet;
         }
 
         public BaseEnemyController GetEnemy()
@@ -25,10 +25,8 @@ namespace DragonBall.Enemy
 
         protected override BaseEnemyController CreateItem<T>()
         {
-            BaseEnemyView view = Object.Instantiate(enemyPrefab);
+            BaseEnemyView view = Object.Instantiate(baseEnemyPrefab);
             view.gameObject.SetActive(false);
-
-            // Create the appropriate enemy controller based on the type
             return CreateEnemyController(view);
         }
 
@@ -37,7 +35,7 @@ namespace DragonBall.Enemy
             switch (enemyType)
             {
                 case EnemyType.Buu:
-                    return new BuuEnemyController(enemySO, view, this);
+                    return new BuuEnemyController(enemyScriptableObject, view, this);
                 // Add more cases for other enemy types here
                 default:
                     Debug.LogError($"Unsupported enemy type: {enemyType}");

@@ -13,11 +13,11 @@ namespace DragonBall.Enemy
         private BaseEnemyController enemyController;
         private BaseEnemyView enemyView;
 
-        public EnemyStateMachine(BaseEnemyController enemyController)
+        public EnemyStateMachine(BaseEnemyController enemyControllerToSet)
         {
-            this.enemyController = enemyController;
-            this.enemyView = enemyController.EnemyView;
-            CreateStates(enemyController);
+            enemyController = enemyControllerToSet;
+            enemyView = enemyControllerToSet.BaseEnemyView;
+            CreateStates(enemyControllerToSet);
         }
 
         private void CreateStates(BaseEnemyController enemyController)

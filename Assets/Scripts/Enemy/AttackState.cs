@@ -5,62 +5,62 @@ namespace DragonBall.Enemy
 {
     public class AttackState : IState
     {
-        private BaseEnemyController enemyController;
-        private EnemyStateMachine enemyStateMachine;
+        private BaseEnemyController baseEnemyController;
+        private BaseEnemyModel baseEnemyModel;
+        private EnemyStateMachine baseEnemyStateMachine;
         private Transform playerTransform;
         private EnemyScriptableObject enemyScriptableObject;
-        private BaseEnemyModel enemyModel;
 
         public AttackState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
-            enemyController = controllerToSet;
-            enemyStateMachine = stateMachineToSet;
+            baseEnemyController = controllerToSet;
+            baseEnemyStateMachine = stateMachineToSet;
             enemyScriptableObject = controllerToSet.EnemyData;
-            enemyModel = controllerToSet.EnemyModel;
+            baseEnemyModel = controllerToSet.BaseEnemyModel;
 
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
 
-        public void OnStateEnter() => enemyController.EnemyView.SetMoving(false);
+        public void OnStateEnter() => baseEnemyController.BaseEnemyView.SetMoving(false);
 
         public void Update()
         {
-            if (enemyController.isPlayerDead || playerTransform == null || enemyController.IsDead)
+            if (baseEnemyController.IsPlayerDead || playerTransform == null || baseEnemyController.IsDead)
             {
-                if (enemyController.isPlayerDead)
-                    enemyController.EnemyView.StopMovement();
+                if (baseEnemyController.IsPlayerDead)
+                    baseEnemyController.BaseEnemyView.StopMovement();
 
-                enemyStateMachine.ChangeState(EnemyStates.IDLE);
+                baseEnemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
-            float distanceToPlayer = Vector2.Distance(enemyController.EnemyView.transform.position, playerTransform.position);
+            float distanceToPlayer = Vector2.Distance(baseEnemyController.BaseEnemyView.transform.position, playerTransform.position);
 
             if (distanceToPlayer > enemyScriptableObject.DetectionRange)
             {
-                enemyStateMachine.ChangeState(EnemyStates.IDLE);
+                baseEnemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
             if (distanceToPlayer > enemyScriptableObject.AttackRange && distanceToPlayer <= enemyScriptableObject.DetectionRange)
             {
-                enemyStateMachine.ChangeState(EnemyStates.RUNNING);
+                baseEnemyStateMachine.ChangeState(EnemyStates.RUNNING);
                 return;
             }
 
-            enemyController.EnemyView.FaceTarget(playerTransform.position);
+            baseEnemyController.BaseEnemyView.FaceTarget(playerTransform.position);
             TryAttack();
         }
 
         private void TryAttack()
         {
-            if (enemyController.isPlayerDead) return;
-            if (Time.time < enemyModel.lastAttackTime + enemyScriptableObject.AttackCooldown) return;
+            if (baseEnemyController.IsPlayerDead) return;
+            if (Time.time < baseEnemyModel.lastAttackTime + enemyScriptableObject.AttackCooldown) return;
 
-            if (!enemyController.EnemyView.IsAttacking)
+            if (!baseEnemyController.BaseEnemyView.IsAttacking)
             {
-                enemyController.EnemyView.StartAttack();
-                enemyModel.lastAttackTime = Time.time;
+                baseEnemyController.BaseEnemyView.StartAttack();
+                baseEnemyModel.lastAttackTime = Time.time;
             }
         }
 

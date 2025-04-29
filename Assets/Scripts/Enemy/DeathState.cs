@@ -15,12 +15,12 @@ namespace DragonBall.Enemy
 
         public void OnStateEnter()
         {
-            enemyController.EnemyView.StopMovement();
-            enemyController.EnemyView.StartDeathAnimation();
+            enemyController.BaseEnemyView.StopMovement();
+            enemyController.BaseEnemyView.StartDeathAnimation();
         }
 
         public void Update() { }
 
-        public void OnStateExit() => enemyController.EnemyView.ResetDeathState();
+        public void OnStateExit() => enemyController.BaseEnemyView.ResetDeathState();
     }
 }

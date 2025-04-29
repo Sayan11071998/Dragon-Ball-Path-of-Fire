@@ -1,5 +1,4 @@
 using System.Collections;
-using DragonBall.Core;
 using UnityEngine;
 
 namespace DragonBall.Enemy
@@ -17,7 +16,7 @@ namespace DragonBall.Enemy
         [SerializeField] protected float flyAwayForceY = 2f;
         [SerializeField] protected float flyAwayDuration = 0.3f;
 
-        protected BaseEnemyController enemyController;
+        protected BaseEnemyController baseEnemyController;
         protected Rigidbody2D rb;
         protected Animator animator;
         protected SpriteRenderer spriteRenderer;
@@ -28,7 +27,7 @@ namespace DragonBall.Enemy
 
         public bool IsAttacking => isAttacking;
 
-        public virtual void SetController(BaseEnemyController controllerToSet) => enemyController = controllerToSet;
+        public virtual void SetController(BaseEnemyController controllerToSet) => baseEnemyController = controllerToSet;
 
         protected virtual void Awake()
         {
@@ -39,9 +38,9 @@ namespace DragonBall.Enemy
             animator.SetBool("isDead", false);
         }
 
-        protected virtual void FixedUpdate() => enemyController?.Update();
+        protected virtual void FixedUpdate() => baseEnemyController?.Update();
 
-        public virtual void Damage(float damageValue) => enemyController?.TakeDamage(damageValue);
+        public virtual void Damage(float damageValue) => baseEnemyController?.TakeDamage(damageValue);
 
         public virtual void SetMoving(bool moving)
         {
@@ -52,7 +51,7 @@ namespace DragonBall.Enemy
 
         public virtual void MoveInDirection(Vector2 direction, float speed)
         {
-            if (enemyController != null && enemyController.isPlayerDead)
+            if (baseEnemyController != null && baseEnemyController.IsPlayerDead)
             {
                 StopMovement();
                 return;
@@ -107,7 +106,7 @@ namespace DragonBall.Enemy
             yield return new WaitForSeconds(flyAwayDuration);
             rb.linearVelocity = Vector2.zero;
             yield return new WaitForSeconds(length - flyAwayDuration);
-            enemyController.OnDeathAnimationComplete();
+            baseEnemyController.OnDeathAnimationComplete();
         }
 
         public virtual void ResetDeathState()

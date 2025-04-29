@@ -72,10 +72,7 @@ namespace DragonBall.Core
             bulletService = new BulletService(bulletConfigs);
         }
 
-        private void Update()
-        {
-            playerService.Update();
-        }
+        private void Update() => playerService.Update();
 
         private void InitializeVirtualCamera()
         {

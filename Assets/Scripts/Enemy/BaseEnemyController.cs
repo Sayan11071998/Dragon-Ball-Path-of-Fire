@@ -1,35 +1,34 @@
 using DragonBall.Core;
-using UnityEngine;
 
 namespace DragonBall.Enemy
 {
     public abstract class BaseEnemyController
     {
-        protected BaseEnemyModel enemyModel;
-        protected BaseEnemyView enemyView;
+        protected BaseEnemyModel baseEnemyModel;
+        protected BaseEnemyView baseEnemyView;
         protected EnemyPool enemyPool;
         protected EnemyScriptableObject enemyScriptableObject;
         protected EnemyStateMachine enemyStateMachine;
 
-        public BaseEnemyView EnemyView => enemyView;
-        public BaseEnemyModel EnemyModel => enemyModel;
+        public BaseEnemyView BaseEnemyView => baseEnemyView;
+        public BaseEnemyModel BaseEnemyModel => baseEnemyModel;
         public EnemyScriptableObject EnemyData => enemyScriptableObject;
 
         protected bool isDead = false;
         public bool IsDead => isDead;
 
-        protected bool _isPlayerDead = false;
-        public bool isPlayerDead => _isPlayerDead;
+        protected bool isPlayerDead = false;
+        public bool IsPlayerDead => isPlayerDead;
 
-        public BaseEnemyController(EnemyScriptableObject enemySO, BaseEnemyView view, EnemyPool pool)
+        public BaseEnemyController(EnemyScriptableObject enemyScriptableObjectToSet, BaseEnemyView viewToSet, EnemyPool poolToSet)
         {
-            enemyScriptableObject = enemySO;
-            enemyView = view;
-            enemyPool = pool;
+            enemyScriptableObject = enemyScriptableObjectToSet;
+            baseEnemyView = viewToSet;
+            enemyPool = poolToSet;
 
-            view.SetController(this);
+            viewToSet.SetController(this);
 
-            InitializeModel(enemySO);
+            InitializeModel(enemyScriptableObjectToSet);
 
             enemyStateMachine = new EnemyStateMachine(this);
 
@@ -37,7 +36,7 @@ namespace DragonBall.Enemy
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
 
-        protected abstract void InitializeModel(EnemyScriptableObject enemySO);
+        protected abstract void InitializeModel(EnemyScriptableObject _enemyData);
 
         public virtual void Update()
         {
@@ -49,26 +48,25 @@ namespace DragonBall.Enemy
 
         protected virtual void CheckPlayerStatus()
         {
-            bool wasPlayerDead = _isPlayerDead;
-            _isPlayerDead = GameService.Instance.playerService.PlayerController.PlayerModel.CurrentHealth <= 0;
+            bool wasPlayerDead = isPlayerDead;
+            isPlayerDead = GameService.Instance.playerService.PlayerController.PlayerModel.CurrentHealth <= 0;
 
-            if (!wasPlayerDead && _isPlayerDead)
+            if (!wasPlayerDead && isPlayerDead)
                 HandlePlayerDeath();
         }
 
         protected virtual void HandlePlayerDeath()
         {
-            enemyView.StopMovement();
-            enemyView.ResetAllInputs();
+            baseEnemyView.StopMovement();
+            baseEnemyView.ResetAllInputs();
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
-            Debug.Log("Enemy detected player death - stopping all actions");
         }
 
         public virtual void TakeDamage(float damage)
         {
-            enemyModel.TakeDamage(damage);
+            baseEnemyModel.TakeDamage(damage);
 
-            if (enemyModel.CurrentHealth <= 0 && !isDead)
+            if (baseEnemyModel.CurrentHealth <= 0 && !isDead)
                 HandleDeath();
         }
 
@@ -82,15 +80,15 @@ namespace DragonBall.Enemy
 
         protected virtual void Die()
         {
-            enemyView.gameObject.SetActive(false);
+            baseEnemyView.gameObject.SetActive(false);
             enemyPool.ReturnItem(this);
         }
 
         public virtual void Reset()
         {
-            enemyModel.Reset();
+            baseEnemyModel.Reset();
             isDead = false;
-            _isPlayerDead = false;
+            isPlayerDead = false;
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
     }

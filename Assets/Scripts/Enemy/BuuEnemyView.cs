@@ -12,7 +12,7 @@ namespace DragonBall.Enemy
 
         public override void StartAttack()
         {
-            if (enemyController != null && enemyController.isPlayerDead) return;
+            if (baseEnemyController != null && baseEnemyController.IsPlayerDead) return;
 
             if (isAttacking) return;
             isAttacking = true;
@@ -25,7 +25,7 @@ namespace DragonBall.Enemy
             float clipLength = buuKickAnimation != null ? buuKickAnimation.length : 0.5f;
             yield return new WaitForSeconds(hitTime);
 
-            if (enemyController != null && !enemyController.isPlayerDead)
+            if (baseEnemyController != null && !baseEnemyController.IsPlayerDead)
                 PerformAttack();
 
             yield return new WaitForSeconds(clipLength - hitTime);
@@ -35,9 +35,8 @@ namespace DragonBall.Enemy
 
         protected override void PerformAttack()
         {
-            if (enemyController != null && enemyController.isPlayerDead) return;
+            if (baseEnemyController != null && baseEnemyController.IsPlayerDead) return;
 
-            // Buu-specific kick attack
             Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
             Vector2 origin = (Vector2)transform.position + Vector2.Scale(direction, attackOffset);
 
@@ -48,7 +47,7 @@ namespace DragonBall.Enemy
                 {
                     var playerController = GameService.Instance.playerService.PlayerController;
                     if (!playerController.PlayerModel.IsDead)
-                        playerController.TakeDamage(enemyController.EnemyModel.AttackDamage);
+                        playerController.TakeDamage(baseEnemyController.BaseEnemyModel.AttackDamage);
                 }
             }
         }
