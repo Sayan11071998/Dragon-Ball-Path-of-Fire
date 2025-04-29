@@ -7,9 +7,11 @@ namespace DragonBall.Enemy
     {
         [Header("Attack Settings")]
         [SerializeField] private AnimationClip kickAnimation;
+        [SerializeField] private AnimationClip deathClip;
         [SerializeField] private float attackRadius = 0.5f;
         [SerializeField] private Vector2 attackOffset = new Vector2(0.5f, 0f);
         [SerializeField] private float hitTime = 0.3f;
+        [SerializeField] private float deathClipDurationOffset = 0.5f;
 
         private EnemyController controller;
         private Rigidbody2D rb;
@@ -17,8 +19,11 @@ namespace DragonBall.Enemy
         private SpriteRenderer spriteRenderer;
         private bool isMoving = false;
         private bool isAttacking = false;
+        private bool isDying = false;
 
         public bool IsAttacking => isAttacking;
+
+        private readonly string IS_DEAD = "isDead";
 
         public void SetController(EnemyController c) => controller = c;
 
@@ -27,6 +32,8 @@ namespace DragonBall.Enemy
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             spriteRenderer = GetComponent<SpriteRenderer>();
+
+            animator.SetBool(IS_DEAD, false);
         }
 
         private void FixedUpdate()
@@ -90,6 +97,28 @@ namespace DragonBall.Enemy
                 if (hit.collider.CompareTag("Player"))
                     Debug.Log("Player got damaged");
             }
+        }
+
+        public void StartDeathAnimation()
+        {
+            if (isDying) return;
+
+            isDying = true;
+            animator.SetBool(IS_DEAD, true);
+            StartCoroutine(DeathCoroutine());
+        }
+
+        private IEnumerator DeathCoroutine()
+        {
+            float length = deathClip != null ? (deathClip.length + deathClipDurationOffset) : 0.5f;
+            yield return new WaitForSeconds(length);
+            controller.OnDeathAnimationComplete();
+        }
+
+        public void ResetDeathState()
+        {
+            isDying = false;
+            animator.SetBool(IS_DEAD, false);
         }
     }
 }
