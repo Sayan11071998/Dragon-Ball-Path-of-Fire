@@ -4,10 +4,10 @@ namespace DragonBall.Enemy
 {
     public class DeathState : IState
     {
-        private EnemyController enemyController;
+        private BaseEnemyController enemyController;
         private EnemyStateMachine enemyStateMachine;
 
-        public DeathState(EnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
+        public DeathState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
             enemyController = controllerToSet;
             enemyStateMachine = stateMachineToSet;

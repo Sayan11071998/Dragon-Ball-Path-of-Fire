@@ -56,7 +56,7 @@ namespace DragonBall.Core
 
         private void InitializeEnemyService()
         {
-            var enemyConfigsDict = new Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)>();
+            var enemyConfigsDict = new Dictionary<EnemyType, (BaseEnemyView, EnemyScriptableObject)>();
             foreach (var config in enemyConfigs)
                 enemyConfigsDict[config.type] = (config.prefab, config.so);
             enemyService = new EnemyService(enemyConfigsDict);
@@ -90,7 +90,7 @@ namespace DragonBall.Core
     public class EnemyConfig
     {
         public EnemyType type;
-        public EnemyView prefab;
+        public BaseEnemyView prefab;
         public EnemyScriptableObject so;
     }
 }

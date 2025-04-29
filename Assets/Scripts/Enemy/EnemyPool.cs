@@ -3,29 +3,46 @@ using UnityEngine;
 
 namespace DragonBall.Enemy
 {
-    public class EnemyPool : GenericObjectPool<EnemyController>
+    public class EnemyPool : GenericObjectPool<BaseEnemyController>
     {
-        private EnemyView enemyPrefab;
+        private BaseEnemyView enemyPrefab;
         private EnemyScriptableObject enemySO;
+        private EnemyType enemyType;
 
-        public EnemyPool(EnemyView enemyPrefab, EnemyScriptableObject enemySO)
+        public EnemyPool(BaseEnemyView enemyPrefab, EnemyScriptableObject enemySO, EnemyType enemyType)
         {
             this.enemyPrefab = enemyPrefab;
             this.enemySO = enemySO;
+            this.enemyType = enemyType;
         }
 
-        public EnemyController GetEnemy()
+        public BaseEnemyController GetEnemy()
         {
-            EnemyController enemy = GetItem<EnemyController>();
+            BaseEnemyController enemy = GetItem<BaseEnemyController>();
             enemy.Reset();
             return enemy;
         }
 
-        protected override EnemyController CreateItem<T>()
+        protected override BaseEnemyController CreateItem<T>()
         {
-            EnemyView view = Object.Instantiate(enemyPrefab);
+            BaseEnemyView view = Object.Instantiate(enemyPrefab);
             view.gameObject.SetActive(false);
-            return new EnemyController(enemySO, view, this);
+
+            // Create the appropriate enemy controller based on the type
+            return CreateEnemyController(view);
+        }
+
+        private BaseEnemyController CreateEnemyController(BaseEnemyView view)
+        {
+            switch (enemyType)
+            {
+                case EnemyType.Buu:
+                    return new BuuEnemyController(enemySO, view, this);
+                // Add more cases for other enemy types here
+                default:
+                    Debug.LogError($"Unsupported enemy type: {enemyType}");
+                    return null;
+            }
         }
     }
 }

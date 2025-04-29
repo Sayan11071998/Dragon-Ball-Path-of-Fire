@@ -11,9 +11,11 @@ namespace DragonBall.Enemy
 
         private void SpawnEnemy()
         {
-            EnemyController enemy = GameService.Instance.enemyService.SpawnEnemy(enemyType);
+            BaseEnemyController enemy = GameService.Instance.enemyService.SpawnEnemy(enemyType);
             if (enemy != null)
                 enemy.EnemyView.transform.position = transform.position;
+            else
+                Debug.LogError($"Failed to spawn enemy of type {enemyType}");
         }
     }
 }

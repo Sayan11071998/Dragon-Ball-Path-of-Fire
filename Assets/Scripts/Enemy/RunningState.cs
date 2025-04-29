@@ -5,12 +5,12 @@ namespace DragonBall.Enemy
 {
     public class RunningState : IState
     {
-        private EnemyController enemyController;
+        private BaseEnemyController enemyController;
         private EnemyStateMachine enemyStateMachine;
         private Transform playerTransform;
         private EnemyScriptableObject enemyScriptableObject;
 
-        public RunningState(EnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
+        public RunningState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
             enemyController = controllerToSet;
             enemyStateMachine = stateMachineToSet;
