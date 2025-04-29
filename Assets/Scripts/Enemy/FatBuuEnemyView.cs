@@ -42,8 +42,6 @@ namespace DragonBall.Enemy
         {
             if (baseEnemyController != null && baseEnemyController.IsPlayerDead) return;
 
-            Debug.Log("Fat Buu is firing a bullet!");
-
             Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
 
             GameService.Instance.bulletService.FireBullet(
