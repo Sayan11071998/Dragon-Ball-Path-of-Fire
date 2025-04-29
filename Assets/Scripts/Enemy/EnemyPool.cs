@@ -36,7 +36,8 @@ namespace DragonBall.Enemy
             {
                 case EnemyType.Buu:
                     return new BuuEnemyController(enemyScriptableObject, view, this);
-                // Add more cases for other enemy types here
+                case EnemyType.FatBuu:
+                    return new FatBuuEnemyController(enemyScriptableObject, view, this);
                 default:
                     Debug.LogError($"Unsupported enemy type: {enemyType}");
                     return null;
