@@ -54,6 +54,12 @@ namespace DragonBall.Enemy
 
         public void MoveInDirection(Vector2 direction, float speed)
         {
+            if (enemyController != null && enemyController.isPlayerDead)
+            {
+                StopMovement();
+                return;
+            }
+
             float velocityX = direction.x * speed;
             rb.linearVelocity = new Vector2(velocityX, rb.linearVelocity.y);
             FaceDirection(direction.x);
@@ -73,6 +79,8 @@ namespace DragonBall.Enemy
 
         public void StartAttack()
         {
+            if (enemyController != null && enemyController.isPlayerDead) return;
+
             if (isAttacking) return;
             isAttacking = true;
             animator.SetBool("isAttacking", true);
@@ -83,7 +91,10 @@ namespace DragonBall.Enemy
         {
             float clipLength = enemyKickAnimation != null ? enemyKickAnimation.length : 0.5f;
             yield return new WaitForSeconds(hitTime);
-            PerformCircleKick();
+
+            if (enemyController != null && !enemyController.isPlayerDead)
+                PerformCircleKick();
+
             yield return new WaitForSeconds(clipLength - hitTime);
             animator.SetBool("isAttacking", false);
             isAttacking = false;
@@ -91,6 +102,8 @@ namespace DragonBall.Enemy
 
         private void PerformCircleKick()
         {
+            if (enemyController != null && enemyController.isPlayerDead) return;
+
             Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
             Vector2 origin = (Vector2)transform.position + Vector2.Scale(direction, attackOffset);
 
@@ -98,7 +111,11 @@ namespace DragonBall.Enemy
             foreach (var hit in hits)
             {
                 if (hit.collider.CompareTag("Player"))
-                    GameService.Instance.playerService.PlayerController.TakeDamage(enemyController.EnemyModel.AttackDamage);
+                {
+                    var playerController = GameService.Instance.playerService.PlayerController;
+                    if (!playerController.PlayerModel.IsDead)
+                        playerController.TakeDamage(enemyController.EnemyModel.AttackDamage);
+                }
             }
         }
 
@@ -143,6 +160,8 @@ namespace DragonBall.Enemy
         {
             animator.SetBool("isMoving", false);
             animator.SetBool("isAttacking", false);
+            isAttacking = false;
+            isMoving = false;
         }
     }
 }

@@ -19,10 +19,21 @@ namespace DragonBall.Enemy
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
 
-        public void OnStateEnter() => enemyController.EnemyView.SetMoving(true);
+        public void OnStateEnter()
+        {
+            if (!enemyController.isPlayerDead)
+                enemyController.EnemyView.SetMoving(true);
+        }
 
         public void Update()
         {
+            if (enemyController.isPlayerDead)
+            {
+                enemyController.EnemyView.StopMovement();
+                enemyStateMachine.ChangeState(EnemyStates.IDLE);
+                return;
+            }
+
             if (playerTransform == null || enemyController.IsDead)
             {
                 enemyStateMachine.ChangeState(EnemyStates.IDLE);
@@ -43,10 +54,13 @@ namespace DragonBall.Enemy
                 return;
             }
 
-            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)enemyController.EnemyView.transform.position).normalized;
-            enemyController.EnemyView.MoveInDirection(direction, enemyScriptableObject.MoveSpeed);
+            if (!enemyController.isPlayerDead)
+            {
+                Vector2 direction = ((Vector2)playerTransform.position - (Vector2)enemyController.EnemyView.transform.position).normalized;
+                enemyController.EnemyView.MoveInDirection(direction, enemyScriptableObject.MoveSpeed);
+            }
         }
 
-        public void OnStateExit() { }
+        public void OnStateExit() => enemyController.EnemyView.SetMoving(false);
     }
 }
