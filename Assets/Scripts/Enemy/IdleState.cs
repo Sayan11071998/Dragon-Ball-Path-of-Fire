@@ -23,8 +23,7 @@ namespace DragonBall.Enemy
 
         public void Update()
         {
-            if (playerTransform == null || enemyController.IsDead)
-                return;
+            if (playerTransform == null || enemyController.IsDead || enemyController.isPlayerDead) return;
 
             float distanceToPlayer = Vector2.Distance(enemyController.EnemyView.transform.position, playerTransform.position);
 

@@ -1,3 +1,6 @@
+using DragonBall.Core;
+using UnityEngine;
+
 namespace DragonBall.Enemy
 {
     public class EnemyController
@@ -15,6 +18,9 @@ namespace DragonBall.Enemy
         private bool isDead = false;
         public bool IsDead => isDead;
 
+        private bool _isPlayerDead = false;
+        public bool isPlayerDead => _isPlayerDead;
+
         public EnemyController(EnemyScriptableObject enemySO, EnemyView view, EnemyPool pool)
         {
             enemyScriptableObject = enemySO;
@@ -25,13 +31,34 @@ namespace DragonBall.Enemy
             view.SetController(this);
 
             enemyStateMachine = new EnemyStateMachine(this);
+
+            CheckPlayerStatus();
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
 
         public void Update()
         {
             if (isDead) return;
+
+            CheckPlayerStatus();
             enemyStateMachine.Update();
+        }
+
+        private void CheckPlayerStatus()
+        {
+            bool wasPlayerDead = _isPlayerDead;
+            _isPlayerDead = GameService.Instance.playerService.PlayerController.PlayerModel.CurrentHealth <= 0;
+
+            if (!wasPlayerDead && _isPlayerDead)
+                HandlePlayerDeath();
+        }
+
+        private void HandlePlayerDeath()
+        {
+            enemyView.StopMovement();
+            enemyView.ResetAllInputs();
+            enemyStateMachine.ChangeState(EnemyStates.IDLE);
+            Debug.Log("Enemy detected player death - stopping all actions");
         }
 
         public void TakeDamage(float damage)
@@ -60,6 +87,7 @@ namespace DragonBall.Enemy
         {
             enemyModel.Reset();
             isDead = false;
+            _isPlayerDead = false;
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
     }
