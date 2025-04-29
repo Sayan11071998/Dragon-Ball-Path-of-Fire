@@ -40,7 +40,7 @@ namespace DragonBall.Enemy
             animator.SetBool("isDead", false);
         }
 
-        private void FixedUpdate() => enemyController?.FixedUpdate();
+        private void FixedUpdate() => enemyController?.Update();
 
         public void Damage(float damageValue) => enemyController?.TakeDamage(damageValue);
 

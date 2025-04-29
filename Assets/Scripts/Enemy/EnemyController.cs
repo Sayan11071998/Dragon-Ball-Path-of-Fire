@@ -28,7 +28,7 @@ namespace DragonBall.Enemy
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
 
-        public void FixedUpdate()
+        public void Update()
         {
             if (isDead) return;
             enemyStateMachine.Update();
