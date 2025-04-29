@@ -194,3 +194,7 @@ MonoBehaviour:
   attackRadius: 0.5
   attackOffset: {x: 0.5, y: 0}
   hitTime: 0.3
+  deathClipDurationOffset: 0.5
+  flyAwayForceX: 7
+  flyAwayForceY: 5
+  flyAwayDuration: 1

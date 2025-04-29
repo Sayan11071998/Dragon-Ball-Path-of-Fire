@@ -13,6 +13,11 @@ namespace DragonBall.Enemy
         [SerializeField] private float hitTime = 0.3f;
         [SerializeField] private float deathClipDurationOffset = 0.5f;
 
+        [Header("Death Fly Away Settings")]
+        [SerializeField] private float flyAwayForceX = 5f;
+        [SerializeField] private float flyAwayForceY = 2f;
+        [SerializeField] private float flyAwayDuration = 0.3f;
+
         private EnemyController controller;
         private Rigidbody2D rb;
         private Animator animator;
@@ -111,13 +116,20 @@ namespace DragonBall.Enemy
 
             isDying = true;
             animator.SetBool("isDead", true);
+
+            float xDirection = spriteRenderer.flipX ? 1f : -1f;
+            Vector2 flyAwayForce = new Vector2(flyAwayForceX * xDirection, flyAwayForceY);
+            rb.AddForce(flyAwayForce, ForceMode2D.Impulse);
+
             StartCoroutine(DeathCoroutine());
         }
 
         private IEnumerator DeathCoroutine()
         {
             float length = deathClip != null ? (deathClip.length + deathClipDurationOffset) : 0.5f;
-            yield return new WaitForSeconds(length);
+            yield return new WaitForSeconds(flyAwayDuration);
+            rb.linearVelocity = Vector2.zero;
+            yield return new WaitForSeconds(length - flyAwayDuration);
             controller.OnDeathAnimationComplete();
         }
 
