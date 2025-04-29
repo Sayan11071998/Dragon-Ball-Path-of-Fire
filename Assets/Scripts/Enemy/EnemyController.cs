@@ -1,112 +1,66 @@
-using UnityEngine;
-
 namespace DragonBall.Enemy
 {
     public class EnemyController
     {
-        private EnemyModel model;
-        private EnemyView view;
-        private EnemyPool pool;
-        private EnemyScriptableObject enemySO;
+        private EnemyModel enemyModel;
+        private EnemyView enemyView;
+        private EnemyPool enemyPool;
+        private EnemyScriptableObject enemyScriptableObject;
+        private EnemyStateMachine enemyStateMachine;
 
-        private Transform playerTransform;
-        private bool isPlayerDetected = false;
-        private bool isInAttackRange = false;
+        public EnemyView EnemyView => enemyView;
+        public EnemyModel EnemyModel => enemyModel;
+        public EnemyScriptableObject EnemyData => enemyScriptableObject;
+
         private bool isDead = false;
-
-        public EnemyView View => view;
+        public bool IsDead => isDead;
 
         public EnemyController(EnemyScriptableObject enemySO, EnemyView view, EnemyPool pool)
         {
-            this.enemySO = enemySO;
-            this.view = view;
-            this.pool = pool;
-            model = new EnemyModel(enemySO.MaxHealth, enemySO.AttackDamage, enemySO.AttackCooldown);
+            enemyScriptableObject = enemySO;
+            enemyView = view;
+            enemyPool = pool;
+
+            enemyModel = new EnemyModel(enemySO.MaxHealth, enemySO.AttackDamage, enemySO.AttackCooldown);
             view.SetController(this);
-            playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+            enemyStateMachine = new EnemyStateMachine(this);
+            enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
 
-        public void FixedUpdate()
+        public void Update()
         {
-            if (playerTransform == null || isDead)
-                return;
-
-            UpdateDetection();
-
-            if (ShouldMove())
-                HandleMovement();
-            else if (isInAttackRange)
-                HandleAttack();
-        }
-
-        private void UpdateDetection()
-        {
-            float distanceToPlayer = Vector2.Distance(view.transform.position, playerTransform.position);
-
-            isPlayerDetected = distanceToPlayer <= enemySO.DetectionRange;
-            isInAttackRange = distanceToPlayer <= enemySO.AttackRange;
-        }
-
-        private bool ShouldMove() => isPlayerDetected && !isInAttackRange;
-
-        private void HandleMovement()
-        {
-            view.SetMoving(true);
-            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)view.transform.position).normalized;
-            view.MoveInDirection(direction, enemySO.MoveSpeed);
-        }
-
-        private void HandleAttack()
-        {
-            view.SetMoving(false);
-            view.FaceTarget(playerTransform.position);
-            TryAttack();
-        }
-
-        private void TryAttack()
-        {
-            if (Time.time < model.lastAttackTime + enemySO.AttackCooldown)
-                return;
-
-            if (!view.IsAttacking)
-            {
-                view.StartAttack();
-                model.lastAttackTime = Time.time;
-            }
+            if (isDead) return;
+            enemyStateMachine.Update();
         }
 
         public void TakeDamage(float damage)
         {
-            model.TakeDamage(damage);
+            enemyModel.TakeDamage(damage);
 
-            if (model.CurrentHealth <= 0 && !isDead)
+            if (enemyModel.CurrentHealth <= 0 && !isDead)
                 HandleDeath();
         }
 
         private void HandleDeath()
         {
             isDead = true;
-            view.StopMovement();
-            view.StartDeathAnimation();
+            enemyStateMachine.ChangeState(EnemyStates.DEATH);
         }
 
-        public void OnDeathAnimationComplete()
-        {
-            Die();
-        }
+        public void OnDeathAnimationComplete() => Die();
 
         private void Die()
         {
-            view.gameObject.SetActive(false);
-            pool.ReturnItem(this);
+            enemyView.gameObject.SetActive(false);
+            enemyPool.ReturnItem(this);
         }
 
         public void Reset()
         {
-            model.Reset();
-            isPlayerDetected = false;
-            isInAttackRange = false;
+            enemyModel.Reset();
             isDead = false;
+            enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
     }
 }

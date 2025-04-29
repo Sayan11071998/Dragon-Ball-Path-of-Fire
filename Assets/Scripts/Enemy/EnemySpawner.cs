@@ -13,7 +13,7 @@ namespace DragonBall.Enemy
         {
             EnemyController enemy = GameService.Instance.enemyService.SpawnEnemy(enemyType);
             if (enemy != null)
-                enemy.View.transform.position = transform.position;
+                enemy.EnemyView.transform.position = transform.position;
         }
     }
 }

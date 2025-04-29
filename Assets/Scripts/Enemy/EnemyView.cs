@@ -6,8 +6,8 @@ namespace DragonBall.Enemy
     public class EnemyView : MonoBehaviour, IDamageable
     {
         [Header("Attack Settings")]
-        [SerializeField] private AnimationClip kickAnimation;
-        [SerializeField] private AnimationClip deathClip;
+        [SerializeField] private AnimationClip enemyKickAnimation;
+        [SerializeField] private AnimationClip enemyDeathClip;
         [SerializeField] private float attackRadius = 0.5f;
         [SerializeField] private Vector2 attackOffset = new Vector2(0.5f, 0f);
         [SerializeField] private float hitTime = 0.3f;
@@ -18,17 +18,18 @@ namespace DragonBall.Enemy
         [SerializeField] private float flyAwayForceY = 2f;
         [SerializeField] private float flyAwayDuration = 0.3f;
 
-        private EnemyController controller;
+        private EnemyController enemyController;
         private Rigidbody2D rb;
         private Animator animator;
         private SpriteRenderer spriteRenderer;
+
         private bool isMoving = false;
         private bool isAttacking = false;
         private bool isDying = false;
 
         public bool IsAttacking => isAttacking;
 
-        public void SetController(EnemyController c) => controller = c;
+        public void SetController(EnemyController controllerToSet) => enemyController = controllerToSet;
 
         private void Awake()
         {
@@ -39,12 +40,9 @@ namespace DragonBall.Enemy
             animator.SetBool("isDead", false);
         }
 
-        private void FixedUpdate()
-        {
-            controller?.FixedUpdate();
-        }
+        private void FixedUpdate() => enemyController?.Update();
 
-        public void Damage(float dmg) => controller?.TakeDamage(dmg);
+        public void Damage(float damageValue) => enemyController?.TakeDamage(damageValue);
 
         public void SetMoving(bool moving)
         {
@@ -53,11 +51,11 @@ namespace DragonBall.Enemy
             animator.SetBool("isMoving", isMoving);
         }
 
-        public void MoveInDirection(Vector2 dir, float speed)
+        public void MoveInDirection(Vector2 direction, float speed)
         {
-            float vx = dir.x * speed;
-            rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
-            FaceDirection(dir.x);
+            float velocityX = direction.x * speed;
+            rb.linearVelocity = new Vector2(velocityX, rb.linearVelocity.y);
+            FaceDirection(direction.x);
         }
 
         public void FaceTarget(Vector2 targetPosition)
@@ -66,9 +64,10 @@ namespace DragonBall.Enemy
             rb.linearVelocity = Vector2.zero;
         }
 
-        private void FaceDirection(float dx)
+        private void FaceDirection(float directionX)
         {
-            if (dx != 0) spriteRenderer.flipX = dx < 0;
+            if (directionX != 0)
+                spriteRenderer.flipX = directionX < 0;
         }
 
         public void StartAttack()
@@ -81,7 +80,7 @@ namespace DragonBall.Enemy
 
         private IEnumerator AttackCoroutine()
         {
-            float clipLength = kickAnimation != null ? kickAnimation.length : 0.5f;
+            float clipLength = enemyKickAnimation != null ? enemyKickAnimation.length : 0.5f;
             yield return new WaitForSeconds(hitTime);
             PerformCircleKick();
             yield return new WaitForSeconds(clipLength - hitTime);
@@ -91,8 +90,8 @@ namespace DragonBall.Enemy
 
         private void PerformCircleKick()
         {
-            Vector2 dir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-            Vector2 origin = (Vector2)transform.position + Vector2.Scale(dir, attackOffset);
+            Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+            Vector2 origin = (Vector2)transform.position + Vector2.Scale(direction, attackOffset);
 
             var hits = Physics2D.CircleCastAll(origin, attackRadius, Vector2.zero);
             foreach (var hit in hits)
@@ -126,17 +125,23 @@ namespace DragonBall.Enemy
 
         private IEnumerator DeathCoroutine()
         {
-            float length = deathClip != null ? (deathClip.length + deathClipDurationOffset) : 0.5f;
+            float length = enemyDeathClip != null ? (enemyDeathClip.length + deathClipDurationOffset) : 0.5f;
             yield return new WaitForSeconds(flyAwayDuration);
             rb.linearVelocity = Vector2.zero;
             yield return new WaitForSeconds(length - flyAwayDuration);
-            controller.OnDeathAnimationComplete();
+            enemyController.OnDeathAnimationComplete();
         }
 
         public void ResetDeathState()
         {
             isDying = false;
             animator.SetBool("isDead", false);
+        }
+
+        public void ResetAllInputs()
+        {
+            animator.SetBool("isMoving", false);
+            animator.SetBool("isAttacking", false);
         }
     }
 }

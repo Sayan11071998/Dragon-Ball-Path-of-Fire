@@ -24,7 +24,7 @@ namespace DragonBall.Enemy
             if (enemyPools.TryGetValue(type, out EnemyPool pool))
             {
                 EnemyController enemy = pool.GetEnemy();
-                enemy.View.gameObject.SetActive(true);
+                enemy.EnemyView.gameObject.SetActive(true);
                 return enemy;
             }
             else
