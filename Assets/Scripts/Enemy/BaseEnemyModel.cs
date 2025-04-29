@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace DragonBall.Enemy
 {
-    public class EnemyModel
+    public class BaseEnemyModel
     {
-        public float MaxHealth { get; private set; }
-        public float CurrentHealth { get; private set; }
+        public float MaxHealth { get; protected set; }
+        public float CurrentHealth { get; protected set; }
 
-        public float AttackDamage { get; private set; }
-        public float AttackCooldown { get; private set; }
+        public float AttackDamage { get; protected set; }
+        public float AttackCooldown { get; protected set; }
 
         public float lastAttackTime = -Mathf.Infinity;
 
-        public EnemyModel(float _maxHealth, float _attackDamage, float _attackCooldown)
+        public BaseEnemyModel(float _maxHealth, float _attackDamage, float _attackCooldown)
         {
             MaxHealth = _maxHealth;
             CurrentHealth = MaxHealth;
@@ -20,7 +20,7 @@ namespace DragonBall.Enemy
             AttackCooldown = _attackCooldown;
         }
 
-        public void TakeDamage(float damage)
+        public virtual void TakeDamage(float damage)
         {
             CurrentHealth -= damage;
             Debug.Log($"Enemy Health: {CurrentHealth}");
@@ -28,6 +28,6 @@ namespace DragonBall.Enemy
                 CurrentHealth = 0;
         }
 
-        public void Reset() => CurrentHealth = MaxHealth;
+        public virtual void Reset() => CurrentHealth = MaxHealth;
     }
 }

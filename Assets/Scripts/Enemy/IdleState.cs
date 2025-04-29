@@ -5,27 +5,27 @@ namespace DragonBall.Enemy
 {
     public class IdleState : IState
     {
-        private EnemyController enemyController;
+        private BaseEnemyController baseEnemyController;
         private EnemyStateMachine enemyStateMachine;
         private Transform playerTransform;
         private EnemyScriptableObject enemyScriptableObject;
 
-        public IdleState(EnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
+        public IdleState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
-            enemyController = controllerToSet;
+            baseEnemyController = controllerToSet;
             enemyStateMachine = stateMachineToSet;
             enemyScriptableObject = controllerToSet.EnemyData;
 
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
 
-        public void OnStateEnter() => enemyController.EnemyView.SetMoving(false);
+        public void OnStateEnter() => baseEnemyController.BaseEnemyView.SetMoving(false);
 
         public void Update()
         {
-            if (playerTransform == null || enemyController.IsDead || enemyController.isPlayerDead) return;
+            if (playerTransform == null || baseEnemyController.IsDead || baseEnemyController.IsPlayerDead) return;
 
-            float distanceToPlayer = Vector2.Distance(enemyController.EnemyView.transform.position, playerTransform.position);
+            float distanceToPlayer = Vector2.Distance(baseEnemyController.BaseEnemyView.transform.position, playerTransform.position);
 
             if (distanceToPlayer <= enemyScriptableObject.DetectionRange)
             {

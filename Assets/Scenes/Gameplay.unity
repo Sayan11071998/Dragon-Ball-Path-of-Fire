@@ -1943,7 +1943,7 @@ MonoBehaviour:
   kamehamehaSO: {fileID: 11400000, guid: f7f87b3c564c42e4183c85c2be5c54f8, type: 2}
   enemyConfigs:
   - type: 0
-    prefab: {fileID: 7096286556424816484, guid: 4420220a5cf9878479e86c3ee56939cd, type: 3}
+    prefab: {fileID: 1637688450260828064, guid: 4420220a5cf9878479e86c3ee56939cd, type: 3}
     so: {fileID: 11400000, guid: 0b20f0350cea15d409750ba4a94fb539, type: 2}
   cinemachineStateDrivenCamera: {fileID: 1596175387}
   idleCamera: {fileID: 534543732}

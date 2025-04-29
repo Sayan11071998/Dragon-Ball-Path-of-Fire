@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1809292392966536459}
   - component: {fileID: 6669437096625215819}
   - component: {fileID: 4765350753698188680}
-  - component: {fileID: 7096286556424816484}
+  - component: {fileID: 1637688450260828064}
   m_Layer: 0
   m_Name: Buu
   m_TagString: Enemy
@@ -177,7 +177,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7096286556424816484
+--- !u!114 &1637688450260828064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,15 +186,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3609979397838449065}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9a094b486ba422449fd062f6d50f006, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a586a4887558514dbbf240f5b5395ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kickAnimation: {fileID: 7400000, guid: fbf6f899a1875cb4fb53a42f280d35c2, type: 2}
-  deathClip: {fileID: 7400000, guid: 2854d73104e0a8c4baeeb5aaaca8224d, type: 2}
+  enemyDeathClip: {fileID: 7400000, guid: 2854d73104e0a8c4baeeb5aaaca8224d, type: 2}
   attackRadius: 0.5
   attackOffset: {x: 0.5, y: 0}
-  hitTime: 0.3
   deathClipDurationOffset: 0.5
   flyAwayForceX: 7
   flyAwayForceY: 5
   flyAwayDuration: 1
+  buuKickAnimation: {fileID: 7400000, guid: fbf6f899a1875cb4fb53a42f280d35c2, type: 2}
+  hitTime: 0.3

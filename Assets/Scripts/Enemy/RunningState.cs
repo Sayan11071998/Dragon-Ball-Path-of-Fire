@@ -5,14 +5,14 @@ namespace DragonBall.Enemy
 {
     public class RunningState : IState
     {
-        private EnemyController enemyController;
+        private BaseEnemyController baseEnemyController;
         private EnemyStateMachine enemyStateMachine;
         private Transform playerTransform;
         private EnemyScriptableObject enemyScriptableObject;
 
-        public RunningState(EnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
+        public RunningState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
-            enemyController = controllerToSet;
+            baseEnemyController = controllerToSet;
             enemyStateMachine = stateMachineToSet;
             enemyScriptableObject = controllerToSet.EnemyData;
 
@@ -21,26 +21,26 @@ namespace DragonBall.Enemy
 
         public void OnStateEnter()
         {
-            if (!enemyController.isPlayerDead)
-                enemyController.EnemyView.SetMoving(true);
+            if (!baseEnemyController.IsPlayerDead)
+                baseEnemyController.BaseEnemyView.SetMoving(true);
         }
 
         public void Update()
         {
-            if (enemyController.isPlayerDead)
+            if (baseEnemyController.IsPlayerDead)
             {
-                enemyController.EnemyView.StopMovement();
+                baseEnemyController.BaseEnemyView.StopMovement();
                 enemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
-            if (playerTransform == null || enemyController.IsDead)
+            if (playerTransform == null || baseEnemyController.IsDead)
             {
                 enemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
-            float distanceToPlayer = Vector2.Distance(enemyController.EnemyView.transform.position, playerTransform.position);
+            float distanceToPlayer = Vector2.Distance(baseEnemyController.BaseEnemyView.transform.position, playerTransform.position);
 
             if (distanceToPlayer > enemyScriptableObject.DetectionRange)
             {
@@ -54,13 +54,13 @@ namespace DragonBall.Enemy
                 return;
             }
 
-            if (!enemyController.isPlayerDead)
+            if (!baseEnemyController.IsPlayerDead)
             {
-                Vector2 direction = ((Vector2)playerTransform.position - (Vector2)enemyController.EnemyView.transform.position).normalized;
-                enemyController.EnemyView.MoveInDirection(direction, enemyScriptableObject.MoveSpeed);
+                Vector2 direction = ((Vector2)playerTransform.position - (Vector2)baseEnemyController.BaseEnemyView.transform.position).normalized;
+                baseEnemyController.BaseEnemyView.MoveInDirection(direction, enemyScriptableObject.MoveSpeed);
             }
         }
 
-        public void OnStateExit() => enemyController.EnemyView.SetMoving(false);
+        public void OnStateExit() => baseEnemyController.BaseEnemyView.SetMoving(false);
     }
 }

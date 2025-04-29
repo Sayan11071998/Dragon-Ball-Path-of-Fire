@@ -10,17 +10,17 @@ namespace DragonBall.Enemy
 
         private IState currentState;
         private EnemyStates currentEnemyStateEnum;
-        private EnemyController enemyController;
-        private EnemyView enemyView;
+        private BaseEnemyController enemyController;
+        private BaseEnemyView enemyView;
 
-        public EnemyStateMachine(EnemyController enemyController)
+        public EnemyStateMachine(BaseEnemyController enemyControllerToSet)
         {
-            this.enemyController = enemyController;
-            this.enemyView = enemyController.EnemyView;
-            CreateStates(enemyController);
+            enemyController = enemyControllerToSet;
+            enemyView = enemyControllerToSet.BaseEnemyView;
+            CreateStates(enemyControllerToSet);
         }
 
-        private void CreateStates(EnemyController enemyController)
+        private void CreateStates(BaseEnemyController enemyController)
         {
             states = new Dictionary<EnemyStates, IState>()
             {

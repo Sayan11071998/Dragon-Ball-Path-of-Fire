@@ -6,7 +6,7 @@ namespace DragonBall.Enemy
     public class EnemyScriptableObject : ScriptableObject
     {
         [Header("Prefab")]
-        public EnemyView EnemyPrefab;
+        public BaseEnemyView EnemyPrefab;
 
         [Header("Stats")]
         public float MaxHealth = 100f;

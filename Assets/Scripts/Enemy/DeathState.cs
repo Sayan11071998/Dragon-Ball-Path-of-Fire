@@ -4,10 +4,10 @@ namespace DragonBall.Enemy
 {
     public class DeathState : IState
     {
-        private EnemyController enemyController;
+        private BaseEnemyController enemyController;
         private EnemyStateMachine enemyStateMachine;
 
-        public DeathState(EnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
+        public DeathState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
             enemyController = controllerToSet;
             enemyStateMachine = stateMachineToSet;
@@ -15,12 +15,12 @@ namespace DragonBall.Enemy
 
         public void OnStateEnter()
         {
-            enemyController.EnemyView.StopMovement();
-            enemyController.EnemyView.StartDeathAnimation();
+            enemyController.BaseEnemyView.StopMovement();
+            enemyController.BaseEnemyView.StartDeathAnimation();
         }
 
         public void Update() { }
 
-        public void OnStateExit() => enemyController.EnemyView.ResetDeathState();
+        public void OnStateExit() => enemyController.BaseEnemyView.ResetDeathState();
     }
 }

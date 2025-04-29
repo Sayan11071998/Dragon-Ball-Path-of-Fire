@@ -7,24 +7,24 @@ namespace DragonBall.Enemy
     {
         private Dictionary<EnemyType, EnemyPool> enemyPools = new Dictionary<EnemyType, EnemyPool>();
 
-        public EnemyService(Dictionary<EnemyType, (EnemyView, EnemyScriptableObject)> enemyConfigs)
+        public EnemyService(Dictionary<EnemyType, (BaseEnemyView, EnemyScriptableObject)> enemyData)
         {
-            foreach (var config in enemyConfigs)
+            foreach (var item in enemyData)
             {
-                EnemyType type = config.Key;
-                EnemyView prefab = config.Value.Item1;
-                EnemyScriptableObject so = config.Value.Item2;
-                EnemyPool pool = new EnemyPool(prefab, so);
+                EnemyType type = item.Key;
+                BaseEnemyView prefab = item.Value.Item1;
+                EnemyScriptableObject so = item.Value.Item2;
+                EnemyPool pool = new EnemyPool(prefab, so, type);
                 enemyPools[type] = pool;
             }
         }
 
-        public EnemyController SpawnEnemy(EnemyType type)
+        public BaseEnemyController SpawnEnemy(EnemyType type)
         {
             if (enemyPools.TryGetValue(type, out EnemyPool pool))
             {
-                EnemyController enemy = pool.GetEnemy();
-                enemy.EnemyView.gameObject.SetActive(true);
+                BaseEnemyController enemy = pool.GetEnemy();
+                enemy.BaseEnemyView.gameObject.SetActive(true);
                 return enemy;
             }
             else
