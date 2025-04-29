@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DragonBall.Bullet
 {
-    [CreateAssetMenu(fileName = "BulletScriptableObject", menuName = "Player/BulletScriptableObject")]
+    [CreateAssetMenu(fileName = "BulletScriptableObject", menuName = "Bullet/BulletScriptableObject")]
     public class BulletScriptableObject : ScriptableObject
     {
         [Header("Bullet Properties")]

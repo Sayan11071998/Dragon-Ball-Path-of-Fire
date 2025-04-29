@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf8c6766a6728514890f1b3974d2303f, type: 3}
-  m_Name: Power Ball
+  m_Name: Player Power Ball
   m_EditorClassIdentifier: 
   BulletSpeed: 15
   BulletDamage: 25
