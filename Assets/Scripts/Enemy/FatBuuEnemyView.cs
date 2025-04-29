@@ -12,14 +12,15 @@ namespace DragonBall.Enemy
         [SerializeField] private float hitTime = 0.4f;
 
         [Header("Bullet Settings")]
-        [SerializeField] private BulletType bulletType = BulletType.EnemyRegularPowerBall;
+        [SerializeField] private Transform firePoint;
         [SerializeField] private Vector2 bulletSpawnOffset = new Vector2(0.8f, 0.2f);
+        [SerializeField] private BulletType bulletType = BulletType.EnemyRegularPowerBall;
 
         public override void StartAttack()
         {
             if (baseEnemyController != null && baseEnemyController.IsPlayerDead) return;
-
             if (isAttacking) return;
+
             isAttacking = true;
             animator.SetBool("isAttacking", true);
             StartCoroutine(AttackCoroutine());
@@ -45,11 +46,21 @@ namespace DragonBall.Enemy
             Debug.Log("Fat Buu is firing a bullet!");
 
             Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-            Vector2 bulletSpawnPoint = (Vector2)transform.position + new Vector2(spriteRenderer.flipX ? -bulletSpawnOffset.x : bulletSpawnOffset.x, bulletSpawnOffset.y);
+
+            Vector3 spawnPos;
+            if (firePoint != null)
+            {
+                spawnPos = firePoint.position;
+            }
+            else
+            {
+                float xOff = spriteRenderer.flipX ? -bulletSpawnOffset.x : bulletSpawnOffset.x;
+                spawnPos = (Vector2)transform.position + new Vector2(xOff, bulletSpawnOffset.y);
+            }
 
             GameService.Instance.bulletService.FireBullet(
                 bulletType,
-                bulletSpawnPoint,
+                spawnPos,
                 direction,
                 BulletTargetType.Player
             );
