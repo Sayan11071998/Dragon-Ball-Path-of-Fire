@@ -1,10 +1,13 @@
 using DragonBall.Enemy;
+using DragonBall.Core;
 using UnityEngine;
 
 namespace DragonBall.Bullet
 {
     public class BulletView : MonoBehaviour
     {
+        [SerializeField] private BulletTargetType targetType = BulletTargetType.Enemy;
+
         private BulletController bulletController;
         private Rigidbody2D rb;
 
@@ -16,12 +19,28 @@ namespace DragonBall.Bullet
 
         public void Deactivate() => gameObject.SetActive(false);
 
+        public void SetTargetType(BulletTargetType type) => targetType = type;
+
         private void Update() => bulletController.Update();
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.TryGetComponent<IDamageable>(out var target))
+            if (targetType == BulletTargetType.Enemy && collision.gameObject.TryGetComponent<IDamageable>(out var target))
+            {
                 bulletController.OnCollision(target);
+                return;
+            }
+
+            if (targetType == BulletTargetType.Player && collision.CompareTag("Player"))
+            {
+                var playerController = GameService.Instance.playerService.PlayerController;
+                if (!playerController.PlayerModel.IsDead)
+                {
+                    playerController.TakeDamage(bulletController.GetDamage());
+                    bulletController.Deactivate();
+                }
+                return;
+            }
         }
     }
 }

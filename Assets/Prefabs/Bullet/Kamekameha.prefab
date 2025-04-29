@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6782688645948615218}
   - component: {fileID: 7338010494882675222}
   - component: {fileID: 469067885124146360}
-  - component: {fileID: 926417491160561663}
   - component: {fileID: 7652995918818440022}
+  - component: {fileID: 926417491160561663}
   m_Layer: 10
   m_Name: Kamekameha
   m_TagString: Bullet
@@ -154,18 +154,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &926417491160561663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8222915919371350093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5d5bcd5b2e56a04fa15489c917070d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!96 &7652995918818440022
 TrailRenderer:
   serializedVersion: 3
@@ -273,3 +261,16 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &926417491160561663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8222915919371350093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d5bcd5b2e56a04fa15489c917070d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 0
