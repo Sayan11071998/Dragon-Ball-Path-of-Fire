@@ -1,5 +1,6 @@
 using System.Collections;
 using DragonBall.Core;
+using DragonBall.Bullet;
 using UnityEngine;
 
 namespace DragonBall.Enemy
@@ -9,13 +10,16 @@ namespace DragonBall.Enemy
         [Header("FatBuu-specific Attack Settings")]
         [SerializeField] private AnimationClip buuFireAnimation;
         [SerializeField] private float hitTime = 0.4f;
-        [SerializeField] private float fireAttackRange = 1.5f;
+
+        [Header("Bullet Settings")]
+        [SerializeField] private Transform firePoint;
+        [SerializeField] private BulletType bulletType = BulletType.EnemyRegularPowerBall;
 
         public override void StartAttack()
         {
             if (baseEnemyController != null && baseEnemyController.IsPlayerDead) return;
-
             if (isAttacking) return;
+
             isAttacking = true;
             animator.SetBool("isAttacking", true);
             StartCoroutine(AttackCoroutine());
@@ -38,21 +42,14 @@ namespace DragonBall.Enemy
         {
             if (baseEnemyController != null && baseEnemyController.IsPlayerDead) return;
 
-            Debug.Log("Enemy is firing");
-
             Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-            Vector2 origin = (Vector2)transform.position + Vector2.Scale(direction, attackOffset);
 
-            var hits = Physics2D.CircleCastAll(origin, attackRadius, Vector2.zero, fireAttackRange);
-            foreach (var hit in hits)
-            {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    var playerController = GameService.Instance.playerService.PlayerController;
-                    if (!playerController.PlayerModel.IsDead)
-                        playerController.TakeDamage(baseEnemyController.BaseEnemyModel.AttackDamage);
-                }
-            }
+            GameService.Instance.bulletService.FireBullet(
+                bulletType,
+                firePoint.position,
+                direction,
+                BulletTargetType.Player
+            );
         }
     }
 }

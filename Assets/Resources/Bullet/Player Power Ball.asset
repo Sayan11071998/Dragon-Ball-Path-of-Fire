@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ea77d3317253540a5bd00e3d8f39e5, type: 3}
-  m_Name: FatBuu
+  m_Script: {fileID: 11500000, guid: bf8c6766a6728514890f1b3974d2303f, type: 3}
+  m_Name: Player Power Ball
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 0}
-  MaxHealth: 100
-  MoveSpeed: 4
-  DetectionRange: 10
-  AttackRange: 8
-  AttackDamage: 20
-  AttackCooldown: 1
+  BulletSpeed: 15
+  BulletDamage: 25
+  BulletLifetime: 2

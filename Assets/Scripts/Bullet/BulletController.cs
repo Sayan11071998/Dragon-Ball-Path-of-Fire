@@ -5,43 +5,48 @@ namespace DragonBall.Bullet
 {
     public class BulletController
     {
-        private BulletModel model;
-        private BulletView view;
-        private BulletPool pool;
+        private BulletModel bulletModel;
+        private BulletView bulletView;
+        private BulletPool bulletPool;
+
         private float creationTime;
 
-        public BulletController(BulletModel _model, BulletView _view, BulletPool _pool)
+        public BulletController(BulletModel _bulletModel, BulletView _bulletView, BulletPool _bulletPool)
         {
-            model = _model;
-            view = _view;
-            pool = _pool;
-            view.SetController(this);
+            bulletModel = _bulletModel;
+            bulletView = _bulletView;
+            bulletPool = _bulletPool;
+
+            bulletView.SetController(this);
         }
 
-        public void Activate(Vector2 position, Vector2 direction)
+        public void Activate(Vector2 position, Vector2 direction, BulletTargetType targetType = BulletTargetType.Enemy)
         {
-            view.transform.position = position;
-            view.gameObject.SetActive(true);
-            view.SetVelocity(direction * model.Speed);
+            bulletView.transform.position = position;
+            bulletView.gameObject.SetActive(true);
+            bulletView.SetVelocity(direction * bulletModel.Speed);
+            bulletView.SetTargetType(targetType);
             creationTime = Time.time;
         }
 
         public void Update()
         {
-            if (Time.time > creationTime + model.Lifetime)
+            if (Time.time > creationTime + bulletModel.Lifetime)
                 Deactivate();
         }
 
         public void OnCollision(IDamageable target)
         {
-            target.Damage(model.Damage);
+            target.Damage(bulletModel.Damage);
             Deactivate();
         }
 
+        public float GetDamage() => bulletModel.Damage;
+
         public void Deactivate()
         {
-            view.Deactivate();
-            pool.ReturnItem(this);
+            bulletView.Deactivate();
+            bulletPool.ReturnItem(this);
         }
     }
 }

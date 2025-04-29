@@ -1984,6 +1984,8 @@ MonoBehaviour:
   regularBulletSO: {fileID: 11400000, guid: f756d1ff24654764fa25002ca06a1f3f, type: 2}
   kamehamehaPrefab: {fileID: 926417491160561663, guid: aeda240edb3b4cf48a43afd69f1a1ea9, type: 3}
   kamehamehaSO: {fileID: 11400000, guid: f7f87b3c564c42e4183c85c2be5c54f8, type: 2}
+  enemyBulletPrefab: {fileID: 926417491160561663, guid: 9658a81a1f44ebc4e9ff8287e281f352, type: 3}
+  enemyBulletSO: {fileID: 11400000, guid: a152883d84a0b314093cb3083d4b4eac, type: 2}
   enemyConfigs:
   - type: 0
     prefab: {fileID: 1637688450260828064, guid: 4420220a5cf9878479e86c3ee56939cd, type: 3}
@@ -5313,6 +5315,10 @@ PrefabInstance:
     - target: {fileID: 92947577876303025, guid: a57436fdb7eb47c438d905357e2f6fb0, type: 3}
       propertyPath: m_Name
       value: Buu Enemy Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 92947577876303025, guid: a57436fdb7eb47c438d905357e2f6fb0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2258720888404190864, guid: a57436fdb7eb47c438d905357e2f6fb0, type: 3}
       propertyPath: m_LocalPosition.x

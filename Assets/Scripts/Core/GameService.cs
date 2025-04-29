@@ -28,6 +28,8 @@ namespace DragonBall.Core
         [SerializeField] private BulletScriptableObject regularBulletSO;
         [SerializeField] private BulletView kamehamehaPrefab;
         [SerializeField] private BulletScriptableObject kamehamehaSO;
+        [SerializeField] private BulletView enemyBulletPrefab;
+        [SerializeField] private BulletScriptableObject enemyBulletSO;
 
         [Header("Enemy")]
         [SerializeField] private List<EnemyConfig> enemyConfigs;
@@ -66,8 +68,9 @@ namespace DragonBall.Core
         {
             var bulletConfigs = new Dictionary<BulletType, (BulletView, BulletScriptableObject)>
             {
-                { BulletType.Regular, (regularBulletPrefab, regularBulletSO) },
-                { BulletType.Kamehameha, (kamehamehaPrefab, kamehamehaSO) }
+                { BulletType.PlayerRegularPowerBall, (regularBulletPrefab, regularBulletSO) },
+                { BulletType.PlayerKamehamehaPowerBall, (kamehamehaPrefab, kamehamehaSO) },
+                { BulletType.EnemyRegularPowerBall, (enemyBulletPrefab, enemyBulletSO) }
             };
             bulletService = new BulletService(bulletConfigs);
         }
