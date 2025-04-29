@@ -6,55 +6,47 @@ namespace DragonBall.Enemy
     public class RunningState : IState
     {
         private EnemyController enemyController;
-        private EnemyStateMachine stateMachine;
+        private EnemyStateMachine enemyStateMachine;
         private Transform playerTransform;
-        private EnemyScriptableObject enemySO;
+        private EnemyScriptableObject enemyScriptableObject;
 
-        public RunningState(EnemyController controller, EnemyStateMachine stateMachine)
+        public RunningState(EnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
-            this.enemyController = controller;
-            this.stateMachine = stateMachine;
-            this.enemySO = controller.EnemySO;
+            enemyController = controllerToSet;
+            enemyStateMachine = stateMachineToSet;
+            enemyScriptableObject = controllerToSet.EnemyData;
+
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
 
-        public void OnStateEnter()
-        {
-            enemyController.View.SetMoving(true);
-        }
+        public void OnStateEnter() => enemyController.EnemyView.SetMoving(true);
 
         public void Update()
         {
             if (playerTransform == null || enemyController.IsDead)
             {
-                stateMachine.ChangeState(EnemyStates.IDLE);
+                enemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
-            float distanceToPlayer = Vector2.Distance(enemyController.View.transform.position, playerTransform.position);
+            float distanceToPlayer = Vector2.Distance(enemyController.EnemyView.transform.position, playerTransform.position);
 
-            // If player is no longer in detection range
-            if (distanceToPlayer > enemySO.DetectionRange)
+            if (distanceToPlayer > enemyScriptableObject.DetectionRange)
             {
-                stateMachine.ChangeState(EnemyStates.IDLE);
+                enemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
-            // If player is in attack range
-            if (distanceToPlayer <= enemySO.AttackRange)
+            if (distanceToPlayer <= enemyScriptableObject.AttackRange)
             {
-                stateMachine.ChangeState(EnemyStates.ATTACK);
+                enemyStateMachine.ChangeState(EnemyStates.ATTACK);
                 return;
             }
 
-            // Move towards player
-            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)enemyController.View.transform.position).normalized;
-            enemyController.View.MoveInDirection(direction, enemySO.MoveSpeed);
+            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)enemyController.EnemyView.transform.position).normalized;
+            enemyController.EnemyView.MoveInDirection(direction, enemyScriptableObject.MoveSpeed);
         }
 
-        public void OnStateExit()
-        {
-            // Nothing specific to clean up
-        }
+        public void OnStateExit() { }
     }
 }

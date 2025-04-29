@@ -1,73 +1,66 @@
-using UnityEngine;
-
 namespace DragonBall.Enemy
 {
     public class EnemyController
     {
-        private EnemyModel model;
-        private EnemyView view;
-        private EnemyPool pool;
-        private EnemyScriptableObject enemySO;
-        private EnemyStateMachine stateMachine;
+        private EnemyModel enemyModel;
+        private EnemyView enemyView;
+        private EnemyPool enemyPool;
+        private EnemyScriptableObject enemyScriptableObject;
+        private EnemyStateMachine enemyStateMachine;
+
+        public EnemyView EnemyView => enemyView;
+        public EnemyModel EnemyModel => enemyModel;
+        public EnemyScriptableObject EnemyData => enemyScriptableObject;
 
         private bool isDead = false;
-
-        public EnemyView View => view;
-        public EnemyModel Model => model;
-        public EnemyScriptableObject EnemySO => enemySO;
         public bool IsDead => isDead;
 
         public EnemyController(EnemyScriptableObject enemySO, EnemyView view, EnemyPool pool)
         {
-            this.enemySO = enemySO;
-            this.view = view;
-            this.pool = pool;
-            model = new EnemyModel(enemySO.MaxHealth, enemySO.AttackDamage, enemySO.AttackCooldown);
+            enemyScriptableObject = enemySO;
+            enemyView = view;
+            enemyPool = pool;
+
+            enemyModel = new EnemyModel(enemySO.MaxHealth, enemySO.AttackDamage, enemySO.AttackCooldown);
             view.SetController(this);
 
-            // Initialize and setup state machine
-            stateMachine = new EnemyStateMachine(this);
-            stateMachine.ChangeState(EnemyStates.IDLE);
+            enemyStateMachine = new EnemyStateMachine(this);
+            enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
 
         public void FixedUpdate()
         {
-            if (isDead)
-                return;
-
-            stateMachine.Update();
+            if (isDead) return;
+            enemyStateMachine.Update();
         }
 
         public void TakeDamage(float damage)
         {
-            model.TakeDamage(damage);
+            enemyModel.TakeDamage(damage);
 
-            if (model.CurrentHealth <= 0 && !isDead)
+            if (enemyModel.CurrentHealth <= 0 && !isDead)
                 HandleDeath();
         }
 
         private void HandleDeath()
         {
             isDead = true;
-            stateMachine.ChangeState(EnemyStates.DEATH);
+            enemyStateMachine.ChangeState(EnemyStates.DEATH);
         }
 
-        public void OnDeathAnimationComplete()
-        {
-            Die();
-        }
+        public void OnDeathAnimationComplete() => Die();
 
         private void Die()
         {
-            view.gameObject.SetActive(false);
-            pool.ReturnItem(this);
+            enemyView.gameObject.SetActive(false);
+            enemyPool.ReturnItem(this);
         }
 
         public void Reset()
         {
-            model.Reset();
+            enemyModel.Reset();
             isDead = false;
-            stateMachine.ChangeState(EnemyStates.IDLE);
+            enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
     }
 }

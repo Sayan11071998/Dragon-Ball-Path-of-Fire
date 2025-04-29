@@ -6,71 +6,61 @@ namespace DragonBall.Enemy
     public class AttackState : IState
     {
         private EnemyController enemyController;
-        private EnemyStateMachine stateMachine;
+        private EnemyStateMachine enemyStateMachine;
         private Transform playerTransform;
-        private EnemyScriptableObject enemySO;
-        private EnemyModel model;
+        private EnemyScriptableObject enemyScriptableObject;
+        private EnemyModel enemyModel;
 
-        public AttackState(EnemyController controller, EnemyStateMachine stateMachine)
+        public AttackState(EnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
-            this.enemyController = controller;
-            this.stateMachine = stateMachine;
-            this.enemySO = controller.EnemySO;
-            this.model = controller.Model;
+            this.enemyController = controllerToSet;
+            this.enemyStateMachine = stateMachineToSet;
+            this.enemyScriptableObject = controllerToSet.EnemyData;
+            this.enemyModel = controllerToSet.EnemyModel;
+
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
 
-        public void OnStateEnter()
-        {
-            enemyController.View.SetMoving(false);
-        }
+        public void OnStateEnter() => enemyController.EnemyView.SetMoving(false);
 
         public void Update()
         {
             if (playerTransform == null || enemyController.IsDead)
             {
-                stateMachine.ChangeState(EnemyStates.IDLE);
+                enemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
-            float distanceToPlayer = Vector2.Distance(enemyController.View.transform.position, playerTransform.position);
+            float distanceToPlayer = Vector2.Distance(enemyController.EnemyView.transform.position, playerTransform.position);
 
-            // If player is no longer in detection range
-            if (distanceToPlayer > enemySO.DetectionRange)
+            if (distanceToPlayer > enemyScriptableObject.DetectionRange)
             {
-                stateMachine.ChangeState(EnemyStates.IDLE);
+                enemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
-            // If player is not in attack range but still detected
-            if (distanceToPlayer > enemySO.AttackRange && distanceToPlayer <= enemySO.DetectionRange)
+            if (distanceToPlayer > enemyScriptableObject.AttackRange && distanceToPlayer <= enemyScriptableObject.DetectionRange)
             {
-                stateMachine.ChangeState(EnemyStates.RUNNING);
+                enemyStateMachine.ChangeState(EnemyStates.RUNNING);
                 return;
             }
 
-            // Face the player
-            enemyController.View.FaceTarget(playerTransform.position);
-
-            // Try to attack
+            enemyController.EnemyView.FaceTarget(playerTransform.position);
             TryAttack();
         }
 
         private void TryAttack()
         {
-            if (Time.time < model.lastAttackTime + enemySO.AttackCooldown)
+            if (Time.time < enemyModel.lastAttackTime + enemyScriptableObject.AttackCooldown)
                 return;
 
-            if (!enemyController.View.IsAttacking)
+            if (!enemyController.EnemyView.IsAttacking)
             {
-                enemyController.View.StartAttack();
-                model.lastAttackTime = Time.time;
+                enemyController.EnemyView.StartAttack();
+                enemyModel.lastAttackTime = Time.time;
             }
         }
 
-        public void OnStateExit()
-        {
-            // Nothing specific to clean up
-        }
+        public void OnStateExit() { }
     }
 }

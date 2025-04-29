@@ -6,48 +6,37 @@ namespace DragonBall.Enemy
     public class IdleState : IState
     {
         private EnemyController enemyController;
-        private EnemyStateMachine stateMachine;
+        private EnemyStateMachine enemyStateMachine;
         private Transform playerTransform;
-        private EnemyScriptableObject enemySO;
+        private EnemyScriptableObject enemyScriptableObject;
 
-        public IdleState(EnemyController controller, EnemyStateMachine stateMachine)
+        public IdleState(EnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
-            this.enemyController = controller;
-            this.stateMachine = stateMachine;
-            this.enemySO = controller.EnemySO;
+            enemyController = controllerToSet;
+            enemyStateMachine = stateMachineToSet;
+            enemyScriptableObject = controllerToSet.EnemyData;
+
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
 
-        public void OnStateEnter()
-        {
-            enemyController.View.SetMoving(false);
-        }
+        public void OnStateEnter() => enemyController.EnemyView.SetMoving(false);
 
         public void Update()
         {
             if (playerTransform == null || enemyController.IsDead)
                 return;
 
-            float distanceToPlayer = Vector2.Distance(enemyController.View.transform.position, playerTransform.position);
+            float distanceToPlayer = Vector2.Distance(enemyController.EnemyView.transform.position, playerTransform.position);
 
-            // Check if player is detected
-            if (distanceToPlayer <= enemySO.DetectionRange)
+            if (distanceToPlayer <= enemyScriptableObject.DetectionRange)
             {
-                // Check if in attack range
-                if (distanceToPlayer <= enemySO.AttackRange)
-                {
-                    stateMachine.ChangeState(EnemyStates.ATTACK);
-                }
+                if (distanceToPlayer <= enemyScriptableObject.AttackRange)
+                    enemyStateMachine.ChangeState(EnemyStates.ATTACK);
                 else
-                {
-                    stateMachine.ChangeState(EnemyStates.RUNNING);
-                }
+                    enemyStateMachine.ChangeState(EnemyStates.RUNNING);
             }
         }
 
-        public void OnStateExit()
-        {
-            // Nothing to clean up
-        }
+        public void OnStateExit() { }
     }
 }

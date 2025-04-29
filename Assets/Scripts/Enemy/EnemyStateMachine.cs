@@ -6,8 +6,9 @@ namespace DragonBall.Enemy
 {
     public class EnemyStateMachine
     {
-        private IState currentState;
         public Dictionary<EnemyStates, IState> states;
+
+        private IState currentState;
         private EnemyStates currentEnemyStateEnum;
         private EnemyController enemyController;
         private EnemyView enemyView;
@@ -15,7 +16,7 @@ namespace DragonBall.Enemy
         public EnemyStateMachine(EnemyController enemyController)
         {
             this.enemyController = enemyController;
-            this.enemyView = enemyController.View;
+            this.enemyView = enemyController.EnemyView;
             CreateStates(enemyController);
         }
 
@@ -34,7 +35,6 @@ namespace DragonBall.Enemy
         {
             if (states.ContainsKey(newState))
             {
-                // Only change state if it's different from the current state
                 if (currentEnemyStateEnum != newState || currentState == null)
                 {
                     enemyView.ResetAllInputs();
