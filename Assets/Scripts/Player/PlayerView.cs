@@ -27,8 +27,6 @@ namespace DragonBall.Player
         private CapsuleCollider2D capsuleCollider2D;
         private Animator animator;
 
-        private bool isDying = false;
-
         private float moveInput;
         private bool isJumping;
         private bool isVanishing;
@@ -128,8 +126,6 @@ namespace DragonBall.Player
 
         public IEnumerator DeathSequence()
         {
-            isDying = true;
-
             PlayDeathAnimation();
             yield return new WaitForSeconds(0.1f);
 

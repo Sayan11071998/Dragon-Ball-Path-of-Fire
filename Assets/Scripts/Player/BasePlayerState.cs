@@ -9,16 +9,16 @@ namespace DragonBall.Player
     public abstract class BasePlayerState : IState
     {
         protected PlayerController playerController;
-        protected PlayerStateMachine stateMachine;
+        protected PlayerStateMachine playerStateMachine;
         protected PlayerModel playerModel;
         protected PlayerView playerView;
 
-        public BasePlayerState(PlayerController controller, PlayerStateMachine stateMachine)
+        public BasePlayerState(PlayerController controllerToSet, PlayerStateMachine stateMachineToSet)
         {
-            this.playerController = controller;
-            this.stateMachine = stateMachine;
-            this.playerModel = controller.PlayerModel;
-            this.playerView = controller.PlayerView;
+            playerController = controllerToSet;
+            playerStateMachine = stateMachineToSet;
+            playerModel = controllerToSet.PlayerModel;
+            playerView = controllerToSet.PlayerView;
         }
 
         public abstract void OnStateEnter();
@@ -44,8 +44,7 @@ namespace DragonBall.Player
 
         protected void HandleKick()
         {
-            if (playerModel.IsDead || !playerView.KickInput)
-                return;
+            if (playerModel.IsDead || !playerView.KickInput) return;
 
             if (playerModel.IsKickOnCooldown)
             {
@@ -73,8 +72,7 @@ namespace DragonBall.Player
 
         protected void HandleFire()
         {
-            if (playerModel.IsDead || !playerView.FireInput)
-                return;
+            if (playerModel.IsDead || !playerView.FireInput) return;
 
             if (playerModel.IsFireOnCooldown)
             {
