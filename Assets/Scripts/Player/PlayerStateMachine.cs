@@ -6,17 +6,19 @@ namespace DragonBall.Player
 {
     public class PlayerStateMachine
     {
-        private IState currentState;
         public Dictionary<PlayerState, IState> states;
+
+        private IState currentPlayerState;
         private PlayerState currentPlayerStateEnum;
         private PlayerController playerController;
         private PlayerView playerView;
 
-        public PlayerStateMachine(PlayerController playerController)
+        public PlayerStateMachine(PlayerController controllerToSet)
         {
-            this.playerController = playerController;
-            this.playerView = playerController.PlayerView;
-            CreateStates(playerController);
+            playerController = controllerToSet;
+            playerView = controllerToSet.PlayerView;
+
+            CreateStates(controllerToSet);
         }
 
         private void CreateStates(PlayerController playerController)
@@ -45,14 +47,14 @@ namespace DragonBall.Player
 
         private void ChangeState(IState newState)
         {
-            currentState?.OnStateExit();
-            currentState = newState;
-            currentState?.OnStateEnter();
+            currentPlayerState?.OnStateExit();
+            currentPlayerState = newState;
+            currentPlayerState?.OnStateEnter();
         }
 
-        public void Update() => currentState?.Update();
+        public void Update() => currentPlayerState?.Update();
 
-        public IState GetCurrentState() => currentState;
+        public IState GetCurrentState() => currentPlayerState;
         public PlayerState GetCurrentPlayerState() => currentPlayerStateEnum;
         public Dictionary<PlayerState, IState> GetStates() => states;
     }

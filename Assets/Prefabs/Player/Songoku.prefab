@@ -300,6 +300,11 @@ MonoBehaviour:
     m_Bits: 2560
   fireTransform: {fileID: 3304409233257761949}
   kamehamehaTransform: {fileID: 5036742877905417948}
+  playerDeathClip: {fileID: 7400000, guid: 79cfc00ac2d25124f994a58c00853943, type: 2}
+  deathClipDurationOffset: 0.5
+  flyAwayForceX: 5
+  flyAwayForceY: 2
+  flyAwayDuration: 0.3
 --- !u!1 &8652443258193641311
 GameObject:
   m_ObjectHideFlags: 0

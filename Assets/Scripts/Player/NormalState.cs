@@ -15,7 +15,7 @@ namespace DragonBall.Player
         {
             if (playerModel.DragonBallCount >= playerModel.DragonBallsRequiredForSuperSaiyan)
             {
-                stateMachine.ChangeState(PlayerState.SUPER_SAIYAN);
+                playerStateMachine.ChangeState(PlayerState.SUPER_SAIYAN);
                 return;
             }
 

@@ -13,10 +13,10 @@ namespace DragonBall.Enemy
 
         public AttackState(EnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
         {
-            this.enemyController = controllerToSet;
-            this.enemyStateMachine = stateMachineToSet;
-            this.enemyScriptableObject = controllerToSet.EnemyData;
-            this.enemyModel = controllerToSet.EnemyModel;
+            enemyController = controllerToSet;
+            enemyStateMachine = stateMachineToSet;
+            enemyScriptableObject = controllerToSet.EnemyData;
+            enemyModel = controllerToSet.EnemyModel;
 
             playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }

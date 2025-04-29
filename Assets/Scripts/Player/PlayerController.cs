@@ -18,12 +18,16 @@ namespace DragonBall.Player
             playerModel = _playerModel;
             playerView = _playerView;
 
+            playerView.SetPlayerController(this);
+
             stateMachine = new PlayerStateMachine(this);
             stateMachine.ChangeState(PlayerState.NORMAL);
         }
 
         public void Update()
         {
+            if (playerModel.IsDead) return;
+
             HandleGroundCheck();
             HandleMovement();
             HandleJump();
@@ -43,8 +47,7 @@ namespace DragonBall.Player
         {
             float moveInput = playerView.MoveInput;
 
-            if (playerModel.IsDodging)
-                return;
+            if (playerModel.IsDodging) return;
 
             var velocity = playerView.Rigidbody.linearVelocity;
             velocity.x = moveInput * playerModel.MoveSpeed;
@@ -64,8 +67,7 @@ namespace DragonBall.Player
 
         private void HandleJump()
         {
-            if (!playerView.JumpInput)
-                return;
+            if (!playerView.JumpInput) return;
 
             var velocity = playerView.Rigidbody.linearVelocity;
 
@@ -91,6 +93,16 @@ namespace DragonBall.Player
         {
             playerModel.IncrementDragonBallCount();
             Debug.Log("Dragon Ball collected! Total: " + playerModel.DragonBallCount);
+        }
+
+        public void TakeDamage(float damage)
+        {
+            if (playerModel.IsDead) return;
+
+            playerModel.TakeDamage(damage);
+
+            if (playerModel.IsDead)
+                playerView.StartCoroutine(playerView.DeathSequence());
         }
     }
 }

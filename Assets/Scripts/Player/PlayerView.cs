@@ -8,15 +8,24 @@ namespace DragonBall.Player
 {
     public class PlayerView : MonoBehaviour
     {
+        [Header("Attack Settings")]
         [SerializeField] private Transform attackTransform;
         [SerializeField] private float attackRange = 1.5f;
         [SerializeField] private LayerMask attackableLayer;
         [SerializeField] private Transform fireTransform;
         [SerializeField] private Transform kamehamehaTransform;
 
-        private Animator animator;
+        [Header("Death Settings")]
+        [SerializeField] private AnimationClip playerDeathClip;
+        [SerializeField] private float deathClipDurationOffset = 0.5f;
+        [SerializeField] private float flyAwayForceX = 5f;
+        [SerializeField] private float flyAwayForceY = 2f;
+        [SerializeField] private float flyAwayDuration = 0.3f;
+
+        private PlayerController playerController;
         private Rigidbody2D rb;
         private CapsuleCollider2D capsuleCollider2D;
+        private Animator animator;
 
         private float moveInput;
         private bool isJumping;
@@ -48,6 +57,8 @@ namespace DragonBall.Player
             rb = GetComponent<Rigidbody2D>();
             capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         }
+
+        public void SetPlayerController(PlayerController controller) => playerController = controller;
 
         public void OnMove(InputValue value) => moveInput = value.Get<Vector2>().x;
         public void OnJump() => isJumping = true;
@@ -89,6 +100,7 @@ namespace DragonBall.Player
         public void PlayKickAnimation() => animator.SetTrigger("isKickingTrigger");
         public void PlayFireAnimation() => animator.SetTrigger("isFiring");
         public void PlayKamehamehaAnimation() => animator.SetTrigger("isKamehameha");
+        public void PlayDeathAnimation() => animator.SetTrigger("isDead");
 
         public AnimationClip GetKamehamehaAnimationClip()
         {
@@ -104,6 +116,28 @@ namespace DragonBall.Player
         {
             yield return new WaitForSeconds(delay);
             onComplete?.Invoke();
+        }
+
+        public void Damage(int amount)
+        {
+            if (playerController != null)
+                playerController.TakeDamage(amount);
+        }
+
+        public IEnumerator DeathSequence()
+        {
+            PlayDeathAnimation();
+            yield return new WaitForSeconds(0.1f);
+
+            float directionX = transform.localScale.x > 0 ? -1 : 1;
+
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(new Vector2(directionX * flyAwayForceX, flyAwayForceY), ForceMode2D.Impulse);
+            yield return new WaitForSeconds(flyAwayDuration);
+
+            yield return new WaitForSeconds(playerDeathClip.length + deathClipDurationOffset);
+
+            Destroy(gameObject);
         }
     }
 }

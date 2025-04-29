@@ -1,8 +1,12 @@
+using UnityEngine;
+
 namespace DragonBall.Player
 {
     public class PlayerModel
     {
-        public int Health { get; private set; }
+        public float MaxHealth { get; private set; }
+        public float CurrentHealth { get; private set; }
+        public bool IsDead { get; private set; }
 
         public float MoveSpeed { get; private set; }
         public float OriginalMoveSpeed { get; private set; }
@@ -21,11 +25,11 @@ namespace DragonBall.Player
         public float KickAttackRange { get; private set; }
         public float KickAttackCooldown { get; private set; }
         public float LastKickTime { get; set; } = -10f;
-        public bool IsKickOnCooldown => UnityEngine.Time.time < LastKickTime + KickAttackCooldown;
+        public bool IsKickOnCooldown => Time.time < LastKickTime + KickAttackCooldown;
 
         public float FireCooldown { get; private set; }
         public float LastFireTime { get; set; } = -10f;
-        public bool IsFireOnCooldown => UnityEngine.Time.time < LastFireTime + FireCooldown;
+        public bool IsFireOnCooldown => Time.time < LastFireTime + FireCooldown;
 
         public bool IsGrounded { get; set; }
         public bool IsFacingRight { get; set; } = true;
@@ -43,7 +47,7 @@ namespace DragonBall.Player
 
         public PlayerModel
         (
-            int _Health,
+            float _maxHealth,
             float _moveSpeed,
             float _jumpSpeed,
             float _jumpHorizontalDampening,
@@ -60,7 +64,8 @@ namespace DragonBall.Player
             float _superSaiyanPowerMultiplier
         )
         {
-            Health = _Health;
+            MaxHealth = _maxHealth;
+            CurrentHealth = MaxHealth;
             MoveSpeed = _moveSpeed;
             OriginalMoveSpeed = _moveSpeed;
             JumpSpeed = _jumpSpeed;
@@ -77,6 +82,7 @@ namespace DragonBall.Player
             DragonBallsRequiredForSuperSaiyan = _dragonBallsRequiredForSuperSaiyan;
             SuperSaiyanSpeedMultiplier = _superSaiyanSpeedMultiplier;
             SuperSaiyanPowerMultiplier = _superSaiyanPowerMultiplier;
+            IsDead = false;
             IsGrounded = true;
             IsDodging = false;
         }
@@ -93,6 +99,25 @@ namespace DragonBall.Player
         {
             MoveSpeed = OriginalMoveSpeed;
             KickAttackPower = OriginalKickAttackPower;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            if (damage <= 0 || IsDead) return;
+
+            CurrentHealth -= damage;
+            Debug.Log($"Player Health: {CurrentHealth}");
+            if (CurrentHealth <= 0)
+            {
+                CurrentHealth = 0;
+                IsDead = true;
+            }
+        }
+
+        public void Reset()
+        {
+            CurrentHealth = MaxHealth;
+            IsDead = false;
         }
     }
 }
