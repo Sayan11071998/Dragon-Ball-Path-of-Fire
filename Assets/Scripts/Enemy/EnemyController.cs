@@ -86,6 +86,7 @@ namespace DragonBall.Enemy
         private void HandleDeath()
         {
             isDead = true;
+            view.StopMovement();
             view.StartDeathAnimation();
         }
 

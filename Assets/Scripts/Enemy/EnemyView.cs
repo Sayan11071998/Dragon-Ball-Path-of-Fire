@@ -23,8 +23,6 @@ namespace DragonBall.Enemy
 
         public bool IsAttacking => isAttacking;
 
-        private readonly string IS_DEAD = "isDead";
-
         public void SetController(EnemyController c) => controller = c;
 
         private void Awake()
@@ -33,7 +31,7 @@ namespace DragonBall.Enemy
             animator = GetComponent<Animator>();
             spriteRenderer = GetComponent<SpriteRenderer>();
 
-            animator.SetBool(IS_DEAD, false);
+            animator.SetBool("isDead", false);
         }
 
         private void FixedUpdate()
@@ -99,12 +97,20 @@ namespace DragonBall.Enemy
             }
         }
 
+        public void StopMovement()
+        {
+            if (rb != null)
+                rb.linearVelocity = Vector2.zero;
+
+            SetMoving(false);
+        }
+
         public void StartDeathAnimation()
         {
             if (isDying) return;
 
             isDying = true;
-            animator.SetBool(IS_DEAD, true);
+            animator.SetBool("isDead", true);
             StartCoroutine(DeathCoroutine());
         }
 
@@ -118,7 +124,7 @@ namespace DragonBall.Enemy
         public void ResetDeathState()
         {
             isDying = false;
-            animator.SetBool(IS_DEAD, false);
+            animator.SetBool("isDead", false);
         }
     }
 }
