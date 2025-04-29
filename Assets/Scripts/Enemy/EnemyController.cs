@@ -12,6 +12,7 @@ namespace DragonBall.Enemy
         private Transform playerTransform;
         private bool isPlayerDetected = false;
         private bool isInAttackRange = false;
+        private bool isDead = false;
 
         public EnemyView View => view;
 
@@ -27,7 +28,7 @@ namespace DragonBall.Enemy
 
         public void FixedUpdate()
         {
-            if (playerTransform == null)
+            if (playerTransform == null || isDead)
                 return;
 
             UpdateDetection();
@@ -78,8 +79,20 @@ namespace DragonBall.Enemy
         {
             model.TakeDamage(damage);
 
-            if (model.CurrentHealth <= 0)
-                Die();
+            if (model.CurrentHealth <= 0 && !isDead)
+                HandleDeath();
+        }
+
+        private void HandleDeath()
+        {
+            isDead = true;
+            view.StopMovement();
+            view.StartDeathAnimation();
+        }
+
+        public void OnDeathAnimationComplete()
+        {
+            Die();
         }
 
         private void Die()
@@ -93,6 +106,7 @@ namespace DragonBall.Enemy
             model.Reset();
             isPlayerDetected = false;
             isInAttackRange = false;
+            isDead = false;
         }
     }
 }

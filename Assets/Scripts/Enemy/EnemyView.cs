@@ -7,9 +7,16 @@ namespace DragonBall.Enemy
     {
         [Header("Attack Settings")]
         [SerializeField] private AnimationClip kickAnimation;
+        [SerializeField] private AnimationClip deathClip;
         [SerializeField] private float attackRadius = 0.5f;
         [SerializeField] private Vector2 attackOffset = new Vector2(0.5f, 0f);
         [SerializeField] private float hitTime = 0.3f;
+        [SerializeField] private float deathClipDurationOffset = 0.5f;
+
+        [Header("Death Fly Away Settings")]
+        [SerializeField] private float flyAwayForceX = 5f;
+        [SerializeField] private float flyAwayForceY = 2f;
+        [SerializeField] private float flyAwayDuration = 0.3f;
 
         private EnemyController controller;
         private Rigidbody2D rb;
@@ -17,6 +24,7 @@ namespace DragonBall.Enemy
         private SpriteRenderer spriteRenderer;
         private bool isMoving = false;
         private bool isAttacking = false;
+        private bool isDying = false;
 
         public bool IsAttacking => isAttacking;
 
@@ -27,6 +35,8 @@ namespace DragonBall.Enemy
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             spriteRenderer = GetComponent<SpriteRenderer>();
+
+            animator.SetBool("isDead", false);
         }
 
         private void FixedUpdate()
@@ -90,6 +100,43 @@ namespace DragonBall.Enemy
                 if (hit.collider.CompareTag("Player"))
                     Debug.Log("Player got damaged");
             }
+        }
+
+        public void StopMovement()
+        {
+            if (rb != null)
+                rb.linearVelocity = Vector2.zero;
+
+            SetMoving(false);
+        }
+
+        public void StartDeathAnimation()
+        {
+            if (isDying) return;
+
+            isDying = true;
+            animator.SetBool("isDead", true);
+
+            float xDirection = spriteRenderer.flipX ? 1f : -1f;
+            Vector2 flyAwayForce = new Vector2(flyAwayForceX * xDirection, flyAwayForceY);
+            rb.AddForce(flyAwayForce, ForceMode2D.Impulse);
+
+            StartCoroutine(DeathCoroutine());
+        }
+
+        private IEnumerator DeathCoroutine()
+        {
+            float length = deathClip != null ? (deathClip.length + deathClipDurationOffset) : 0.5f;
+            yield return new WaitForSeconds(flyAwayDuration);
+            rb.linearVelocity = Vector2.zero;
+            yield return new WaitForSeconds(length - flyAwayDuration);
+            controller.OnDeathAnimationComplete();
+        }
+
+        public void ResetDeathState()
+        {
+            isDying = false;
+            animator.SetBool("isDead", false);
         }
     }
 }
