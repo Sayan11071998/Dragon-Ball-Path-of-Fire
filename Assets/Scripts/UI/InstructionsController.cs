@@ -9,21 +9,16 @@ namespace DragonBall.UI
 {
     public class InstructionsController : MonoBehaviour
     {
-        [Header("Movement Panel References")]
-        [SerializeField] private GameObject movePanel;
-        [SerializeField] private TextMeshProUGUI moveHeaderText;
-        [SerializeField] private TextMeshProUGUI moveBodyText;
-        [SerializeField] private Button moreButton;
-
-        [Header("Attack Panel References")]
-        [SerializeField] private GameObject attackPanel;
-        [SerializeField] private TextMeshProUGUI attackHeaderText;
-        [SerializeField] private TextMeshProUGUI attackBodyText;
-        [SerializeField] private Button continueButton;
+        [Header("Panel References")]
+        [SerializeField] private GameObject instructionPanel;
+        [SerializeField] private TextMeshProUGUI headerText;
+        [SerializeField] private TextMeshProUGUI bodyText;
+        [SerializeField] private Button actionButton;
+        [SerializeField] private TextMeshProUGUI buttonText;
 
         [Header("Scene Management")]
         [SerializeField] private string gameplaySceneName = "Gameplay";
-        [SerializeField] private bool enableButtonsAfterTyping = true;
+        [SerializeField] private bool enableButtonAfterTyping = true;
 
         [Header("Text Animation Settings")]
         [SerializeField] private float typingSpeed = 0.05f;
@@ -32,6 +27,7 @@ namespace DragonBall.UI
 
         [Header("Movement Instructions")]
         [SerializeField] private string movePanelTitle = "MOVE ACTIONS";
+        [SerializeField] private string moreButtonText = "MORE";
         [TextArea(3, 5)]
         [SerializeField]
         private List<string> moveInstructionLines = new List<string>
@@ -44,88 +40,57 @@ namespace DragonBall.UI
 
         [Header("Attack Instructions")]
         [SerializeField] private string attackPanelTitle = "ATTACK ACTIONS";
+        [SerializeField] private string continueButtonText = "CONTINUE";
         [TextArea(3, 5)]
         [SerializeField]
         private List<string> attackInstructionLines = new List<string>
         {
-            "Press 'J' to Punch",
-            "Press 'K' to Kick",
-            "Press 'L' to Shoot Energy Ball",
-            "Hold 'L' to Charge Kamehameha"
+            "Press 'V' to Instant Transport",
+            "Press 'F' to Dodge",
+            "Press 'RMB' to Kick",
+            "Press 'LMB' to Fire",
+            "Hold 'K' to Charge Kamehameha"
         };
 
         private Coroutine typingCoroutine;
         private bool isTyping = false;
         private bool skipTyping = false;
-        private bool isMovePanelActive = true;
+        private bool isMovementMode = true;
 
         private void Awake()
         {
-            // Setup Move Panel
-            if (moveHeaderText != null)
-                moveHeaderText.text = movePanelTitle;
-            if (moveBodyText != null)
-                moveBodyText.text = "";
-            if (moreButton != null)
+            if (actionButton != null)
             {
-                moreButton.onClick.AddListener(OnMoreButtonClicked);
-                if (enableButtonsAfterTyping)
-                    moreButton.gameObject.SetActive(false);
+                actionButton.onClick.AddListener(OnActionButtonClicked);
+                if (enableButtonAfterTyping)
+                    actionButton.gameObject.SetActive(false);
             }
-
-            // Setup Attack Panel
-            if (attackHeaderText != null)
-                attackHeaderText.text = attackPanelTitle;
-            if (attackBodyText != null)
-                attackBodyText.text = "";
-            if (continueButton != null)
-            {
-                continueButton.onClick.AddListener(OnContinueButtonClicked);
-                if (enableButtonsAfterTyping)
-                    continueButton.gameObject.SetActive(false);
-            }
-
-            // Set initial panel states
-            SetPanelStates(true);
+            SetPanelMode(true);
         }
 
-        private void Start()
+        private void Start() => StartTypingInstructions();
+
+        private void SetPanelMode(bool movementMode)
         {
-            // Start typing animation for the movement panel
-            StartMovementInstructionSequence();
+            isMovementMode = movementMode;
+
+            if (headerText != null)
+                headerText.text = movementMode ? movePanelTitle : attackPanelTitle;
+
+            if (buttonText != null)
+                buttonText.text = movementMode ? moreButtonText : continueButtonText;
+
+            if (bodyText != null)
+                bodyText.text = "";
         }
 
-        private void SetPanelStates(bool moveActive)
-        {
-            isMovePanelActive = moveActive;
-
-            if (movePanel != null)
-                movePanel.SetActive(moveActive);
-
-            if (attackPanel != null)
-                attackPanel.SetActive(!moveActive);
-        }
-
-        public void StartMovementInstructionSequence()
+        public void StartTypingInstructions()
         {
             if (typingCoroutine != null)
                 StopCoroutine(typingCoroutine);
 
-            typingCoroutine = StartCoroutine(TypeInstructionsSequentially(
-                moveBodyText,
-                moveInstructionLines,
-                moreButton));
-        }
-
-        public void StartAttackInstructionSequence()
-        {
-            if (typingCoroutine != null)
-                StopCoroutine(typingCoroutine);
-
-            typingCoroutine = StartCoroutine(TypeInstructionsSequentially(
-                attackBodyText,
-                attackInstructionLines,
-                continueButton));
+            List<string> currentInstructions = isMovementMode ? moveInstructionLines : attackInstructionLines;
+            typingCoroutine = StartCoroutine(TypeInstructionsSequentially(currentInstructions));
         }
 
         public void SkipTypingAnimation()
@@ -134,27 +99,24 @@ namespace DragonBall.UI
                 skipTyping = true;
         }
 
-        private IEnumerator TypeInstructionsSequentially(
-            TextMeshProUGUI textComponent,
-            List<string> instructionLines,
-            Button buttonToEnable)
+        private IEnumerator TypeInstructionsSequentially(List<string> instructionLines)
         {
             isTyping = true;
 
-            if (enableButtonsAfterTyping && buttonToEnable != null)
-                buttonToEnable.gameObject.SetActive(false);
+            if (enableButtonAfterTyping && actionButton != null)
+                actionButton.gameObject.SetActive(false);
 
-            if (textComponent != null)
+            if (bodyText != null)
             {
-                textComponent.text = "";
+                bodyText.text = "";
 
                 for (int i = 0; i < instructionLines.Count; i++)
                 {
-                    yield return TypeTextLine(textComponent, instructionLines[i]);
+                    yield return TypeTextLine(instructionLines[i]);
 
                     if (i < instructionLines.Count - 1)
                     {
-                        textComponent.text += "\n";
+                        bodyText.text += "\n";
                         yield return new WaitForSeconds(delayBetweenLines);
                     }
                 }
@@ -162,27 +124,27 @@ namespace DragonBall.UI
 
             isTyping = false;
 
-            if (enableButtonsAfterTyping && buttonToEnable != null)
-                buttonToEnable.gameObject.SetActive(true);
+            if (enableButtonAfterTyping && actionButton != null)
+                actionButton.gameObject.SetActive(true);
         }
 
-        private IEnumerator TypeTextLine(TextMeshProUGUI textComponent, string line)
+        private IEnumerator TypeTextLine(string line)
         {
             skipTyping = false;
-            string currentText = textComponent.text;
+            string currentText = bodyText.text;
 
             for (int i = 0; i < line.Length; i++)
             {
                 if (skipTyping)
                 {
-                    textComponent.text = currentText + line;
+                    bodyText.text = currentText + line;
 
                     if (typingSoundEffect != null)
                         typingSoundEffect.Stop();
                     break;
                 }
 
-                textComponent.text = currentText + line.Substring(0, i + 1);
+                bodyText.text = currentText + line.Substring(0, i + 1);
 
                 if (typingSoundEffect != null && !typingSoundEffect.isPlaying)
                     typingSoundEffect.Play();
@@ -194,7 +156,7 @@ namespace DragonBall.UI
                 typingSoundEffect.Stop();
         }
 
-        private void OnMoreButtonClicked()
+        private void OnActionButtonClicked()
         {
             if (isTyping)
             {
@@ -202,26 +164,19 @@ namespace DragonBall.UI
                 return;
             }
 
-            // Switch to attack panel
-            SetPanelStates(false);
-            StartAttackInstructionSequence();
-        }
-
-        private void OnContinueButtonClicked()
-        {
-            if (isTyping)
+            if (isMovementMode)
             {
-                SkipTypingAnimation();
-                return;
+                SetPanelMode(false);
+                StartTypingInstructions();
             }
-
-            // Load gameplay scene
-            SceneManager.LoadScene(gameplaySceneName);
+            else
+            {
+                SceneManager.LoadScene(gameplaySceneName);
+            }
         }
 
         private void Update()
         {
-            // Skip typing animation with any key/mouse click
             if (isTyping && (Input.anyKeyDown || Input.GetMouseButtonDown(0)))
                 SkipTypingAnimation();
         }
