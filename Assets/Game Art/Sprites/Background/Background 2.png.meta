@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5e1108b034c26e141b4507cdb58fd284
+guid: 177ed286c99c66c498f5936bec7d007f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -828885289714313727
-    second: 20250424_2355_Dragon Ball Background_simple_compose_01jsmgnkhme8c837pbcbszr28a_0
+      213: -6495846443235360551
+    second: 20250424_2358_Dragon Ball Backgrounds_simple_compose_01jsmgvk8zes8av7jqxch34dx8_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 20250424_2355_Dragon Ball Background_simple_compose_01jsmgnkhme8c837pbcbszr28a_0
+      name: 20250424_2358_Dragon Ball Backgrounds_simple_compose_01jsmgvk8zes8av7jqxch34dx8_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 106180b78353f74f0800000000000000
-      internalID: -828885289714313727
+      spriteID: 9d0c87b831e1ad5a0800000000000000
+      internalID: -6495846443235360551
       vertices: []
       indices: 
       edges: []
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      20250424_2358_Dragon Ball Backgrounds_simple_compose_01jsmgvk8zes8av7jqxch34dx8_0: -6495846443235360551
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

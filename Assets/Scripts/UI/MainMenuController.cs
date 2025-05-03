@@ -11,7 +11,7 @@ namespace DragonBall.UI
         [SerializeField] private Button quitButton;
 
         [Header("Scene Names")]
-        [SerializeField] private string gameplaySceneName = "Gameplay";
+        [SerializeField] private string instructionsSceneName = "Instructions";
 
         private void Awake()
         {
@@ -19,7 +19,7 @@ namespace DragonBall.UI
             quitButton.onClick.AddListener(OnQuitButtonClicked);
         }
 
-        private void OnStartButtonClicked() => SceneManager.LoadScene(gameplaySceneName);
+        private void OnStartButtonClicked() => SceneManager.LoadScene(instructionsSceneName);
 
         private void OnQuitButtonClicked() => QuitGame();
 
