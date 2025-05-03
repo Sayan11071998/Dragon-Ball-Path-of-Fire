@@ -6,6 +6,7 @@ using Unity.Cinemachine;
 using DragonBall.VFX;
 using DragonBall.Bullet;
 using DragonBall.Enemy;
+using DragonBall.UI;
 
 namespace DragonBall.Core
 {
@@ -15,6 +16,7 @@ namespace DragonBall.Core
         public VFXService vFXService { get; private set; }
         public BulletService bulletService { get; private set; }
         public EnemyService enemyService { get; private set; }
+        public UIService uiService { get; private set; }
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
@@ -33,6 +35,9 @@ namespace DragonBall.Core
 
         [Header("Enemy")]
         [SerializeField] private List<EnemyConfig> enemyConfigs;
+
+        [Header("UI")]
+        [SerializeField] private GameplayUIView gameplayUIViewPrefab;
 
         [Header("Cinemachine Virtual Camera")]
         [SerializeField] private CinemachineStateDrivenCamera cinemachineStateDrivenCamera;
@@ -54,6 +59,7 @@ namespace DragonBall.Core
 
             InitializeEnemyService();
             InitializeBulletService();
+            InitializeUIService();
         }
 
         private void InitializeEnemyService()
@@ -75,7 +81,19 @@ namespace DragonBall.Core
             bulletService = new BulletService(bulletConfigs);
         }
 
-        private void Update() => playerService.Update();
+        private void InitializeUIService()
+        {
+            if (gameplayUIViewPrefab != null)
+                uiService = new UIService(gameplayUIViewPrefab, playerService.PlayerController.PlayerModel);
+            else
+                Debug.LogError("GameplayUIView prefab reference is missing in GameService!");
+        }
+
+        private void Update()
+        {
+            playerService.Update();
+            uiService.Update();
+        }
 
         private void InitializeVirtualCamera()
         {
