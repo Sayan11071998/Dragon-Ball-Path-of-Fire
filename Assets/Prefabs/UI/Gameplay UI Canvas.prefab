@@ -166,8 +166,6 @@ MonoBehaviour:
   dragonBallCountText: {fileID: 6616369156762636086}
   normalHealthColor: {r: 0, g: 1, b: 0, a: 1}
   dangerHealthColor: {r: 1, g: 0, b: 0, a: 1}
-  healthBarRect: {fileID: 2248230488840899946}
-  healthBarContainer: {fileID: 7403046013498728729}
 --- !u!1 &1016986543167920262
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +401,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.461
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
