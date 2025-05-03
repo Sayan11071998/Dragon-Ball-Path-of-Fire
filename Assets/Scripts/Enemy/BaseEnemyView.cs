@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DragonBall.Enemy
 {
@@ -15,6 +16,9 @@ namespace DragonBall.Enemy
         [SerializeField] protected float flyAwayForceX = 5f;
         [SerializeField] protected float flyAwayForceY = 2f;
         [SerializeField] protected float flyAwayDuration = 0.3f;
+
+        [Header("Base Health Bar UI Settings")]
+        [SerializeField] private Slider healthBar;
 
         protected BaseEnemyController baseEnemyController;
         protected Rigidbody2D rb;
@@ -121,6 +125,11 @@ namespace DragonBall.Enemy
             animator.SetBool("isAttacking", false);
             isAttacking = false;
             isMoving = false;
+        }
+
+        public void UpdateHealthBar(float maxValue, float currentValue)
+        {
+            healthBar.value = currentValue / maxValue;
         }
     }
 }
