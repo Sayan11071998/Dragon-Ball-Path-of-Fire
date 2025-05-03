@@ -35,7 +35,7 @@ namespace DragonBall.UI
             float healthPercentage = playerModel.CurrentHealth / playerModel.MaxHealth;
             gameplayUIView.UpdateHealthBar(healthPercentage);
 
-            if (healthPercentage <= 0.25f)
+            if (healthPercentage <= 0.30f)
                 gameplayUIView.SetHealthBarDangerState(true);
             else
                 gameplayUIView.SetHealthBarDangerState(false);
