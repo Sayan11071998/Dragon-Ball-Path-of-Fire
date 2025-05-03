@@ -1,56 +1,33 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DragonBall.Core;
 
 namespace DragonBall.UI
 {
     public class GameplayUIView : MonoBehaviour
     {
-        [Header("Health UI")]
-        [SerializeField] private Slider healthBar;
-        [SerializeField] private Image healthBarFill;
-        [SerializeField] private TextMeshProUGUI healthText;
-
-        [Header("Health Bar Colors")]
+        [SerializeField] private Slider healthSlider;
+        [SerializeField] private Image healthBarFill; // Reference to the fill image of the health bar
         [SerializeField] private Color normalHealthColor = Color.green;
         [SerializeField] private Color dangerHealthColor = Color.red;
-        [SerializeField] private float healthBarSmoothTime = 0.2f;
 
-        private float targetFillAmount;
-        private float currentVelocity;
-
-        private void Awake()
+        private void Start()
         {
-            // Ensure references are set
-            if (healthBar == null)
-                Debug.LogError("Health Bar Slider reference is missing on GameplayUIView!");
-
-            if (healthBarFill == null)
-                Debug.LogError("Health Bar Fill reference is missing on GameplayUIView!");
-
-            // Initialize UI
-            healthBarFill.color = normalHealthColor;
-        }
-
-        private void Update()
-        {
-            // Smoothly animate health bar changes
-            if (healthBar != null && healthBar.value != targetFillAmount)
+            if (GameService.Instance != null && GameService.Instance.playerService != null)
             {
-                healthBar.value = Mathf.SmoothDamp(healthBar.value, targetFillAmount, ref currentVelocity, healthBarSmoothTime);
+                healthSlider.maxValue = GameService.Instance.playerService.PlayerController.PlayerModel.MaxHealth;
+                healthSlider.value = GameService.Instance.playerService.PlayerController.PlayerModel.CurrentHealth;
+            }
+            else
+            {
+                Debug.LogError("GameService or playerService not initialized!");
             }
         }
 
-        public void UpdateHealthBar(float fillPercentage)
+        public void UpdateHealthBar(float healthPercentage)
         {
-            // Update the target value for smooth animation
-            targetFillAmount = Mathf.Clamp01(fillPercentage);
-
-            // Update the numeric health text if available
-            if (healthText != null)
-            {
-                healthText.text = $"{Mathf.CeilToInt(fillPercentage * 100)}%";
-            }
+            healthSlider.value = healthPercentage * healthSlider.maxValue;
         }
 
         public void SetHealthBarDangerState(bool isDanger)
@@ -58,6 +35,10 @@ namespace DragonBall.UI
             if (healthBarFill != null)
             {
                 healthBarFill.color = isDanger ? dangerHealthColor : normalHealthColor;
+            }
+            else
+            {
+                Debug.LogWarning("Health bar fill reference is missing!");
             }
         }
     }

@@ -22,8 +22,11 @@ namespace DragonBall.UI
 
         public void Update()
         {
+            // Check if player model is valid
+            if (playerModel == null) return;
+
             // Only update the UI if health has changed
-            if (playerModel.CurrentHealth != previousHealth)
+            if (!Mathf.Approximately(playerModel.CurrentHealth, previousHealth))
             {
                 UpdateHealthDisplay();
                 previousHealth = playerModel.CurrentHealth;
@@ -35,6 +38,7 @@ namespace DragonBall.UI
             float healthPercentage = playerModel.CurrentHealth / playerModel.MaxHealth;
             gameplayUIView.UpdateHealthBar(healthPercentage);
 
+            // Change health bar color when health is low (25% or less)
             if (healthPercentage <= 0.25f)
             {
                 gameplayUIView.SetHealthBarDangerState(true);
