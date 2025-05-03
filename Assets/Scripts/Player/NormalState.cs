@@ -11,7 +11,12 @@ namespace DragonBall.Player
             Debug.Log("Entering NORMAL state");
         }
 
-        public override void Update()
+        public override void OnStateExit()
+        {
+            Debug.Log("Exiting NORMAL state");
+        }
+
+        protected override void HandleStateSpecificAbilities()
         {
             if (playerModel.DragonBallCount >= playerModel.DragonBallsRequiredForSuperSaiyan)
             {
@@ -19,15 +24,10 @@ namespace DragonBall.Player
                 return;
             }
 
-            HandleKick();
-            HandleFire();
-
-            base.Update();
+            ResetUnusedInputs();
         }
 
-        public override void OnStateExit() => Debug.Log("Exiting NORMAL state");
-
-        protected override void ResetUnhandledInputs()
+        protected override void ResetUnusedInputs()
         {
             playerView.ResetVanishInput();
             playerView.ResetDodgeInput();

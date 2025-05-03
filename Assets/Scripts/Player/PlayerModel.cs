@@ -6,6 +6,7 @@ namespace DragonBall.Player
     {
         public float MaxHealth { get; private set; }
         public float CurrentHealth { get; private set; }
+        public float OriginalMaxHealth { get; private set; }
         public bool IsDead { get; private set; }
 
         public float MoveSpeed { get; private set; }
@@ -44,6 +45,7 @@ namespace DragonBall.Player
 
         public float SuperSaiyanSpeedMultiplier { get; private set; }
         public float SuperSaiyanPowerMultiplier { get; private set; }
+        public float SuperSaiyanHealthMultiplier { get; private set; }
 
         public PlayerModel
         (
@@ -61,10 +63,12 @@ namespace DragonBall.Player
             float _fireCooldown,
             int _dragonBallsRequiredForSuperSaiyan,
             float _superSaiyanSpeedMultiplier,
-            float _superSaiyanPowerMultiplier
+            float _superSaiyanPowerMultiplier,
+            float _superSaiyanHealthMultiplier
         )
         {
             MaxHealth = _maxHealth;
+            OriginalMaxHealth = _maxHealth;
             CurrentHealth = MaxHealth;
             MoveSpeed = _moveSpeed;
             OriginalMoveSpeed = _moveSpeed;
@@ -82,6 +86,7 @@ namespace DragonBall.Player
             DragonBallsRequiredForSuperSaiyan = _dragonBallsRequiredForSuperSaiyan;
             SuperSaiyanSpeedMultiplier = _superSaiyanSpeedMultiplier;
             SuperSaiyanPowerMultiplier = _superSaiyanPowerMultiplier;
+            SuperSaiyanHealthMultiplier = _superSaiyanHealthMultiplier;
             IsDead = false;
             IsGrounded = true;
             IsDodging = false;
@@ -93,12 +98,24 @@ namespace DragonBall.Player
         {
             MoveSpeed = OriginalMoveSpeed * SuperSaiyanSpeedMultiplier;
             KickAttackPower = (int)(OriginalKickAttackPower * SuperSaiyanPowerMultiplier);
+            MaxHealth = OriginalMaxHealth * SuperSaiyanHealthMultiplier;
+            CurrentHealth = MaxHealth;
+
+            if (IsDead)
+                IsDead = false;
         }
 
         public void RemoveSuperSaiyanBuffs()
         {
             MoveSpeed = OriginalMoveSpeed;
             KickAttackPower = OriginalKickAttackPower;
+
+            float healthPercentage = CurrentHealth / MaxHealth;
+            MaxHealth = OriginalMaxHealth;
+            CurrentHealth = MaxHealth * healthPercentage;
+
+            if (CurrentHealth <= 0)
+                CurrentHealth = 1;
         }
 
         public void TakeDamage(float damage)

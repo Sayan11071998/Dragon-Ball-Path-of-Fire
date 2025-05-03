@@ -32,7 +32,8 @@ namespace DragonBall.Player
                     _config.FireCooldown,
                     _config.DragonBallsRequiredForSuperSaiyan,
                     _config.SuperSaiyanSpeedMultiplier,
-                    _config.SuperSaiyanPowerMultiplier
+                    _config.SuperSaiyanPowerMultiplier,
+                    _config.SuperSaiyanHealthMultiplier
                 );
 
             playerController = new PlayerController(playerModel, playerPrefab);
