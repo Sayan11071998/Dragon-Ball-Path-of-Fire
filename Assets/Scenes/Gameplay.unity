@@ -5339,6 +5339,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FatBuu Enemy Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 1506526633782270884, guid: 80bc152fce029e54f905eafa64f2e1bc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9183888350809503661, guid: 80bc152fce029e54f905eafa64f2e1bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 31.46

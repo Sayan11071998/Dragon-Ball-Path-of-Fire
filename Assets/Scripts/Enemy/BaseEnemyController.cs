@@ -29,6 +29,7 @@ namespace DragonBall.Enemy
             viewToSet.SetController(this);
 
             InitializeModel(enemyScriptableObjectToSet);
+            UpdateHealthBar();
 
             enemyStateMachine = new EnemyStateMachine(this);
 
@@ -65,10 +66,13 @@ namespace DragonBall.Enemy
         public virtual void TakeDamage(float damage)
         {
             baseEnemyModel.TakeDamage(damage);
+            UpdateHealthBar();
 
             if (baseEnemyModel.CurrentHealth <= 0 && !isDead)
                 HandleDeath();
         }
+
+        protected virtual void UpdateHealthBar() => baseEnemyView.UpdateHealthBar(baseEnemyModel.MaxHealth, baseEnemyModel.CurrentHealth);
 
         protected virtual void HandleDeath()
         {
@@ -89,6 +93,8 @@ namespace DragonBall.Enemy
             baseEnemyModel.Reset();
             isDead = false;
             isPlayerDead = false;
+
+            UpdateHealthBar();
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
     }
