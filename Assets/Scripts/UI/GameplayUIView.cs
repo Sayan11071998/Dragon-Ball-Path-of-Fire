@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DragonBall.Core;
+using TMPro;
 
 namespace DragonBall.UI
 {
@@ -8,15 +9,19 @@ namespace DragonBall.UI
     {
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Image healthBarFill;
+        [SerializeField] private TextMeshProUGUI dragonBallCountText;
         [SerializeField] private Color normalHealthColor = Color.green;
         [SerializeField] private Color dangerHealthColor = Color.red;
 
         private void Start()
         {
-            if (GameService.Instance != null && GameService.Instance.playerService != null)
+            if (GameService.Instance?.playerService != null)
             {
-                healthSlider.maxValue = GameService.Instance.playerService.PlayerController.PlayerModel.MaxHealth;
-                healthSlider.value = GameService.Instance.playerService.PlayerController.PlayerModel.CurrentHealth;
+                var model = GameService.Instance.playerService.PlayerController.PlayerModel;
+                healthSlider.maxValue = model.MaxHealth;
+                healthSlider.value = model.CurrentHealth;
+
+                UpdateDragonBallCount(model.DragonBallCount);
             }
         }
 
@@ -26,6 +31,12 @@ namespace DragonBall.UI
         {
             if (healthBarFill != null)
                 healthBarFill.color = isDanger ? dangerHealthColor : normalHealthColor;
+        }
+
+        public void UpdateDragonBallCount(int count)
+        {
+            if (dragonBallCountText != null)
+                dragonBallCountText.text = $"{count}";
         }
     }
 }

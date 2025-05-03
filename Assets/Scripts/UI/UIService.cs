@@ -19,10 +19,6 @@ namespace DragonBall.UI
             gameplayUIController = new GameplayUIController(gameplayUIView, playerModel);
         }
 
-        public void Update()
-        {
-            if (gameplayUIController != null)
-                gameplayUIController.Update();
-        }
+        public void Update() => gameplayUIController?.Update();
     }
 }

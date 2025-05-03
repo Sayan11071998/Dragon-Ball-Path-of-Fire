@@ -5,18 +5,22 @@ namespace DragonBall.UI
 {
     public class GameplayUIController
     {
-        private GameplayUIView gameplayUIView;
-        private PlayerModel playerModel;
+        private readonly GameplayUIView gameplayUIView;
+        private readonly PlayerModel playerModel;
 
         private float previousHealth;
+        private int previousDragonBallCount;
 
         public GameplayUIController(GameplayUIView view, PlayerModel model)
         {
             gameplayUIView = view;
             playerModel = model;
+
             previousHealth = playerModel.CurrentHealth;
+            previousDragonBallCount = playerModel.DragonBallCount;
 
             UpdateHealthDisplay();
+            gameplayUIView.UpdateDragonBallCount(previousDragonBallCount);
         }
 
         public void Update()
@@ -28,6 +32,12 @@ namespace DragonBall.UI
                 UpdateHealthDisplay();
                 previousHealth = playerModel.CurrentHealth;
             }
+
+            if (playerModel.DragonBallCount != previousDragonBallCount)
+            {
+                gameplayUIView.UpdateDragonBallCount(playerModel.DragonBallCount);
+                previousDragonBallCount = playerModel.DragonBallCount;
+            }
         }
 
         private void UpdateHealthDisplay()
@@ -35,10 +45,7 @@ namespace DragonBall.UI
             float healthPercentage = playerModel.CurrentHealth / playerModel.MaxHealth;
             gameplayUIView.UpdateHealthBar(healthPercentage);
 
-            if (healthPercentage <= 0.30f)
-                gameplayUIView.SetHealthBarDangerState(true);
-            else
-                gameplayUIView.SetHealthBarDangerState(false);
+            gameplayUIView.SetHealthBarDangerState(healthPercentage <= 0.30f);
         }
     }
 }
