@@ -35,5 +35,6 @@ namespace DragonBall.Player
         public int DragonBallsRequiredForSuperSaiyan = 5;
         public float SuperSaiyanSpeedMultiplier = 1.5f;
         public float SuperSaiyanPowerMultiplier = 2f;
+        public float SuperSaiyanHealthMultiplier = 2f;
     }
 }

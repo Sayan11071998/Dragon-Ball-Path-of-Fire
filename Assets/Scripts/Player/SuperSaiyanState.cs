@@ -1,5 +1,3 @@
-using DragonBall.Bullet;
-using DragonBall.Core;
 using UnityEngine;
 
 namespace DragonBall.Player
@@ -27,11 +25,6 @@ namespace DragonBall.Player
             HandleKamehameha();
         }
 
-        protected override void FireBullet()
-        {
-            Vector2 position = playerView.FireTransform.position;
-            Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
-            GameService.Instance.bulletService.FireBullet(BulletType.PlayerRegularPowerBall, position, direction);
-        }
+        protected override void ResetUnusedInputs() { }
     }
 }
