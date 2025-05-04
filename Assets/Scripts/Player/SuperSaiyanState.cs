@@ -12,15 +12,19 @@ namespace DragonBall.Player
         {
             playerController.DisablePlayerController();
             playerController.PlayerView.StopPlayerMovement();
-            playerModel.ApplySuperSaiyanBuffs();
             playerController.PlayerView.PlaySuperSaiyanTransformationAnimation();
+            playerModel.ApplySuperSaiyanBuffs();
             playerController.PlayerView.StartCoroutine(WaitForSuperSaiyanTransformation());
         }
 
         private IEnumerator WaitForSuperSaiyanTransformation()
         {
             AnimationClip transformClip = playerController.PlayerView.SuperSaiyanAnimationClip;
-            yield return new WaitForSeconds(transformClip.length);
+            yield return new WaitForSeconds(transformClip.length * 0.8f);
+            
+            playerController.PlayerView.TransformToSuperSaiyan();
+
+            yield return new WaitForSeconds(transformClip.length * 0.2f);
 
             playerController.PlayerView.StopPlayerMovement();
             yield return new WaitForSeconds(0.1f);
@@ -41,6 +45,10 @@ namespace DragonBall.Player
 
         protected override void ResetUnusedInputs() { }
 
-        public override void OnStateExit() => playerModel.RemoveSuperSaiyanBuffs();
+        public override void OnStateExit() 
+        {
+            playerModel.RemoveSuperSaiyanBuffs();
+            playerController.PlayerView.RevertToNormal();
+        }
     }
 }

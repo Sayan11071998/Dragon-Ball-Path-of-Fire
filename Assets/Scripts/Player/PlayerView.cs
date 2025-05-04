@@ -25,6 +25,10 @@ namespace DragonBall.Player
         [Header("Animation Clips")]
         [SerializeField] private AnimationClip superSaiyanTransformClip;
 
+        [Header("Transformation Settings")]
+        [SerializeField] private RuntimeAnimatorController normalAnimatorController;
+        [SerializeField] private RuntimeAnimatorController superSaiyanAnimatorController;
+
         private PlayerController playerController;
         private Rigidbody2D rb;
         private CapsuleCollider2D capsuleCollider2D;
@@ -37,6 +41,7 @@ namespace DragonBall.Player
         private bool isKicking;
         private bool isFiring;
         private bool isKamehameha;
+        private bool isSuperSaiyan = false;
 
         public Rigidbody2D Rigidbody => rb;
         public Animator Animator => animator;
@@ -47,6 +52,7 @@ namespace DragonBall.Player
         public Transform KamehamehaTransform => kamehamehaTransform;
 
         public AnimationClip SuperSaiyanAnimationClip => superSaiyanTransformClip;
+        public bool IsSuperSaiyan => isSuperSaiyan;
 
         public float MoveInput => moveInput;
         public bool JumpInput => isJumping;
@@ -197,6 +203,26 @@ namespace DragonBall.Player
         {
             rb.linearVelocity = Vector2.zero;
             ResetAllInputs();
+        }
+
+        public void TransformToSuperSaiyan()
+        {
+            if (isSuperSaiyan) return;
+
+            if (superSaiyanAnimatorController != null)
+                animator.runtimeAnimatorController = superSaiyanAnimatorController;
+
+            isSuperSaiyan = true;
+        }
+
+        public void RevertToNormal()
+        {
+            if (!isSuperSaiyan) return;
+
+            if (normalAnimatorController != null)
+                animator.runtimeAnimatorController = normalAnimatorController;
+
+            isSuperSaiyan = false;
         }
     }
 }
