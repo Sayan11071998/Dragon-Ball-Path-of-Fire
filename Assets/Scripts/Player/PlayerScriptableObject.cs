@@ -6,7 +6,8 @@ namespace DragonBall.Player
     public class PlayerScriptableObject : ScriptableObject
     {
         [Header("Stats")]
-        public int PlayerHealth = 100;
+        public float PlayerHealth = 100f;
+        public float PlayerStamina = 100f;
 
         [Header("Movement")]
         public float MoveSpeed = 5f;
@@ -36,8 +37,8 @@ namespace DragonBall.Player
 
         [Header("Super Saiyan Transformation")]
         public int DragonBallsRequiredForSuperSaiyan = 5;
+        public float SuperSaiyanHealthMultiplier = 2f;
         public float SuperSaiyanSpeedMultiplier = 1.5f;
         public float SuperSaiyanPowerMultiplier = 2f;
-        public float SuperSaiyanHealthMultiplier = 2f;
     }
 }
