@@ -34,7 +34,10 @@ namespace DragonBall.Player
                     _config.DragonBallsRequiredForSuperSaiyan,
                     _config.SuperSaiyanSpeedMultiplier,
                     _config.SuperSaiyanPowerMultiplier,
-                    _config.SuperSaiyanHealthMultiplier
+                    _config.SuperSaiyanHealthMultiplier,
+                    _config.PlayerStamina,
+                    _config.StaminaRegenRate,
+                    _config.KamehamehaStaminaCost
                 );
 
             playerController = new PlayerController(playerModel, playerPrefab);

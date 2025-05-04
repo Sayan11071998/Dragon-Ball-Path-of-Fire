@@ -28,6 +28,8 @@ namespace DragonBall.Player
         {
             if (playerModel.IsDead) return;
 
+            playerModel.RegenerateStamina(Time.deltaTime);
+
             HandleBasicAbilities();
             HandleStateSpecificAbilities();
             UpdateAnimations(playerView.MoveInput);
@@ -145,9 +147,20 @@ namespace DragonBall.Player
         {
             if (playerModel.IsDead || !playerView.KamehamehaInput) return;
 
-            AnimationClip kamehamehaClip = playerView.KamehamehaAnimationClip;
-            playerView.PlayKamehamehaAnimation();
-            playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
+            if (!playerModel.HasEnoughStaminaForKamehameha)
+            {
+                Debug.Log("Not enough stamina for Kamehameha!");
+                playerView.ResetKamehameha();
+                return;
+            }
+
+            if (playerModel.UseStaminaForKamehameha())
+            {
+                AnimationClip kamehamehaClip = playerView.KamehamehaAnimationClip;
+                playerView.PlayKamehamehaAnimation();
+                playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
+            }
+
             playerView.ResetKamehameha();
         }
 

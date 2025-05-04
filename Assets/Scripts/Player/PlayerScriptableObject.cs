@@ -9,6 +9,10 @@ namespace DragonBall.Player
         public float PlayerHealth = 100f;
         public float PlayerStamina = 100f;
 
+        [Header("Stamina")]
+        public float StaminaRegenRate = 10f;
+        public float KamehamehaStaminaCost = 30f;
+
         [Header("Movement")]
         public float MoveSpeed = 5f;
 

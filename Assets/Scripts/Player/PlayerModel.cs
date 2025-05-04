@@ -9,6 +9,12 @@ namespace DragonBall.Player
         public float OriginalMaxHealth { get; private set; }
         public bool IsDead { get; private set; }
 
+        public float MaxStamina { get; private set; }
+        public float CurrentStamina { get; private set; }
+        public float StaminaRegenRate { get; private set; }
+        public float KamehamehaStaminaCost { get; private set; }
+        public bool HasEnoughStaminaForKamehameha => CurrentStamina >= KamehamehaStaminaCost;
+
         public float MoveSpeed { get; private set; }
         public float OriginalMoveSpeed { get; private set; }
 
@@ -68,30 +74,47 @@ namespace DragonBall.Player
             int _dragonBallsRequiredForSuperSaiyan,
             float _superSaiyanSpeedMultiplier,
             float _superSaiyanPowerMultiplier,
-            float _superSaiyanHealthMultiplier
+            float _superSaiyanHealthMultiplier,
+            float _maxStamina,
+            float _staminaRegenRate,
+            float _kamehamehaStaminaCost
         )
         {
             MaxHealth = _maxHealth;
             OriginalMaxHealth = _maxHealth;
             CurrentHealth = MaxHealth;
+
+            MaxStamina = _maxStamina;
+            CurrentStamina = MaxStamina;
+            StaminaRegenRate = _staminaRegenRate;
+            KamehamehaStaminaCost = _kamehamehaStaminaCost;
+
             MoveSpeed = _moveSpeed;
             OriginalMoveSpeed = _moveSpeed;
+
             JumpSpeed = _jumpSpeed;
             JumpHorizontalDampening = _jumpHorizontalDampening;
+
             FlySpeed = _flySpeed;
+
             VanishRange = _vanishRange;
+
             DodgeSpeed = _dodgeSpeed;
             DodgeDuration = _dodgeDuration;
             DodgeCooldown = _dodgeCooldown;
+
             KickAttackPower = _kickAttackPower;
             OriginalKickAttackPower = _kickAttackPower;
             KickAttackRange = _kickAttackRange;
             KickAttackCooldown = _kickAttackCooldown;
+
             FireCooldown = _fireCooldown;
+
             DragonBallsRequiredForSuperSaiyan = _dragonBallsRequiredForSuperSaiyan;
             SuperSaiyanSpeedMultiplier = _superSaiyanSpeedMultiplier;
             SuperSaiyanPowerMultiplier = _superSaiyanPowerMultiplier;
             SuperSaiyanHealthMultiplier = _superSaiyanHealthMultiplier;
+
             IsFlying = false;
             IsDead = false;
             IsGrounded = true;
@@ -139,9 +162,26 @@ namespace DragonBall.Player
             }
         }
 
+        public bool UseStaminaForKamehameha()
+        {
+            if (CurrentStamina < KamehamehaStaminaCost)
+                return false;
+
+            CurrentStamina -= KamehamehaStaminaCost;
+            Debug.Log($"Used {KamehamehaStaminaCost} stamina for Kamehameha. Remaining stamina: {CurrentStamina}");
+            return true;
+        }
+
+        public void RegenerateStamina(float deltaTime)
+        {
+            if (CurrentStamina < MaxStamina)
+                CurrentStamina = Mathf.Min(MaxStamina, CurrentStamina + (StaminaRegenRate * deltaTime));
+        }
+
         public void Reset()
         {
             CurrentHealth = MaxHealth;
+            CurrentStamina = MaxStamina;
             IsDead = false;
         }
     }
