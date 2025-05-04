@@ -47,19 +47,30 @@ namespace DragonBall.Player
         private void HandleMovement()
         {
             float moveInput = playerView.MoveInput;
+            Vector2 moveDirection = playerView.MovementDirection;
 
             if (playerModel.IsDodging) return;
 
             var velocity = playerView.Rigidbody.linearVelocity;
-            velocity.x = moveInput * playerModel.MoveSpeed;
+
+            if (playerModel.IsFlying)
+            {
+                velocity.x = moveDirection.x * playerModel.MoveSpeed;
+                velocity.y = moveDirection.y * playerModel.FlySpeed;
+            }
+            else
+            {
+                velocity.x = moveInput * playerModel.MoveSpeed;
+            }
+
             playerView.Rigidbody.linearVelocity = velocity;
 
-            if (moveInput > 0 && !playerModel.IsFacingRight)
+            if (moveDirection.x > 0 && !playerModel.IsFacingRight)
             {
                 playerModel.IsFacingRight = true;
                 playerView.FlipCharacter(true);
             }
-            else if (moveInput < 0 && playerModel.IsFacingRight)
+            else if (moveDirection.x < 0 && playerModel.IsFacingRight)
             {
                 playerModel.IsFacingRight = false;
                 playerView.FlipCharacter(false);
@@ -88,6 +99,26 @@ namespace DragonBall.Player
 
             playerView.Rigidbody.linearVelocity = velocity;
             playerView.ResetJumpInput();
+        }
+
+        public void HandleFlight()
+        {
+            if (!playerView.FlyInput) return;
+
+            playerModel.IsFlying = !playerModel.IsFlying;
+
+            if (playerModel.IsFlying)
+            {
+                playerView.UpdateFlightAnimation(true);
+                playerView.Rigidbody.gravityScale = 0f;
+            }
+            else
+            {
+                playerView.UpdateFlightAnimation(false);
+                playerView.Rigidbody.gravityScale = 1f;
+            }
+
+            playerView.ResetFlyInput();
         }
 
         public void CollectDragonBall()

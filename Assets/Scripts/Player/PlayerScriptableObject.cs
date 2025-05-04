@@ -15,6 +15,9 @@ namespace DragonBall.Player
         public float JumpSpeed = 10f;
         public float JumpHorizontalDampening = 0.9f;
 
+        [Header("Fly")]
+        public float FlySpeed = 4f;
+
         [Header("Vanish")]
         public float vanishRange = 5f;
 

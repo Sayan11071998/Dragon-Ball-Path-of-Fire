@@ -38,6 +38,7 @@ namespace DragonBall.Player
 
         public override void HandleStateSpecificAbilities()
         {
+            playerController.HandleFlight();
             HandleDodge();
             HandleVanish();
             HandleKamehameha();
