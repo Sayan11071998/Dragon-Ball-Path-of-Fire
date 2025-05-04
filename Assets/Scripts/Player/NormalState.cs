@@ -6,8 +6,6 @@ namespace DragonBall.Player
 
         public override void OnStateEnter() { }
 
-        public override void OnStateExit() { }
-
         public override void HandleStateSpecificAbilities()
         {
             if (playerModel.DragonBallCount >= playerModel.DragonBallsRequiredForSuperSaiyan)
@@ -25,5 +23,7 @@ namespace DragonBall.Player
             playerView.ResetDodgeInput();
             playerView.ResetKamehameha();
         }
+
+        public override void OnStateExit() { }
     }
 }

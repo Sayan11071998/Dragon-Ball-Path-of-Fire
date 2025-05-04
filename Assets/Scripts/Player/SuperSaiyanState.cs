@@ -32,8 +32,6 @@ namespace DragonBall.Player
             playerController.EnablePlayerController();
         }
 
-        public override void OnStateExit() => playerModel.RemoveSuperSaiyanBuffs();
-
         public override void HandleStateSpecificAbilities()
         {
             HandleDodge();
@@ -42,5 +40,7 @@ namespace DragonBall.Player
         }
 
         protected override void ResetUnusedInputs() { }
+
+        public override void OnStateExit() => playerModel.RemoveSuperSaiyanBuffs();
     }
 }
