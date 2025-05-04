@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
@@ -24,6 +23,7 @@ namespace DragonBall.Player
 
         [Header("Animation Clips")]
         [SerializeField] private AnimationClip superSaiyanTransformClip;
+        [SerializeField] private AnimationClip kamehamehaAnimationClip;
 
         [Header("Transformation Settings")]
         [SerializeField] private RuntimeAnimatorController normalAnimatorController;
@@ -52,6 +52,8 @@ namespace DragonBall.Player
         public Transform KamehamehaTransform => kamehamehaTransform;
 
         public AnimationClip SuperSaiyanAnimationClip => superSaiyanTransformClip;
+        public AnimationClip KamehamehaAnimationClip => kamehamehaAnimationClip;
+
         public bool IsSuperSaiyan => isSuperSaiyan;
 
         public float MoveInput => moveInput;
@@ -163,11 +165,6 @@ namespace DragonBall.Player
         public void PlayKamehamehaAnimation() => animator.SetTrigger("isKamehameha");
         public void PlayDeathAnimation() => animator.SetTrigger("isDead");
         public void PlaySuperSaiyanTransformationAnimation() => animator.SetTrigger("isTranformingSuperSaiyan");
-
-        public AnimationClip GetKamehamehaAnimationClip()
-        {
-            return animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "Kamehameha");
-        }
 
         public void StartFireCoroutine(float delay, Action onComplete) => StartCoroutine(FireAfterDelay(delay, onComplete));
 
