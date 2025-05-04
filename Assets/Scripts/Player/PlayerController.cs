@@ -34,6 +34,9 @@ namespace DragonBall.Player
             if (isInputEnabled)
                 HandleMovement();
             stateMachine.Update();
+
+            if (playerView.EnableBoundsClamping)
+                playerView.transform.position = playerView.ClampPosition(playerView.transform.position);
         }
 
         private void HandleGroundCheck()
@@ -113,8 +116,9 @@ namespace DragonBall.Player
             if (!playerView.FlyInput) return;
 
             playerModel.IsFlying = !playerModel.IsFlying;
-
             playerView.Rigidbody.linearVelocity = Vector2.zero;
+
+            playerView.ResetMovementDirection();
 
             if (playerModel.IsFlying)
             {
