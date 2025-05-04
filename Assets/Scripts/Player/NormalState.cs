@@ -1,22 +1,12 @@
-using UnityEngine;
-
 namespace DragonBall.Player
 {
     public class NormalState : BasePlayerState
     {
         public NormalState(PlayerController controller, PlayerStateMachine stateMachine) : base(controller, stateMachine) { }
 
-        public override void OnStateEnter()
-        {
-            Debug.Log("Entering NORMAL state");
-        }
+        public override void OnStateEnter() { }
 
-        public override void OnStateExit()
-        {
-            Debug.Log("Exiting NORMAL state");
-        }
-
-        protected override void HandleStateSpecificAbilities()
+        public override void HandleStateSpecificAbilities()
         {
             if (playerModel.DragonBallCount >= playerModel.DragonBallsRequiredForSuperSaiyan)
             {
@@ -33,5 +23,7 @@ namespace DragonBall.Player
             playerView.ResetDodgeInput();
             playerView.ResetKamehameha();
         }
+
+        public override void OnStateExit() { }
     }
 }

@@ -23,7 +23,6 @@ namespace DragonBall.Player
         }
 
         public abstract void OnStateEnter();
-        public abstract void OnStateExit();
 
         public virtual void Update()
         {
@@ -40,7 +39,7 @@ namespace DragonBall.Player
             HandleFire();
         }
 
-        protected abstract void HandleStateSpecificAbilities();
+        public abstract void HandleStateSpecificAbilities();
 
         protected void UpdateAnimations(float moveInput)
         {
@@ -160,5 +159,7 @@ namespace DragonBall.Player
         }
 
         protected virtual void ResetUnusedInputs() { }
+
+        public abstract void OnStateExit();
     }
 }

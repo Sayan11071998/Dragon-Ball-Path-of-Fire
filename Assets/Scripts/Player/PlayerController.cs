@@ -13,6 +13,8 @@ namespace DragonBall.Player
         public PlayerModel PlayerModel => playerModel;
         public PlayerView PlayerView => playerView;
 
+        private bool isInputEnabled = true;
+
         public PlayerController(PlayerModel _playerModel, PlayerView _playerView)
         {
             playerModel = _playerModel;
@@ -29,8 +31,12 @@ namespace DragonBall.Player
             if (playerModel.IsDead) return;
 
             HandleGroundCheck();
-            HandleMovement();
-            HandleJump();
+
+            if (isInputEnabled)
+            {
+                HandleMovement();
+                HandleJump();
+            }
 
             stateMachine.Update();
         }
@@ -103,6 +109,29 @@ namespace DragonBall.Player
 
             if (playerModel.IsDead)
                 playerView.StartCoroutine(playerView.DeathSequence());
+        }
+
+        public bool DisablePlayerController()
+        {
+            isInputEnabled = false;
+            playerView.DisableInput();
+
+            var velocity = playerView.Rigidbody.linearVelocity;
+            velocity.x = 0;
+            playerView.Rigidbody.linearVelocity = velocity;
+
+            return isInputEnabled;
+        }
+
+        public bool EnablePlayerController()
+        {
+            var velocity = playerView.Rigidbody.linearVelocity;
+            velocity.x = 0;
+            playerView.Rigidbody.linearVelocity = velocity;
+
+            isInputEnabled = true;
+            playerView.EnableInput();
+            return isInputEnabled;
         }
     }
 }

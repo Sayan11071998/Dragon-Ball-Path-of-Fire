@@ -22,6 +22,9 @@ namespace DragonBall.Player
         [SerializeField] private float flyAwayForceY = 2f;
         [SerializeField] private float flyAwayDuration = 0.3f;
 
+        [Header("Animation Clips")]
+        [SerializeField] private AnimationClip superSaiyanTransformClip;
+
         private PlayerController playerController;
         private Rigidbody2D rb;
         private CapsuleCollider2D capsuleCollider2D;
@@ -43,6 +46,8 @@ namespace DragonBall.Player
         public Transform FireTransform => fireTransform;
         public Transform KamehamehaTransform => kamehamehaTransform;
 
+        public AnimationClip SuperSaiyanAnimationClip => superSaiyanTransformClip;
+
         public float MoveInput => moveInput;
         public bool JumpInput => isJumping;
         public bool VanishInput => isVanishing;
@@ -50,6 +55,8 @@ namespace DragonBall.Player
         public bool KickInput => isKicking;
         public bool FireInput => isFiring;
         public bool KamehamehaInput => isKamehameha;
+
+        private bool isInputEnabled = true;
 
         private void Awake()
         {
@@ -60,13 +67,61 @@ namespace DragonBall.Player
 
         public void SetPlayerController(PlayerController controller) => playerController = controller;
 
-        public void OnMove(InputValue value) => moveInput = value.Get<Vector2>().x;
-        public void OnJump() => isJumping = true;
-        public void OnVanish() => isVanishing = true;
-        public void OnDodge() => isDodging = true;
-        public void OnKick() => isKicking = true;
-        public void OnFire() => isFiring = true;
-        public void OnKamehameha() => isKamehameha = true;
+        public void OnMove(InputValue value)
+        {
+            if (isInputEnabled)
+                moveInput = value.Get<Vector2>().x;
+        }
+
+        public void OnJump()
+        {
+            if (isInputEnabled)
+                isJumping = true;
+        }
+
+        public void OnVanish()
+        {
+            if (isInputEnabled)
+                isVanishing = true;
+        }
+
+        public void OnDodge()
+        {
+            if (isInputEnabled)
+                isDodging = true;
+        }
+
+        public void OnKick()
+        {
+            if (isInputEnabled)
+                isKicking = true;
+        }
+
+        public void OnFire()
+        {
+            if (isInputEnabled)
+                isFiring = true;
+        }
+
+        public void OnKamehameha()
+        {
+            if (isInputEnabled)
+                isKamehameha = true;
+        }
+
+        public void EnableInput()
+        {
+            isInputEnabled = true;
+            moveInput = 0f;
+            ResetAllInputs();
+        }
+
+        public void DisableInput()
+        {
+            isInputEnabled = false;
+            moveInput = 0f;
+            ResetAllInputs();
+        }
 
         public void ResetJumpInput() => isJumping = false;
         public void ResetVanishInput() => isVanishing = false;
@@ -101,16 +156,14 @@ namespace DragonBall.Player
         public void PlayFireAnimation() => animator.SetTrigger("isFiring");
         public void PlayKamehamehaAnimation() => animator.SetTrigger("isKamehameha");
         public void PlayDeathAnimation() => animator.SetTrigger("isDead");
+        public void PlaySuperSaiyanTransformationAnimation() => animator.SetTrigger("isTranformingSuperSaiyan");
 
         public AnimationClip GetKamehamehaAnimationClip()
         {
             return animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "Kamehameha");
         }
 
-        public void StartFireCoroutine(float delay, Action onComplete)
-        {
-            StartCoroutine(FireAfterDelay(delay, onComplete));
-        }
+        public void StartFireCoroutine(float delay, Action onComplete) => StartCoroutine(FireAfterDelay(delay, onComplete));
 
         private IEnumerator FireAfterDelay(float delay, Action onComplete)
         {
@@ -138,6 +191,12 @@ namespace DragonBall.Player
             yield return new WaitForSeconds(playerDeathClip.length + deathClipDurationOffset);
 
             Destroy(gameObject);
+        }
+
+        public void StopPlayerMovement()
+        {
+            rb.linearVelocity = Vector2.zero;
+            ResetAllInputs();
         }
     }
 }

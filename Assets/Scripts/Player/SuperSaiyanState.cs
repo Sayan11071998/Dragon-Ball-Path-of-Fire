@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using DragonBall.Core;
 
 namespace DragonBall.Player
 {
@@ -8,17 +10,29 @@ namespace DragonBall.Player
 
         public override void OnStateEnter()
         {
-            Debug.Log("Entering SUPER_SAIYAN state");
+            playerController.DisablePlayerController();
+            playerController.PlayerView.StopPlayerMovement();
             playerModel.ApplySuperSaiyanBuffs();
+            playerController.PlayerView.PlaySuperSaiyanTransformationAnimation();
+            playerController.PlayerView.StartCoroutine(WaitForSuperSaiyanTransformation());
         }
 
-        public override void OnStateExit()
+        private IEnumerator WaitForSuperSaiyanTransformation()
         {
-            Debug.Log("Exiting SUPER_SAIYAN state");
-            playerModel.RemoveSuperSaiyanBuffs();
+            AnimationClip transformClip = playerController.PlayerView.SuperSaiyanAnimationClip;
+            yield return new WaitForSeconds(transformClip.length);
+
+            playerController.PlayerView.StopPlayerMovement();
+            yield return new WaitForSeconds(0.1f);
+
+            bool isNotificationHandled = false;
+            GameService.Instance.uiService.ShowNotification(() => isNotificationHandled = true);
+            yield return new WaitUntil(() => isNotificationHandled);
+
+            playerController.EnablePlayerController();
         }
 
-        protected override void HandleStateSpecificAbilities()
+        public override void HandleStateSpecificAbilities()
         {
             HandleDodge();
             HandleVanish();
@@ -26,5 +40,7 @@ namespace DragonBall.Player
         }
 
         protected override void ResetUnusedInputs() { }
+
+        public override void OnStateExit() => playerModel.RemoveSuperSaiyanBuffs();
     }
 }

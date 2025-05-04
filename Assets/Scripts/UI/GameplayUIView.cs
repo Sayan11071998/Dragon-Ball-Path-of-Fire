@@ -7,11 +7,16 @@ namespace DragonBall.UI
 {
     public class GameplayUIView : MonoBehaviour
     {
+        [Header("Player Info Panel")]
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Image healthBarFill;
         [SerializeField] private TextMeshProUGUI dragonBallCountText;
         [SerializeField] private Color normalHealthColor = Color.green;
         [SerializeField] private Color dangerHealthColor = Color.red;
+
+        [Header("Notification Panel")]
+        [SerializeField] public GameObject notificationPanel;
+        [SerializeField] public Button notificationButton;
 
         private void Start()
         {
@@ -20,6 +25,7 @@ namespace DragonBall.UI
                 var model = GameService.Instance.playerService.PlayerController.PlayerModel;
                 healthSlider.maxValue = model.MaxHealth;
                 healthSlider.value = model.CurrentHealth;
+                notificationPanel.SetActive(false);
 
                 UpdateDragonBallCount(model.DragonBallCount);
             }
@@ -38,5 +44,7 @@ namespace DragonBall.UI
             if (dragonBallCountText != null)
                 dragonBallCountText.text = $"{count}";
         }
+
+        public void ActivateNotificationPanel() => notificationPanel.SetActive(true);
     }
 }
