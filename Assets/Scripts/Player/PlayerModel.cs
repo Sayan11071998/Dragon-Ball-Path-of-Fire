@@ -15,6 +15,9 @@ namespace DragonBall.Player
         public float JumpSpeed { get; private set; }
         public float JumpHorizontalDampening { get; private set; }
 
+        public float FlySpeed { get; private set; }
+        public bool IsFlying { get; set; }
+
         public float VanishRange { get; private set; }
 
         public float DodgeSpeed { get; private set; }
@@ -53,6 +56,7 @@ namespace DragonBall.Player
             float _moveSpeed,
             float _jumpSpeed,
             float _jumpHorizontalDampening,
+            float _flySpeed,
             float _vanishRange,
             float _dodgeSpeed,
             float _dodgeDuration,
@@ -74,6 +78,7 @@ namespace DragonBall.Player
             OriginalMoveSpeed = _moveSpeed;
             JumpSpeed = _jumpSpeed;
             JumpHorizontalDampening = _jumpHorizontalDampening;
+            FlySpeed = _flySpeed;
             VanishRange = _vanishRange;
             DodgeSpeed = _dodgeSpeed;
             DodgeDuration = _dodgeDuration;
@@ -87,6 +92,7 @@ namespace DragonBall.Player
             SuperSaiyanSpeedMultiplier = _superSaiyanSpeedMultiplier;
             SuperSaiyanPowerMultiplier = _superSaiyanPowerMultiplier;
             SuperSaiyanHealthMultiplier = _superSaiyanHealthMultiplier;
+            IsFlying = false;
             IsDead = false;
             IsGrounded = true;
             IsDodging = false;
@@ -97,6 +103,7 @@ namespace DragonBall.Player
         public void ApplySuperSaiyanBuffs()
         {
             MoveSpeed = OriginalMoveSpeed * SuperSaiyanSpeedMultiplier;
+            FlySpeed = JumpSpeed * SuperSaiyanSpeedMultiplier * 0.7f;
             KickAttackPower = (int)(OriginalKickAttackPower * SuperSaiyanPowerMultiplier);
             MaxHealth = OriginalMaxHealth * SuperSaiyanHealthMultiplier;
             CurrentHealth = MaxHealth;
@@ -109,6 +116,7 @@ namespace DragonBall.Player
         {
             MoveSpeed = OriginalMoveSpeed;
             KickAttackPower = OriginalKickAttackPower;
+            IsFlying = false;
 
             float healthPercentage = CurrentHealth / MaxHealth;
             MaxHealth = OriginalMaxHealth;

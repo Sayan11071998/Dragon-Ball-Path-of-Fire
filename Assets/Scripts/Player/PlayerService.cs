@@ -22,6 +22,7 @@ namespace DragonBall.Player
                     _config.MoveSpeed,
                     _config.JumpSpeed,
                     _config.JumpHorizontalDampening,
+                    _config.FlySpeed,
                     _config.vanishRange,
                     _config.DodgeSpeed,
                     _config.DodgeDuration,

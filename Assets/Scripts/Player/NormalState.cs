@@ -14,6 +14,8 @@ namespace DragonBall.Player
                 return;
             }
 
+            playerController.HandleJump();
+
             ResetUnusedInputs();
         }
 

@@ -29,6 +29,11 @@ namespace DragonBall.Player
         [SerializeField] private RuntimeAnimatorController normalAnimatorController;
         [SerializeField] private RuntimeAnimatorController superSaiyanAnimatorController;
 
+        [Header("Movement Bounds")]
+        [SerializeField] private float minY = -4.5f;
+        [SerializeField] private float maxY = 4.5f;
+        [SerializeField] private bool enableBoundsClamping = true;
+
         private PlayerController playerController;
         private Rigidbody2D rb;
         private CapsuleCollider2D capsuleCollider2D;
@@ -36,12 +41,17 @@ namespace DragonBall.Player
 
         private float moveInput;
         private bool isJumping;
+        private bool isFlying;
         private bool isVanishing;
         private bool isDodging;
         private bool isKicking;
         private bool isFiring;
         private bool isKamehameha;
+
+        private bool isInputEnabled = true;
         private bool isSuperSaiyan = false;
+
+        private Vector2 movementDirection;
 
         public Rigidbody2D Rigidbody => rb;
         public Animator Animator => animator;
@@ -58,13 +68,17 @@ namespace DragonBall.Player
 
         public float MoveInput => moveInput;
         public bool JumpInput => isJumping;
+        public bool FlyInput => isFlying;
         public bool VanishInput => isVanishing;
         public bool DodgeInput => isDodging;
         public bool KickInput => isKicking;
         public bool FireInput => isFiring;
         public bool KamehamehaInput => isKamehameha;
 
-        private bool isInputEnabled = true;
+        public Vector2 MovementDirection => movementDirection;
+        public float MinY => minY;
+        public float MaxY => maxY;
+        public bool EnableBoundsClamping => enableBoundsClamping;
 
         private void Awake()
         {
@@ -78,13 +92,23 @@ namespace DragonBall.Player
         public void OnMove(InputValue value)
         {
             if (isInputEnabled)
-                moveInput = value.Get<Vector2>().x;
+            {
+                Vector2 inputVector = value.Get<Vector2>();
+                moveInput = inputVector.x;
+                movementDirection = inputVector;
+            }
         }
 
         public void OnJump()
         {
             if (isInputEnabled)
                 isJumping = true;
+        }
+
+        public void OnFlightToggle()
+        {
+            if (isInputEnabled)
+                isFlying = true;
         }
 
         public void OnVanish()
@@ -132,6 +156,7 @@ namespace DragonBall.Player
         }
 
         public void ResetJumpInput() => isJumping = false;
+        public void ResetFlyInput() => isFlying = false;
         public void ResetVanishInput() => isVanishing = false;
         public void ResetDodgeInput() => isDodging = false;
         public void ResetKickInput() => isKicking = false;
@@ -141,6 +166,7 @@ namespace DragonBall.Player
         public void ResetAllInputs()
         {
             isJumping = false;
+            isFlying = false;
             isVanishing = false;
             isDodging = false;
             isKicking = false;
@@ -159,6 +185,7 @@ namespace DragonBall.Player
 
         public void UpdateRunAnimation(bool isRunning) => animator.SetBool("isRunning", isRunning);
         public void UpdateJumpAnimation(bool isJumping) => animator.SetBool("isJumping", isJumping);
+        public void UpdateFlightAnimation(bool isFlying) => animator.SetBool("isFlyingToggle", isFlying);
         public void SetDodgeAnimation(bool isDodging) => animator.SetBool("isDodging", isDodging);
         public void PlayKickAnimation() => animator.SetTrigger("isKickingTrigger");
         public void PlayFireAnimation() => animator.SetTrigger("isFiring");
@@ -221,5 +248,19 @@ namespace DragonBall.Player
 
             isSuperSaiyan = false;
         }
+
+        public Vector3 ClampPosition(Vector3 position)
+        {
+            if (!enableBoundsClamping)
+                return position;
+
+            return new Vector3(
+                position.x,
+                Mathf.Clamp(position.y, minY, maxY),
+                position.z
+            );
+        }
+
+        public void ResetMovementDirection() => movementDirection = Vector2.zero;
     }
 }

@@ -31,14 +31,12 @@ namespace DragonBall.Player
             if (playerModel.IsDead) return;
 
             HandleGroundCheck();
-
             if (isInputEnabled)
-            {
                 HandleMovement();
-                HandleJump();
-            }
-
             stateMachine.Update();
+
+            if (playerView.EnableBoundsClamping)
+                playerView.transform.position = playerView.ClampPosition(playerView.transform.position);
         }
 
         private void HandleGroundCheck()
@@ -52,26 +50,44 @@ namespace DragonBall.Player
         private void HandleMovement()
         {
             float moveInput = playerView.MoveInput;
+            Vector2 moveDirection = playerView.MovementDirection;
 
             if (playerModel.IsDodging) return;
 
             var velocity = playerView.Rigidbody.linearVelocity;
-            velocity.x = moveInput * playerModel.MoveSpeed;
+
+            if (playerModel.IsFlying)
+            {
+                if (Mathf.Abs(moveDirection.x) > 0.1f)
+                    velocity.x = moveDirection.x * playerModel.MoveSpeed;
+                else
+                    velocity.x = 0;
+
+                if (Mathf.Abs(moveDirection.y) > 0.1f)
+                    velocity.y = moveDirection.y * playerModel.FlySpeed;
+                else
+                    velocity.y = 0;
+            }
+            else
+            {
+                velocity.x = moveInput * playerModel.MoveSpeed;
+            }
+
             playerView.Rigidbody.linearVelocity = velocity;
 
-            if (moveInput > 0 && !playerModel.IsFacingRight)
+            if (moveDirection.x > 0 && !playerModel.IsFacingRight)
             {
                 playerModel.IsFacingRight = true;
                 playerView.FlipCharacter(true);
             }
-            else if (moveInput < 0 && playerModel.IsFacingRight)
+            else if (moveDirection.x < 0 && playerModel.IsFacingRight)
             {
                 playerModel.IsFacingRight = false;
                 playerView.FlipCharacter(false);
             }
         }
 
-        private void HandleJump()
+        public void HandleJump()
         {
             if (!playerView.JumpInput) return;
 
@@ -93,6 +109,29 @@ namespace DragonBall.Player
 
             playerView.Rigidbody.linearVelocity = velocity;
             playerView.ResetJumpInput();
+        }
+
+        public void HandleFlight()
+        {
+            if (!playerView.FlyInput) return;
+
+            playerModel.IsFlying = !playerModel.IsFlying;
+            playerView.Rigidbody.linearVelocity = Vector2.zero;
+
+            playerView.ResetMovementDirection();
+
+            if (playerModel.IsFlying)
+            {
+                playerView.UpdateFlightAnimation(true);
+                playerView.Rigidbody.gravityScale = 0f;
+            }
+            else
+            {
+                playerView.UpdateFlightAnimation(false);
+                playerView.Rigidbody.gravityScale = 1f;
+            }
+
+            playerView.ResetFlyInput();
         }
 
         public void CollectDragonBall()
