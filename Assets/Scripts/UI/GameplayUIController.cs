@@ -10,13 +10,12 @@ namespace DragonBall.UI
 
         private float previousHealth;
         private float previousStamina;
-
         private int previousDragonBallCount;
 
-        public GameplayUIController(GameplayUIView view, PlayerModel model)
+        public GameplayUIController(GameplayUIView _gameplayUIView, PlayerModel _playerModel)
         {
-            gameplayUIView = view;
-            playerModel = model;
+            gameplayUIView = _gameplayUIView;
+            playerModel = _playerModel;
 
             previousHealth = playerModel.CurrentHealth;
             previousStamina = playerModel.CurrentStamina;
@@ -31,18 +30,31 @@ namespace DragonBall.UI
         {
             if (playerModel == null) return;
 
+            CheckHealthChange();
+            CheckStaminaChange();
+            CheckDragonBallCountChange();
+        }
+
+        private void CheckHealthChange()
+        {
             if (!Mathf.Approximately(playerModel.CurrentHealth, previousHealth))
             {
                 UpdateHealthDisplay();
                 previousHealth = playerModel.CurrentHealth;
             }
+        }
 
+        private void CheckStaminaChange()
+        {
             if (!Mathf.Approximately(playerModel.CurrentStamina, previousStamina))
             {
                 UpdateStaminaDisplay();
                 previousStamina = playerModel.CurrentStamina;
             }
+        }
 
+        private void CheckDragonBallCountChange()
+        {
             if (playerModel.DragonBallCount != previousDragonBallCount)
             {
                 gameplayUIView.UpdateDragonBallCount(playerModel.DragonBallCount);
@@ -54,7 +66,6 @@ namespace DragonBall.UI
         {
             float healthPercentage = playerModel.CurrentHealth / playerModel.MaxHealth;
             gameplayUIView.UpdateHealthBar(healthPercentage);
-
             gameplayUIView.SetHealthBarDangerState(healthPercentage <= 0.30f);
         }
 
@@ -62,7 +73,6 @@ namespace DragonBall.UI
         {
             float staminaPercentage = playerModel.CurrentStamina / playerModel.MaxStamina;
             gameplayUIView.UpdateStaminaBar(staminaPercentage);
-
             gameplayUIView.SetStaminaBarDangerState(staminaPercentage <= 0.30f);
         }
     }

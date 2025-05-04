@@ -35,7 +35,8 @@ namespace DragonBall.UI
             "Press 'D' to Move Right",
             "Press 'A' to Move Left",
             "Press 'Spacebar' to Jump",
-            "Press 'Spacebar' twice to Double Jump"
+            "Press 'Spacebar' twice to Double Jump",
+            "Press 'Q' to Toggle to Flight Mode (Will be Unlocked Later!)"
         };
 
         [Header("Attack Instructions")]
@@ -53,6 +54,7 @@ namespace DragonBall.UI
         };
 
         private Coroutine typingCoroutine;
+
         private bool isTyping = false;
         private bool skipTyping = false;
         private bool isMovementMode = true;

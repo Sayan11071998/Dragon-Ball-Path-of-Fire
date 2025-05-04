@@ -10,9 +10,12 @@ namespace DragonBall.UI
         [Header("Player Info Panel")]
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Slider staminaSlider;
+
         [SerializeField] private Image healthBarFill;
         [SerializeField] private Image staminaBarFill;
+
         [SerializeField] private TextMeshProUGUI dragonBallCountText;
+
         [SerializeField] private Color normalHealthColor = Color.green;
         [SerializeField] private Color normalStaminaColor = Color.yellow;
         [SerializeField] private Color dangerHealthColor = Color.red;
@@ -35,7 +38,6 @@ namespace DragonBall.UI
                 staminaSlider.value = playerModel.CurrentStamina;
 
                 notificationPanel.SetActive(false);
-
                 UpdateDragonBallCount(playerModel.DragonBallCount);
             }
         }
