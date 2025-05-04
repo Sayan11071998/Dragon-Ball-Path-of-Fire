@@ -660,7 +660,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 72}
+  m_AnchoredPosition: {x: 0, y: 12}
   m_SizeDelta: {x: 300, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1703156395841331134
@@ -1208,8 +1208,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 198.6851}
+  m_AnchoredPosition: {x: 0, y: 75.40326}
+  m_SizeDelta: {x: 0, y: 340.2819}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2740658070761020852
 CanvasRenderer:
@@ -1239,7 +1239,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You have achieved Super Saiyan Mode. Now you can use Vanish, Dodge, Kamekameha
+  m_text: "\u201CSuper Saiyan Mode Activated!\n\nSpecial moves unlocked\u2014your
+    jumps are disabled for now.\n\u2022 Press 'Q' to toggle Flight Mode\n\u2022 Use
+    'WASD' to maneuver in the air\n\u2022 Press 'V' to vanish and strike from the
+    shadows\n\u2022 Press 'F' to execute a lightning-fast dodge\n\u2022 Press 'K'
+    to charge and unleash your Kamehameha\u201D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cadb68b579f13b2449a6ac6e5023c621, type: 2}
   m_sharedMaterial: {fileID: 2306435545614582974, guid: cadb68b579f13b2449a6ac6e5023c621, type: 2}
@@ -1344,8 +1348,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 111.11856}
-  m_SizeDelta: {x: -0.0001, y: -222.2373}
+  m_AnchoredPosition: {x: 0, y: 211.48486}
+  m_SizeDelta: {x: -860, y: -422.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3744250961971646504
 CanvasRenderer:
@@ -1497,8 +1501,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 83}
-  m_SizeDelta: {x: -1000, y: -400}
+  m_AnchoredPosition: {x: 0, y: -34.25757}
+  m_SizeDelta: {x: -400, y: -223.485}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9087036353197696849
 CanvasRenderer:
