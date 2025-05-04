@@ -24,7 +24,7 @@ namespace DragonBall.Player
         public float FlySpeed = 4f;
 
         [Header("Vanish")]
-        public float vanishRange = 5f;
+        public float VanishRange = 5f;
 
         [Header("Dodge")]
         public float DodgeSpeed = 15f;
@@ -42,6 +42,7 @@ namespace DragonBall.Player
         [Header("Super Saiyan Transformation")]
         public int DragonBallsRequiredForSuperSaiyan = 5;
         public float SuperSaiyanHealthMultiplier = 2f;
+        public float SuperSaiyanStaminaMultiplier = 2f;
         public float SuperSaiyanSpeedMultiplier = 1.5f;
         public float SuperSaiyanPowerMultiplier = 2f;
     }
