@@ -29,11 +29,14 @@ namespace DragonBall.Player
         public void Update()
         {
             if (playerModel.IsDead) return;
-            if (!isInputEnabled) return;
 
             HandleGroundCheck();
-            HandleMovement();
-            HandleJump();
+
+            if (isInputEnabled)
+            {
+                HandleMovement();
+                HandleJump();
+            }
 
             stateMachine.Update();
         }
@@ -108,7 +111,27 @@ namespace DragonBall.Player
                 playerView.StartCoroutine(playerView.DeathSequence());
         }
 
-        public bool DisablePlayerController() => isInputEnabled = false;
-        public bool EnablePlayerController() => isInputEnabled = true;
+        public bool DisablePlayerController()
+        {
+            isInputEnabled = false;
+            playerView.DisableInput();
+
+            var velocity = playerView.Rigidbody.linearVelocity;
+            velocity.x = 0;
+            playerView.Rigidbody.linearVelocity = velocity;
+
+            return isInputEnabled;
+        }
+
+        public bool EnablePlayerController()
+        {
+            var velocity = playerView.Rigidbody.linearVelocity;
+            velocity.x = 0;
+            playerView.Rigidbody.linearVelocity = velocity;
+
+            isInputEnabled = true;
+            playerView.EnableInput();
+            return isInputEnabled;
+        }
     }
 }

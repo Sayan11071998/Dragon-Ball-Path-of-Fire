@@ -9,7 +9,6 @@ namespace DragonBall.Player
 
         public override void OnStateEnter()
         {
-            Debug.Log("Entering SUPER_SAIYAN state");
             playerController.DisablePlayerController();
             playerController.PlayerView.StopPlayerMovement();
             playerModel.ApplySuperSaiyanBuffs();
@@ -21,6 +20,8 @@ namespace DragonBall.Player
         {
             AnimationClip transformClip = playerController.PlayerView.SuperSaiyanAnimationClip;
             yield return new WaitForSeconds(transformClip.length);
+            playerController.PlayerView.StopPlayerMovement();
+            yield return new WaitForSeconds(0.1f);
             playerController.EnablePlayerController();
         }
 
