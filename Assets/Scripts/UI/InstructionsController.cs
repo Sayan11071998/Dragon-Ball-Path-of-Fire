@@ -50,7 +50,7 @@ namespace DragonBall.UI
             "Press 'F' to Dodge",
             "Press 'RMB' to Kick",
             "Press 'LMB' to Fire",
-            "Hold 'K' to Charge Kamehameha"
+            "Press 'K' to Charge Kamehameha"
         };
 
         private Coroutine typingCoroutine;
