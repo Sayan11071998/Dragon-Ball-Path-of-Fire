@@ -16,26 +16,29 @@ namespace DragonBall.Player
             playerPrefab = Object.Instantiate(_playerPrefab);
             playerPrefab.name = "Songoku";
 
-            playerModel = new PlayerModel
-                (
-                    _config.PlayerHealth,
-                    _config.MoveSpeed,
-                    _config.JumpSpeed,
-                    _config.JumpHorizontalDampening,
-                    _config.FlySpeed,
-                    _config.vanishRange,
-                    _config.DodgeSpeed,
-                    _config.DodgeDuration,
-                    _config.DodgeCooldown,
-                    _config.KickAttackPower,
-                    _config.KickAttackRange,
-                    _config.KickAttackCooldown,
-                    _config.FireCooldown,
-                    _config.DragonBallsRequiredForSuperSaiyan,
-                    _config.SuperSaiyanSpeedMultiplier,
-                    _config.SuperSaiyanPowerMultiplier,
-                    _config.SuperSaiyanHealthMultiplier
-                );
+            playerModel = new PlayerModel(
+                _config.PlayerHealth,
+                _config.PlayerStamina,
+                _config.StaminaRegenRate,
+                _config.MoveSpeed,
+                _config.JumpSpeed,
+                _config.JumpHorizontalDampening,
+                _config.FlySpeed,
+                _config.VanishRange,
+                _config.DodgeSpeed,
+                _config.DodgeDuration,
+                _config.DodgeCooldown,
+                _config.KickAttackPower,
+                _config.KickAttackRange,
+                _config.KickAttackCooldown,
+                _config.FireCooldown,
+                _config.DragonBallsRequiredForSuperSaiyan,
+                _config.SuperSaiyanHealthMultiplier,
+                _config.SuperSaiyanStaminaMultiplier,
+                _config.SuperSaiyanSpeedMultiplier,
+                _config.SuperSaiyanPowerMultiplier,
+                _config.KamehamehaStaminaCost
+            );
 
             playerController = new PlayerController(playerModel, playerPrefab);
         }

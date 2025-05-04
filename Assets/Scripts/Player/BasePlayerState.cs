@@ -28,6 +28,8 @@ namespace DragonBall.Player
         {
             if (playerModel.IsDead) return;
 
+            playerModel.RegenerateStamina(Time.deltaTime);
+
             HandleBasicAbilities();
             HandleStateSpecificAbilities();
             UpdateAnimations(playerView.MoveInput);
@@ -45,7 +47,7 @@ namespace DragonBall.Player
         {
             playerView.UpdateRunAnimation(Mathf.Abs(moveInput) > 0.1f && !playerModel.IsDodging);
             playerView.UpdateJumpAnimation(!playerModel.IsGrounded);
-            playerView.SetDodgeAnimation(playerModel.IsDodging);
+            playerView.UpdateDodgeAnimation(playerModel.IsDodging);
         }
 
         protected void HandleKick()
@@ -114,7 +116,7 @@ namespace DragonBall.Player
                 playerModel.LastDodgeTime = Time.time;
                 Vector2 dir = playerModel.IsFacingRight ? Vector2.left : Vector2.right;
                 playerView.Rigidbody.linearVelocity = new Vector2(dir.x * playerModel.DodgeSpeed, playerView.Rigidbody.linearVelocity.y);
-                playerView.SetDodgeAnimation(true);
+                playerView.UpdateDodgeAnimation(true);
             }
 
             playerView.ResetDodgeInput();
@@ -122,7 +124,7 @@ namespace DragonBall.Player
             if (playerModel.IsDodging && Time.time > playerModel.DodgeEndTime)
             {
                 playerModel.IsDodging = false;
-                playerView.SetDodgeAnimation(false);
+                playerView.UpdateDodgeAnimation(false);
             }
         }
 
@@ -132,6 +134,7 @@ namespace DragonBall.Player
 
             Vector2 originalPosition = playerView.transform.position;
             Vector2 randomOffset = Random.insideUnitCircle * playerModel.VanishRange;
+
             if (randomOffset.y < 0)
                 randomOffset.y = Mathf.Abs(randomOffset.y);
 
@@ -145,9 +148,19 @@ namespace DragonBall.Player
         {
             if (playerModel.IsDead || !playerView.KamehamehaInput) return;
 
-            AnimationClip kamehamehaClip = playerView.KamehamehaAnimationClip;
-            playerView.PlayKamehamehaAnimation();
-            playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
+            if (!playerModel.HasEnoughStaminaForKamehameha)
+            {
+                playerView.ResetKamehameha();
+                return;
+            }
+
+            if (playerModel.UseStaminaForKamehameha())
+            {
+                AnimationClip kamehamehaClip = playerView.KamehamehaAnimationClip;
+                playerView.PlayKamehamehaAnimation();
+                playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
+            }
+
             playerView.ResetKamehameha();
         }
 

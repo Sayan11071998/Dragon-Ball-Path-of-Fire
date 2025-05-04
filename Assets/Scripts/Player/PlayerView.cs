@@ -87,7 +87,7 @@ namespace DragonBall.Player
             capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         }
 
-        public void SetPlayerController(PlayerController controller) => playerController = controller;
+        public void SetPlayerController(PlayerController _controller) => playerController = _controller;
 
         public void OnMove(InputValue value)
         {
@@ -186,7 +186,7 @@ namespace DragonBall.Player
         public void UpdateRunAnimation(bool isRunning) => animator.SetBool("isRunning", isRunning);
         public void UpdateJumpAnimation(bool isJumping) => animator.SetBool("isJumping", isJumping);
         public void UpdateFlightAnimation(bool isFlying) => animator.SetBool("isFlyingToggle", isFlying);
-        public void SetDodgeAnimation(bool isDodging) => animator.SetBool("isDodging", isDodging);
+        public void UpdateDodgeAnimation(bool isDodging) => animator.SetBool("isDodging", isDodging);
         public void PlayKickAnimation() => animator.SetTrigger("isKickingTrigger");
         public void PlayFireAnimation() => animator.SetTrigger("isFiring");
         public void PlayKamehamehaAnimation() => animator.SetTrigger("isKamehameha");

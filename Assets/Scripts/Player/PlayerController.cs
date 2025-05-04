@@ -31,8 +31,10 @@ namespace DragonBall.Player
             if (playerModel.IsDead) return;
 
             HandleGroundCheck();
+
             if (isInputEnabled)
                 HandleMovement();
+
             stateMachine.Update();
 
             if (playerView.EnableBoundsClamping)
@@ -117,7 +119,6 @@ namespace DragonBall.Player
 
             playerModel.IsFlying = !playerModel.IsFlying;
             playerView.Rigidbody.linearVelocity = Vector2.zero;
-
             playerView.ResetMovementDirection();
 
             if (playerModel.IsFlying)
@@ -134,11 +135,7 @@ namespace DragonBall.Player
             playerView.ResetFlyInput();
         }
 
-        public void CollectDragonBall()
-        {
-            playerModel.IncrementDragonBallCount();
-            Debug.Log("Dragon Ball collected! Total: " + playerModel.DragonBallCount);
-        }
+        public void CollectDragonBall() => playerModel.IncrementDragonBallCount();
 
         public void TakeDamage(float damage)
         {
