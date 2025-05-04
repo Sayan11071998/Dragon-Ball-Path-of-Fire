@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using DragonBall.Core;
 
 namespace DragonBall.Player
 {
@@ -20,8 +21,14 @@ namespace DragonBall.Player
         {
             AnimationClip transformClip = playerController.PlayerView.SuperSaiyanAnimationClip;
             yield return new WaitForSeconds(transformClip.length);
+
             playerController.PlayerView.StopPlayerMovement();
             yield return new WaitForSeconds(0.1f);
+
+            bool isNotificationHandled = false;
+            GameService.Instance.uiService.ShowNotification(() => isNotificationHandled = true);
+            yield return new WaitUntil(() => isNotificationHandled);
+
             playerController.EnablePlayerController();
         }
 

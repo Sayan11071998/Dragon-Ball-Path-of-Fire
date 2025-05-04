@@ -15,9 +15,9 @@ namespace DragonBall.UI
         [SerializeField] private Color dangerHealthColor = Color.red;
 
         [Header("Notification Panel")]
-        [SerializeField] private GameObject notificationPanel;
+        [SerializeField] public GameObject notificationPanel;
         [SerializeField] private TextMeshProUGUI notificationText;
-        [SerializeField] private Button notificationButton;
+        [SerializeField] public Button notificationButton;
 
         private void Start()
         {
@@ -45,5 +45,15 @@ namespace DragonBall.UI
             if (dragonBallCountText != null)
                 dragonBallCountText.text = $"{count}";
         }
+
+        public void ActivateNotificationPanel() => notificationPanel.SetActive(true);
+
+        public void SetNotificationText(string message)
+        {
+            if (notificationText != null)
+                notificationText.text = message;
+        }
+
+        private void OnNotificationPanelButtonPressed() => notificationPanel.SetActive(false);
     }
 }
