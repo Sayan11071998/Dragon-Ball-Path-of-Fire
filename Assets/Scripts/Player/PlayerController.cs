@@ -13,6 +13,8 @@ namespace DragonBall.Player
         public PlayerModel PlayerModel => playerModel;
         public PlayerView PlayerView => playerView;
 
+        private bool isInputEnabled = true;
+
         public PlayerController(PlayerModel _playerModel, PlayerView _playerView)
         {
             playerModel = _playerModel;
@@ -27,6 +29,7 @@ namespace DragonBall.Player
         public void Update()
         {
             if (playerModel.IsDead) return;
+            if (!isInputEnabled) return;
 
             HandleGroundCheck();
             HandleMovement();
@@ -104,5 +107,8 @@ namespace DragonBall.Player
             if (playerModel.IsDead)
                 playerView.StartCoroutine(playerView.DeathSequence());
         }
+
+        public bool DisablePlayerController() => isInputEnabled = false;
+        public bool EnablePlayerController() => isInputEnabled = true;
     }
 }

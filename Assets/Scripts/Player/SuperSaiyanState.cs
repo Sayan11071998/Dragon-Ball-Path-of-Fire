@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace DragonBall.Player
 {
@@ -9,7 +10,18 @@ namespace DragonBall.Player
         public override void OnStateEnter()
         {
             Debug.Log("Entering SUPER_SAIYAN state");
+            playerController.DisablePlayerController();
+            playerController.PlayerView.StopPlayerMovement();
             playerModel.ApplySuperSaiyanBuffs();
+            playerController.PlayerView.PlaySuperSaiyanTransformationAnimation();
+            playerController.PlayerView.StartCoroutine(WaitForSuperSaiyanTransformation());
+        }
+
+        private IEnumerator WaitForSuperSaiyanTransformation()
+        {
+            AnimationClip transformClip = playerController.PlayerView.SuperSaiyanAnimationClip;
+            yield return new WaitForSeconds(transformClip.length);
+            playerController.EnablePlayerController();
         }
 
         public override void OnStateExit()

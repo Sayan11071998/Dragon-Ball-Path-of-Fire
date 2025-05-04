@@ -22,6 +22,9 @@ namespace DragonBall.Player
         [SerializeField] private float flyAwayForceY = 2f;
         [SerializeField] private float flyAwayDuration = 0.3f;
 
+        [Header("Animation Clips")]
+        [SerializeField] private AnimationClip superSaiyanTransformClip;
+
         private PlayerController playerController;
         private Rigidbody2D rb;
         private CapsuleCollider2D capsuleCollider2D;
@@ -42,6 +45,8 @@ namespace DragonBall.Player
         public float AttackRange => attackRange;
         public Transform FireTransform => fireTransform;
         public Transform KamehamehaTransform => kamehamehaTransform;
+
+        public AnimationClip SuperSaiyanAnimationClip => superSaiyanTransformClip;
 
         public float MoveInput => moveInput;
         public bool JumpInput => isJumping;
@@ -101,7 +106,7 @@ namespace DragonBall.Player
         public void PlayFireAnimation() => animator.SetTrigger("isFiring");
         public void PlayKamehamehaAnimation() => animator.SetTrigger("isKamehameha");
         public void PlayDeathAnimation() => animator.SetTrigger("isDead");
-
+        public void PlaySuperSaiyanTransformationAnimation() => animator.SetTrigger("isTranformingSuperSaiyan");
         public AnimationClip GetKamehamehaAnimationClip()
         {
             return animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "Kamehameha");
@@ -138,6 +143,12 @@ namespace DragonBall.Player
             yield return new WaitForSeconds(playerDeathClip.length + deathClipDurationOffset);
 
             Destroy(gameObject);
+        }
+
+        public void StopPlayerMovement()
+        {
+            rb.linearVelocity = Vector2.zero;
+            ResetAllInputs();
         }
     }
 }

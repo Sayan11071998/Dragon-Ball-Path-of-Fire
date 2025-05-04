@@ -305,6 +305,7 @@ MonoBehaviour:
   flyAwayForceX: 7
   flyAwayForceY: 5
   flyAwayDuration: 0.6
+  superSaiyanTransformClip: {fileID: 7400000, guid: c82d35068da264f48bbe45c443ce0e72, type: 2}
 --- !u!1 &8652443258193641311
 GameObject:
   m_ObjectHideFlags: 0
