@@ -31,13 +31,8 @@ namespace DragonBall.Player
             if (playerModel.IsDead) return;
 
             HandleGroundCheck();
-
             if (isInputEnabled)
-            {
                 HandleMovement();
-                HandleJump();
-            }
-
             stateMachine.Update();
         }
 
@@ -71,7 +66,7 @@ namespace DragonBall.Player
             }
         }
 
-        private void HandleJump()
+        public void HandleJump()
         {
             if (!playerView.JumpInput) return;
 

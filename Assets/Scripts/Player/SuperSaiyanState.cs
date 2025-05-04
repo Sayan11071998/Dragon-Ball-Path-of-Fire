@@ -21,7 +21,7 @@ namespace DragonBall.Player
         {
             AnimationClip transformClip = playerController.PlayerView.SuperSaiyanAnimationClip;
             yield return new WaitForSeconds(transformClip.length * 0.8f);
-            
+
             playerController.PlayerView.TransformToSuperSaiyan();
 
             yield return new WaitForSeconds(transformClip.length * 0.2f);
@@ -41,11 +41,12 @@ namespace DragonBall.Player
             HandleDodge();
             HandleVanish();
             HandleKamehameha();
+            playerView.ResetJumpInput();
         }
 
         protected override void ResetUnusedInputs() { }
 
-        public override void OnStateExit() 
+        public override void OnStateExit()
         {
             playerModel.RemoveSuperSaiyanBuffs();
             playerController.PlayerView.RevertToNormal();
