@@ -145,7 +145,7 @@ namespace DragonBall.Player
         {
             if (playerModel.IsDead || !playerView.KamehamehaInput) return;
 
-            AnimationClip kamehamehaClip = playerView.GetKamehamehaAnimationClip();
+            AnimationClip kamehamehaClip = playerView.KamehamehaAnimationClip;
             playerView.PlayKamehamehaAnimation();
             playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
             playerView.ResetKamehameha();

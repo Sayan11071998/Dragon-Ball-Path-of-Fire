@@ -306,6 +306,9 @@ MonoBehaviour:
   flyAwayForceY: 5
   flyAwayDuration: 0.6
   superSaiyanTransformClip: {fileID: 7400000, guid: c82d35068da264f48bbe45c443ce0e72, type: 2}
+  kamehamehaAnimationClip: {fileID: 7400000, guid: 0fb3318e9f0ad9d43b83ccd7bbcab70b, type: 2}
+  normalAnimatorController: {fileID: 9100000, guid: cf73801ee4110ab4fae6be0d24d1db5b, type: 2}
+  superSaiyanAnimatorController: {fileID: 9100000, guid: e8a1775dcbc29be4eb374d557fcf9093, type: 2}
 --- !u!1 &8652443258193641311
 GameObject:
   m_ObjectHideFlags: 0
