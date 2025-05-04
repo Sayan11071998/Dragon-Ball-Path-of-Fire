@@ -162,10 +162,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 1440727734570027941}
+  staminaSlider: {fileID: 286305774298564244}
   healthBarFill: {fileID: 7960081682401416881}
+  staminaBarFill: {fileID: 7086436548969638372}
   dragonBallCountText: {fileID: 6616369156762636086}
   normalHealthColor: {r: 0, g: 1, b: 0, a: 1}
+  normalStaminaColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   dangerHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  dangerStaminaColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   notificationPanel: {fileID: 7592637288200639418}
   notificationButton: {fileID: 223252183494015519}
 --- !u!1 &1016986543167920262
