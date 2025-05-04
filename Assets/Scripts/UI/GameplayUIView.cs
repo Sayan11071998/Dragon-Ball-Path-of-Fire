@@ -16,7 +16,6 @@ namespace DragonBall.UI
 
         [Header("Notification Panel")]
         [SerializeField] public GameObject notificationPanel;
-        [SerializeField] private TextMeshProUGUI notificationText;
         [SerializeField] public Button notificationButton;
 
         private void Start()
@@ -47,13 +46,5 @@ namespace DragonBall.UI
         }
 
         public void ActivateNotificationPanel() => notificationPanel.SetActive(true);
-
-        public void SetNotificationText(string message)
-        {
-            if (notificationText != null)
-                notificationText.text = message;
-        }
-
-        private void OnNotificationPanelButtonPressed() => notificationPanel.SetActive(false);
     }
 }

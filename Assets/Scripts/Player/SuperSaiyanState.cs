@@ -32,13 +32,9 @@ namespace DragonBall.Player
             playerController.EnablePlayerController();
         }
 
-        public override void OnStateExit()
-        {
-            Debug.Log("Exiting SUPER_SAIYAN state");
-            playerModel.RemoveSuperSaiyanBuffs();
-        }
+        public override void OnStateExit() => playerModel.RemoveSuperSaiyanBuffs();
 
-        protected override void HandleStateSpecificAbilities()
+        public override void HandleStateSpecificAbilities()
         {
             HandleDodge();
             HandleVanish();
