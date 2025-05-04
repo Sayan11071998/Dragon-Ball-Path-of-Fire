@@ -55,8 +55,15 @@ namespace DragonBall.Player
 
             if (playerModel.IsFlying)
             {
-                velocity.x = moveDirection.x * playerModel.MoveSpeed;
-                velocity.y = moveDirection.y * playerModel.FlySpeed;
+                if (Mathf.Abs(moveDirection.x) > 0.1f)
+                    velocity.x = moveDirection.x * playerModel.MoveSpeed;
+                else
+                    velocity.x = 0;
+
+                if (Mathf.Abs(moveDirection.y) > 0.1f)
+                    velocity.y = moveDirection.y * playerModel.FlySpeed;
+                else
+                    velocity.y = 0;
             }
             else
             {
@@ -106,6 +113,8 @@ namespace DragonBall.Player
             if (!playerView.FlyInput) return;
 
             playerModel.IsFlying = !playerModel.IsFlying;
+
+            playerView.Rigidbody.linearVelocity = Vector2.zero;
 
             if (playerModel.IsFlying)
             {
