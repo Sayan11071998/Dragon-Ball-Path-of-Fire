@@ -28,6 +28,9 @@ namespace DragonBall.Bullet
             isGuided = true;
             guidanceDelay = guidedBulletModel.GuidanceDelay;
             maxGuidanceTime = guidedBulletModel.MaxGuidanceTime;
+
+            float initialAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            guidedBulletView.SetRotation(initialAngle);
         }
 
         public override void Update()
