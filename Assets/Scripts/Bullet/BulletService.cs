@@ -64,14 +64,20 @@ namespace DragonBall.Bullet
             }
         }
 
-        public void FireGuidedBullet(BulletType type, Vector2 position, Vector2 direction, Transform target, BulletTargetType targetType = BulletTargetType.Player)
+        public void FireGuidedBullet(BulletType type, Vector2 position, Vector2 direction, Transform target,
+            BulletTargetType targetType = BulletTargetType.Player, Vector3? targetOffset = null)
         {
             if (guidedBulletPool.TryGetValue(type, out GuidedBulletPool pool))
             {
                 GuidedBulletController bullet = pool.GetGuidedBullet();
 
                 if (bullet != null)
+                {
                     bullet.Activate(position, direction, target, targetType);
+
+                    if (targetOffset.HasValue)
+                        bullet.SetTargetOffset(targetOffset.Value);
+                }
             }
         }
     }

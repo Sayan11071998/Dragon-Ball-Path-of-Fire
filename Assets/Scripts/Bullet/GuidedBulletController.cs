@@ -7,6 +7,7 @@ namespace DragonBall.Bullet
         private GuidedBulletView guidedBulletView;
         private GuidedBulletModel guidedBulletModel;
         private Transform target;
+        private Vector3 targetOffset = new Vector3(0f, 0.75f, 0f);
 
         private float guidanceDelay;
         private float maxGuidanceTime;
@@ -50,7 +51,10 @@ namespace DragonBall.Bullet
 
             if (target != null && isGuided)
             {
-                Vector2 direction = (target.position - guidedBulletView.transform.position).normalized;
+                Vector3 targetPosition = target.position + targetOffset;
+                Vector2 targetPosition2D = new Vector2(targetPosition.x, targetPosition.y);
+                Vector2 currentPosition2D = new Vector2(guidedBulletView.transform.position.x, guidedBulletView.transform.position.y);
+                Vector2 direction = (targetPosition2D - currentPosition2D).normalized;
                 Vector2 currentVelocity = guidedBulletView.GetVelocity();
                 float currentSpeed = currentVelocity.magnitude;
 
@@ -68,5 +72,7 @@ namespace DragonBall.Bullet
         }
 
         public void DisableGuiding() => isGuided = false;
+
+        public void SetTargetOffset(Vector3 offset) => targetOffset = offset;
     }
 }
