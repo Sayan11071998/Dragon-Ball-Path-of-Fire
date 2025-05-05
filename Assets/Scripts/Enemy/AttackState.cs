@@ -25,7 +25,14 @@ namespace DragonBall.Enemy
 
         public void Update()
         {
-            if (baseEnemyController.IsPlayerDead || playerTransform == null || baseEnemyController.IsDead)
+            if (baseEnemyController.IsDead || baseEnemyController.BaseEnemyView.IsDying)
+            {
+                if (baseEnemyController.IsDead && !baseEnemyController.BaseEnemyView.IsDying)
+                    baseEnemyStateMachine.ChangeState(EnemyStates.DEATH);
+                return;
+            }
+
+            if (baseEnemyController.IsPlayerDead || playerTransform == null)
             {
                 if (baseEnemyController.IsPlayerDead)
                     baseEnemyController.BaseEnemyView.StopMovement();
@@ -54,8 +61,11 @@ namespace DragonBall.Enemy
 
         private void TryAttack()
         {
-            if (baseEnemyController.IsPlayerDead) return;
-            if (Time.time < baseEnemyModel.lastAttackTime + enemyScriptableObject.AttackCooldown) return;
+            if (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead || baseEnemyController.BaseEnemyView.IsDying)
+                return;
+
+            if (Time.time < baseEnemyModel.lastAttackTime + enemyScriptableObject.AttackCooldown)
+                return;
 
             if (!baseEnemyController.BaseEnemyView.IsAttacking)
             {
