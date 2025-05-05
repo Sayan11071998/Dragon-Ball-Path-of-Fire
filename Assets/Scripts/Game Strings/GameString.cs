@@ -14,5 +14,9 @@ namespace DragonBall.GameStrings
         public const string PlayerAnimationDeathTrigger = "isDead";
         public const string PlayerAnimationTransformSuperSaiyanTrigger = "isTranformingSuperSaiyan";
         #endregion
+
+        #region UI
+        public const string GameplayUIPrefabName = "GameplayUI";
+        #endregion
     }
 }
