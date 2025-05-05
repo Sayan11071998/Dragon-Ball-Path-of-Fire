@@ -5,11 +5,11 @@ namespace DragonBall.Bullet
 {
     public class BulletController
     {
-        private BulletModel bulletModel;
-        private BulletView bulletView;
-        private BulletPool bulletPool;
+        protected BulletModel bulletModel;
+        protected BulletView bulletView;
+        protected BulletPool bulletPool;
 
-        private float creationTime;
+        protected float creationTime;
 
         public BulletController(BulletModel _bulletModel, BulletView _bulletView, BulletPool _bulletPool)
         {
@@ -20,7 +20,7 @@ namespace DragonBall.Bullet
             bulletView.SetController(this);
         }
 
-        public void Activate(Vector2 position, Vector2 direction, BulletTargetType targetType = BulletTargetType.Enemy)
+        public virtual void Activate(Vector2 position, Vector2 direction, BulletTargetType targetType = BulletTargetType.Enemy)
         {
             bulletView.transform.position = position;
             bulletView.gameObject.SetActive(true);
@@ -29,7 +29,7 @@ namespace DragonBall.Bullet
             creationTime = Time.time;
         }
 
-        public void Update()
+        public virtual void Update()
         {
             if (Time.time > creationTime + bulletModel.Lifetime)
                 Deactivate();
@@ -43,7 +43,7 @@ namespace DragonBall.Bullet
 
         public float GetDamage() => bulletModel.Damage;
 
-        public void Deactivate()
+        public virtual void Deactivate()
         {
             bulletView.Deactivate();
             bulletPool.ReturnItem(this);

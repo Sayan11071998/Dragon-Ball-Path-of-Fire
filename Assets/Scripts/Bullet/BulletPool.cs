@@ -5,8 +5,8 @@ namespace DragonBall.Bullet
 {
     public class BulletPool : GenericObjectPool<BulletController>
     {
-        private BulletView bulletPrefab;
-        private BulletModel bulletModel;
+        protected BulletView bulletPrefab;
+        protected BulletModel bulletModel;
 
         public BulletPool(BulletView bulletPrefab, BulletModel bulletModel)
         {
@@ -19,6 +19,11 @@ namespace DragonBall.Bullet
         protected override BulletController CreateItem<T>()
         {
             BulletView view = Object.Instantiate(bulletPrefab);
+            return CreateController(view);
+        }
+
+        protected virtual BulletController CreateController(BulletView view)
+        {
             return new BulletController(bulletModel, view, this);
         }
     }
