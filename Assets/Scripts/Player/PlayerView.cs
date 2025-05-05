@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Player
 {
@@ -183,15 +184,15 @@ namespace DragonBall.Player
             transform.localScale = localScale;
         }
 
-        public void UpdateRunAnimation(bool isRunning) => animator.SetBool("isRunning", isRunning);
-        public void UpdateJumpAnimation(bool isJumping) => animator.SetBool("isJumping", isJumping);
-        public void UpdateFlightAnimation(bool isFlying) => animator.SetBool("isFlyingToggle", isFlying);
-        public void UpdateDodgeAnimation(bool isDodging) => animator.SetBool("isDodging", isDodging);
-        public void PlayKickAnimation() => animator.SetTrigger("isKickingTrigger");
-        public void PlayFireAnimation() => animator.SetTrigger("isFiring");
-        public void PlayKamehamehaAnimation() => animator.SetTrigger("isKamehameha");
-        public void PlayDeathAnimation() => animator.SetTrigger("isDead");
-        public void PlaySuperSaiyanTransformationAnimation() => animator.SetTrigger("isTranformingSuperSaiyan");
+        public void UpdateRunAnimation(bool isRunning) => animator.SetBool(GameString.PlayerAnimationRunBool, isRunning);
+        public void UpdateJumpAnimation(bool isJumping) => animator.SetBool(GameString.PlayerAnimationJumpBool, isJumping);
+        public void UpdateFlightAnimation(bool isFlying) => animator.SetBool(GameString.PlayerAnimationFlightBool, isFlying);
+        public void UpdateDodgeAnimation(bool isDodging) => animator.SetBool(GameString.PlayerAnimationDodgeBool, isDodging);
+        public void PlayKickAnimation() => animator.SetTrigger(GameString.PlayerAnimationKickTrigger);
+        public void PlayFireAnimation() => animator.SetTrigger(GameString.PlayerAnimationFireTrigger);
+        public void PlayKamehamehaAnimation() => animator.SetTrigger(GameString.PlayerAnimationKamekamehaTrigger);
+        public void PlayDeathAnimation() => animator.SetTrigger(GameString.PlayerAnimationDeathTrigger);
+        public void PlaySuperSaiyanTransformationAnimation() => animator.SetTrigger(GameString.PlayerAnimationTransformSuperSaiyanTrigger);
 
         public void StartFireCoroutine(float delay, Action onComplete) => StartCoroutine(FireAfterDelay(delay, onComplete));
 

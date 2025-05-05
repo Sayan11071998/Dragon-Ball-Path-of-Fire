@@ -1,6 +1,7 @@
 using UnityEngine;
 using DragonBall.Player;
 using System.Collections;
+using DragonBall.GameStrings;
 
 namespace DragonBall.UI
 {
@@ -14,7 +15,7 @@ namespace DragonBall.UI
         {
             this.playerModel = playerModel;
             gameplayUIView = Object.Instantiate(gameplayUIViewPrefab);
-            gameplayUIView.name = "GameplayUI";
+            gameplayUIView.name = GameString.GameplayUIPrefabName;
             gameplayUIController = new GameplayUIController(gameplayUIView, playerModel);
         }
 

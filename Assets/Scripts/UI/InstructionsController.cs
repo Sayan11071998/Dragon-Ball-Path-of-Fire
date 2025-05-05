@@ -46,11 +46,11 @@ namespace DragonBall.UI
         [SerializeField]
         private List<string> attackInstructionLines = new List<string>
         {
-            "Press 'V' to Instant Transport",
-            "Press 'F' to Dodge",
             "Press 'RMB' to Kick",
-            "Press 'LMB' to Fire",
-            "Press 'K' to Charge Kamehameha"
+            "Press 'LMB'' to Shoot Energy Ball",
+            "Press 'V' to vanish and strike from the shadows (Will be Unlocked Later!)",
+            "Press 'F' to execute a lightning-fast dodge (Will be Unlocked Later!)",
+            "Press 'K' to charge and unleash your Kamehameha (Will be Unlocked Later!)"
         };
 
         private Coroutine typingCoroutine;

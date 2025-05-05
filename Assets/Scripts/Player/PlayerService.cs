@@ -1,4 +1,5 @@
 using UnityEngine;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Player
 {
@@ -14,7 +15,7 @@ namespace DragonBall.Player
         public PlayerService(PlayerView _playerPrefab, PlayerScriptableObject _config)
         {
             playerPrefab = Object.Instantiate(_playerPrefab);
-            playerPrefab.name = "Songoku";
+            playerPrefab.name = GameString.PlayerPrefabName;
 
             playerModel = new PlayerModel(
                 _config.PlayerHealth,
