@@ -2,7 +2,7 @@ namespace DragonBall.Enemy
 {
     public enum EnemyType
     {
-        Buu,
+        KickType,
         FatBuu
     }
 }

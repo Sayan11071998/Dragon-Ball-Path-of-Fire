@@ -34,8 +34,8 @@ namespace DragonBall.Enemy
         {
             switch (enemyType)
             {
-                case EnemyType.Buu:
-                    return new BuuEnemyController(enemyScriptableObject, view, this);
+                case EnemyType.KickType:
+                    return new KickTypeEnemyController(enemyScriptableObject, view, this);
                 case EnemyType.FatBuu:
                     return new FatBuuEnemyController(enemyScriptableObject, view, this);
                 default:

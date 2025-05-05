@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DragonBall.Enemy
 {
-    public class BuuEnemyView : BaseEnemyView
+    public class KickTypeEnemyView : BaseEnemyView
     {
         [Header("Buu-specific Attack Settings")]
         [SerializeField] private AnimationClip buuKickAnimation;
