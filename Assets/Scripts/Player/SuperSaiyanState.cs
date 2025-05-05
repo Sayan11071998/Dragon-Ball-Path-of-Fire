@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using DragonBall.Core;
+using DragonBall.Bullet;
 
 namespace DragonBall.Player
 {
@@ -44,6 +45,8 @@ namespace DragonBall.Player
             HandleKamehameha();
             playerView.ResetJumpInput();
         }
+
+        protected override BulletType GetBulletType() => BulletType.PlayerSuperSaiyanPowerBall;
 
         protected override void ResetUnusedInputs() { }
 

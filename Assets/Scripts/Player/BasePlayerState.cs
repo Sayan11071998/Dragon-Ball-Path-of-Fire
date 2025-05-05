@@ -98,8 +98,10 @@ namespace DragonBall.Player
         {
             Vector2 position = playerView.FireTransform.position;
             Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
-            GameService.Instance.bulletService.FireBullet(BulletType.PlayerRegularPowerBall, position, direction);
+            GameService.Instance.bulletService.FireBullet(GetBulletType(), position, direction);
         }
+
+        protected virtual BulletType GetBulletType() => BulletType.PlayerNormalPowerBall;
 
         protected void HandleDodge()
         {

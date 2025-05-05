@@ -2,7 +2,8 @@ namespace DragonBall.Bullet
 {
     public enum BulletType
     {
-        PlayerRegularPowerBall,
+        PlayerNormalPowerBall,
+        PlayerSuperSaiyanPowerBall,
         PlayerKamehamehaPowerBall,
         EnemyRegularPowerBall
     }

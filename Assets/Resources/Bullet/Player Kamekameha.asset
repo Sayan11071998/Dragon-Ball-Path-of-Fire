@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf8c6766a6728514890f1b3974d2303f, type: 3}
-  m_Name: Player Power Ball
+  m_Name: Player Kamekameha
   m_EditorClassIdentifier: 
-  BulletSpeed: 15
-  BulletDamage: 25
-  BulletLifetime: 2
+  BulletSpeed: 35
+  BulletDamage: 70
+  BulletLifetime: 10

@@ -30,6 +30,7 @@ namespace DragonBall.Enemy
         protected bool isDying = false;
 
         public bool IsAttacking => isAttacking;
+        public bool IsDying => isDying;
 
         public virtual void SetController(BaseEnemyController controllerToSet) => baseEnemyController = controllerToSet;
 
@@ -55,7 +56,7 @@ namespace DragonBall.Enemy
 
         public virtual void MoveInDirection(Vector2 direction, float speed)
         {
-            if (baseEnemyController != null && baseEnemyController.IsPlayerDead)
+            if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead || isDying))
             {
                 StopMovement();
                 return;
@@ -68,6 +69,8 @@ namespace DragonBall.Enemy
 
         public virtual void FaceTarget(Vector2 targetPosition)
         {
+            if (isDying) return;
+
             FaceDirection(targetPosition.x - transform.position.x);
             rb.linearVelocity = Vector2.zero;
         }
