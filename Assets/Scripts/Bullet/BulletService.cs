@@ -5,59 +5,60 @@ namespace DragonBall.Bullet
 {
     public class BulletService
     {
-        private Dictionary<BulletType, BulletPool> bulletPools = new Dictionary<BulletType, BulletPool>();
-        private Dictionary<BulletType, GuidedBulletPool> guidedBulletPools = new Dictionary<BulletType, GuidedBulletPool>();
+        private Dictionary<BulletType, BulletPool> bulletPool = new Dictionary<BulletType, BulletPool>();
+        private Dictionary<BulletType, GuidedBulletPool> guidedBulletPool = new Dictionary<BulletType, GuidedBulletPool>();
 
         public BulletService(
-            Dictionary<BulletType, (BulletView, BulletScriptableObject)> bulletData,
-            Dictionary<BulletType, (GuidedBulletView, GuidedBulletScriptableObject)> guidedBulletData = null)
+            Dictionary<BulletType, (BulletView, BulletScriptableObject)> _bulletData,
+            Dictionary<BulletType, (GuidedBulletView, GuidedBulletScriptableObject)> _guidedBulletData = null)
         {
-            InitializeRegularBulletPools(bulletData);
-            InitializeGuidedBulletPools(guidedBulletData);
+            InitializeRegularBulletPools(_bulletData);
+            InitializeGuidedBulletPools(_guidedBulletData);
         }
 
-        private void InitializeRegularBulletPools(Dictionary<BulletType, (BulletView, BulletScriptableObject)> bulletData)
+        private void InitializeRegularBulletPools(Dictionary<BulletType, (BulletView, BulletScriptableObject)> _regularBulletData)
         {
-            foreach (var item in bulletData)
+            foreach (var item in _regularBulletData)
             {
-                BulletType type = item.Key;
-                BulletView prefab = item.Value.Item1;
-                BulletScriptableObject so = item.Value.Item2;
+                BulletType bulletType = item.Key;
+                BulletView bulletPrefab = item.Value.Item1;
+                BulletScriptableObject bulletScriptableObject = item.Value.Item2;
 
-                BulletModel model = new BulletModel(so.BulletSpeed, so.BulletDamage, so.BulletLifetime);
-                BulletPool pool = new BulletPool(prefab, model);
-                bulletPools[type] = pool;
+                BulletModel model = new BulletModel(bulletScriptableObject.BulletSpeed, bulletScriptableObject.BulletDamage, bulletScriptableObject.BulletLifetime);
+                BulletPool pool = new BulletPool(bulletPrefab, model);
+                bulletPool[bulletType] = pool;
             }
         }
 
-        private void InitializeGuidedBulletPools(Dictionary<BulletType, (GuidedBulletView, GuidedBulletScriptableObject)> guidedBulletData)
+        private void InitializeGuidedBulletPools(Dictionary<BulletType, (GuidedBulletView, GuidedBulletScriptableObject)> _guidedBulletData)
         {
-            if (guidedBulletData == null) return;
+            if (_guidedBulletData == null) return;
 
-            foreach (var item in guidedBulletData)
+            foreach (var item in _guidedBulletData)
             {
-                BulletType type = item.Key;
-                GuidedBulletView prefab = item.Value.Item1;
-                GuidedBulletScriptableObject so = item.Value.Item2;
+                BulletType bulletType = item.Key;
+                GuidedBulletView bulletPrefab = item.Value.Item1;
+                GuidedBulletScriptableObject guidedBulletScriptableObject = item.Value.Item2;
 
                 GuidedBulletModel model = new GuidedBulletModel(
-                    so.BulletSpeed,
-                    so.BulletDamage,
-                    so.BulletLifetime,
-                    so.RotationSpeed,
-                    so.GuidanceDelay,
-                    so.MaxGuidanceTime);
+                    guidedBulletScriptableObject.BulletSpeed,
+                    guidedBulletScriptableObject.BulletDamage,
+                    guidedBulletScriptableObject.BulletLifetime,
+                    guidedBulletScriptableObject.RotationSpeed,
+                    guidedBulletScriptableObject.GuidanceDelay,
+                    guidedBulletScriptableObject.MaxGuidanceTime);
 
-                GuidedBulletPool pool = new GuidedBulletPool(prefab, model);
-                guidedBulletPools[type] = pool;
+                GuidedBulletPool pool = new GuidedBulletPool(bulletPrefab, model);
+                guidedBulletPool[bulletType] = pool;
             }
         }
 
         public void FireBullet(BulletType type, Vector2 position, Vector2 direction, BulletTargetType targetType = BulletTargetType.Enemy)
         {
-            if (bulletPools.TryGetValue(type, out BulletPool pool))
+            if (bulletPool.TryGetValue(type, out BulletPool pool))
             {
                 BulletController bullet = pool.GetBullet();
+
                 if (bullet != null)
                     bullet.Activate(position, direction, targetType);
             }
@@ -65,9 +66,10 @@ namespace DragonBall.Bullet
 
         public void FireGuidedBullet(BulletType type, Vector2 position, Vector2 direction, Transform target, BulletTargetType targetType = BulletTargetType.Player)
         {
-            if (guidedBulletPools.TryGetValue(type, out GuidedBulletPool pool))
+            if (guidedBulletPool.TryGetValue(type, out GuidedBulletPool pool))
             {
                 GuidedBulletController bullet = pool.GetGuidedBullet();
+
                 if (bullet != null)
                     bullet.Activate(position, direction, target, targetType);
             }

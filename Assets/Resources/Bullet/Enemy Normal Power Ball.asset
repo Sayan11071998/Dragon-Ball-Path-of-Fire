@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Enemy Normal Power Ball
   m_EditorClassIdentifier: 
   BulletSpeed: 15
-  BulletDamage: 25
-  BulletLifetime: 2
+  BulletDamage: 12
+  BulletLifetime: 1

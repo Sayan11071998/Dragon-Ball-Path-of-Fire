@@ -9,6 +9,7 @@ namespace DragonBall.Bullet
         [SerializeField] private BulletTargetType targetType = BulletTargetType.Enemy;
 
         private BulletController bulletController;
+
         protected Rigidbody2D rb;
 
         public void SetController(BulletController controllerToSet) => bulletController = controllerToSet;

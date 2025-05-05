@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletSpeed: 35
   BulletDamage: 70
-  BulletLifetime: 10
+  BulletLifetime: 5

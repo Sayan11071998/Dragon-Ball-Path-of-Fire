@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Player Normal Power Ball
   m_EditorClassIdentifier: 
   BulletSpeed: 15
-  BulletDamage: 25
+  BulletDamage: 15
   BulletLifetime: 2

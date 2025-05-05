@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   MoveSpeed: 6
-  DetectionRange: 20
-  AttackRange: 10
+  DetectionRange: 15
+  AttackRange: 7
   AttackDamage: 10
-  AttackCooldown: 1
+  AttackCooldown: 2
   FloatAmplitude: 0.5
   FloatSpeed: 1
   AerialMoveSpeed: 4

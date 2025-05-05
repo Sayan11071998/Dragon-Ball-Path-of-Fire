@@ -22,9 +22,6 @@ namespace DragonBall.Bullet
             return CreateController(view);
         }
 
-        protected virtual BulletController CreateController(BulletView view)
-        {
-            return new BulletController(bulletModel, view, this);
-        }
+        protected virtual BulletController CreateController(BulletView view) => new BulletController(bulletModel, view, this);
     }
 }

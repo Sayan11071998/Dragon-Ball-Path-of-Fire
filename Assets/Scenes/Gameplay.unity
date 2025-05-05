@@ -1459,9 +1459,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gotenk Enemy Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 1506526633782270884, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 46.1
+      value: 30.6
       objectReference: {fileID: 0}
     - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
       propertyPath: m_LocalPosition.y

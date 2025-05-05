@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace DragonBall.Bullet
 {
     public class GuidedBulletPool : BulletPool
@@ -14,9 +12,6 @@ namespace DragonBall.Bullet
 
         public GuidedBulletController GetGuidedBullet() => GetItem<GuidedBulletController>() as GuidedBulletController;
 
-        protected override BulletController CreateController(BulletView view)
-        {
-            return new GuidedBulletController(guidedBulletModel, view as GuidedBulletView, this);
-        }
+        protected override BulletController CreateController(BulletView view) => new GuidedBulletController(guidedBulletModel, view as GuidedBulletView, this);
     }
 }

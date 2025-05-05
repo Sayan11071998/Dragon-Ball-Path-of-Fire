@@ -26,7 +26,6 @@ namespace DragonBall.Bullet
 
         private void SetupTrailRenderer()
         {
-            // Add trail renderer if it doesn't exist
             if (!TryGetComponent<TrailRenderer>(out trailRenderer))
             {
                 trailRenderer = gameObject.AddComponent<TrailRenderer>();
@@ -40,9 +39,6 @@ namespace DragonBall.Bullet
 
         public Vector2 GetVelocity() => rb.linearVelocity;
 
-        public void SetRotation(float angle)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
+        public void SetRotation(float angle) => transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }
