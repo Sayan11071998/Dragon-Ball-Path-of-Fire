@@ -4,19 +4,13 @@ namespace DragonBall.Bullet
 {
     public class GuidedBulletView : BulletView
     {
-        [SerializeField] private float trailLength = 0.5f;
-        [SerializeField] private Color trailColor = Color.red;
+        [SerializeField] private bool useRotation = true;
 
         private GuidedBulletController guidedController;
-        private TrailRenderer trailRenderer;
 
         public void SetGuidedController(GuidedBulletController controllerToSet) => guidedController = controllerToSet;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            SetupTrailRenderer();
-        }
+        protected override void Awake() => base.Awake();
 
         protected override void Update()
         {
@@ -24,21 +18,16 @@ namespace DragonBall.Bullet
                 guidedController.Update();
         }
 
-        private void SetupTrailRenderer()
-        {
-            if (!TryGetComponent<TrailRenderer>(out trailRenderer))
-            {
-                trailRenderer = gameObject.AddComponent<TrailRenderer>();
-                trailRenderer.time = trailLength;
-                trailRenderer.startColor = trailColor;
-                trailRenderer.endColor = new Color(trailColor.r, trailColor.g, trailColor.b, 0f);
-                trailRenderer.startWidth = 0.1f;
-                trailRenderer.endWidth = 0.05f;
-            }
-        }
-
         public Vector2 GetVelocity() => rb.linearVelocity;
 
-        public void SetRotation(float angle) => transform.rotation = Quaternion.Euler(0, 0, angle);
+        public void SetRotation(float angle)
+        {
+            if (useRotation)
+                transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            UpdateSpriteFlip(rb.linearVelocity);
+        }
+
+        public override void SetVelocity(Vector2 velocity) => base.SetVelocity(velocity);
     }
 }
