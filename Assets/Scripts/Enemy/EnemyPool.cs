@@ -36,8 +36,8 @@ namespace DragonBall.Enemy
             {
                 case EnemyType.KickType:
                     return new KickTypeEnemyController(enemyScriptableObject, view, this);
-                case EnemyType.FatBuu:
-                    return new FatBuuEnemyController(enemyScriptableObject, view, this);
+                case EnemyType.PowerBallFireType:
+                    return new PowerBallFireTypeEnemyController(enemyScriptableObject, view, this);
                 default:
                     Debug.LogError($"Unsupported enemy type: {enemyType}");
                     return null;
