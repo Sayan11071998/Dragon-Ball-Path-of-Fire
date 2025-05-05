@@ -3,6 +3,7 @@ namespace DragonBall.Enemy
     public enum EnemyType
     {
         KickType,
-        PowerBallFireType
+        PowerBallFireType,
+        FlyingType
     }
 }

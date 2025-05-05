@@ -150,6 +150,7 @@ Transform:
   m_Children:
   - {fileID: 655757796}
   - {fileID: 283181274}
+  - {fileID: 1188997960}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &39809984
@@ -1446,6 +1447,68 @@ MonoBehaviour:
     MaxWindowSize: 0
     Padding: 0
   m_LegacyMaxWindowSize: -2
+--- !u!1001 &1188997959
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 15702868}
+    m_Modifications:
+    - target: {fileID: 1506526633782270884, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_Name
+      value: Gotenk Enemy Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 46.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+--- !u!4 &1188997960 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
+  m_PrefabInstance: {fileID: 1188997959}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1191007467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,6 +2060,9 @@ MonoBehaviour:
   - type: 1
     prefab: {fileID: 4975855554944246825, guid: d1678673ea18f644283fb914e580195d, type: 3}
     so: {fileID: 11400000, guid: d5430f1abdf7aaf4e8501668ca81bdce, type: 2}
+  - type: 2
+    prefab: {fileID: 6170876922668266804, guid: 27aab4b07a62fbb44944917953fe6762, type: 3}
+    so: {fileID: 11400000, guid: cf707c8bfd0698b40b4a48ce5c19633e, type: 2}
   gameplayUIViewPrefab: {fileID: 4406523646407396322, guid: 6f1ba5ef8de1364429b24d003ffd7a3a, type: 3}
   cinemachineStateDrivenCamera: {fileID: 1596175387}
   idleCamera: {fileID: 534543732}
@@ -5345,7 +5411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1506526633782270884, guid: 80bc152fce029e54f905eafa64f2e1bc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9183888350809503661, guid: 80bc152fce029e54f905eafa64f2e1bc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5406,7 +5472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 92947577876303025, guid: a57436fdb7eb47c438d905357e2f6fb0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2258720888404190864, guid: a57436fdb7eb47c438d905357e2f6fb0, type: 3}
       propertyPath: m_LocalPosition.x
