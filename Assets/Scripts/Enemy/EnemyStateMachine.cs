@@ -41,8 +41,6 @@ namespace DragonBall.Enemy
 
                     currentEnemyStateEnum = newState;
                     ChangeState(states[newState]);
-
-                    Debug.Log($"Enemy changed to {newState} state");
                 }
             }
             else

@@ -7,7 +7,7 @@ namespace DragonBall.Enemy
 {
     public class PowerBallFireTypeEnemyView : BaseEnemyView
     {
-        [Header("FatBuu-specific Attack Settings")]
+        [Header("PowerBallFire specific Attack Settings")]
         [SerializeField] private AnimationClip buuFireAnimation;
         [SerializeField] private float hitTime = 0.4f;
 

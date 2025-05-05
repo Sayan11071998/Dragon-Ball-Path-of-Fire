@@ -130,9 +130,6 @@ namespace DragonBall.Enemy
             isMoving = false;
         }
 
-        public void UpdateHealthBar(float maxValue, float currentValue)
-        {
-            healthBar.value = currentValue / maxValue;
-        }
+        public void UpdateHealthBar(float maxValue, float currentValue) => healthBar.value = currentValue / maxValue;
     }
 }
