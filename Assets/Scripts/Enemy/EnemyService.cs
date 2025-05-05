@@ -5,23 +5,23 @@ namespace DragonBall.Enemy
 {
     public class EnemyService
     {
-        private Dictionary<EnemyType, EnemyPool> enemyPools = new Dictionary<EnemyType, EnemyPool>();
+        private Dictionary<EnemyType, EnemyPool> enemyPool = new Dictionary<EnemyType, EnemyPool>();
 
-        public EnemyService(Dictionary<EnemyType, (BaseEnemyView, EnemyScriptableObject)> enemyData)
+        public EnemyService(Dictionary<EnemyType, (BaseEnemyView, EnemyScriptableObject)> _enemyData)
         {
-            foreach (var item in enemyData)
+            foreach (var item in _enemyData)
             {
-                EnemyType type = item.Key;
-                BaseEnemyView prefab = item.Value.Item1;
-                EnemyScriptableObject so = item.Value.Item2;
-                EnemyPool pool = new EnemyPool(prefab, so, type);
-                enemyPools[type] = pool;
+                EnemyType enemyType = item.Key;
+                BaseEnemyView enemyPrefab = item.Value.Item1;
+                EnemyScriptableObject enemyScriptableObject = item.Value.Item2;
+                EnemyPool pool = new EnemyPool(enemyPrefab, enemyScriptableObject, enemyType);
+                enemyPool[enemyType] = pool;
             }
         }
 
-        public BaseEnemyController SpawnEnemy(EnemyType type)
+        public BaseEnemyController SpawnEnemy(EnemyType enemyType)
         {
-            if (enemyPools.TryGetValue(type, out EnemyPool pool))
+            if (enemyPool.TryGetValue(enemyType, out EnemyPool pool))
             {
                 BaseEnemyController enemy = pool.GetEnemy();
                 enemy.BaseEnemyView.gameObject.SetActive(true);
@@ -29,7 +29,7 @@ namespace DragonBall.Enemy
             }
             else
             {
-                Debug.LogError($"No pool for enemy type {type}");
+                Debug.LogError($"No pool for enemy type {enemyType}");
                 return null;
             }
         }

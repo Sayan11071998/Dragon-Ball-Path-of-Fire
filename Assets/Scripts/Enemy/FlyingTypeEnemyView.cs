@@ -7,7 +7,7 @@ namespace DragonBall.Enemy
 {
     public class FlyingTypeEnemyView : BaseEnemyView
     {
-        [Header("FlyingType-specific Settings")]
+        [Header("FlyingType specific Settings")]
         [SerializeField] private AnimationClip flyAnimation;
         [SerializeField] private AnimationClip fireAnimation;
         [SerializeField] private float hitTime = 0.4f;
@@ -31,17 +31,13 @@ namespace DragonBall.Enemy
         private void Update()
         {
             if (baseEnemyController != null && !baseEnemyController.IsDead && !isMoving && !isAttacking && !isDying)
-            {
                 FloatInAir();
-            }
         }
 
         private void FloatInAir()
         {
             floatTimer += Time.deltaTime * floatSpeed;
             float yOffset = Mathf.Sin(floatTimer) * floatAmplitude;
-
-            // Only modify Y position for floating effect
             Vector3 newPosition = transform.position;
             newPosition.y = initialPosition.y + yOffset;
             transform.position = newPosition;
@@ -55,25 +51,20 @@ namespace DragonBall.Enemy
                 return;
             }
 
-            // For flying enemies, we can move in both X and Y directions
             rb.linearVelocity = direction * speed;
             FaceDirection(direction.x);
-
-            // Update initial position for floating when stopped
             initialPosition = transform.position;
         }
 
         public override void SetMoving(bool moving)
         {
             if (isMoving == moving) return;
+
             isMoving = moving;
             animator.SetBool("isMoving", isMoving);
 
-            // If stopping, reset the floating reference position
             if (!moving)
-            {
                 initialPosition = transform.position;
-            }
         }
 
         public override void StartAttack()
@@ -103,7 +94,6 @@ namespace DragonBall.Enemy
         {
             if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
 
-            // Get player position for guided bullet direction
             Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
             if (playerTransform == null) return;
 
@@ -133,9 +123,8 @@ namespace DragonBall.Enemy
             isDying = true;
             animator.SetBool("isDead", true);
 
-            // Falling effect for flying enemy death
             float xDirection = spriteRenderer.flipX ? 1f : -1f;
-            Vector2 flyAwayForce = new Vector2(flyAwayForceX * xDirection, flyAwayForceY * 0.5f); // Less Y force for flying enemy
+            Vector2 flyAwayForce = new Vector2(flyAwayForceX * xDirection, flyAwayForceY * 0.5f);
             rb.AddForce(flyAwayForce, ForceMode2D.Impulse);
 
             StartCoroutine(DeathCoroutine());
@@ -144,8 +133,6 @@ namespace DragonBall.Enemy
         public override void StopMovement()
         {
             base.StopMovement();
-
-            // Reset the floating reference position when stopped
             initialPosition = transform.position;
         }
     }

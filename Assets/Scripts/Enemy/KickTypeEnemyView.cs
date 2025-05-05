@@ -6,7 +6,7 @@ namespace DragonBall.Enemy
 {
     public class KickTypeEnemyView : BaseEnemyView
     {
-        [Header("Buu-specific Attack Settings")]
+        [Header("KickType Specific Attack Settings")]
         [SerializeField] private AnimationClip buuKickAnimation;
         [SerializeField] private float hitTime = 0.3f;
 

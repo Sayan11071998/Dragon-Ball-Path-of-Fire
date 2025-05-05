@@ -30,16 +30,16 @@ namespace DragonBall.Enemy
             return CreateEnemyController(view);
         }
 
-        private BaseEnemyController CreateEnemyController(BaseEnemyView view)
+        private BaseEnemyController CreateEnemyController(BaseEnemyView viewToSet)
         {
             switch (enemyType)
             {
                 case EnemyType.KickType:
-                    return new KickTypeEnemyController(enemyScriptableObject, view, this);
+                    return new KickTypeEnemyController(enemyScriptableObject, viewToSet, this);
                 case EnemyType.PowerBallFireType:
-                    return new PowerBallFireTypeEnemyController(enemyScriptableObject, view, this);
+                    return new PowerBallFireTypeEnemyController(enemyScriptableObject, viewToSet, this);
                 case EnemyType.FlyingType:
-                    return new FlyingTypeEnemyController(enemyScriptableObject, view, this);
+                    return new FlyingTypeEnemyController(enemyScriptableObject, viewToSet, this);
                 default:
                     Debug.LogError($"Unsupported enemy type: {enemyType}");
                     return null;

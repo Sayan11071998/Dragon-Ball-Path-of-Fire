@@ -8,7 +8,7 @@ namespace DragonBall.Enemy
         [Header("Flying-Specific Settings")]
         public float FloatAmplitude = 0.5f;
         public float FloatSpeed = 1.0f;
-        public float AerialMoveSpeed = 4.0f; // Can be faster than ground enemies
-        public float GuidedBulletDamage = 15f; // Special damage for guided bullets
+        public float AerialMoveSpeed = 4.0f;
+        public float GuidedBulletDamage = 15f;
     }
 }
