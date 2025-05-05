@@ -202,7 +202,7 @@ MonoBehaviour:
   buuFireAnimation: {fileID: 7400000, guid: 690cea023ebc70c44a7fc6a5bb4ae695, type: 2}
   hitTime: 0.4
   firePoint: {fileID: 4387089208744413716}
-  bulletType: 2
+  bulletType: 3
 --- !u!1 &5743132342549553080
 GameObject:
   m_ObjectHideFlags: 0
