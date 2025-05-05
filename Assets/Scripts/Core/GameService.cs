@@ -32,8 +32,10 @@ namespace DragonBall.Core
         [SerializeField] private BulletScriptableObject playerSuperSaiyanBulletSO;
         [SerializeField] private BulletView playerKamehamehaPrefab;
         [SerializeField] private BulletScriptableObject playerKamehamehaSO;
-        [SerializeField] private BulletView enemyBulletPrefab;
-        [SerializeField] private BulletScriptableObject enemyBulletSO;
+        [SerializeField] private BulletView enemyNormalBulletPrefab;
+        [SerializeField] private BulletScriptableObject enemyNormalBulletSO;
+        [SerializeField] private GuidedBulletView enemyGuidedBullletPrefab;
+        [SerializeField] private GuidedBulletScriptableObject enemyGuidedBulletSO;
 
         [Header("Enemy")]
         [SerializeField] private List<EnemyConfig> enemyConfigs;
@@ -79,7 +81,8 @@ namespace DragonBall.Core
                 { BulletType.PlayerNormalPowerBall, (playerNormalBulletPrefab, playerNormalBulletSO) },
                 { BulletType.PlayerSuperSaiyanPowerBall, (playerSuperSaiyanBulletPrefab, playerSuperSaiyanBulletSO) },
                 { BulletType.PlayerKamehamehaPowerBall, (playerKamehamehaPrefab, playerKamehamehaSO) },
-                { BulletType.EnemyRegularPowerBall, (enemyBulletPrefab, enemyBulletSO) }
+                { BulletType.EnemyRegularPowerBall, (enemyNormalBulletPrefab, enemyNormalBulletSO) },
+                { BulletType.EnemyGuidedPowerBall, (enemyGuidedBullletPrefab, enemyGuidedBulletSO) }
             };
             bulletService = new BulletService(bulletConfigs);
         }

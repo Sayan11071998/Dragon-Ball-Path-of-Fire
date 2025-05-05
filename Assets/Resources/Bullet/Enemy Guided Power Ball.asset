@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf8c6766a6728514890f1b3974d2303f, type: 3}
-  m_Name: Player Super Saiyan Power Ball
+  m_Script: {fileID: 11500000, guid: 5e128543abc1c8248823fbf73568d8d4, type: 3}
+  m_Name: Enemy Guided Power Ball
   m_EditorClassIdentifier: 
-  BulletSpeed: 25
+  BulletSpeed: 15
   BulletDamage: 20
-  BulletLifetime: 1.5
+  BulletLifetime: 2
+  RotationSpeed: 120
+  GuidanceDelay: 0.5
+  MaxGuidanceTime: 5

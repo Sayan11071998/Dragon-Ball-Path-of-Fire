@@ -9,11 +9,12 @@ namespace DragonBall.Bullet
         [SerializeField] private BulletTargetType targetType = BulletTargetType.Enemy;
 
         private BulletController bulletController;
-        private Rigidbody2D rb;
+
+        protected Rigidbody2D rb;
 
         public void SetController(BulletController controllerToSet) => bulletController = controllerToSet;
 
-        private void Awake() => rb = GetComponent<Rigidbody2D>();
+        protected virtual void Awake() => rb = GetComponent<Rigidbody2D>();
 
         public void SetVelocity(Vector2 velocity) => rb.linearVelocity = velocity;
 
@@ -21,7 +22,7 @@ namespace DragonBall.Bullet
 
         public void SetTargetType(BulletTargetType type) => targetType = type;
 
-        private void Update() => bulletController.Update();
+        protected virtual void Update() => bulletController.Update();
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

@@ -1,34 +1,46 @@
 fileFormatVersion: 2
-guid: 0c401e0bf592de6468755a929f021559
+guid: 93cc0cce746736148b82d220c54ab2fb
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: kick_0
+    second: 7_1
   - first:
       213: 21300002
-    second: kick_1
+    second: 7_2
   - first:
       213: 21300004
-    second: kick_2
+    second: 7_3
   - first:
       213: 21300006
-    second: kick_3
+    second: 7_4
   - first:
       213: 21300008
-    second: kick_4
+    second: 7_5
   - first:
       213: 21300010
-    second: kick_5
+    second: 7_7
   - first:
       213: 21300012
-    second: kick_6
+    second: 7_8
   - first:
       213: 21300014
-    second: kick_7
+    second: 7_9
   - first:
       213: 21300016
-    second: kick_8
+    second: 7_10
+  - first:
+      213: 21300018
+    second: 7_11
+  - first:
+      213: 21300020
+    second: 7_12
+  - first:
+      213: 21300022
+    second: 7_14
+  - first:
+      213: 21300024
+    second: 7_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -61,7 +73,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +87,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -99,14 +111,14 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -119,7 +131,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
@@ -158,20 +170,20 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: kick_0
+      name: 7_1
       rect:
         serializedVersion: 2
-        x: 5
-        y: 5
-        width: 43
-        height: 56
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 28
+        y: 113
+        width: 37
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -185,15 +197,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kick_1
+      name: 7_2
       rect:
         serializedVersion: 2
-        x: 58
-        y: 11
+        x: 74
+        y: 113
         width: 37
-        height: 48
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -207,15 +219,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kick_2
+      name: 7_3
       rect:
         serializedVersion: 2
-        x: 102
-        y: 10
-        width: 52
-        height: 50
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 122
+        y: 106
+        width: 64
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -229,15 +241,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kick_3
+      name: 7_4
       rect:
         serializedVersion: 2
-        x: 166
-        y: 6
-        width: 43
-        height: 49
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 196
+        y: 94
+        width: 63
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -251,15 +263,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kick_4
+      name: 7_5
       rect:
         serializedVersion: 2
-        x: 216
-        y: 10
-        width: 42
-        height: 43
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 268
+        y: 82
+        width: 78
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -273,15 +285,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kick_5
+      name: 7_7
       rect:
         serializedVersion: 2
-        x: 272
-        y: 11
-        width: 58
-        height: 43
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 348
+        y: 62
+        width: 88
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -295,15 +307,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kick_6
+      name: 7_8
       rect:
         serializedVersion: 2
-        x: 340
-        y: 12
-        width: 39
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 439
+        y: 58
+        width: 91
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -317,15 +329,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kick_7
+      name: 7_9
       rect:
         serializedVersion: 2
-        x: 387
-        y: 15
-        width: 57
+        x: 107
+        y: 21
+        width: 36
         height: 43
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.0028546355}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -339,15 +351,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kick_8
+      name: 7_10
       rect:
         serializedVersion: 2
-        x: 456
-        y: 15
-        width: 39
-        height: 46
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 148
+        y: 20
+        width: 32
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5318117, y: -0.008982326}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -356,6 +368,94 @@ TextureImporter:
       bones: []
       spriteID: 03305410000000000800000000000000
       internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 7_11
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 12
+        width: 34
+        height: 63
+      alignment: 9
+      pivot: {x: 0.47006002, y: 0.023334095}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23305410000000000800000000000000
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 7_12
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 16
+        width: 43
+        height: 47
+      alignment: 9
+      pivot: {x: 0.5355104, y: 0.012676482}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43305410000000000800000000000000
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 7_14
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 23
+        width: 36
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63305410000000000800000000000000
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 7_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 18
+        width: 43
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83305410000000000800000000000000
+      internalID: 21300024
       vertices: []
       indices: 
       edges: []
@@ -374,15 +474,19 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      kick_0: 21300000
-      kick_1: 21300002
-      kick_2: 21300004
-      kick_3: 21300006
-      kick_4: 21300008
-      kick_5: 21300010
-      kick_6: 21300012
-      kick_7: 21300014
-      kick_8: 21300016
+      7_0: 21300024
+      7_1: 21300000
+      7_10: 21300016
+      7_11: 21300018
+      7_12: 21300020
+      7_14: 21300022
+      7_2: 21300002
+      7_3: 21300004
+      7_4: 21300006
+      7_5: 21300008
+      7_7: 21300010
+      7_8: 21300012
+      7_9: 21300014
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -9,9 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf8c6766a6728514890f1b3974d2303f, type: 3}
-  m_Name: Player Super Saiyan Power Ball
+  m_Script: {fileID: 11500000, guid: e5b8db291cf0eb94782723771b70dd51, type: 3}
+  m_Name: Gotenk
   m_EditorClassIdentifier: 
-  BulletSpeed: 25
-  BulletDamage: 20
-  BulletLifetime: 1.5
+  MaxHealth: 100
+  MoveSpeed: 6
+  DetectionRange: 15
+  AttackRange: 7
+  AttackDamage: 10
+  AttackCooldown: 2
+  FloatAmplitude: 0.5
+  FloatSpeed: 1
+  AerialMoveSpeed: 4
+  GuidedBulletDamage: 15

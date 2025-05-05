@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 469067885124146360}
   - component: {fileID: 926417491160561663}
   m_Layer: 10
-  m_Name: Enemy Power Ball
+  m_Name: Enemy Regular Power Ball
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
