@@ -1,162 +1,114 @@
 fileFormatVersion: 2
-guid: 2531c57c7d17ebf4eace5a28d6aaa0f0
+guid: 417603d9454fe02439c1994237ae25e2
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: 2_1
+    second: 4_8
   - first:
       213: 21300002
-    second: 2_2
+    second: 4_9
   - first:
       213: 21300004
-    second: 2_3
+    second: 4_10
   - first:
       213: 21300006
-    second: 2_4
+    second: 4_11
   - first:
       213: 21300008
-    second: 2_5
+    second: 4_12
   - first:
       213: 21300010
-    second: 2_6
+    second: 4_17
   - first:
       213: 21300012
-    second: 2_7
+    second: 4_20
   - first:
       213: 21300014
-    second: 2_8
+    second: 4_21
   - first:
       213: 21300016
-    second: 2_9
+    second: 4_23
   - first:
       213: 21300018
-    second: 2_11
+    second: 4_24
   - first:
       213: 21300020
-    second: 2_12
+    second: 4_25
   - first:
       213: 21300022
-    second: 2_13
+    second: 4_36
   - first:
       213: 21300024
-    second: 2_14
+    second: 4_39
   - first:
       213: 21300026
-    second: 2_15
+    second: 4_48
   - first:
       213: 21300028
-    second: 2_16
+    second: 4_49
   - first:
       213: 21300030
-    second: 2_17
+    second: 4_50
   - first:
       213: 21300032
-    second: 2_18
+    second: 4_51
   - first:
       213: 21300034
-    second: 2_19
+    second: 4_52
   - first:
       213: 21300036
-    second: 2_20
+    second: 4_53
   - first:
       213: 21300038
-    second: 2_21
+    second: 4_54
   - first:
       213: 21300040
-    second: 2_22
+    second: 4_56
   - first:
       213: 21300042
-    second: 2_23
+    second: 4_58
   - first:
       213: 21300044
-    second: 2_24
+    second: 4_71
   - first:
       213: 21300046
-    second: 2_25
+    second: 4_74
   - first:
       213: 21300048
-    second: 2_26
+    second: 4_75
   - first:
       213: 21300050
-    second: 2_27
+    second: 4_76
   - first:
       213: 21300052
-    second: 2_28
+    second: 4_82
   - first:
       213: 21300054
-    second: 2_29
+    second: 4_83
   - first:
       213: 21300056
-    second: 2_30
+    second: 4_84
   - first:
       213: 21300058
-    second: 2_31
+    second: 4_85
   - first:
       213: 21300060
-    second: 2_32
+    second: 4_88
   - first:
       213: 21300062
-    second: 2_33
+    second: 4_91
   - first:
       213: 21300064
-    second: 2_34
+    second: 4_102
   - first:
       213: 21300066
-    second: 2_35
+    second: 4_105
   - first:
       213: 21300068
-    second: 2_36
-  - first:
-      213: 21300070
-    second: 2_37
-  - first:
-      213: 21300072
-    second: 2_38
-  - first:
-      213: 21300074
-    second: 2_39
-  - first:
-      213: 21300076
-    second: 2_40
-  - first:
-      213: 21300078
-    second: 2_41
-  - first:
-      213: 21300080
-    second: 2_42
-  - first:
-      213: 21300082
-    second: 2_43
-  - first:
-      213: 21300084
-    second: 2_44
-  - first:
-      213: 21300086
-    second: 2_45
-  - first:
-      213: 21300088
-    second: 2_46
-  - first:
-      213: 21300090
-    second: 2_47
-  - first:
-      213: 21300092
-    second: 2_48
-  - first:
-      213: 21300094
-    second: 2_49
-  - first:
-      213: 21300096
-    second: 2_50
-  - first:
-      213: 21300098
-    second: 2_10
-  - first:
-      213: 21300100
-    second: 2_0
+    second: 4_106
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -173,11 +125,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -216,9 +169,10 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
   cookieLightType: 1
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -228,9 +182,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -240,9 +195,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -252,9 +208,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -264,9 +221,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -276,22 +234,24 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 2_1
+      name: 4_8
       rect:
         serializedVersion: 2
-        x: 16
-        y: 493
-        width: 41
-        height: 67
+        x: 14
+        y: 475
+        width: 44
+        height: 66
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -303,16 +263,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_2
+      name: 4_9
       rect:
         serializedVersion: 2
-        x: 70
-        y: 487
-        width: 74
-        height: 70
+        x: 67
+        y: 475
+        width: 40
+        height: 66
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -324,16 +285,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_3
+      name: 4_10
       rect:
         serializedVersion: 2
-        x: 152
-        y: 494
-        width: 64
-        height: 64
+        x: 116
+        y: 477
+        width: 32
+        height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -345,16 +307,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_4
+      name: 4_11
       rect:
         serializedVersion: 2
-        x: 224
-        y: 500
-        width: 62
-        height: 62
+        x: 154
+        y: 477
+        width: 56
+        height: 65
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -366,16 +329,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_5
+      name: 4_12
       rect:
         serializedVersion: 2
-        x: 309
-        y: 499
-        width: 63
-        height: 59
+        x: 218
+        y: 474
+        width: 60
+        height: 71
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -387,16 +351,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_6
+      name: 4_17
       rect:
         serializedVersion: 2
-        x: 384
-        y: 502
-        width: 55
-        height: 62
+        x: 564
+        y: 472
+        width: 99
+        height: 102
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -408,37 +373,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_7
+      name: 4_21
       rect:
         serializedVersion: 2
-        x: 448
-        y: 501
-        width: 62
-        height: 56
+        x: 291
+        y: 470
+        width: 84
+        height: 90
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c2305410000000000800000000000000
-      internalID: 21300012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_8
-      rect:
-        serializedVersion: 2
-        x: 517
-        y: 502
-        width: 47
-        height: 61
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -450,16 +395,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_9
+      name: 4_23
       rect:
         serializedVersion: 2
-        x: 576
-        y: 495
-        width: 60
-        height: 67
+        x: 380
+        y: 470
+        width: 80
+        height: 95
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -471,16 +417,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_11
+      name: 4_24
       rect:
         serializedVersion: 2
-        x: 63
-        y: 426
-        width: 61
-        height: 59
+        x: 472
+        y: 470
+        width: 88
+        height: 96
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -492,16 +439,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_12
+      name: 4_25
       rect:
         serializedVersion: 2
-        x: 139
-        y: 421
-        width: 70
-        height: 63
+        x: 10
+        y: 366
+        width: 93
+        height: 102
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -513,16 +461,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_13
+      name: 4_36
       rect:
         serializedVersion: 2
-        x: 221
-        y: 422
-        width: 45
-        height: 61
+        x: 111
+        y: 362
+        width: 83
+        height: 102
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -534,16 +483,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_14
+      name: 4_39
       rect:
         serializedVersion: 2
-        x: 277
-        y: 420
-        width: 70
-        height: 69
+        x: 203
+        y: 363
+        width: 61
+        height: 65
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -555,16 +505,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_15
+      name: 4_48
       rect:
         serializedVersion: 2
         x: 15
-        y: 341
-        width: 53
-        height: 56
+        y: 284
+        width: 55
+        height: 63
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -576,16 +527,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_16
+      name: 4_49
       rect:
         serializedVersion: 2
-        x: 81
-        y: 340
-        width: 53
-        height: 56
+        x: 90
+        y: 254
+        width: 54
+        height: 89
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -597,16 +549,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_17
+      name: 4_50
       rect:
         serializedVersion: 2
-        x: 144
-        y: 338
-        width: 62
-        height: 60
+        x: 165
+        y: 284
+        width: 54
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -618,16 +571,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_18
+      name: 4_51
       rect:
         serializedVersion: 2
-        x: 223
-        y: 316
-        width: 62
-        height: 92
+        x: 231
+        y: 282
+        width: 61
+        height: 59
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -639,16 +593,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_19
+      name: 4_52
       rect:
         serializedVersion: 2
-        x: 302
-        y: 316
-        width: 62
-        height: 94
+        x: 299
+        y: 284
+        width: 61
+        height: 63
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -660,16 +615,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_20
+      name: 4_53
       rect:
         serializedVersion: 2
-        x: 378
-        y: 306
-        width: 62
-        height: 108
+        x: 368
+        y: 281
+        width: 61
+        height: 82
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -681,16 +637,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_21
+      name: 4_54
       rect:
         serializedVersion: 2
-        x: 460
-        y: 323
-        width: 62
-        height: 92
-      alignment: 9
-      pivot: {x: 0.48463884, y: 0.33126333}
+        x: 443
+        y: 281
+        width: 61
+        height: 89
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -702,16 +659,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_22
+      name: 4_56
       rect:
         serializedVersion: 2
-        x: 525
-        y: 351
-        width: 62
-        height: 60
+        x: 527
+        y: 282
+        width: 61
+        height: 95
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -723,16 +681,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_23
+      name: 4_58
       rect:
         serializedVersion: 2
-        x: 7
-        y: 217
+        x: 613
+        y: 280
         width: 61
-        height: 58
+        height: 95
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -744,16 +703,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_24
+      name: 4_71
       rect:
         serializedVersion: 2
-        x: 76
-        y: 215
-        width: 61
-        height: 57
+        x: 13
+        y: 183
+        width: 67
+        height: 94
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -765,16 +725,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_25
+      name: 4_74
       rect:
         serializedVersion: 2
-        x: 149
-        y: 215
-        width: 57
-        height: 48
+        x: 90
+        y: 183
+        width: 66
+        height: 65
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -786,16 +747,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_26
+      name: 4_75
       rect:
         serializedVersion: 2
-        x: 224
-        y: 219
-        width: 57
-        height: 76
+        x: 283
+        y: 99
+        width: 72
+        height: 84
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -807,16 +769,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_27
+      name: 4_76
       rect:
         serializedVersion: 2
-        x: 296
-        y: 220
-        width: 57
-        height: 48
+        x: 361
+        y: 97
+        width: 65
+        height: 86
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -828,16 +791,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_28
+      name: 4_82
       rect:
         serializedVersion: 2
-        x: 368
-        y: 217
-        width: 57
-        height: 76
+        x: 4
+        y: 102
+        width: 54
+        height: 60
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -849,16 +813,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_29
+      name: 4_83
       rect:
         serializedVersion: 2
-        x: 433
-        y: 217
-        width: 57
-        height: 48
+        x: 77
+        y: 90
+        width: 47
+        height: 73
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -870,16 +835,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_30
+      name: 4_84
       rect:
         serializedVersion: 2
-        x: 501
-        y: 217
-        width: 57
-        height: 76
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 125
+        y: 97
+        width: 76
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -891,16 +857,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_31
+      name: 4_85
       rect:
         serializedVersion: 2
-        x: 576
-        y: 217
-        width: 57
-        height: 48
+        x: 210
+        y: 99
+        width: 65
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -912,16 +879,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_32
+      name: 4_88
       rect:
         serializedVersion: 2
-        x: 7
-        y: 126
-        width: 53
-        height: 56
+        x: 447
+        y: 96
+        width: 82
+        height: 101
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -933,16 +901,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_33
+      name: 4_91
       rect:
         serializedVersion: 2
-        x: 68
-        y: 129
-        width: 58
-        height: 44
-      alignment: 9
-      pivot: {x: 0.1880134, y: 0.00000034679067}
+        x: 537
+        y: 98
+        width: 78
+        height: 97
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -954,16 +923,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_34
+      name: 4_102
       rect:
         serializedVersion: 2
-        x: 135
-        y: 118
-        width: 65
-        height: 63
-      alignment: 9
-      pivot: {x: 0.23626404, y: 0.00000048440603}
+        x: 4
+        y: 4
+        width: 70
+        height: 91
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -975,16 +945,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_35
+      name: 4_105
       rect:
         serializedVersion: 2
-        x: 211
-        y: 122
-        width: 69
+        x: 94
+        y: 0
+        width: 65
         height: 66
-      alignment: 9
-      pivot: {x: 0.26535565, y: 0.014431}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -996,16 +967,17 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 2_36
+      name: 4_106
       rect:
         serializedVersion: 2
-        x: 289
-        y: 112
-        width: 79
-        height: 87
-      alignment: 9
-      pivot: {x: 0.37944514, y: 0.032841474}
+        x: 177
+        y: 4
+        width: 70
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1016,301 +988,8 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: 2_37
-      rect:
-        serializedVersion: 2
-        x: 383
-        y: 117
-        width: 92
-        height: 85
-      alignment: 9
-      pivot: {x: 0.40627572, y: -0.03361296}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 66305410000000000800000000000000
-      internalID: 21300070
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_40
-      rect:
-        serializedVersion: 2
-        x: 603
-        y: 157
-        width: 58
-        height: 43
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c6305410000000000800000000000000
-      internalID: 21300076
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_41
-      rect:
-        serializedVersion: 2
-        x: 482
-        y: 110
-        width: 95
-        height: 97
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6305410000000000800000000000000
-      internalID: 21300078
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_42
-      rect:
-        serializedVersion: 2
-        x: 600
-        y: 96
-        width: 64
-        height: 54
-      alignment: 9
-      pivot: {x: 0.21726131, y: 0.00000042385525}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 07305410000000000800000000000000
-      internalID: 21300080
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_43
-      rect:
-        serializedVersion: 2
-        x: 12
-        y: 13
-        width: 62
-        height: 59
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27305410000000000800000000000000
-      internalID: 21300082
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_44
-      rect:
-        serializedVersion: 2
-        x: 77
-        y: 12
-        width: 61
-        height: 59
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47305410000000000800000000000000
-      internalID: 21300084
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_45
-      rect:
-        serializedVersion: 2
-        x: 151
-        y: 14
-        width: 59
-        height: 59
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 67305410000000000800000000000000
-      internalID: 21300086
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_46
-      rect:
-        serializedVersion: 2
-        x: 225
-        y: 11
-        width: 64
-        height: 63
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 87305410000000000800000000000000
-      internalID: 21300088
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_47
-      rect:
-        serializedVersion: 2
-        x: 301
-        y: 11
-        width: 63
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a7305410000000000800000000000000
-      internalID: 21300090
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_48
-      rect:
-        serializedVersion: 2
-        x: 372
-        y: 7
-        width: 72
-        height: 71
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7305410000000000800000000000000
-      internalID: 21300092
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_49
-      rect:
-        serializedVersion: 2
-        x: 456
-        y: 5
-        width: 84
-        height: 82
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7305410000000000800000000000000
-      internalID: 21300094
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_50
-      rect:
-        serializedVersion: 2
-        x: 558
-        y: 3
-        width: 92
-        height: 91
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 08305410000000000800000000000000
-      internalID: 21300096
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_10
-      rect:
-        serializedVersion: 2
-        x: 636
-        y: 211
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 28305410000000000800000000000000
-      internalID: 21300098
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 2_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 418
-        width: 55
-        height: 72
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 48305410000000000800000000000000
-      internalID: 21300100
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 
@@ -1320,59 +999,45 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      2_4: 21300006
-      2_13: 21300022
-      2_31: 21300058
-      2_44: 21300084
-      2_27: 21300050
-      2_10: 21300098
-      2_23: 21300042
-      2_22: 21300040
-      2_3: 21300004
-      2_50: 21300096
-      2_17: 21300030
-      2_5: 21300008
-      2_25: 21300046
-      2_33: 21300062
-      2_30: 21300056
-      2_12: 21300020
-      2_29: 21300054
-      2_8: 21300014
-      2_43: 21300082
-      2_34: 21300064
-      2_15: 21300026
-      2_36: 21300068
-      2_0: 21300100
-      2_9: 21300016
-      2_1: 21300000
-      2_41: 21300078
-      2_19: 21300034
-      2_14: 21300024
-      2_21: 21300038
-      2_42: 21300080
-      2_20: 21300036
-      2_35: 21300066
-      2_6: 21300010
-      2_28: 21300052
-      2_49: 21300094
-      2_37: 21300070
-      2_11: 21300018
-      2_32: 21300060
-      2_18: 21300032
-      2_26: 21300048
-      2_48: 21300092
-      2_2: 21300002
-      2_46: 21300088
-      2_40: 21300076
-      2_45: 21300086
-      2_47: 21300090
-      2_16: 21300028
-      2_7: 21300012
-      2_24: 21300044
-  spritePackingTag: 
+      4_10: 21300004
+      4_102: 21300064
+      4_105: 21300066
+      4_106: 21300068
+      4_11: 21300006
+      4_12: 21300008
+      4_17: 21300010
+      4_21: 21300014
+      4_23: 21300016
+      4_24: 21300018
+      4_25: 21300020
+      4_36: 21300022
+      4_39: 21300024
+      4_48: 21300026
+      4_49: 21300028
+      4_50: 21300030
+      4_51: 21300032
+      4_52: 21300034
+      4_53: 21300036
+      4_54: 21300038
+      4_56: 21300040
+      4_58: 21300042
+      4_71: 21300044
+      4_74: 21300046
+      4_75: 21300048
+      4_76: 21300050
+      4_8: 21300000
+      4_82: 21300052
+      4_83: 21300054
+      4_84: 21300056
+      4_85: 21300058
+      4_88: 21300060
+      4_9: 21300002
+      4_91: 21300062
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

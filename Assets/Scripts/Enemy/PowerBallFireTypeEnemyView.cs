@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DragonBall.Enemy
 {
-    public class FatBuuEnemyView : BaseEnemyView
+    public class PowerBallFireTypeEnemyView : BaseEnemyView
     {
         [Header("FatBuu-specific Attack Settings")]
         [SerializeField] private AnimationClip buuFireAnimation;
