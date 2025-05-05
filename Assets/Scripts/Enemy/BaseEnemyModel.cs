@@ -23,7 +23,6 @@ namespace DragonBall.Enemy
         public virtual void TakeDamage(float damage)
         {
             CurrentHealth -= damage;
-            Debug.Log($"Enemy Health: {CurrentHealth}");
             if (CurrentHealth < 0)
                 CurrentHealth = 0;
         }
