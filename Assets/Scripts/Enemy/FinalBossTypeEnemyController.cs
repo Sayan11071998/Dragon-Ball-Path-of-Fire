@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DragonBall.Enemy
 {
-    public class FinalBossTypeEnemyController : BaseEnemyController
+    public class FinalBossTypeEnemyController : FlyingTypeEnemyController
     {
         public FinalBossTypeEnemyController(EnemyScriptableObject enemySO, BaseEnemyView view, EnemyPool pool)
             : base(enemySO, view, pool) { }
