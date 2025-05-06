@@ -17,6 +17,7 @@ namespace DragonBall.Core
         public BulletService bulletService { get; private set; }
         public EnemyService enemyService { get; private set; }
         public UIService uiService { get; private set; }
+        public CameraShakeService cameraShakeService { get; private set; }
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
@@ -60,6 +61,7 @@ namespace DragonBall.Core
         {
             playerService = new PlayerService(playerView, playerScriptableObject);
             vFXService = new VFXService(vFXPrefab);
+            cameraShakeService = new CameraShakeService(cinemachineStateDrivenCamera, this);
 
             InitializeEnemyService();
             InitializeBulletService();
