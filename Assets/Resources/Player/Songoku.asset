@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9493d1f0e71878d46a375c5873425c1b, type: 3}
   m_Name: Songoku
   m_EditorClassIdentifier: 
-  PlayerHealth: 100
+  PlayerHealth: 5000
   PlayerStamina: 100
   StaminaRegenRate: 10
   KamehamehaStaminaCost: 70
@@ -20,7 +20,7 @@ MonoBehaviour:
   JumpSpeed: 7
   JumpHorizontalDampening: 0.5
   FlySpeed: 4
-  vanishRange: 7
+  VanishRange: 5
   DodgeSpeed: 15
   DodgeDuration: 0.2
   DodgeCooldown: 0.5
@@ -30,5 +30,6 @@ MonoBehaviour:
   FireCooldown: 0.5
   DragonBallsRequiredForSuperSaiyan: 5
   SuperSaiyanHealthMultiplier: 2
+  SuperSaiyanStaminaMultiplier: 2
   SuperSaiyanSpeedMultiplier: 1.5
   SuperSaiyanPowerMultiplier: 2
