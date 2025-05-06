@@ -18,9 +18,14 @@ namespace DragonBall.Enemy
         [SerializeField] private Transform firePoint;
         [SerializeField] private BulletType bulletType = BulletType.EnemyGuidedPowerBall;
 
-        private Coroutine attackCoroutine;
-        private Vector3 initialPosition;
-        private float floatTimer = 0f;
+        protected virtual float FloatAmplitudeValue => floatAmplitude;
+        protected virtual float FloatSpeedValue => floatSpeed;
+        protected virtual BulletType EnemyBulletType => bulletType;
+        protected virtual Transform FirePointTransform => firePoint;
+
+        protected Coroutine attackCoroutine;
+        protected Vector3 initialPosition;
+        protected float floatTimer = 0f;
 
         protected override void Awake()
         {
@@ -28,16 +33,16 @@ namespace DragonBall.Enemy
             initialPosition = transform.position;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (baseEnemyController != null && !baseEnemyController.IsDead && !isMoving && !isAttacking && !isDying)
                 FloatInAir();
         }
 
-        private void FloatInAir()
+        protected virtual void FloatInAir()
         {
-            floatTimer += Time.deltaTime * floatSpeed;
-            float yOffset = Mathf.Sin(floatTimer) * floatAmplitude;
+            floatTimer += Time.deltaTime * FloatSpeedValue;
+            float yOffset = Mathf.Sin(floatTimer) * FloatAmplitudeValue;
             Vector3 newPosition = transform.position;
             newPosition.y = initialPosition.y + yOffset;
             transform.position = newPosition;
@@ -77,7 +82,7 @@ namespace DragonBall.Enemy
             attackCoroutine = StartCoroutine(AttackCoroutine());
         }
 
-        private IEnumerator AttackCoroutine()
+        protected virtual IEnumerator AttackCoroutine()
         {
             float clipLength = fireAnimation != null ? fireAnimation.length : 0.6f;
             yield return new WaitForSeconds(hitTime);
@@ -97,11 +102,11 @@ namespace DragonBall.Enemy
             Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
             if (playerTransform == null) return;
 
-            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)firePoint.position).normalized;
+            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)FirePointTransform.position).normalized;
 
             GameService.Instance.bulletService.FireBullet(
-                bulletType,
-                firePoint.position,
+                EnemyBulletType,
+                FirePointTransform.position,
                 direction,
                 BulletTargetType.Player
             );

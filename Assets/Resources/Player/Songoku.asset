@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9493d1f0e71878d46a375c5873425c1b, type: 3}
   m_Name: Songoku
   m_EditorClassIdentifier: 
-  PlayerHealth: 1
+  PlayerHealth: 1000
   PlayerStamina: 100
   StaminaRegenRate: 10
   KamehamehaStaminaCost: 70
