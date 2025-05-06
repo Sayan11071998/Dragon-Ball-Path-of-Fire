@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 39809988}
   - component: {fileID: 39809987}
   - component: {fileID: 39809986}
+  - component: {fileID: 39809989}
   m_Layer: 0
   m_Name: Jump Camera
   m_TagString: Untagged
@@ -281,6 +282,23 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!114 &39809989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39809984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoiseProfile: {fileID: 11400000, guid: 0aaf3dd3cb7f7af419130c48f8a89417, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 0
+  FrequencyGain: 0
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &52931617
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +801,7 @@ GameObject:
   - component: {fileID: 534543732}
   - component: {fileID: 534543731}
   - component: {fileID: 534543730}
+  - component: {fileID: 534543733}
   m_Layer: 0
   m_Name: Idle Camera
   m_TagString: Untagged
@@ -899,6 +918,23 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
+--- !u!114 &534543733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534543728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoiseProfile: {fileID: 11400000, guid: 0aaf3dd3cb7f7af419130c48f8a89417, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 0
+  FrequencyGain: 0
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!4 &553070750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1100779254503628016, guid: 4e70ac72ce2fb1e439e71e7e6cb80093, type: 3}
@@ -1331,6 +1367,7 @@ GameObject:
   - component: {fileID: 1188416138}
   - component: {fileID: 1188416140}
   - component: {fileID: 1188416141}
+  - component: {fileID: 1188416142}
   m_Layer: 0
   m_Name: Run Camera
   m_TagString: Untagged
@@ -1447,6 +1484,23 @@ MonoBehaviour:
     MaxWindowSize: 0
     Padding: 0
   m_LegacyMaxWindowSize: -2
+--- !u!114 &1188416142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188416135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NoiseProfile: {fileID: 11400000, guid: 0aaf3dd3cb7f7af419130c48f8a89417, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 0
+  FrequencyGain: 0
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &1188997959
 PrefabInstance:
   m_ObjectHideFlags: 0
