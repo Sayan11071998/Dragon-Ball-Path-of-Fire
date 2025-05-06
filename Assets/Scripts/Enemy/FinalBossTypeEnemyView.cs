@@ -1,6 +1,4 @@
-using System.Collections;
 using DragonBall.Bullet;
-using DragonBall.Core;
 using UnityEngine;
 
 namespace DragonBall.Enemy
