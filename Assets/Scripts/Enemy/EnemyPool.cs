@@ -40,6 +40,8 @@ namespace DragonBall.Enemy
                     return new PowerBallFireTypeEnemyController(enemyScriptableObject, viewToSet, this);
                 case EnemyType.FlyingType:
                     return new FlyingTypeEnemyController(enemyScriptableObject, viewToSet, this);
+                case EnemyType.FinalBossType:
+                    return new FinalBossTypeEnemyController(enemyScriptableObject, viewToSet, this);
                 default:
                     Debug.LogError($"Unsupported enemy type: {enemyType}");
                     return null;

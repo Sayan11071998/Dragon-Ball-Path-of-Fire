@@ -4,6 +4,7 @@ namespace DragonBall.Enemy
     {
         KickType,
         PowerBallFireType,
-        FlyingType
+        FlyingType,
+        FinalBossType
     }
 }
