@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using DragonBall.GameStrings;
+using DragonBall.Core;
 
 namespace DragonBall.Player
 {
@@ -21,6 +22,9 @@ namespace DragonBall.Player
         [SerializeField] private float flyAwayForceX = 5f;
         [SerializeField] private float flyAwayForceY = 2f;
         [SerializeField] private float flyAwayDuration = 0.3f;
+
+        [Header("Free Fall Settings")]
+        [SerializeField] private float freeFallDeathDelay = 1.0f;
 
         [Header("Animation Clips")]
         [SerializeField] private AnimationClip superSaiyanTransformClip;
@@ -208,6 +212,24 @@ namespace DragonBall.Player
                 playerController.TakeDamage(amount);
         }
 
+        public void TriggerFreeFallDeath()
+        {
+            if (playerController == null || playerController.PlayerModel.IsDead) return;
+            playerController.TakeDamage(playerController.PlayerModel.CurrentHealth);
+            DisableInput();
+            StopPlayerMovement();
+            StartCoroutine(FreeFallDeathSequence());
+        }
+
+        private IEnumerator FreeFallDeathSequence()
+        {
+            playerController.DisablePlayerController();
+            PlayDeathAnimation();
+            yield return new WaitForSeconds(freeFallDeathDelay);
+            GameService.Instance.uiService.ShowGameOver();
+            gameObject.SetActive(false);
+        }
+
         public IEnumerator DeathSequence()
         {
             PlayDeathAnimation();
@@ -221,7 +243,8 @@ namespace DragonBall.Player
 
             yield return new WaitForSeconds(playerDeathClip.length + deathClipDurationOffset);
 
-            Destroy(gameObject);
+            GameService.Instance.uiService.ShowGameOver();
+            gameObject.SetActive(false);
         }
 
         public void StopPlayerMovement()

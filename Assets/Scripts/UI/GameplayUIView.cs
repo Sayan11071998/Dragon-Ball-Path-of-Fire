@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DragonBall.Core;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace DragonBall.UI
 {
@@ -25,6 +26,11 @@ namespace DragonBall.UI
         [SerializeField] public GameObject notificationPanel;
         [SerializeField] public Button notificationButton;
 
+        [Header("Game Over Panel")]
+        [SerializeField] public GameObject gameOverPanel;
+        [SerializeField] public Button restartButton;
+        [SerializeField] public Button exitButton;
+
         private void Start()
         {
             if (GameService.Instance?.playerService != null)
@@ -38,8 +44,15 @@ namespace DragonBall.UI
                 staminaSlider.value = playerModel.CurrentStamina;
 
                 notificationPanel.SetActive(false);
+                gameOverPanel.SetActive(false);
                 UpdateDragonBallCount(playerModel.DragonBallCount);
             }
+
+            if (restartButton != null)
+                restartButton.onClick.AddListener(RestartGame);
+
+            if (exitButton != null)
+                exitButton.onClick.AddListener(ExitToMainMenu);
         }
 
         public void UpdateHealthBar(float healthPercentage) => healthSlider.value = healthPercentage * healthSlider.maxValue;
@@ -64,5 +77,11 @@ namespace DragonBall.UI
         }
 
         public void ActivateNotificationPanel() => notificationPanel.SetActive(true);
+
+        public void ShowGameOverPanel() => gameOverPanel.SetActive(true);
+
+        private void RestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        private void ExitToMainMenu() => SceneManager.LoadScene(0);
     }
 }
