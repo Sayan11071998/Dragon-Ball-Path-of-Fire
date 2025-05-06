@@ -143,8 +143,7 @@ namespace DragonBall.Player
 
             playerModel.TakeDamage(damage);
 
-            float shakeIntensity = Mathf.Clamp(damage / 10f, 0.2f, 1.5f);
-            GameService.Instance.cameraShakeService.ShakeCameraWithDecay(shakeIntensity, 0.3f);
+            GameService.Instance.cameraShakeService.ShakeCameraWithDecay(5f, 1f);
 
             if (playerModel.IsDead)
                 playerView.StartCoroutine(playerView.DeathSequence());
