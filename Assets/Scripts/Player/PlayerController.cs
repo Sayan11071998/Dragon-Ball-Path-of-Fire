@@ -143,9 +143,8 @@ namespace DragonBall.Player
 
             playerModel.TakeDamage(damage);
 
-            // Add camera shake when player takes damage - intensity scales with damage
             float shakeIntensity = Mathf.Clamp(damage / 10f, 0.2f, 1.5f);
-            GameService.Instance.ShakeCameraWithDecay(shakeIntensity, 0.3f);
+            GameService.Instance.cameraShakeService.ShakeCameraWithDecay(shakeIntensity, 0.3f);
 
             if (playerModel.IsDead)
                 playerView.StartCoroutine(playerView.DeathSequence());

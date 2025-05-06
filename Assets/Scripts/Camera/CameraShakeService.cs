@@ -30,10 +30,6 @@ namespace DragonBall.Core
                 {
                     noise = childCameras[i].gameObject.AddComponent<CinemachineBasicMultiChannelPerlin>();
                     noise.NoiseProfile = Resources.Load<NoiseSettings>("CameraShakeNoiseProfile");
-                    if (noise.NoiseProfile == null)
-                    {
-                        Debug.LogWarning("Camera shake noise profile not found in Resources folder. Creating a default one.");
-                    }
                 }
                 noiseComponents[i] = noise;
             }

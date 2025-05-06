@@ -110,35 +110,6 @@ namespace DragonBall.Core
             jumpCamera.Follow = playerService.PlayerPrefab.transform;
             cinemachineStateDrivenCamera.AnimatedTarget = playerService.PlayerPrefab.Animator;
         }
-
-        /// <summary>
-        /// Shakes the camera with specified intensity for a given duration
-        /// </summary>
-        /// <param name="intensity">The magnitude of the shake</param>
-        /// <param name="duration">How long the shake lasts in seconds</param>
-        public void ShakeCamera(float intensity, float duration)
-        {
-            cameraShakeService.ShakeCamera(intensity, duration);
-        }
-
-        /// <summary>
-        /// Shakes the camera with a decay effect
-        /// </summary>
-        /// <param name="intensity">Starting intensity of the shake</param>
-        /// <param name="duration">Total duration of the shake</param>
-        /// <param name="decreaseRate">How quickly the shake fades out (higher = faster)</param>
-        public void ShakeCameraWithDecay(float intensity, float duration, float decreaseRate = 1.0f)
-        {
-            cameraShakeService.ShakeCameraWithDecay(intensity, duration, decreaseRate);
-        }
-
-        /// <summary>
-        /// Immediately stops any active camera shake
-        /// </summary>
-        public void StopCameraShake()
-        {
-            cameraShakeService.StopShake();
-        }
     }
 
     [System.Serializable]
