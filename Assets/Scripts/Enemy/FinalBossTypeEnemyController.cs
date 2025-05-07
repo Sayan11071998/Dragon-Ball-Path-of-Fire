@@ -15,35 +15,39 @@ namespace DragonBall.Enemy
             bossView = baseEnemyView as FinalBossTypeEnemyView;
         }
 
-        protected override void InitializeModel(EnemyScriptableObject enemySO)
+        protected override BaseEnemyModel CreateModel(EnemyScriptableObject enemyData)
         {
-            var bossSO = enemySO as FinalBossTypeEnemyScriptableObject;
-            float maxHealth = bossSO != null ? bossSO.MaxHealth : enemySO.MaxHealth;
-            float attackDamage = bossSO != null ? bossSO.AttackDamage : enemySO.AttackDamage;
-            float attackCooldown = bossSO != null ? bossSO.AttackCooldown : enemySO.AttackCooldown;
+            var bossSO = enemyData as FinalBossTypeEnemyScriptableObject;
+            float maxHealth = bossSO != null ? bossSO.MaxHealth : enemyData.MaxHealth;
+            float attackDamage = bossSO != null ? bossSO.AttackDamage : enemyData.AttackDamage;
+            float attackCooldown = bossSO != null ? bossSO.AttackCooldown : enemyData.AttackCooldown;
 
-            baseEnemyModel = new FinalBossTypeEnemyModel(maxHealth, attackDamage, attackCooldown);
-            bossModel = baseEnemyModel as FinalBossTypeEnemyModel;
+            var model = new FinalBossTypeEnemyModel(maxHealth, attackDamage, attackCooldown);
+
+            if (bossSO != null)
+            {
+                model.SpecialAttackCooldown = bossSO.SpecialAttackCooldown;
+            }
+
+            return model;
         }
 
         public override void TakeDamage(float damage)
         {
+            // Apply damage reduction for boss type
             base.TakeDamage(damage * 0.75f);
 
+            // Check for enraged state
             if (baseEnemyModel.CurrentHealth < baseEnemyModel.MaxHealth * 0.5f)
             {
                 bossModel.EnterEnragedState();
             }
         }
 
-        public override void Update()
-        {
-            base.Update();
-        }
-
         public override void Reset()
         {
             base.Reset();
+
             bossModel.ResetEnragedState();
             lastSpecialAttackTime = -Mathf.Infinity;
         }

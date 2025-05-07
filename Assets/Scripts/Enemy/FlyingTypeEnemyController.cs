@@ -5,9 +5,13 @@ namespace DragonBall.Enemy
         public FlyingTypeEnemyController(EnemyScriptableObject enemySO, BaseEnemyView view, EnemyPool pool)
             : base(enemySO, view, pool) { }
 
-        protected override void InitializeModel(EnemyScriptableObject enemySO)
+        protected override BaseEnemyModel CreateModel(EnemyScriptableObject enemyData)
         {
-            baseEnemyModel = new FlyingTypeEnemyModel(enemySO.MaxHealth, enemySO.AttackDamage, enemySO.AttackCooldown);
+            return new FlyingTypeEnemyModel(
+                enemyData.MaxHealth,
+                enemyData.AttackDamage,
+                enemyData.AttackCooldown
+            );
         }
     }
 }

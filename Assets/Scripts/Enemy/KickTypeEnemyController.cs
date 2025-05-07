@@ -5,9 +5,13 @@ namespace DragonBall.Enemy
         public KickTypeEnemyController(EnemyScriptableObject enemySO, BaseEnemyView view, EnemyPool pool)
             : base(enemySO, view, pool) { }
 
-        protected override void InitializeModel(EnemyScriptableObject enemySO)
+        protected override BaseEnemyModel CreateModel(EnemyScriptableObject enemyData)
         {
-            baseEnemyModel = new KickTypeEnemyModel(enemySO.MaxHealth, enemySO.AttackDamage, enemySO.AttackCooldown);
+            return new KickTypeEnemyModel(
+                enemyData.MaxHealth,
+                enemyData.AttackDamage,
+                enemyData.AttackCooldown
+            );
         }
     }
 }
