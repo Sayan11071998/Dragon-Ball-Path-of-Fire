@@ -20,29 +20,12 @@ namespace DragonBall.Enemy
         [SerializeField] private AnimationClip rapidFireAnimation;
         [SerializeField] private float attackSelectionRandomness = 0.3f;
 
-        private Coroutine rapidFireCoroutine;
         private bool isRapidFiring = false;
+        private Coroutine rapidFireCoroutine;
 
         protected override float FloatAmplitudeValue => bossFloatAmplitude;
         protected override float FloatSpeedValue => bossFloatSpeed;
         protected override BulletType EnemyBulletType => bossBulletType;
-
-        public override void StartDeathAnimation()
-        {
-            if (isDying) return;
-
-            CancelRapidFireIfRunning();
-            base.StartDeathAnimation();
-        }
-
-        private void CancelRapidFireIfRunning()
-        {
-            if (isRapidFiring && rapidFireCoroutine != null)
-            {
-                StopCoroutine(rapidFireCoroutine);
-                isRapidFiring = false;
-            }
-        }
 
         public override void StartAttack()
         {
@@ -50,13 +33,9 @@ namespace DragonBall.Enemy
             if (isAttacking || isRapidFiring) return;
 
             if (Random.value < attackSelectionRandomness)
-            {
                 StartRapidFireAttack();
-            }
             else
-            {
                 base.StartAttack();
-            }
         }
 
         public void StartRapidFireAttack()
@@ -64,9 +43,11 @@ namespace DragonBall.Enemy
             if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
             if (isAttacking || isRapidFiring) return;
 
+            CancelActiveCoroutines();
+
             isRapidFiring = true;
             animator.SetBool("isAttacking", true);
-            rapidFireCoroutine = StartCoroutine(RapidFireCoroutine());
+            rapidFireCoroutine = StartCoroutineTracked(RapidFireCoroutine());
         }
 
         private IEnumerator RapidFireCoroutine()
@@ -113,6 +94,17 @@ namespace DragonBall.Enemy
                     direction,
                     BulletTargetType.Player
                 );
+            }
+        }
+
+        protected override void CancelActiveCoroutines()
+        {
+            base.CancelActiveCoroutines();
+
+            if (isRapidFiring)
+            {
+                isRapidFiring = false;
+                animator.SetBool("isAttacking", false);
             }
         }
     }
