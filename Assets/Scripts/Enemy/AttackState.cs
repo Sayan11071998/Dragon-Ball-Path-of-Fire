@@ -6,6 +6,8 @@ namespace DragonBall.Enemy
     {
         protected BaseEnemyModel baseEnemyModel;
 
+        private const float EXIT_ATTACK_BUFFER = 0.3f;
+
         public AttackState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
             : base(controllerToSet, stateMachineToSet)
         {
@@ -24,7 +26,8 @@ namespace DragonBall.Enemy
                 return;
             }
 
-            if (distanceToPlayer > enemyScriptableObject.AttackRange && distanceToPlayer <= enemyScriptableObject.DetectionRange)
+            if (distanceToPlayer > (enemyScriptableObject.AttackRange + EXIT_ATTACK_BUFFER) &&
+                distanceToPlayer <= enemyScriptableObject.DetectionRange)
             {
                 enemyStateMachine.ChangeState(EnemyStates.RUNNING);
                 return;
