@@ -7,6 +7,7 @@ using DragonBall.VFX;
 using DragonBall.Bullet;
 using DragonBall.Enemy;
 using DragonBall.UI;
+using DragonBall.Camera;
 
 namespace DragonBall.Core
 {
@@ -17,7 +18,7 @@ namespace DragonBall.Core
         public BulletService bulletService { get; private set; }
         public EnemyService enemyService { get; private set; }
         public UIService uiService { get; private set; }
-        public CameraShakeService cameraShakeService { get; private set; }
+        public CameraService cameraService { get; private set; }
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
@@ -44,24 +45,21 @@ namespace DragonBall.Core
         [Header("UI")]
         [SerializeField] private GameplayUIView gameplayUIViewPrefab;
 
-        [Header("Cinemachine Virtual Camera")]
-        [SerializeField] private CinemachineStateDrivenCamera cinemachineStateDrivenCamera;
-        [SerializeField] private CinemachineCamera idleCamera;
-        [SerializeField] private CinemachineCamera runCamera;
-        [SerializeField] private CinemachineCamera jumpCamera;
+        [Header("Camera Configuration")]
+        [SerializeField] private UnityEngine.Camera mainCamera;
+        [SerializeField] private CameraController cameraControllerPrefab;
 
         protected override void Awake()
         {
             base.Awake();
             InitializeServices();
-            InitializeVirtualCamera();
         }
 
         private void InitializeServices()
         {
+            cameraService = new CameraService(mainCamera, cameraControllerPrefab);
             playerService = new PlayerService(playerView, playerScriptableObject);
             vFXService = new VFXService(vFXPrefab);
-            cameraShakeService = new CameraShakeService(cinemachineStateDrivenCamera, this);
 
             InitializeEnemyService();
             InitializeBulletService();
@@ -101,14 +99,6 @@ namespace DragonBall.Core
         {
             playerService.Update();
             uiService.Update();
-        }
-
-        private void InitializeVirtualCamera()
-        {
-            idleCamera.Follow = playerService.PlayerPrefab.transform;
-            runCamera.Follow = playerService.PlayerPrefab.transform;
-            jumpCamera.Follow = playerService.PlayerPrefab.transform;
-            cinemachineStateDrivenCamera.AnimatedTarget = playerService.PlayerPrefab.Animator;
         }
     }
 

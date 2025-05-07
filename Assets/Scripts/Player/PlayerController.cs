@@ -1,5 +1,6 @@
 using DragonBall.Core;
 using DragonBall.VFX;
+using DragonBall.Camera;
 using UnityEngine;
 
 namespace DragonBall.Player
@@ -142,8 +143,8 @@ namespace DragonBall.Player
             if (playerModel.IsDead) return;
 
             playerModel.TakeDamage(damage);
-
-            GameService.Instance.cameraShakeService.ShakeCameraWithDecay(5f, 1f);
+            
+            GameService.Instance.cameraService.ShakeCameraWithDecay(5f, 1f);
 
             if (playerModel.IsDead)
                 playerView.StartCoroutine(playerView.DeathSequence());

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DragonBall.Utilities;
+using DragonBall.Core;
 using UnityEngine;
 
 namespace DragonBall.Player
@@ -38,6 +39,11 @@ namespace DragonBall.Player
 
                 currentPlayerStateEnum = newState;
                 ChangeState(states[newState]);
+
+                if (GameService.Instance != null && GameService.Instance.cameraService != null)
+                {
+                    GameService.Instance.cameraService.HandlePlayerStateChange(newState);
+                }
             }
             else
             {
