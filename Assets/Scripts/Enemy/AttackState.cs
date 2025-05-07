@@ -1,57 +1,32 @@
-using DragonBall.Utilities;
 using UnityEngine;
 
 namespace DragonBall.Enemy
 {
-    public class AttackState : IState
+    public class AttackState : BaseState
     {
-        private BaseEnemyController baseEnemyController;
-        private BaseEnemyModel baseEnemyModel;
-        private EnemyStateMachine baseEnemyStateMachine;
-        private Transform playerTransform;
-        private EnemyScriptableObject enemyScriptableObject;
+        protected BaseEnemyModel baseEnemyModel;
 
         public AttackState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
+            : base(controllerToSet, stateMachineToSet)
         {
-            baseEnemyController = controllerToSet;
-            baseEnemyStateMachine = stateMachineToSet;
-            enemyScriptableObject = controllerToSet.EnemyData;
             baseEnemyModel = controllerToSet.BaseEnemyModel;
-
-            playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         }
 
-        public void OnStateEnter() => baseEnemyController.BaseEnemyView.SetMoving(false);
+        public override void OnStateEnter() => baseEnemyController.BaseEnemyView.SetMoving(false);
 
-        public virtual void Update()
+        protected override void StateSpecificUpdate()
         {
-            if (baseEnemyController.IsDead || baseEnemyController.BaseEnemyView.IsDying)
-            {
-                if (baseEnemyController.IsDead && !baseEnemyController.BaseEnemyView.IsDying)
-                    baseEnemyStateMachine.ChangeState(EnemyStates.DEATH);
-                return;
-            }
-
-            if (baseEnemyController.IsPlayerDead || playerTransform == null)
-            {
-                if (baseEnemyController.IsPlayerDead)
-                    baseEnemyController.BaseEnemyView.StopMovement();
-
-                baseEnemyStateMachine.ChangeState(EnemyStates.IDLE);
-                return;
-            }
-
-            float distanceToPlayer = Vector2.Distance(baseEnemyController.BaseEnemyView.transform.position, playerTransform.position);
+            float distanceToPlayer = GetDistanceToPlayer();
 
             if (distanceToPlayer > enemyScriptableObject.DetectionRange)
             {
-                baseEnemyStateMachine.ChangeState(EnemyStates.IDLE);
+                enemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
             if (distanceToPlayer > enemyScriptableObject.AttackRange && distanceToPlayer <= enemyScriptableObject.DetectionRange)
             {
-                baseEnemyStateMachine.ChangeState(EnemyStates.RUNNING);
+                enemyStateMachine.ChangeState(EnemyStates.RUNNING);
                 return;
             }
 
@@ -59,7 +34,7 @@ namespace DragonBall.Enemy
             TryAttack();
         }
 
-        private void TryAttack()
+        protected virtual void TryAttack()
         {
             if (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead || baseEnemyController.BaseEnemyView.IsDying)
                 return;
@@ -73,7 +48,5 @@ namespace DragonBall.Enemy
                 baseEnemyModel.lastAttackTime = Time.time;
             }
         }
-
-        public void OnStateExit() { }
     }
 }

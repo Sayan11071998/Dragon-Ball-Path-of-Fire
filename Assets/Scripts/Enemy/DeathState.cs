@@ -1,26 +1,16 @@
-using DragonBall.Utilities;
-
 namespace DragonBall.Enemy
 {
-    public class DeathState : IState
+    public class DeathState : BaseState
     {
-        private BaseEnemyController enemyController;
-        private EnemyStateMachine enemyStateMachine;
-
         public DeathState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
+            : base(controllerToSet, stateMachineToSet) { }
+
+        public override void OnStateEnter()
         {
-            enemyController = controllerToSet;
-            enemyStateMachine = stateMachineToSet;
+            baseEnemyController.BaseEnemyView.StopMovement();
+            baseEnemyController.BaseEnemyView.StartDeathAnimation();
         }
 
-        public void OnStateEnter()
-        {
-            enemyController.BaseEnemyView.StopMovement();
-            enemyController.BaseEnemyView.StartDeathAnimation();
-        }
-
-        public void Update() { }
-
-        public void OnStateExit() => enemyController.BaseEnemyView.ResetDeathState();
+        public override void OnStateExit() => baseEnemyController.BaseEnemyView.ResetDeathState();
     }
 }
