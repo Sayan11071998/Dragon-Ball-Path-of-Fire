@@ -11,6 +11,9 @@ namespace DragonBall.Enemy
         public float LastSpecialAttackTime { get; set; } = -Mathf.Infinity;
         public float SpecialAttackCooldown { get; set; } = 15f;
 
+        public bool HasRegeneratedHealth { get; private set; } = false;
+        public bool IsRegenerating { get; private set; } = false;
+
         private float originalAttackDamage;
         private float originalAttackCooldown;
 
@@ -19,6 +22,15 @@ namespace DragonBall.Enemy
         {
             originalAttackDamage = _attackDamage;
             originalAttackCooldown = _attackCooldown;
+        }
+
+        public override void TakeDamage(float damage)
+        {
+            if (IsRegenerating) return;
+            
+            CurrentHealth -= damage;
+            if (CurrentHealth < 0)
+                CurrentHealth = 0;
         }
 
         public void EnterEnragedState()
@@ -30,6 +42,21 @@ namespace DragonBall.Enemy
                 AttackDamage = originalAttackDamage * EnragedDamageMultiplier;
                 AttackCooldown = originalAttackCooldown / EnragedAttackSpeedMultiplier;
             }
+        }
+
+        public void RegenerateHealth()
+        {
+            if (!HasRegeneratedHealth)
+            {
+                IsRegenerating = true;
+                HasRegeneratedHealth = true;
+            }
+        }
+
+        public void CompleteRegeneration()
+        {
+            IsRegenerating = false;
+            CurrentHealth = MaxHealth;
         }
 
         public void ResetEnragedState()
@@ -44,6 +71,8 @@ namespace DragonBall.Enemy
             base.Reset();
             ResetEnragedState();
             LastSpecialAttackTime = -Mathf.Infinity;
+            HasRegeneratedHealth = false;
+            IsRegenerating = false;
         }
     }
 }

@@ -20,17 +20,32 @@ namespace DragonBall.Enemy
         [SerializeField] private AnimationClip rapidFireAnimation;
         [SerializeField] private float attackSelectionRandomness = 0.3f;
 
+        [Header("Health Regeneration Settings")]
+        [SerializeField] private float regenerationDuration = 2.5f;
+        [SerializeField] private Color regenerationColor = Color.green;
+        [SerializeField] private float pulseFrequency = 2f;
+        [SerializeField] private float pulseIntensity = 0.5f;
+
         private bool isRapidFiring = false;
+        private bool isRegenerating = false;
         private Coroutine rapidFireCoroutine;
+        private Coroutine regenerationCoroutine;
+        private Color originalColor;
 
         protected override float FloatAmplitudeValue => bossFloatAmplitude;
         protected override float FloatSpeedValue => bossFloatSpeed;
         protected override BulletType EnemyBulletType => bossBulletType;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            originalColor = spriteRenderer.color;
+        }
+
         public override void StartAttack()
         {
             if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
-            if (isAttacking || isRapidFiring) return;
+            if (isAttacking || isRapidFiring || isRegenerating) return;
 
             if (Random.value < attackSelectionRandomness)
                 StartRapidFireAttack();
@@ -41,13 +56,52 @@ namespace DragonBall.Enemy
         public void StartRapidFireAttack()
         {
             if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
-            if (isAttacking || isRapidFiring) return;
+            if (isAttacking || isRapidFiring || isRegenerating) return;
 
             CancelActiveCoroutines();
 
             isRapidFiring = true;
             animator.SetBool("isAttacking", true);
             rapidFireCoroutine = StartCoroutineTracked(RapidFireCoroutine());
+        }
+
+        public void StartRegenerationAnimation()
+        {
+            if (isRegenerating) return;
+
+            CancelActiveCoroutines();
+
+            isRegenerating = true;
+            animator.SetBool("isRegenerating", true);
+
+            regenerationCoroutine = StartCoroutineTracked(RegenerationCoroutine());
+        }
+
+        private IEnumerator RegenerationCoroutine()
+        {
+            bool wasMoving = isMoving;
+            StopMovement();
+
+            float elapsed = 0f;
+            while (elapsed < regenerationDuration)
+            {
+                float pulseValue = Mathf.Sin(elapsed * pulseFrequency * Mathf.PI) * pulseIntensity + (1 - pulseIntensity);
+                spriteRenderer.color = Color.Lerp(originalColor, regenerationColor, pulseValue);
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            spriteRenderer.color = originalColor;
+
+            animator.SetBool("isRegenerating", false);
+            isRegenerating = false;
+
+            FinalBossTypeEnemyController finalBossController = baseEnemyController as FinalBossTypeEnemyController;
+            finalBossController?.OnRegenerationAnimationComplete();
+
+            if (wasMoving)
+                SetMoving(true);
         }
 
         private IEnumerator RapidFireCoroutine()
@@ -116,6 +170,21 @@ namespace DragonBall.Enemy
             {
                 isRapidFiring = false;
                 animator.SetBool("isAttacking", false);
+            }
+
+            if (isRegenerating && regenerationCoroutine != null)
+                activeCoroutines.Add(regenerationCoroutine);
+        }
+
+        public override void ResetAllInputs()
+        {
+            base.ResetAllInputs();
+
+            if (isRegenerating)
+            {
+                animator.SetBool("isRegenerating", false);
+                isRegenerating = false;
+                spriteRenderer.color = originalColor;
             }
         }
     }
