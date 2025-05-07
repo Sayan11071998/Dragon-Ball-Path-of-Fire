@@ -195,14 +195,15 @@ MonoBehaviour:
   attackRadius: 0.5
   attackOffset: {x: 0.5, y: 0}
   deathClipDurationOffset: 0.5
+  attackHitTime: 0.3
   flyAwayForceX: 7
   flyAwayForceY: 5
   flyAwayDuration: 1
   healthBar: {fileID: 8564669314691770817}
   buuFireAnimation: {fileID: 7400000, guid: 690cea023ebc70c44a7fc6a5bb4ae695, type: 2}
-  hitTime: 0.4
   firePoint: {fileID: 4387089208744413716}
   bulletType: 3
+  firePointOffsetX: 0.5
 --- !u!1 &5743132342549553080
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +331,7 @@ Transform:
   m_GameObject: {fileID: 6536888718513219611}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.14, y: 1.39, z: 0}
+  m_LocalPosition: {x: 1.14, y: 1.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

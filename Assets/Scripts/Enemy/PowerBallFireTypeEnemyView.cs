@@ -12,6 +12,7 @@ namespace DragonBall.Enemy
         [Header("Bullet Settings")]
         [SerializeField] protected Transform firePoint;
         [SerializeField] protected BulletType bulletType = BulletType.EnemyRegularPowerBall;
+        [SerializeField] protected float firePointOffsetX = 0.5f;
 
         protected override float GetAttackAnimationLength() => buuFireAnimation != null ? buuFireAnimation.length : 0.6f;
 
@@ -20,10 +21,20 @@ namespace DragonBall.Enemy
             if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
 
             Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+            Vector3 firePosition = firePoint.position;
+
+            if (spriteRenderer.flipX)
+            {
+                firePosition = new Vector3(
+                    transform.position.x - Mathf.Abs(firePoint.position.x - transform.position.x),
+                    firePoint.position.y,
+                    firePoint.position.z
+                );
+            }
 
             GameService.Instance.bulletService.FireBullet(
                 bulletType,
-                firePoint.position,
+                firePosition,
                 direction,
                 BulletTargetType.Player
             );
