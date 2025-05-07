@@ -73,6 +73,7 @@ namespace DragonBall.Enemy
 
             isRegenerating = true;
             animator.SetBool("isRegenerating", true);
+            GameService.Instance.cameraShakeService.ShakeCamera(5f, 1f);
 
             regenerationCoroutine = StartCoroutineTracked(RegenerationCoroutine());
         }
