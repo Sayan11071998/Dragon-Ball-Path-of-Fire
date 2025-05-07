@@ -25,23 +25,32 @@ namespace DragonBall.Enemy
             var model = new FinalBossTypeEnemyModel(maxHealth, attackDamage, attackCooldown);
 
             if (bossSO != null)
-            {
                 model.SpecialAttackCooldown = bossSO.SpecialAttackCooldown;
-            }
 
             return model;
         }
 
         public override void TakeDamage(float damage)
         {
-            // Apply damage reduction for boss type
             base.TakeDamage(damage * 0.75f);
+            FinalBossTypeEnemyModel finalBossModel = baseEnemyModel as FinalBossTypeEnemyModel;
 
-            // Check for enraged state
-            if (baseEnemyModel.CurrentHealth < baseEnemyModel.MaxHealth * 0.5f)
+            if (finalBossModel != null && baseEnemyModel.CurrentHealth < baseEnemyModel.MaxHealth * 0.5f && !finalBossModel.HasRegeneratedHealth && !isDead)
             {
-                bossModel.EnterEnragedState();
+                finalBossModel.RegenerateHealth();
+                bossView.StartRegenerationAnimation();
             }
+            else if (baseEnemyModel.CurrentHealth < baseEnemyModel.MaxHealth * 0.5f)
+            {
+                finalBossModel?.EnterEnragedState();
+            }
+        }
+
+        public void OnRegenerationAnimationComplete()
+        {
+            FinalBossTypeEnemyModel finalBossModel = baseEnemyModel as FinalBossTypeEnemyModel;
+            finalBossModel?.CompleteRegeneration();
+            UpdateHealthBar();
         }
 
         public override void Reset()
