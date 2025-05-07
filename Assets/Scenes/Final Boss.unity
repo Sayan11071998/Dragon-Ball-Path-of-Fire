@@ -354,7 +354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoiseProfile: {fileID: 11400000, guid: 0aaf3dd3cb7f7af419130c48f8a89417, type: 2}
   PivotOffset: {x: 0, y: 0, z: 0}
-  AmplitudeGain: 2.738738
+  AmplitudeGain: 0
   FrequencyGain: 0
   m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &52931617
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoiseProfile: {fileID: 11400000, guid: 0aaf3dd3cb7f7af419130c48f8a89417, type: 2}
   PivotOffset: {x: 0, y: 0, z: 0}
-  AmplitudeGain: 2.738738
+  AmplitudeGain: 0
   FrequencyGain: 0
   m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
@@ -1369,7 +1369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoiseProfile: {fileID: 11400000, guid: 0aaf3dd3cb7f7af419130c48f8a89417, type: 2}
   PivotOffset: {x: 0, y: 0, z: 0}
-  AmplitudeGain: 2.738738
+  AmplitudeGain: 0
   FrequencyGain: 0
   m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1191007467
@@ -2652,7 +2652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1506526633782270884, guid: e1cdaab5daac0c1449b2cc301cbab1ff, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2371258603792827488, guid: e1cdaab5daac0c1449b2cc301cbab1ff, type: 3}
       propertyPath: enemyType
@@ -7950,7 +7950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1506526633782270884, guid: cbc04583bc945a24ca9320884827a599, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9183888350809503661, guid: cbc04583bc945a24ca9320884827a599, type: 3}
       propertyPath: m_LocalPosition.x
