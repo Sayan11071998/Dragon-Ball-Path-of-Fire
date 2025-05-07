@@ -1,5 +1,3 @@
-using DragonBall.Utilities;
-
 namespace DragonBall.Enemy
 {
     public class DeathState : BaseState

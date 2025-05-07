@@ -1,6 +1,3 @@
-using DragonBall.Utilities;
-using UnityEngine;
-
 namespace DragonBall.Enemy
 {
     public class IdleState : BaseState
