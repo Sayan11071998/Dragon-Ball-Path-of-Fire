@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,7 @@ namespace DragonBall.Enemy
         protected bool isAttacking = false;
         protected bool isDying = false;
         protected Coroutine attackCoroutine;
+        protected List<Coroutine> activeCoroutines = new List<Coroutine>();
 
         public bool IsAttacking => isAttacking;
         public bool IsDying => isDying;
@@ -88,9 +90,11 @@ namespace DragonBall.Enemy
             if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead || isDying)) return;
             if (isAttacking) return;
 
+            CancelActiveCoroutines();
+
             isAttacking = true;
             animator.SetBool("isAttacking", true);
-            attackCoroutine = StartCoroutine(AttackCoroutine());
+            attackCoroutine = StartCoroutineTracked(AttackCoroutine());
         }
 
         protected virtual IEnumerator AttackCoroutine()
@@ -122,23 +126,37 @@ namespace DragonBall.Enemy
         {
             if (isDying) return;
 
-            CancelAttackIfRunning();
+            CancelActiveCoroutines();
 
             isDying = true;
             animator.SetBool("isDead", true);
 
             ApplyDeathForce();
-            StartCoroutine(DeathCoroutine());
+            StartCoroutineTracked(DeathCoroutine());
         }
 
-        protected virtual void CancelAttackIfRunning()
+        protected virtual void CancelActiveCoroutines()
         {
-            if (isAttacking && attackCoroutine != null)
+            foreach (var coroutine in activeCoroutines)
             {
-                StopCoroutine(attackCoroutine);
+                if (coroutine != null)
+                    StopCoroutine(coroutine);
+            }
+
+            activeCoroutines.Clear();
+
+            if (isAttacking)
+            {
                 isAttacking = false;
                 animator.SetBool("isAttacking", false);
             }
+        }
+
+        protected Coroutine StartCoroutineTracked(IEnumerator routine)
+        {
+            Coroutine coroutine = StartCoroutine(routine);
+            activeCoroutines.Add(coroutine);
+            return coroutine;
         }
 
         protected virtual void ApplyDeathForce()
