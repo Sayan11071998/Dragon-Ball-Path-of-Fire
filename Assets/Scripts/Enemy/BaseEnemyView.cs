@@ -11,6 +11,7 @@ namespace DragonBall.Enemy
         [SerializeField] protected float attackRadius = 0.5f;
         [SerializeField] protected Vector2 attackOffset = new Vector2(0.5f, 0f);
         [SerializeField] protected float deathClipDurationOffset = 0.5f;
+        [SerializeField] protected float attackHitTime = 0.3f;
 
         [Header("Death Fly Away Settings")]
         [SerializeField] protected float flyAwayForceX = 5f;
@@ -28,6 +29,7 @@ namespace DragonBall.Enemy
         protected bool isMoving = false;
         protected bool isAttacking = false;
         protected bool isDying = false;
+        protected Coroutine attackCoroutine;
 
         public bool IsAttacking => isAttacking;
         public bool IsDying => isDying;
@@ -81,7 +83,30 @@ namespace DragonBall.Enemy
                 spriteRenderer.flipX = directionX < 0;
         }
 
-        public abstract void StartAttack();
+        public virtual void StartAttack()
+        {
+            if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead || isDying)) return;
+            if (isAttacking) return;
+
+            isAttacking = true;
+            animator.SetBool("isAttacking", true);
+            attackCoroutine = StartCoroutine(AttackCoroutine());
+        }
+
+        protected virtual IEnumerator AttackCoroutine()
+        {
+            float clipLength = GetAttackAnimationLength();
+            yield return new WaitForSeconds(attackHitTime);
+
+            if (baseEnemyController != null && !baseEnemyController.IsPlayerDead && !baseEnemyController.IsDead)
+                PerformAttack();
+
+            yield return new WaitForSeconds(clipLength - attackHitTime);
+            animator.SetBool("isAttacking", false);
+            isAttacking = false;
+        }
+
+        protected virtual float GetAttackAnimationLength() => 0.5f;
 
         protected abstract void PerformAttack();
 
@@ -97,14 +122,30 @@ namespace DragonBall.Enemy
         {
             if (isDying) return;
 
+            CancelAttackIfRunning();
+
             isDying = true;
             animator.SetBool("isDead", true);
 
+            ApplyDeathForce();
+            StartCoroutine(DeathCoroutine());
+        }
+
+        protected virtual void CancelAttackIfRunning()
+        {
+            if (isAttacking && attackCoroutine != null)
+            {
+                StopCoroutine(attackCoroutine);
+                isAttacking = false;
+                animator.SetBool("isAttacking", false);
+            }
+        }
+
+        protected virtual void ApplyDeathForce()
+        {
             float xDirection = spriteRenderer.flipX ? 1f : -1f;
             Vector2 flyAwayForce = new Vector2(flyAwayForceX * xDirection, flyAwayForceY);
             rb.AddForce(flyAwayForce, ForceMode2D.Impulse);
-
-            StartCoroutine(DeathCoroutine());
         }
 
         protected virtual IEnumerator DeathCoroutine()

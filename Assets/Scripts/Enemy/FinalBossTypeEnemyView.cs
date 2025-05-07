@@ -27,22 +27,21 @@ namespace DragonBall.Enemy
         protected override float FloatSpeedValue => bossFloatSpeed;
         protected override BulletType EnemyBulletType => bossBulletType;
 
-        protected override void Awake()
-        {
-            base.Awake();
-        }
-
         public override void StartDeathAnimation()
         {
             if (isDying) return;
 
+            CancelRapidFireIfRunning();
+            base.StartDeathAnimation();
+        }
+
+        private void CancelRapidFireIfRunning()
+        {
             if (isRapidFiring && rapidFireCoroutine != null)
             {
                 StopCoroutine(rapidFireCoroutine);
                 isRapidFiring = false;
             }
-
-            base.StartDeathAnimation();
         }
 
         public override void StartAttack()
@@ -115,11 +114,6 @@ namespace DragonBall.Enemy
                     BulletTargetType.Player
                 );
             }
-        }
-
-        protected override void PerformAttack()
-        {
-            base.PerformAttack();
         }
     }
 }

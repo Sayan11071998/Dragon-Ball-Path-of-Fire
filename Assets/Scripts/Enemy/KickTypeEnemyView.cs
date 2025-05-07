@@ -1,4 +1,3 @@
-using System.Collections;
 using DragonBall.Core;
 using UnityEngine;
 
@@ -8,30 +7,8 @@ namespace DragonBall.Enemy
     {
         [Header("KickType Specific Attack Settings")]
         [SerializeField] private AnimationClip buuKickAnimation;
-        [SerializeField] private float hitTime = 0.3f;
 
-        public override void StartAttack()
-        {
-            if (baseEnemyController != null && baseEnemyController.IsPlayerDead) return;
-
-            if (isAttacking) return;
-            isAttacking = true;
-            animator.SetBool("isAttacking", true);
-            StartCoroutine(AttackCoroutine());
-        }
-
-        private IEnumerator AttackCoroutine()
-        {
-            float clipLength = buuKickAnimation != null ? buuKickAnimation.length : 0.5f;
-            yield return new WaitForSeconds(hitTime);
-
-            if (baseEnemyController != null && !baseEnemyController.IsPlayerDead)
-                PerformAttack();
-
-            yield return new WaitForSeconds(clipLength - hitTime);
-            animator.SetBool("isAttacking", false);
-            isAttacking = false;
-        }
+        protected override float GetAttackAnimationLength() => buuKickAnimation != null ? buuKickAnimation.length : 0.5f;
 
         protected override void PerformAttack()
         {
