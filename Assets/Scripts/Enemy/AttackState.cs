@@ -23,7 +23,7 @@ namespace DragonBall.Enemy
 
         public void OnStateEnter() => baseEnemyController.BaseEnemyView.SetMoving(false);
 
-        public void Update()
+        public virtual void Update()
         {
             if (baseEnemyController.IsDead || baseEnemyController.BaseEnemyView.IsDying)
             {
