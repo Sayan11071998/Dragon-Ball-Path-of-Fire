@@ -1,4 +1,3 @@
-using DragonBall.Utilities;
 using UnityEngine;
 
 namespace DragonBall.Enemy
@@ -19,19 +18,12 @@ namespace DragonBall.Enemy
             bossData = controllerToSet.EnemyData as FinalBossTypeEnemyScriptableObject;
         }
 
-        protected override void TryAttack()
+        protected override bool IsAttackCooldownComplete() => Time.time >= finalBossModel.lastAttackTime + finalBossModel.AttackCooldown;
+
+        protected override void ExecuteAttack()
         {
-            if (finalBossController.IsPlayerDead || finalBossController.IsDead || finalBossView.IsDying)
-                return;
-
-            if (Time.time < finalBossModel.lastAttackTime + finalBossModel.AttackCooldown)
-                return;
-
-            if (!finalBossView.IsAttacking)
-            {
-                finalBossView.StartAttack();
-                finalBossModel.lastAttackTime = Time.time;
-            }
+            finalBossView.StartAttack();
+            finalBossModel.lastAttackTime = Time.time;
         }
     }
 }

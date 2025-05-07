@@ -39,17 +39,21 @@ namespace DragonBall.Enemy
 
         protected virtual void TryAttack()
         {
-            if (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead || baseEnemyController.BaseEnemyView.IsDying)
-                return;
-
-            if (Time.time < baseEnemyModel.lastAttackTime + enemyScriptableObject.AttackCooldown)
-                return;
+            if (!CanAttack()) return;
+            if (!IsAttackCooldownComplete()) return;
 
             if (!baseEnemyController.BaseEnemyView.IsAttacking)
-            {
-                baseEnemyController.BaseEnemyView.StartAttack();
-                baseEnemyModel.lastAttackTime = Time.time;
-            }
+                ExecuteAttack();
+        }
+
+        protected virtual bool CanAttack() => !baseEnemyController.IsPlayerDead && !baseEnemyController.IsDead && !baseEnemyController.BaseEnemyView.IsDying;
+
+        protected virtual bool IsAttackCooldownComplete() => Time.time >= baseEnemyModel.lastAttackTime + enemyScriptableObject.AttackCooldown;
+
+        protected virtual void ExecuteAttack()
+        {
+            baseEnemyController.BaseEnemyView.StartAttack();
+            baseEnemyModel.lastAttackTime = Time.time;
         }
     }
 }
