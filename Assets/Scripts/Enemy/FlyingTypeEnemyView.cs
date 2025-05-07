@@ -1,4 +1,3 @@
-using System.Collections;
 using DragonBall.Core;
 using DragonBall.Bullet;
 using UnityEngine;
@@ -10,7 +9,6 @@ namespace DragonBall.Enemy
         [Header("FlyingType specific Settings")]
         [SerializeField] private AnimationClip flyAnimation;
         [SerializeField] private AnimationClip fireAnimation;
-        [SerializeField] private float hitTime = 0.4f;
         [SerializeField] private float floatAmplitude = 0.5f;
         [SerializeField] private float floatSpeed = 1.0f;
 
@@ -23,7 +21,6 @@ namespace DragonBall.Enemy
         protected virtual BulletType EnemyBulletType => bulletType;
         protected virtual Transform FirePointTransform => firePoint;
 
-        protected Coroutine attackCoroutine;
         protected Vector3 initialPosition;
         protected float floatTimer = 0f;
 
@@ -72,28 +69,7 @@ namespace DragonBall.Enemy
                 initialPosition = transform.position;
         }
 
-        public override void StartAttack()
-        {
-            if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
-            if (isAttacking) return;
-
-            isAttacking = true;
-            animator.SetBool("isAttacking", true);
-            attackCoroutine = StartCoroutine(AttackCoroutine());
-        }
-
-        protected virtual IEnumerator AttackCoroutine()
-        {
-            float clipLength = fireAnimation != null ? fireAnimation.length : 0.6f;
-            yield return new WaitForSeconds(hitTime);
-
-            if (baseEnemyController != null && !baseEnemyController.IsPlayerDead && !baseEnemyController.IsDead)
-                PerformAttack();
-
-            yield return new WaitForSeconds(clipLength - hitTime);
-            animator.SetBool("isAttacking", false);
-            isAttacking = false;
-        }
+        protected override float GetAttackAnimationLength() => fireAnimation != null ? fireAnimation.length : 0.6f;
 
         protected override void PerformAttack()
         {
@@ -112,27 +88,11 @@ namespace DragonBall.Enemy
             );
         }
 
-        public override void StartDeathAnimation()
+        protected override void ApplyDeathForce()
         {
-            if (isDying) return;
-
-            if (isAttacking)
-            {
-                if (attackCoroutine != null)
-                    StopCoroutine(attackCoroutine);
-
-                isAttacking = false;
-                animator.SetBool("isAttacking", false);
-            }
-
-            isDying = true;
-            animator.SetBool("isDead", true);
-
             float xDirection = spriteRenderer.flipX ? 1f : -1f;
             Vector2 flyAwayForce = new Vector2(flyAwayForceX * xDirection, flyAwayForceY * 0.5f);
             rb.AddForce(flyAwayForce, ForceMode2D.Impulse);
-
-            StartCoroutine(DeathCoroutine());
         }
 
         public override void StopMovement()
