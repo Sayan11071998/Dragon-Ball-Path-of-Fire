@@ -76,7 +76,18 @@ namespace DragonBall.Enemy
             Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
             if (playerTransform == null) return;
 
-            Vector2 baseDirection = ((Vector2)playerTransform.position - (Vector2)FirePointTransform.position).normalized;
+            Vector3 firePosition = FirePointTransform.position;
+
+            if (spriteRenderer.flipX)
+            {
+                firePosition = new Vector3(
+                    transform.position.x - Mathf.Abs(FirePointTransform.position.x - transform.position.x),
+                    FirePointTransform.position.y,
+                    FirePointTransform.position.z
+                );
+            }
+
+            Vector2 baseDirection = ((Vector2)playerTransform.position - (Vector2)firePosition).normalized;
             float baseAngle = Mathf.Atan2(baseDirection.y, baseDirection.x) * Mathf.Rad2Deg;
 
             float angleStep = bulletsPerSpread > 1 ? spreadAngle / (bulletsPerSpread - 1) : 0;
@@ -90,7 +101,7 @@ namespace DragonBall.Enemy
 
                 GameService.Instance.bulletService.FireBullet(
                     EnemyBulletType,
-                    FirePointTransform.position,
+                    firePosition,
                     direction,
                     BulletTargetType.Player
                 );

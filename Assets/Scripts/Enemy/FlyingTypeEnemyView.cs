@@ -76,13 +76,25 @@ namespace DragonBall.Enemy
             if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
 
             Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+
             if (playerTransform == null) return;
 
-            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)FirePointTransform.position).normalized;
+            Vector3 firePosition = FirePointTransform.position;
+
+            if (spriteRenderer.flipX)
+            {
+                firePosition = new Vector3(
+                    transform.position.x - Mathf.Abs(FirePointTransform.position.x - transform.position.x),
+                    FirePointTransform.position.y,
+                    FirePointTransform.position.z
+                );
+            }
+
+            Vector2 direction = ((Vector2)playerTransform.position - (Vector2)firePosition).normalized;
 
             GameService.Instance.bulletService.FireBullet(
                 EnemyBulletType,
-                FirePointTransform.position,
+                firePosition,
                 direction,
                 BulletTargetType.Player
             );
