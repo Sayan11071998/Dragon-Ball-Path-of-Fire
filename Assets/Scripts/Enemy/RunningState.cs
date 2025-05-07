@@ -4,6 +4,8 @@ namespace DragonBall.Enemy
 {
     public class RunningState : BaseState
     {
+        private const float ATTACK_RANGE_BUFFER = 0.2f;
+
         public RunningState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
             : base(controllerToSet, stateMachineToSet) { }
 
@@ -23,17 +25,10 @@ namespace DragonBall.Enemy
 
             float distanceToPlayer = GetDistanceToPlayer();
 
-            if (distanceToPlayer > enemyScriptableObject.DetectionRange)
-            {
-                enemyStateMachine.ChangeState(EnemyStates.IDLE);
-                return;
-            }
-
-            if (distanceToPlayer <= enemyScriptableObject.AttackRange)
-            {
+            if (distanceToPlayer <= enemyScriptableObject.AttackRange - ATTACK_RANGE_BUFFER)
                 enemyStateMachine.ChangeState(EnemyStates.ATTACK);
-                return;
-            }
+            else if (distanceToPlayer > enemyScriptableObject.DetectionRange)
+                enemyStateMachine.ChangeState(EnemyStates.IDLE);
 
             if (!baseEnemyController.IsPlayerDead)
             {
