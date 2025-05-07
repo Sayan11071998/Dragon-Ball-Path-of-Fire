@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DragonBall.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,7 +50,11 @@ namespace DragonBall.Enemy
 
         protected virtual void FixedUpdate() => baseEnemyController?.Update();
 
-        public virtual void Damage(float damageValue) => baseEnemyController?.TakeDamage(damageValue);
+        public virtual void Damage(float damageValue)
+        {
+            GameService.Instance.vFXService.PlayVFXAtPosition(VFX.VFXType.Explosion, transform.position);
+            baseEnemyController?.TakeDamage(damageValue);
+        }
 
         public virtual void SetMoving(bool moving)
         {
