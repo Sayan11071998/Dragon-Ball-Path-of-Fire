@@ -28,16 +28,33 @@ namespace DragonBall.Enemy
 
             viewToSet.SetController(this);
 
-            InitializeModel(enemyScriptableObjectToSet);
+            InitializeModel();
             UpdateHealthBar();
 
-            enemyStateMachine = new EnemyStateMachine(this);
+            InitializeStateMachine();
 
             CheckPlayerStatus();
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
 
-        protected abstract void InitializeModel(EnemyScriptableObject _enemyData);
+        protected virtual void InitializeModel()
+        {
+            baseEnemyModel = CreateModel(enemyScriptableObject);
+        }
+
+        protected virtual BaseEnemyModel CreateModel(EnemyScriptableObject enemyData)
+        {
+            return new BaseEnemyModel(
+                enemyData.MaxHealth,
+                enemyData.AttackDamage,
+                enemyData.AttackCooldown
+            );
+        }
+
+        protected virtual void InitializeStateMachine()
+        {
+            enemyStateMachine = new EnemyStateMachine(this);
+        }
 
         public virtual void Update()
         {
