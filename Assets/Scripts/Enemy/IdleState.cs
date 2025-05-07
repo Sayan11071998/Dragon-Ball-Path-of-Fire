@@ -3,29 +3,19 @@ using UnityEngine;
 
 namespace DragonBall.Enemy
 {
-    public class IdleState : IState
+    public class IdleState : BaseState
     {
-        private BaseEnemyController baseEnemyController;
-        private EnemyStateMachine enemyStateMachine;
-        private Transform playerTransform;
-        private EnemyScriptableObject enemyScriptableObject;
-
         public IdleState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
+            : base(controllerToSet, stateMachineToSet) { }
+
+        public override void OnStateEnter() => baseEnemyController.BaseEnemyView.SetMoving(false);
+
+        protected override void StateSpecificUpdate()
         {
-            baseEnemyController = controllerToSet;
-            enemyStateMachine = stateMachineToSet;
-            enemyScriptableObject = controllerToSet.EnemyData;
+            if (playerTransform == null || baseEnemyController.IsDead || baseEnemyController.IsPlayerDead)
+                return;
 
-            playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
-        }
-
-        public void OnStateEnter() => baseEnemyController.BaseEnemyView.SetMoving(false);
-
-        public void Update()
-        {
-            if (playerTransform == null || baseEnemyController.IsDead || baseEnemyController.IsPlayerDead) return;
-
-            float distanceToPlayer = Vector2.Distance(baseEnemyController.BaseEnemyView.transform.position, playerTransform.position);
+            float distanceToPlayer = GetDistanceToPlayer();
 
             if (distanceToPlayer <= enemyScriptableObject.DetectionRange)
             {
@@ -35,7 +25,5 @@ namespace DragonBall.Enemy
                     enemyStateMachine.ChangeState(EnemyStates.RUNNING);
             }
         }
-
-        public void OnStateExit() { }
     }
 }

@@ -3,44 +3,26 @@ using UnityEngine;
 
 namespace DragonBall.Enemy
 {
-    public class RunningState : IState
+    public class RunningState : BaseState
     {
-        private BaseEnemyController baseEnemyController;
-        private EnemyStateMachine enemyStateMachine;
-        private Transform playerTransform;
-        private EnemyScriptableObject enemyScriptableObject;
-
         public RunningState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
-        {
-            baseEnemyController = controllerToSet;
-            enemyStateMachine = stateMachineToSet;
-            enemyScriptableObject = controllerToSet.EnemyData;
+            : base(controllerToSet, stateMachineToSet) { }
 
-            playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
-        }
-
-        public void OnStateEnter()
+        public override void OnStateEnter()
         {
             if (!baseEnemyController.IsPlayerDead)
                 baseEnemyController.BaseEnemyView.SetMoving(true);
         }
 
-        public void Update()
+        protected override void StateSpecificUpdate()
         {
-            if (baseEnemyController.IsPlayerDead)
-            {
-                baseEnemyController.BaseEnemyView.StopMovement();
-                enemyStateMachine.ChangeState(EnemyStates.IDLE);
-                return;
-            }
-
             if (playerTransform == null || baseEnemyController.IsDead)
             {
                 enemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
-            float distanceToPlayer = Vector2.Distance(baseEnemyController.BaseEnemyView.transform.position, playerTransform.position);
+            float distanceToPlayer = GetDistanceToPlayer();
 
             if (distanceToPlayer > enemyScriptableObject.DetectionRange)
             {
@@ -61,6 +43,6 @@ namespace DragonBall.Enemy
             }
         }
 
-        public void OnStateExit() => baseEnemyController.BaseEnemyView.SetMoving(false);
+        public override void OnStateExit() => baseEnemyController.BaseEnemyView.SetMoving(false);
     }
 }
