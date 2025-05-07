@@ -11,13 +11,6 @@ namespace DragonBall.Camera
         [SerializeField] private Vector2 offset = new Vector2(0f, 1f);
         [SerializeField] private bool enableSmoothing = true;
 
-        [Header("Bounds")]
-        [SerializeField] private bool enableBoundaries = false;
-        [SerializeField] private float minX = -10f;
-        [SerializeField] private float maxX = 10f;
-        [SerializeField] private float minY = -5f;
-        [SerializeField] private float maxY = 5f;
-
         [Header("Zoom Settings")]
         [SerializeField] private float defaultOrthoSize = 5f;
         [SerializeField] private float zoomTransitionSpeed = 2f;
@@ -101,13 +94,6 @@ namespace DragonBall.Camera
             targetPosition.x += currentOffset.x;
             targetPosition.y += currentOffset.y;
             targetPosition.z = transform.position.z; // Maintain camera z position
-
-            // Apply boundaries if enabled
-            if (enableBoundaries)
-            {
-                targetPosition.x = Mathf.Clamp(targetPosition.x, minX, maxX);
-                targetPosition.y = Mathf.Clamp(targetPosition.y, minY, maxY);
-            }
 
             // Apply smoothing
             if (enableSmoothing)

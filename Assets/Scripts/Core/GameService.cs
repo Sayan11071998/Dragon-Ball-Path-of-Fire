@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DragonBall.Player;
 using DragonBall.Utilities;
-using Unity.Cinemachine;
 using DragonBall.VFX;
 using DragonBall.Bullet;
 using DragonBall.Enemy;
