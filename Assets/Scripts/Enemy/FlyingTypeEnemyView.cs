@@ -1,6 +1,7 @@
 using DragonBall.Core;
 using DragonBall.Bullet;
 using UnityEngine;
+using DragonBall.Sound;
 
 namespace DragonBall.Enemy
 {
@@ -98,6 +99,8 @@ namespace DragonBall.Enemy
             }
 
             Vector2 direction = ((Vector2)playerTransform.position - (Vector2)firePosition).normalized;
+
+            SoundManager.Instance.PlaySoundEffect(SoundType.FlyTypeEnemyFire);
 
             GameService.Instance.bulletService.FireBullet(
                 EnemyBulletType,

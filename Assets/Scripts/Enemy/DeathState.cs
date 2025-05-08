@@ -11,7 +11,7 @@ namespace DragonBall.Enemy
         {
             baseEnemyController.BaseEnemyView.StopMovement();
             baseEnemyController.BaseEnemyView.StartDeathAnimation();
-            SoundManager.Instance.PlaySoundEffect(SoundType.KickTypeEnemyDeath);
+            SoundManager.Instance.PlaySoundEffect(SoundType.EnemyDeath);
         }
 
         public override void OnStateExit() => baseEnemyController.BaseEnemyView.ResetDeathState();

@@ -18,6 +18,8 @@ namespace DragonBall.Sound
         DragonBallCollect,
 
         KickTypeEnemyKick,
-        KickTypeEnemyDeath
+        FireTypeEnemyFire,
+        FlyTypeEnemyFire,
+        EnemyDeath,
     }
 }
