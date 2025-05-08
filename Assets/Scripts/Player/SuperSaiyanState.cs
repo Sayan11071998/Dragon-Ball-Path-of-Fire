@@ -15,7 +15,7 @@ namespace DragonBall.Player
             playerController.DisablePlayerController();
             playerController.PlayerView.StopPlayerMovement();
             playerController.PlayerView.PlaySuperSaiyanTransformationAnimation();
-            SoundManager.Instance.PlaySoundEffect(SoundType.GokuSuperSaiyanTransformSFX);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuSuperSaiyanTransform);
             playerModel.ApplySuperSaiyanBuffs();
             playerController.PlayerView.StartCoroutine(WaitForSuperSaiyanTransformation());
         }
