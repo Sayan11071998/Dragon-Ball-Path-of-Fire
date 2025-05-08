@@ -15,8 +15,8 @@ namespace DragonBall.Sound
             this.soundScriptableObject = soundScriptableObject;
             audioEffects = audioEffectSource;
             backgroundMusic = bgMusicSource;
-            PlaybackgroundMusic(SoundType.BackgroundMusic, true);
 
+            // Don't auto-play background music here, leave that to the caller
             RegisterSoundEventListeners();
         }
 
@@ -24,45 +24,53 @@ namespace DragonBall.Sound
         {
             if (EventService.Instance == null) return;
 
-            // Add Events
+            // Add your event listeners here
+            // Example:
+            // EventService.Instance.OnPlayerAttack.AddListener(PlayAttackSound);
         }
 
         public void UnregisterSoundEventListeners()
         {
             if (EventService.Instance == null) return;
 
-            // Add Events
+            // Remove your event listeners here
+            // Example:
+            // EventService.Instance.OnPlayerAttack.RemoveListener(PlayAttackSound);
         }
 
         public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
         {
             AudioClip clip = GetSoundClip(soundType);
+
             if (clip != null)
-            {
-                audioEffects.loop = loopSound;
-                audioEffects.clip = clip;
                 audioEffects.PlayOneShot(clip);
-            }
             else
-                Debug.LogError("No Audio Clip selected.");
+                Debug.LogWarning($"Audio clip not found for sound type: {soundType}");
         }
 
-        private void PlaybackgroundMusic(SoundType soundType, bool loopSound = false)
+        public void PlayBackgroundMusic(SoundType soundType, bool loopSound = true)
         {
             AudioClip clip = GetSoundClip(soundType);
             if (clip != null)
             {
-                backgroundMusic.loop = loopSound;
-                backgroundMusic.clip = clip;
-                backgroundMusic.Play();
+                if (backgroundMusic.clip != clip || !backgroundMusic.isPlaying)
+                {
+                    backgroundMusic.Stop();
+                    backgroundMusic.loop = loopSound;
+                    backgroundMusic.clip = clip;
+                    backgroundMusic.Play();
+                }
             }
             else
-                Debug.LogError("No Audio Clip selected.");
+                Debug.LogWarning($"Audio clip not found for sound type: {soundType}");
         }
 
         private AudioClip GetSoundClip(SoundType soundType)
         {
             Sounds sound = Array.Find(soundScriptableObject.audioList, item => item.soundType == soundType);
+            if (sound.audio == null)
+                return null;
+
             return sound.audio;
         }
     }
