@@ -56,6 +56,9 @@ namespace DragonBall.Player
         {
             playerModel.RemoveSuperSaiyanBuffs();
             playerController.PlayerView.RevertToNormal();
+
+            if (playerModel.IsFlying)
+                playerView.StopFlightSound();
         }
     }
 }

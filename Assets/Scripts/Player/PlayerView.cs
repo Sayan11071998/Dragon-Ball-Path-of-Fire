@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using DragonBall.GameStrings;
 using DragonBall.Core;
+using DragonBall.Sound;
 
 namespace DragonBall.Player
 {
@@ -55,6 +56,7 @@ namespace DragonBall.Player
 
         private bool isInputEnabled = true;
         private bool isSuperSaiyan = false;
+        private bool isFlightSoundPlaying = false;
 
         private Vector2 movementDirection;
 
@@ -155,6 +157,9 @@ namespace DragonBall.Player
 
         public void DisableInput()
         {
+            if (isFlightSoundPlaying)
+                StopFlightSound();
+
             isInputEnabled = false;
             moveInput = 0f;
             ResetAllInputs();
@@ -225,6 +230,9 @@ namespace DragonBall.Player
 
         private IEnumerator FreeFallDeathSequence()
         {
+            if (isFlightSoundPlaying)
+                StopFlightSound();
+
             playerController.DisablePlayerController();
             PlayDeathAnimation();
             yield return new WaitForSeconds(freeFallDeathDelay);
@@ -234,6 +242,9 @@ namespace DragonBall.Player
 
         public IEnumerator DeathSequence()
         {
+            if (isFlightSoundPlaying)
+                StopFlightSound();
+
             PlayDeathAnimation();
             yield return new WaitForSeconds(0.1f);
 
@@ -288,5 +299,23 @@ namespace DragonBall.Player
         }
 
         public void ResetMovementDirection() => movementDirection = Vector2.zero;
+
+        public void StartFlightSound()
+        {
+            if (!isFlightSoundPlaying)
+            {
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuFly, true);
+                isFlightSoundPlaying = true;
+            }
+        }
+
+        public void StopFlightSound()
+        {
+            if (isFlightSoundPlaying)
+            {
+                SoundManager.Instance.StopSoundEffect(SoundType.GokuFly);
+                isFlightSoundPlaying = false;
+            }
+        }
     }
 }

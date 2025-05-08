@@ -127,11 +127,13 @@ namespace DragonBall.Player
             {
                 playerView.UpdateFlightAnimation(true);
                 playerView.Rigidbody.gravityScale = 0f;
+                playerView.StartFlightSound();
             }
             else
             {
                 playerView.UpdateFlightAnimation(false);
                 playerView.Rigidbody.gravityScale = 1f;
+                playerView.StopFlightSound();
             }
 
             playerView.ResetFlyInput();

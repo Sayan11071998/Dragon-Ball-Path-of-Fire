@@ -1,56 +1,104 @@
 using UnityEngine;
-using System;
+using System.Collections.Generic;
 
 namespace DragonBall.Sound
 {
     public class SoundService
     {
-        private SoundScriptableObject soundScriptableObject;
-        private AudioSource audioEffects;
-        private AudioSource backgroundMusic;
+        private SoundScriptableObject soundConfig;
+        private AudioSource primarySoundEffectsSource;
+        private AudioSource backgroundMusicSource;
+        private Queue<AudioSource> availableAudioSources;
+        private Dictionary<SoundType, AudioSource> activeSoundEffects;
 
-        public SoundService(SoundScriptableObject soundScriptableObject, AudioSource audioEffectSource, AudioSource bgMusicSource)
+        public SoundService(
+            SoundScriptableObject config,
+            AudioSource sfxSource,
+            AudioSource bgmSource,
+            Queue<AudioSource> audioSourcesPool,
+            Dictionary<SoundType, AudioSource> activeEffects)
         {
-            this.soundScriptableObject = soundScriptableObject;
-            audioEffects = audioEffectSource;
-            backgroundMusic = bgMusicSource;
+            soundConfig = config;
+            primarySoundEffectsSource = sfxSource;
+            backgroundMusicSource = bgmSource;
+            availableAudioSources = audioSourcesPool;
+            activeSoundEffects = activeEffects;
         }
 
-        public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
+        public void PlaySoundEffects(SoundType soundType, bool loop = false)
         {
             AudioClip clip = GetSoundClip(soundType);
 
-            if (clip != null)
-                audioEffects.PlayOneShot(clip);
-            else
-                Debug.LogWarning($"Audio clip not found for sound type: {soundType}");
+            if (clip == null) return;
+
+            if (activeSoundEffects.TryGetValue(soundType, out AudioSource existingSource))
+            {
+                if (existingSource.isPlaying && existingSource.loop && loop) return;
+                StopSoundEffect(soundType);
+            }
+
+            AudioSource audioSource = GetAudioSource();
+
+            if (audioSource == null)
+            {
+                Debug.LogWarning("No available audio sources to play sound effect: " + soundType);
+                return;
+            }
+
+            audioSource.clip = clip;
+            audioSource.loop = loop;
+            audioSource.Play();
+
+            activeSoundEffects[soundType] = audioSource;
         }
 
-        public void PlayBackgroundMusic(SoundType soundType, bool loopSound = true)
+        public void PlayBackgroundMusic(SoundType soundType, bool loop = true)
         {
             AudioClip clip = GetSoundClip(soundType);
 
             if (clip != null)
             {
-                if (backgroundMusic.clip != clip || !backgroundMusic.isPlaying)
-                {
-                    backgroundMusic.Stop();
-                    backgroundMusic.loop = loopSound;
-                    backgroundMusic.clip = clip;
-                    backgroundMusic.Play();
-                }
+                backgroundMusicSource.loop = loop;
+                backgroundMusicSource.clip = clip;
+                backgroundMusicSource.Play();
             }
-            else
-                Debug.LogWarning($"Audio clip not found for sound type: {soundType}");
         }
 
-        private AudioClip GetSoundClip(SoundType soundType)
+        public void StopSoundEffect(SoundType soundType)
         {
-            Sounds sound = Array.Find(soundScriptableObject.audioList, item => item.soundType == soundType);
-            if (sound.audio == null)
-                return null;
+            if (activeSoundEffects.TryGetValue(soundType, out AudioSource audioSource))
+            {
+                if (audioSource.isPlaying)
+                {
+                    audioSource.Stop();
+                    audioSource.clip = null;
+                }
 
-            return sound.audio;
+                availableAudioSources.Enqueue(audioSource);
+                activeSoundEffects.Remove(soundType);
+            }
         }
+
+        private AudioSource GetAudioSource()
+        {
+            if (availableAudioSources.Count == 0)
+            {
+                foreach (var kvp in activeSoundEffects)
+                {
+                    AudioSource source = kvp.Value;
+                    if (!source.isPlaying)
+                    {
+                        SoundType soundType = kvp.Key;
+                        activeSoundEffects.Remove(soundType);
+                        return source;
+                    }
+                }
+                return null;
+            }
+
+            return availableAudioSources.Dequeue();
+        }
+
+        private AudioClip GetSoundClip(SoundType soundType) => soundConfig.GetSoundClip(soundType);
     }
 }

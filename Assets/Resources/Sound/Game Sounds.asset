@@ -12,22 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f85d2ee32eddc4cb531944782bb0a3, type: 3}
   m_Name: Game Sounds
   m_EditorClassIdentifier: 
-  audioList:
+  soundEntries:
   - soundType: 0
-    audio: {fileID: 8300000, guid: 0fa5c21663f2cbe4f872d5ebacd47799, type: 3}
+    audioClip: {fileID: 8300000, guid: 0fa5c21663f2cbe4f872d5ebacd47799, type: 3}
   - soundType: 1
-    audio: {fileID: 8300000, guid: 1633d08b28166e64bbce54b1da514a9a, type: 3}
+    audioClip: {fileID: 8300000, guid: 1633d08b28166e64bbce54b1da514a9a, type: 3}
   - soundType: 2
-    audio: {fileID: 8300000, guid: 1b1537d7af642f84988e59ae51736d7c, type: 3}
+    audioClip: {fileID: 8300000, guid: 1b1537d7af642f84988e59ae51736d7c, type: 3}
   - soundType: 3
-    audio: {fileID: 8300000, guid: cefd2a20c19d93b45bde6aae5611d3cc, type: 3}
+    audioClip: {fileID: 8300000, guid: cefd2a20c19d93b45bde6aae5611d3cc, type: 3}
   - soundType: 4
-    audio: {fileID: 8300000, guid: bc5c289f6a143d64d9966bfe35393de4, type: 3}
+    audioClip: {fileID: 8300000, guid: bc5c289f6a143d64d9966bfe35393de4, type: 3}
   - soundType: 5
-    audio: {fileID: 8300000, guid: 4634b23d47707cd4e9656ec1e1355402, type: 3}
+    audioClip: {fileID: 8300000, guid: 4634b23d47707cd4e9656ec1e1355402, type: 3}
   - soundType: 6
-    audio: {fileID: 8300000, guid: be4c67eb7ac11b34891fb54ac8e64ca5, type: 3}
+    audioClip: {fileID: 8300000, guid: be4c67eb7ac11b34891fb54ac8e64ca5, type: 3}
   - soundType: 7
-    audio: {fileID: 8300000, guid: a4a61e63ef6de364292778e56d9e82bc, type: 3}
+    audioClip: {fileID: 8300000, guid: a4a61e63ef6de364292778e56d9e82bc, type: 3}
   - soundType: 8
-    audio: {fileID: 8300000, guid: 073ceb99de76f7441b3f4bb603df4df2, type: 3}
+    audioClip: {fileID: 8300000, guid: 073ceb99de76f7441b3f4bb603df4df2, type: 3}
+  - soundType: 9
+    audioClip: {fileID: 8300000, guid: 88d77ef7550b20c47aca085726a437b5, type: 3}
