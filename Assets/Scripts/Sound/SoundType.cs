@@ -8,6 +8,8 @@ namespace DragonBall.Sound
         GokuFire,
         Kamekameha,
         GokuTakeDamage,
-        GokuDodge
+        GokuDodge,
+        GokuVanish,
+        GokuSuperSaiyanTransformSFX
     }
 }

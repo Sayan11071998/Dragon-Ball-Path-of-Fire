@@ -145,6 +145,7 @@ namespace DragonBall.Player
                 randomOffset.y = Mathf.Abs(randomOffset.y);
 
             GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.VanishEffect, originalPosition);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuVanish);
             Vector2 newPosition = originalPosition + randomOffset;
             playerView.transform.position = new Vector3(newPosition.x, newPosition.y, playerView.transform.position.z);
             playerView.ResetVanishInput();
