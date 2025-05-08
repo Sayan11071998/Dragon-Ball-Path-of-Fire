@@ -24,6 +24,10 @@ namespace DragonBall.Sound
         FinalBossTransformation,
         EnemyDeath,
 
-        BulletExplosion
+        BulletExplosion,
+
+        StartUIButton,
+        QuitUIButton,
+        Typing
     }
 }
