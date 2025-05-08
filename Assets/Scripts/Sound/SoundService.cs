@@ -16,7 +16,6 @@ namespace DragonBall.Sound
             audioEffects = audioEffectSource;
             backgroundMusic = bgMusicSource;
 
-            // Don't auto-play background music here, leave that to the caller
             RegisterSoundEventListeners();
         }
 
