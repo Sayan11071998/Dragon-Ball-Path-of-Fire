@@ -8,8 +8,8 @@ namespace DragonBall.Core
     {
         [Header("Follow Settings")]
         [SerializeField] private float smoothSpeed = 0.125f;
-        [SerializeField] private Vector3 offset = new Vector3(0, 1, -10);
-        [SerializeField] private float orthographicSize = 5f;
+        [SerializeField] private Vector3 offset = new Vector3(0, 5, -10);
+        [SerializeField] private float orthographicSize = 8f;
 
         private Transform playerTransform;
         private Camera mainCamera;
