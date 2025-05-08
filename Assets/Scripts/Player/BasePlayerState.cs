@@ -121,6 +121,7 @@ namespace DragonBall.Player
                 playerModel.LastDodgeTime = Time.time;
                 Vector2 dir = playerModel.IsFacingRight ? Vector2.left : Vector2.right;
                 playerView.Rigidbody.linearVelocity = new Vector2(dir.x * playerModel.DodgeSpeed, playerView.Rigidbody.linearVelocity.y);
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuDodge);
                 playerView.UpdateDodgeAnimation(true);
             }
 
