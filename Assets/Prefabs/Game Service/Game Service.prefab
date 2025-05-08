@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5926672164218921867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1026434723239566575}
+  - component: {fileID: 7775104457829999619}
+  m_Layer: 0
+  m_Name: Game Service
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1026434723239566575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926672164218921867}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7775104457829999619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926672164218921867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ddf1fea7902861459d37a63ca804e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerView: {fileID: -7997136349064081362, guid: dfd7fb31565fc3d40a0009adedb0b1ab, type: 3}
+  playerScriptableObject: {fileID: 11400000, guid: 09fb821a8fb6cb94bbbbda45e410a423, type: 2}
+  vFXPrefab: {fileID: 3632316703761638097, guid: fb9483b35bf18a54eac8ef68d5827bfc, type: 3}
+  playerNormalBulletPrefab: {fileID: 926417491160561663, guid: 5fd10a9fd0c312a479a17bc0c0b61278, type: 3}
+  playerNormalBulletSO: {fileID: 11400000, guid: f756d1ff24654764fa25002ca06a1f3f, type: 2}
+  playerSuperSaiyanBulletPrefab: {fileID: 926417491160561663, guid: 6ed8bd3660a3bab4e9accbaf18312ab9, type: 3}
+  playerSuperSaiyanBulletSO: {fileID: 11400000, guid: b13c33d6c545d6c4999191e2806eee10, type: 2}
+  playerKamehamehaPrefab: {fileID: 926417491160561663, guid: aeda240edb3b4cf48a43afd69f1a1ea9, type: 3}
+  playerKamehamehaSO: {fileID: 11400000, guid: f7f87b3c564c42e4183c85c2be5c54f8, type: 2}
+  enemyNormalBulletPrefab: {fileID: 926417491160561663, guid: 9658a81a1f44ebc4e9ff8287e281f352, type: 3}
+  enemyNormalBulletSO: {fileID: 11400000, guid: a152883d84a0b314093cb3083d4b4eac, type: 2}
+  enemyGuidedBullletPrefab: {fileID: 7960087552467250288, guid: b92104fabc776724b8f9b68a54aa2e3b, type: 3}
+  enemyGuidedBulletSO: {fileID: 11400000, guid: 5b191a04f389b474e85bb3a50235d374, type: 2}
+  enemyConfigs:
+  - type: 0
+    prefab: {fileID: 1637688450260828064, guid: 4420220a5cf9878479e86c3ee56939cd, type: 3}
+    so: {fileID: 11400000, guid: 0b20f0350cea15d409750ba4a94fb539, type: 2}
+  - type: 1
+    prefab: {fileID: 4975855554944246825, guid: d1678673ea18f644283fb914e580195d, type: 3}
+    so: {fileID: 11400000, guid: d5430f1abdf7aaf4e8501668ca81bdce, type: 2}
+  - type: 2
+    prefab: {fileID: 6170876922668266804, guid: 27aab4b07a62fbb44944917953fe6762, type: 3}
+    so: {fileID: 11400000, guid: cf707c8bfd0698b40b4a48ce5c19633e, type: 2}
+  - type: 3
+    prefab: {fileID: 495610671311826264, guid: cfd567e9706f65e459cc8f2fb5191b65, type: 3}
+    so: {fileID: 11400000, guid: f864174ff0bcea741b9cb3076f1ce99d, type: 2}
+  gameplayUIViewPrefab: {fileID: 4406523646407396322, guid: 6f1ba5ef8de1364429b24d003ffd7a3a, type: 3}
+  cinemachineStateDrivenCamera: {fileID: 0}
+  idleCamera: {fileID: 0}
+  runCamera: {fileID: 0}
+  jumpCamera: {fileID: 0}
+  soundScriptableObject: {fileID: 11400000, guid: 81f16ae9605793a44addd49aba1b6cb4, type: 2}
+  soundEffectsSource: {fileID: 0}
+  backgroundMusicSource: {fileID: 0}
