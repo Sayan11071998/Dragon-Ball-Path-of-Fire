@@ -163,6 +163,7 @@ namespace DragonBall.Player
             {
                 AnimationClip kamehamehaClip = playerView.KamehamehaAnimationClip;
                 playerView.PlayKamehamehaAnimation();
+                SoundManager.Instance.PlaySoundEffect(SoundType.Kamekameha);
                 playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
             }
 
