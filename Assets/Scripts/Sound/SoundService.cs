@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using DragonBall.Events;
 
 namespace DragonBall.Sound
 {
@@ -15,26 +14,6 @@ namespace DragonBall.Sound
             this.soundScriptableObject = soundScriptableObject;
             audioEffects = audioEffectSource;
             backgroundMusic = bgMusicSource;
-
-            RegisterSoundEventListeners();
-        }
-
-        private void RegisterSoundEventListeners()
-        {
-            if (EventService.Instance == null) return;
-
-            // Add your event listeners here
-            // Example:
-            // EventService.Instance.OnPlayerAttack.AddListener(PlayAttackSound);
-        }
-
-        public void UnregisterSoundEventListeners()
-        {
-            if (EventService.Instance == null) return;
-
-            // Remove your event listeners here
-            // Example:
-            // EventService.Instance.OnPlayerAttack.RemoveListener(PlayAttackSound);
         }
 
         public void PlaySoundEffects(SoundType soundType, bool loopSound = false)

@@ -1,4 +1,5 @@
 using DragonBall.Core;
+using DragonBall.Sound;
 using DragonBall.VFX;
 using UnityEngine;
 
@@ -100,15 +101,16 @@ namespace DragonBall.Player
                 velocity.y = playerModel.JumpSpeed;
                 velocity.x *= playerModel.JumpHorizontalDampening;
                 playerModel.JumpCount++;
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuJump);
             }
             else if (!playerModel.IsGrounded && playerModel.JumpCount < 1)
             {
                 velocity.y = playerModel.JumpSpeed;
                 velocity.x *= playerModel.JumpHorizontalDampening;
                 GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.JumpEffect, playerView.transform.position);
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuJump);
                 playerModel.JumpCount++;
             }
-
             playerView.Rigidbody.linearVelocity = velocity;
             playerView.ResetJumpInput();
         }

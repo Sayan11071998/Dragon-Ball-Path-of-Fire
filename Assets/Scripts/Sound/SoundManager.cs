@@ -21,12 +21,6 @@ namespace DragonBall.Sound
             soundService = new SoundService(soundScriptableObject, soundEffectsSource, backgroundMusicSource);
         }
 
-        private void OnDestroy()
-        {
-            if (soundService != null)
-                soundService.UnregisterSoundEventListeners();
-        }
-
         public void PlaySoundEffect(SoundType soundType, bool loop = false) => soundService.PlaySoundEffects(soundType, loop);
 
         public void PlayBackgroundMusic(SoundType soundType, bool loop = true) => soundService.PlayBackgroundMusic(soundType, loop);

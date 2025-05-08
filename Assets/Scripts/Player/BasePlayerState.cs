@@ -1,6 +1,7 @@
 using DragonBall.Bullet;
 using DragonBall.Core;
 using DragonBall.Enemy;
+using DragonBall.Sound;
 using DragonBall.Utilities;
 using DragonBall.VFX;
 using UnityEngine;
@@ -70,6 +71,7 @@ namespace DragonBall.Player
         {
             Vector2 origin = playerView.AttackTransform.position;
             RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, playerModel.KickAttackRange, Vector2.zero, 0f);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuKick);
 
             foreach (var hit in hits)
             {

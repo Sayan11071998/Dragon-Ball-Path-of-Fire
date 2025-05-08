@@ -15,3 +15,7 @@ MonoBehaviour:
   audioList:
   - soundType: 0
     audio: {fileID: 8300000, guid: 0fa5c21663f2cbe4f872d5ebacd47799, type: 3}
+  - soundType: 1
+    audio: {fileID: 8300000, guid: 1633d08b28166e64bbce54b1da514a9a, type: 3}
+  - soundType: 2
+    audio: {fileID: 8300000, guid: 1b1537d7af642f84988e59ae51736d7c, type: 3}
