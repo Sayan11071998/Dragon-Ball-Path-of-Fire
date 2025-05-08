@@ -7,6 +7,7 @@ using DragonBall.VFX;
 using DragonBall.Bullet;
 using DragonBall.Enemy;
 using DragonBall.UI;
+using DragonBall.Sound;
 
 namespace DragonBall.Core
 {
@@ -18,6 +19,7 @@ namespace DragonBall.Core
         public EnemyService enemyService { get; private set; }
         public UIService uiService { get; private set; }
         public CameraShakeService cameraShakeService { get; private set; }
+        public SoundService soundService { get; private set; }
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
@@ -50,6 +52,11 @@ namespace DragonBall.Core
         [SerializeField] private CinemachineCamera runCamera;
         [SerializeField] private CinemachineCamera jumpCamera;
 
+        [Header("Sound")]
+        [SerializeField] private SoundScriptableObject soundScriptableObject;
+        [SerializeField] private AudioSource soundEffectsSource;
+        [SerializeField] private AudioSource backgroundMusicSource;
+
         protected override void Awake()
         {
             base.Awake();
@@ -62,6 +69,7 @@ namespace DragonBall.Core
             playerService = new PlayerService(playerView, playerScriptableObject);
             vFXService = new VFXService(vFXPrefab);
             cameraShakeService = new CameraShakeService(cinemachineStateDrivenCamera, this);
+            soundService = new SoundService(soundScriptableObject, soundEffectsSource, backgroundMusicSource);
 
             InitializeEnemyService();
             InitializeBulletService();
@@ -109,6 +117,12 @@ namespace DragonBall.Core
             runCamera.Follow = playerService.PlayerPrefab.transform;
             jumpCamera.Follow = playerService.PlayerPrefab.transform;
             cinemachineStateDrivenCamera.AnimatedTarget = playerService.PlayerPrefab.Animator;
+        }
+
+        private void OnDestroy()
+        {
+            if (soundService != null)
+                soundService.UnregisterSoundEventListeners();
         }
     }
 
