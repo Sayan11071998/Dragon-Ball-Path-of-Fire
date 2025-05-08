@@ -1,6 +1,7 @@
 using System.Collections;
 using DragonBall.Bullet;
 using DragonBall.Core;
+using DragonBall.Sound;
 using UnityEngine;
 
 namespace DragonBall.Enemy
@@ -62,6 +63,7 @@ namespace DragonBall.Enemy
 
             isRapidFiring = true;
             animator.SetBool("isAttacking", true);
+            SoundManager.Instance.PlaySoundEffect(SoundType.FinalBossTypeEnemyFire, isRapidFiring);
             rapidFireCoroutine = StartCoroutineTracked(RapidFireCoroutine());
         }
 
@@ -73,7 +75,6 @@ namespace DragonBall.Enemy
 
             isRegenerating = true;
             animator.SetBool("isRegenerating", true);
-            // GameService.Instance.cameraShakeService.ShakeCamera(5f, 1f);
 
             regenerationCoroutine = StartCoroutineTracked(RegenerationCoroutine());
         }
@@ -122,6 +123,7 @@ namespace DragonBall.Enemy
 
             animator.SetBool("isAttacking", false);
             isRapidFiring = false;
+            SoundManager.Instance.StopSoundEffect(SoundType.FinalBossTypeEnemyFire);
 
             baseEnemyController.BaseEnemyModel.lastAttackTime = Time.time;
         }

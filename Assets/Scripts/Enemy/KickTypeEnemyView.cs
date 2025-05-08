@@ -1,4 +1,5 @@
 using DragonBall.Core;
+using DragonBall.Sound;
 using UnityEngine;
 
 namespace DragonBall.Enemy
@@ -16,6 +17,8 @@ namespace DragonBall.Enemy
 
             Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
             Vector2 origin = (Vector2)transform.position + Vector2.Scale(direction, attackOffset);
+
+            SoundManager.Instance.PlaySoundEffect(SoundType.KickTypeEnemyKick);
 
             var hits = Physics2D.CircleCastAll(origin, attackRadius, Vector2.zero);
             foreach (var hit in hits)

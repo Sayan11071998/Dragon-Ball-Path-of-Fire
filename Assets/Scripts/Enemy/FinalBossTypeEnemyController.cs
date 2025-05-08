@@ -1,3 +1,4 @@
+using DragonBall.Sound;
 using UnityEngine;
 
 namespace DragonBall.Enemy
@@ -38,6 +39,7 @@ namespace DragonBall.Enemy
             if (finalBossModel != null && baseEnemyModel.CurrentHealth < baseEnemyModel.MaxHealth * 0.5f && !finalBossModel.HasRegeneratedHealth && !isDead)
             {
                 finalBossModel.RegenerateHealth();
+                SoundManager.Instance.PlaySoundEffect(SoundType.FinalBossTransformation);
                 bossView.StartRegenerationAnimation();
             }
             else if (baseEnemyModel.CurrentHealth < baseEnemyModel.MaxHealth * 0.5f)

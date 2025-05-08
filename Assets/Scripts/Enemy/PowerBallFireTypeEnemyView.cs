@@ -1,6 +1,7 @@
 using DragonBall.Core;
 using DragonBall.Bullet;
 using UnityEngine;
+using DragonBall.Sound;
 
 namespace DragonBall.Enemy
 {
@@ -22,6 +23,8 @@ namespace DragonBall.Enemy
 
             Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
             Vector3 firePosition = firePoint.position;
+
+            SoundManager.Instance.PlaySoundEffect(SoundType.FireTypeEnemyFire);
 
             if (spriteRenderer.flipX)
             {

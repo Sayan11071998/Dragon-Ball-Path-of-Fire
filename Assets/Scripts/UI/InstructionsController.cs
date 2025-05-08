@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DragonBall.Sound;
 
 namespace DragonBall.UI
 {
@@ -23,7 +24,6 @@ namespace DragonBall.UI
         [Header("Text Animation Settings")]
         [SerializeField] private float typingSpeed = 0.05f;
         [SerializeField] private float delayBetweenLines = 0.5f;
-        [SerializeField] private AudioSource typingSoundEffect;
 
         [Header("Movement Instructions")]
         [SerializeField] private string movePanelTitle = "MOVE ACTIONS";
@@ -58,6 +58,7 @@ namespace DragonBall.UI
         private bool isTyping = false;
         private bool skipTyping = false;
         private bool isMovementMode = true;
+        private bool typingSoundActive = false;
 
         private void Awake()
         {
@@ -128,6 +129,8 @@ namespace DragonBall.UI
 
             if (enableButtonAfterTyping && actionButton != null)
                 actionButton.gameObject.SetActive(true);
+
+            StopTypingSound();
         }
 
         private IEnumerator TypeTextLine(string line)
@@ -140,26 +143,40 @@ namespace DragonBall.UI
                 if (skipTyping)
                 {
                     bodyText.text = currentText + line;
-
-                    if (typingSoundEffect != null)
-                        typingSoundEffect.Stop();
+                    StopTypingSound();
                     break;
                 }
 
                 bodyText.text = currentText + line.Substring(0, i + 1);
 
-                if (typingSoundEffect != null && !typingSoundEffect.isPlaying)
-                    typingSoundEffect.Play();
+                if (!typingSoundActive)
+                    StartTypingSound();
 
                 yield return new WaitForSeconds(typingSpeed);
             }
 
-            if (typingSoundEffect != null)
-                typingSoundEffect.Stop();
+            StopTypingSound();
+        }
+
+        private void StartTypingSound()
+        {
+            SoundManager.Instance.PlaySoundEffect(SoundType.Typing, true);
+            typingSoundActive = true;
+        }
+
+        private void StopTypingSound()
+        {
+            if (typingSoundActive)
+            {
+                SoundManager.Instance.StopSoundEffect(SoundType.Typing);
+                typingSoundActive = false;
+            }
         }
 
         private void OnActionButtonClicked()
         {
+            SoundManager.Instance.PlaySoundEffect(SoundType.StartUIButton);
+
             if (isTyping)
             {
                 SkipTypingAnimation();
@@ -181,6 +198,11 @@ namespace DragonBall.UI
         {
             if (isTyping && (Input.anyKeyDown || Input.GetMouseButtonDown(0)))
                 SkipTypingAnimation();
+        }
+
+        private void OnDestroy()
+        {
+            StopTypingSound();
         }
     }
 }

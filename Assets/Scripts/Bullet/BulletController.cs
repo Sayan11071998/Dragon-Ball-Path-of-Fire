@@ -1,4 +1,5 @@
 using DragonBall.Enemy;
+using DragonBall.Sound;
 using UnityEngine;
 
 namespace DragonBall.Bullet
@@ -38,6 +39,7 @@ namespace DragonBall.Bullet
         public void OnCollision(IDamageable target)
         {
             target.Damage(bulletModel.Damage);
+            SoundManager.Instance.PlaySoundEffect(SoundType.BulletExplosion);
             Deactivate();
         }
 

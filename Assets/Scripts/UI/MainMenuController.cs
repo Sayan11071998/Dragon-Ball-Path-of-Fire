@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DragonBall.Sound;
 
 namespace DragonBall.UI
 {
@@ -19,9 +20,17 @@ namespace DragonBall.UI
             quitButton.onClick.AddListener(OnQuitButtonClicked);
         }
 
-        private void OnStartButtonClicked() => SceneManager.LoadScene(instructionsSceneName);
+        private void OnStartButtonClicked()
+        {
+            SoundManager.Instance.PlaySoundEffect(SoundType.StartUIButton);
+            SceneManager.LoadScene(instructionsSceneName);
+        }
 
-        private void OnQuitButtonClicked() => QuitGame();
+        private void OnQuitButtonClicked()
+        {
+            SoundManager.Instance.PlaySoundEffect(SoundType.QuitUIButton);
+            QuitGame();
+        }
 
         private void QuitGame()
         {

@@ -11,10 +11,23 @@ namespace DragonBall.Sound
         GokuTakeDamage,
         GokuDodge,
         GokuVanish,
-        GokuSuperSaiyanTransformSFX,
+        GokuSuperSaiyanTransform,
         GokuFly,
         GokuDeath,
 
-        DragonBallCollect
+        DragonBallCollect,
+
+        KickTypeEnemyKick,
+        FireTypeEnemyFire,
+        FlyTypeEnemyFire,
+        FinalBossTypeEnemyFire,
+        FinalBossTransformation,
+        EnemyDeath,
+
+        BulletExplosion,
+
+        StartUIButton,
+        QuitUIButton,
+        Typing
     }
 }
