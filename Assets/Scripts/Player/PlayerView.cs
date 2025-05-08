@@ -246,6 +246,7 @@ namespace DragonBall.Player
                 StopFlightSound();
 
             PlayDeathAnimation();
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuDeath);
             yield return new WaitForSeconds(0.1f);
 
             float directionX = transform.localScale.x > 0 ? -1 : 1;

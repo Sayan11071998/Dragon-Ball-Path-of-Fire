@@ -11,6 +11,7 @@ namespace DragonBall.Sound
         GokuDodge,
         GokuVanish,
         GokuSuperSaiyanTransformSFX,
-        GokuFly
+        GokuFly,
+        GokuDeath
     }
 }
