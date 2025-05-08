@@ -17,6 +17,8 @@ namespace DragonBall.Core
         public BulletService bulletService { get; private set; }
         public EnemyService enemyService { get; private set; }
         public UIService uiService { get; private set; }
+        public CameraController cameraController { get; private set; }
+        public CameraShakeService cameraShakeService { get; private set; }
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
@@ -37,6 +39,9 @@ namespace DragonBall.Core
         [SerializeField] private GuidedBulletView enemyGuidedBullletPrefab;
         [SerializeField] private GuidedBulletScriptableObject enemyGuidedBulletSO;
 
+        [Header("Camera")]
+        [SerializeField] private float cameraShakeDecay = 0.8f;
+
         [Header("Enemy")]
         [SerializeField] private List<EnemyConfig> enemyConfigs;
 
@@ -46,6 +51,7 @@ namespace DragonBall.Core
         protected override void Awake()
         {
             base.Awake();
+            cameraController = GetComponent<CameraController>();
             InitializeServices();
 
             if (SoundManager.Instance != null)
@@ -56,10 +62,23 @@ namespace DragonBall.Core
         {
             playerService = new PlayerService(playerView, playerScriptableObject);
             vFXService = new VFXService(vFXPrefab);
-
+            InitializeCameraShakeService();
             InitializeEnemyService();
             InitializeBulletService();
             InitializeUIService();
+        }
+
+        private void InitializeCameraShakeService()
+        {
+            Camera mainCamera = Camera.main;
+            if (mainCamera != null)
+            {
+                cameraShakeService = new CameraShakeService(mainCamera, this, cameraShakeDecay);
+            }
+            else
+            {
+                Debug.LogError("Main Camera not found! CameraShakeService cannot be initialized.");
+            }
         }
 
         private void InitializeEnemyService()

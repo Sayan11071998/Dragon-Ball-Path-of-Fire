@@ -117,6 +117,13 @@ namespace DragonBall.Core
             if (!playerFound || playerTransform == null) return;
 
             Vector3 desiredPosition = playerTransform.position + offset;
+           
+            // Get camera shake service and apply shake if available
+            if (GameService.Instance != null && GameService.Instance.cameraShakeService != null)
+            {
+                desiredPosition = GameService.Instance.cameraShakeService.ApplyShake(desiredPosition);
+            }
+            
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
             transform.position = smoothedPosition;
         }
@@ -148,6 +155,23 @@ namespace DragonBall.Core
             }
 
             targetOrthographicSize = newSize;
+        }
+
+        // These methods are kept for backward compatibility but now delegate to the CameraShakeService
+        public void ShakeCamera(float intensity, float duration)
+        {
+            if (GameService.Instance != null && GameService.Instance.cameraShakeService != null)
+            {
+                GameService.Instance.cameraShakeService.ShakeCamera(intensity, duration);
+            }
+        }
+
+        public void ShakeCameraWithDecay(float intensity, float duration)
+        {
+            if (GameService.Instance != null && GameService.Instance.cameraShakeService != null)
+            {
+                GameService.Instance.cameraShakeService.ShakeCameraWithDecay(intensity, duration);
+            }
         }
     }
 }
