@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using DragonBall.Core;
 using DragonBall.Bullet;
+using DragonBall.Sound;
 
 namespace DragonBall.Player
 {
@@ -14,6 +15,7 @@ namespace DragonBall.Player
             playerController.DisablePlayerController();
             playerController.PlayerView.StopPlayerMovement();
             playerController.PlayerView.PlaySuperSaiyanTransformationAnimation();
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuSuperSaiyanTransformSFX);
             playerModel.ApplySuperSaiyanBuffs();
             playerController.PlayerView.StartCoroutine(WaitForSuperSaiyanTransformation());
         }
@@ -54,6 +56,9 @@ namespace DragonBall.Player
         {
             playerModel.RemoveSuperSaiyanBuffs();
             playerController.PlayerView.RevertToNormal();
+
+            if (playerModel.IsFlying)
+                playerView.StopFlightSound();
         }
     }
 }

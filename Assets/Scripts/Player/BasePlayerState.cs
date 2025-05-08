@@ -1,6 +1,7 @@
 using DragonBall.Bullet;
 using DragonBall.Core;
 using DragonBall.Enemy;
+using DragonBall.Sound;
 using DragonBall.Utilities;
 using DragonBall.VFX;
 using UnityEngine;
@@ -71,6 +72,9 @@ namespace DragonBall.Player
             Vector2 origin = playerView.AttackTransform.position;
             RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, playerModel.KickAttackRange, Vector2.zero, 0f);
 
+            if (!playerModel.IsFlying)
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuKick);
+
             foreach (var hit in hits)
             {
                 if (hit.collider.TryGetComponent<IDamageable>(out var target))
@@ -99,6 +103,7 @@ namespace DragonBall.Player
             Vector2 position = playerView.FireTransform.position;
             Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
             GameService.Instance.bulletService.FireBullet(GetBulletType(), position, direction);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuFire);
         }
 
         protected virtual BulletType GetBulletType() => BulletType.PlayerNormalPowerBall;
@@ -118,6 +123,7 @@ namespace DragonBall.Player
                 playerModel.LastDodgeTime = Time.time;
                 Vector2 dir = playerModel.IsFacingRight ? Vector2.left : Vector2.right;
                 playerView.Rigidbody.linearVelocity = new Vector2(dir.x * playerModel.DodgeSpeed, playerView.Rigidbody.linearVelocity.y);
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuDodge);
                 playerView.UpdateDodgeAnimation(true);
             }
 
@@ -141,6 +147,7 @@ namespace DragonBall.Player
                 randomOffset.y = Mathf.Abs(randomOffset.y);
 
             GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.VanishEffect, originalPosition);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuVanish);
             Vector2 newPosition = originalPosition + randomOffset;
             playerView.transform.position = new Vector3(newPosition.x, newPosition.y, playerView.transform.position.z);
             playerView.ResetVanishInput();
@@ -160,6 +167,7 @@ namespace DragonBall.Player
             {
                 AnimationClip kamehamehaClip = playerView.KamehamehaAnimationClip;
                 playerView.PlayKamehamehaAnimation();
+                SoundManager.Instance.PlaySoundEffect(SoundType.Kamekameha);
                 playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
             }
 

@@ -1,4 +1,5 @@
 using DragonBall.Core;
+using DragonBall.Sound;
 using DragonBall.VFX;
 using UnityEngine;
 
@@ -100,15 +101,16 @@ namespace DragonBall.Player
                 velocity.y = playerModel.JumpSpeed;
                 velocity.x *= playerModel.JumpHorizontalDampening;
                 playerModel.JumpCount++;
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuJump);
             }
             else if (!playerModel.IsGrounded && playerModel.JumpCount < 1)
             {
                 velocity.y = playerModel.JumpSpeed;
                 velocity.x *= playerModel.JumpHorizontalDampening;
                 GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.JumpEffect, playerView.transform.position);
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuJump);
                 playerModel.JumpCount++;
             }
-
             playerView.Rigidbody.linearVelocity = velocity;
             playerView.ResetJumpInput();
         }
@@ -125,17 +127,23 @@ namespace DragonBall.Player
             {
                 playerView.UpdateFlightAnimation(true);
                 playerView.Rigidbody.gravityScale = 0f;
+                playerView.StartFlightSound();
             }
             else
             {
                 playerView.UpdateFlightAnimation(false);
                 playerView.Rigidbody.gravityScale = 1f;
+                playerView.StopFlightSound();
             }
 
             playerView.ResetFlyInput();
         }
 
-        public void CollectDragonBall() => playerModel.IncrementDragonBallCount();
+        public void CollectDragonBall()
+        {
+            playerModel.IncrementDragonBallCount();
+            SoundManager.Instance.PlaySoundEffect(SoundType.DragonBallCollect);
+        }
 
         public void TakeDamage(float damage)
         {
@@ -143,6 +151,7 @@ namespace DragonBall.Player
 
             playerModel.TakeDamage(damage);
             GameService.Instance.cameraShakeService.ShakeCamera(1f, 0.5f);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuTakeDamage);
 
             if (playerModel.IsDead)
                 playerView.StartCoroutine(playerView.DeathSequence());

@@ -172,7 +172,6 @@ namespace DragonBall.Player
             if (damage <= 0 || IsDead) return;
 
             CurrentHealth -= damage;
-            Debug.Log($"Pkayer Health {CurrentHealth}");
 
             if (CurrentHealth <= 0)
             {
