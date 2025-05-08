@@ -24,11 +24,5 @@ namespace DragonBall.Sound
         public void PlaySoundEffect(SoundType soundType, bool loop = false) => soundService.PlaySoundEffects(soundType, loop);
 
         public void PlayBackgroundMusic(SoundType soundType, bool loop = true) => soundService.PlayBackgroundMusic(soundType, loop);
-
-        public void StopBackgroundMusic() => backgroundMusicSource.Stop();
-
-        public void SetBackgroundMusicVolume(float volume) => backgroundMusicSource.volume = Mathf.Clamp01(volume);
-
-        public void SetSoundEffectsVolume(float volume) => soundEffectsSource.volume = Mathf.Clamp01(volume);
     }
 }

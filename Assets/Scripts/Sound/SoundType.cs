@@ -5,5 +5,6 @@ namespace DragonBall.Sound
         BackgroundMusic,
         GokuKick,
         GokuJump,
+        GokuFire
     }
 }

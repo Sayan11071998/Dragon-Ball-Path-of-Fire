@@ -29,6 +29,7 @@ namespace DragonBall.Sound
         public void PlayBackgroundMusic(SoundType soundType, bool loopSound = true)
         {
             AudioClip clip = GetSoundClip(soundType);
+
             if (clip != null)
             {
                 if (backgroundMusic.clip != clip || !backgroundMusic.isPlaying)
