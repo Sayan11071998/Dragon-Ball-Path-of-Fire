@@ -139,7 +139,11 @@ namespace DragonBall.Player
             playerView.ResetFlyInput();
         }
 
-        public void CollectDragonBall() => playerModel.IncrementDragonBallCount();
+        public void CollectDragonBall()
+        {
+            playerModel.IncrementDragonBallCount();
+            SoundManager.Instance.PlaySoundEffect(SoundType.DragonBallCollect);
+        }
 
         public void TakeDamage(float damage)
         {

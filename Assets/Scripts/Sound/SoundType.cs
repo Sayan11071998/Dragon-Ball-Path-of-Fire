@@ -3,6 +3,7 @@ namespace DragonBall.Sound
     public enum SoundType
     {
         BackgroundMusic,
+
         GokuKick,
         GokuJump,
         GokuFire,
@@ -12,6 +13,8 @@ namespace DragonBall.Sound
         GokuVanish,
         GokuSuperSaiyanTransformSFX,
         GokuFly,
-        GokuDeath
+        GokuDeath,
+
+        DragonBallCollect
     }
 }
