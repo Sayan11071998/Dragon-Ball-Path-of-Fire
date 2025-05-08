@@ -209,7 +209,9 @@ namespace DragonBall.Player
         public void Damage(int amount)
         {
             if (playerController != null)
+            {
                 playerController.TakeDamage(amount);
+            }
         }
 
         public void TriggerFreeFallDeath()

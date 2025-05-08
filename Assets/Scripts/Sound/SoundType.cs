@@ -6,6 +6,7 @@ namespace DragonBall.Sound
         GokuKick,
         GokuJump,
         GokuFire,
-        Kamekameha
+        Kamekameha,
+        GokuTakeDamage
     }
 }
