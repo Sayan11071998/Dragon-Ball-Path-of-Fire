@@ -32,8 +32,15 @@ namespace DragonBall.Enemy
 
         protected virtual void Update()
         {
-            if (baseEnemyController != null && !baseEnemyController.IsDead && !isMoving && !isAttacking && !isDying)
+            if (baseEnemyController != null &&
+                !baseEnemyController.IsDead &&
+                !baseEnemyController.IsPlayerDead &&
+                !isMoving &&
+                !isAttacking &&
+                !isDying)
+            {
                 FloatInAir();
+            }
         }
 
         protected virtual void FloatInAir()
