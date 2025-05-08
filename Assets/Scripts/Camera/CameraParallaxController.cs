@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DragonBall.Camera
+namespace DragonBall.GameCamera
 {
     public class CameraParallaxController : MonoBehaviour
     {

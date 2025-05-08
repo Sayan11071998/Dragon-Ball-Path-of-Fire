@@ -142,8 +142,7 @@ namespace DragonBall.Player
             if (playerModel.IsDead) return;
 
             playerModel.TakeDamage(damage);
-
-            GameService.Instance.cameraShakeService.ShakeCameraWithDecay(5f, 1f);
+            GameService.Instance.cameraShakeService.ShakeCamera(1f, 0.5f);
 
             if (playerModel.IsDead)
                 playerView.StartCoroutine(playerView.DeathSequence());

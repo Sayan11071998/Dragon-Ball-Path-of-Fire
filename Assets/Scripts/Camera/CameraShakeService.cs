@@ -1,98 +1,59 @@
 using System.Collections;
 using UnityEngine;
-using Unity.Cinemachine;
 
-namespace DragonBall.Core
+namespace DragonBall.GameCamera
 {
     public class CameraShakeService
     {
-        private CinemachineStateDrivenCamera cinemachineCamera;
-        private CinemachineBasicMultiChannelPerlin[] noiseComponents;
-        private Coroutine shakeCoroutine;
+        private Camera mainCamera;
+        private Transform cameraTransform;
         private MonoBehaviour coroutineRunner;
 
-        public CameraShakeService(CinemachineStateDrivenCamera camera, MonoBehaviour runner)
+        private Vector3 originalPosition;
+        private float shakeIntensity;
+        private bool isShaking = false;
+
+        public CameraShakeService(Camera camera, MonoBehaviour coroutineRunner)
         {
-            cinemachineCamera = camera;
-            coroutineRunner = runner;
-            InitializeNoiseComponents();
+            mainCamera = camera;
+            cameraTransform = camera.transform;
+            this.coroutineRunner = coroutineRunner;
         }
 
-        private void InitializeNoiseComponents()
-        {
-            CinemachineCamera[] childCameras = cinemachineCamera.GetComponentsInChildren<CinemachineCamera>();
-            noiseComponents = new CinemachineBasicMultiChannelPerlin[childCameras.Length];
+        public void ShakeCamera(float intensity, float duration) => coroutineRunner.StartCoroutine(ShakeCameraCoroutine(intensity, duration));
 
-            for (int i = 0; i < childCameras.Length; i++)
+        public Vector3 ApplyShake(Vector3 position)
+        {
+            if (!isShaking) return position;
+
+            Vector3 shakeOffset = Random.insideUnitSphere * shakeIntensity;
+            Vector3 shakenPosition = position + shakeOffset;
+
+            if (shakeIntensity < 0.01f)
             {
-                var noise = childCameras[i].GetComponent<CinemachineBasicMultiChannelPerlin>();
-                if (noise == null)
-                {
-                    noise = childCameras[i].gameObject.AddComponent<CinemachineBasicMultiChannelPerlin>();
-                    noise.NoiseProfile = Resources.Load<NoiseSettings>("CameraShakeNoiseProfile");
-                }
-                noiseComponents[i] = noise;
+                isShaking = false;
+                shakeIntensity = 0f;
             }
-        }
 
-        public void ShakeCamera(float intensity, float duration)
-        {
-            if (shakeCoroutine != null)
-                coroutineRunner.StopCoroutine(shakeCoroutine);
-            shakeCoroutine = coroutineRunner.StartCoroutine(ShakeCameraCoroutine(intensity, duration));
-        }
-
-        public void ShakeCameraWithDecay(float intensity, float duration, float decreaseRate = 1.0f)
-        {
-            if (shakeCoroutine != null)
-                coroutineRunner.StopCoroutine(shakeCoroutine);
-
-            shakeCoroutine = coroutineRunner.StartCoroutine(ShakeCameraDecayCoroutine(intensity, duration, decreaseRate));
-        }
-
-        public void StopShake()
-        {
-            if (shakeCoroutine != null)
-            {
-                coroutineRunner.StopCoroutine(shakeCoroutine);
-                SetShakeIntensity(0f);
-            }
+            return shakenPosition;
         }
 
         private IEnumerator ShakeCameraCoroutine(float intensity, float duration)
         {
-            SetShakeIntensity(intensity);
-            yield return new WaitForSeconds(duration);
-
-            SetShakeIntensity(0f);
-            shakeCoroutine = null;
-        }
-
-        private IEnumerator ShakeCameraDecayCoroutine(float intensity, float duration, float decreaseRate)
-        {
-            float initialIntensity = intensity;
+            originalPosition = cameraTransform.position;
             float elapsed = 0f;
+            isShaking = true;
 
             while (elapsed < duration)
             {
-                float currentIntensity = Mathf.Lerp(initialIntensity, 0f, (elapsed / duration) * decreaseRate);
-                SetShakeIntensity(currentIntensity);
+                Vector3 shakeOffset = Random.insideUnitSphere * intensity;
+                cameraTransform.position = originalPosition + shakeOffset;
 
                 elapsed += Time.deltaTime;
                 yield return null;
             }
 
-            SetShakeIntensity(0f);
-            shakeCoroutine = null;
-        }
-
-        private void SetShakeIntensity(float intensity)
-        {
-            foreach (var noise in noiseComponents)
-            {
-                if (noise != null)
-                    noise.AmplitudeGain = intensity;
-            }
+            isShaking = false;
         }
     }
 }
