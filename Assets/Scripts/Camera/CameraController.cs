@@ -2,8 +2,9 @@ using System.Collections;
 using UnityEngine;
 using DragonBall.GameStrings;
 using DragonBall.Player;
+using DragonBall.Core;
 
-namespace DragonBall.Core
+namespace DragonBall.GameCamera
 {
     public class CameraController : MonoBehaviour
     {
@@ -117,21 +118,15 @@ namespace DragonBall.Core
             if (!playerFound || playerTransform == null) return;
 
             Vector3 desiredPosition = playerTransform.position + offset;
-           
-            // Get camera shake service and apply shake if available
+
             if (GameService.Instance != null && GameService.Instance.cameraShakeService != null)
-            {
                 desiredPosition = GameService.Instance.cameraShakeService.ApplyShake(desiredPosition);
-            }
-            
+
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
             transform.position = smoothedPosition;
         }
 
-        public void SetOrthographicSize(float newSize, float transitionDuration = 0f)
-        {
-            StartCoroutine(TransitionOrthographicSize(newSize, transitionDuration));
-        }
+        public void SetOrthographicSize(float newSize, float transitionDuration = 0f) => StartCoroutine(TransitionOrthographicSize(newSize, transitionDuration));
 
         private IEnumerator TransitionOrthographicSize(float newSize, float duration)
         {
@@ -155,23 +150,6 @@ namespace DragonBall.Core
             }
 
             targetOrthographicSize = newSize;
-        }
-
-        // These methods are kept for backward compatibility but now delegate to the CameraShakeService
-        public void ShakeCamera(float intensity, float duration)
-        {
-            if (GameService.Instance != null && GameService.Instance.cameraShakeService != null)
-            {
-                GameService.Instance.cameraShakeService.ShakeCamera(intensity, duration);
-            }
-        }
-
-        public void ShakeCameraWithDecay(float intensity, float duration)
-        {
-            if (GameService.Instance != null && GameService.Instance.cameraShakeService != null)
-            {
-                GameService.Instance.cameraShakeService.ShakeCameraWithDecay(intensity, duration);
-            }
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace DragonBall.Core
+namespace DragonBall.GameCamera
 {
     public class CameraShakeService
     {
@@ -9,35 +9,18 @@ namespace DragonBall.Core
         private Transform cameraTransform;
         private MonoBehaviour coroutineRunner;
 
-        [Header("Camera Shake Settings")]
-        private float shakeDecay = 0.8f;
-
         private Vector3 originalPosition;
         private float shakeIntensity;
         private bool isShaking = false;
 
-        public CameraShakeService(Camera camera, MonoBehaviour coroutineRunner, float shakeDecay = 0.8f)
+        public CameraShakeService(Camera camera, MonoBehaviour coroutineRunner)
         {
-            this.mainCamera = camera;
-            this.cameraTransform = camera.transform;
+            mainCamera = camera;
+            cameraTransform = camera.transform;
             this.coroutineRunner = coroutineRunner;
-            this.shakeDecay = shakeDecay;
         }
 
-        public void ShakeCamera(float intensity, float duration)
-        {
-            coroutineRunner.StartCoroutine(ShakeCameraCoroutine(intensity, duration));
-        }
-
-        public void ShakeCameraWithDecay(float intensity, float duration)
-        {
-            shakeIntensity = intensity;
-            isShaking = true;
-
-            coroutineRunner.StartCoroutine(StopShakeAfterDuration(duration));
-        }
-
-        public bool IsShaking => isShaking;
+        public void ShakeCamera(float intensity, float duration) => coroutineRunner.StartCoroutine(ShakeCameraCoroutine(intensity, duration));
 
         public Vector3 ApplyShake(Vector3 position)
         {
@@ -45,8 +28,6 @@ namespace DragonBall.Core
 
             Vector3 shakeOffset = Random.insideUnitSphere * shakeIntensity;
             Vector3 shakenPosition = position + shakeOffset;
-
-            shakeIntensity *= shakeDecay;
 
             if (shakeIntensity < 0.01f)
             {
@@ -73,13 +54,6 @@ namespace DragonBall.Core
             }
 
             isShaking = false;
-        }
-
-        private IEnumerator StopShakeAfterDuration(float duration)
-        {
-            yield return new WaitForSeconds(duration);
-            isShaking = false;
-            shakeIntensity = 0f;
         }
     }
 }
