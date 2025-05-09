@@ -28,7 +28,7 @@ MonoBehaviour:
   KickAttackRange: 1.5
   KickAttackCooldown: 0.5
   FireCooldown: 0.5
-  DragonBallsRequiredForSuperSaiyan: 5
+  DragonBallsRequiredForSuperSaiyan: 7
   SuperSaiyanHealthMultiplier: 2
   SuperSaiyanStaminaMultiplier: 2
   SuperSaiyanSpeedMultiplier: 1.5
