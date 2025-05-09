@@ -44,10 +44,34 @@ namespace DragonBall.Enemy
             originalColor = spriteRenderer.color;
         }
 
+        public override void MoveInDirection(Vector2 direction, float speed)
+        {
+            if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead || isDying || isRegenerating))
+            {
+                StopMovement();
+                return;
+            }
+
+            rb.linearVelocity = direction * speed;
+            FaceDirection(direction.x);
+            initialPosition = transform.position;
+        }
+
+        protected override void FloatInAir()
+        {
+            if (isRegenerating) return;
+
+            floatTimer += Time.deltaTime * FloatSpeedValue;
+            float yOffset = Mathf.Sin(floatTimer) * FloatAmplitudeValue;
+            Vector3 newPosition = transform.position;
+            newPosition.y = initialPosition.y + yOffset;
+            transform.position = newPosition;
+        }
+
         public override void StartAttack()
         {
-            if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
-            if (isAttacking || isRapidFiring || isRegenerating) return;
+            if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead || isRegenerating)) return;
+            if (isAttacking || isRapidFiring) return;
 
             if (Random.value < attackSelectionRandomness)
                 StartRapidFireAttack();
@@ -57,8 +81,8 @@ namespace DragonBall.Enemy
 
         public void StartRapidFireAttack()
         {
-            if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
-            if (isAttacking || isRapidFiring || isRegenerating) return;
+            if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead || isRegenerating)) return;
+            if (isAttacking || isRapidFiring) return;
 
             CancelActiveCoroutines();
 
