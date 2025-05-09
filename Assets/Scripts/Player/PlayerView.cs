@@ -35,10 +35,10 @@ namespace DragonBall.Player
         [SerializeField] private RuntimeAnimatorController normalAnimatorController;
         [SerializeField] private RuntimeAnimatorController superSaiyanAnimatorController;
 
-        [Header("Movement Bounds")]
-        [SerializeField] private float minY = -4.5f;
-        [SerializeField] private float maxY = 4.5f;
-        [SerializeField] private bool enableBoundsClamping = true;
+        // [Header("Movement Bounds")]
+        // [SerializeField] private float minY = -4.5f;
+        // [SerializeField] private float maxY = 4.5f;
+        // [SerializeField] private bool enableBoundsClamping = true;
 
         private PlayerController playerController;
         private Rigidbody2D rb;
@@ -83,9 +83,9 @@ namespace DragonBall.Player
         public bool KamehamehaInput => isKamehameha;
 
         public Vector2 MovementDirection => movementDirection;
-        public float MinY => minY;
-        public float MaxY => maxY;
-        public bool EnableBoundsClamping => enableBoundsClamping;
+        // public float MinY => minY;
+        // public float MaxY => maxY;
+        // public bool EnableBoundsClamping => enableBoundsClamping;
 
         private void Awake()
         {
@@ -287,17 +287,17 @@ namespace DragonBall.Player
             isSuperSaiyan = false;
         }
 
-        public Vector3 ClampPosition(Vector3 position)
-        {
-            if (!enableBoundsClamping)
-                return position;
+        // public Vector3 ClampPosition(Vector3 position)
+        // {
+        //     if (!enableBoundsClamping)
+        //         return position;
 
-            return new Vector3(
-                position.x,
-                Mathf.Clamp(position.y, minY, maxY),
-                position.z
-            );
-        }
+        //     return new Vector3(
+        //         position.x,
+        //         Mathf.Clamp(position.y, minY, maxY),
+        //         position.z
+        //     );
+        // }
 
         public void ResetMovementDirection() => movementDirection = Vector2.zero;
 
