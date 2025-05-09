@@ -16,5 +16,8 @@ namespace DragonBall.Enemy
         [Header("Attack")]
         public float AttackDamage = 10f;
         public float AttackCooldown = 1f;
+
+        [Header("State Transition Settings")]
+        public float ExitAttackBuffer = 0.3f;
     }
 }

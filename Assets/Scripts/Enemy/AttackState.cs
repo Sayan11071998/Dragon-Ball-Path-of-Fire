@@ -6,12 +6,13 @@ namespace DragonBall.Enemy
     {
         protected BaseEnemyModel baseEnemyModel;
 
-        private const float EXIT_ATTACK_BUFFER = 0.3f;
+        private float exitAttackBuffer;
 
         public AttackState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
             : base(controllerToSet, stateMachineToSet)
         {
             baseEnemyModel = controllerToSet.BaseEnemyModel;
+            exitAttackBuffer = controllerToSet.EnemyData.ExitAttackBuffer;
         }
 
         public override void OnStateEnter() => baseEnemyController.BaseEnemyView.SetMoving(false);
@@ -26,7 +27,7 @@ namespace DragonBall.Enemy
                 return;
             }
 
-            if (distanceToPlayer > (enemyScriptableObject.AttackRange + EXIT_ATTACK_BUFFER) &&
+            if (distanceToPlayer > (enemyScriptableObject.AttackRange + exitAttackBuffer) &&
                 distanceToPlayer <= enemyScriptableObject.DetectionRange)
             {
                 enemyStateMachine.ChangeState(EnemyStates.RUNNING);
@@ -48,7 +49,7 @@ namespace DragonBall.Enemy
 
         protected virtual bool CanAttack() => !baseEnemyController.IsPlayerDead && !baseEnemyController.IsDead && !baseEnemyController.BaseEnemyView.IsDying;
 
-        protected virtual bool IsAttackCooldownComplete() => Time.time >= baseEnemyModel.lastAttackTime + enemyScriptableObject.AttackCooldown;
+        protected virtual bool IsAttackCooldownComplete() => Time.time >= baseEnemyModel.lastAttackTime + baseEnemyModel.AttackCooldown;
 
         protected virtual void ExecuteAttack()
         {

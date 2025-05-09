@@ -1,5 +1,4 @@
 using DragonBall.Core;
-using DragonBall.Sound;
 
 namespace DragonBall.Enemy
 {
@@ -38,10 +37,7 @@ namespace DragonBall.Enemy
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
 
-        protected virtual void InitializeModel()
-        {
-            baseEnemyModel = CreateModel(enemyScriptableObject);
-        }
+        protected virtual void InitializeModel() => baseEnemyModel = CreateModel(enemyScriptableObject);
 
         protected virtual BaseEnemyModel CreateModel(EnemyScriptableObject enemyData)
         {
@@ -68,11 +64,13 @@ namespace DragonBall.Enemy
         protected virtual void CheckPlayerStatus()
         {
             bool wasPlayerDead = isPlayerDead;
-            isPlayerDead = GameService.Instance.playerService.PlayerController.PlayerModel.CurrentHealth <= 0;
+            isPlayerDead = IsPlayerHealthDepleted();
 
             if (!wasPlayerDead && isPlayerDead)
                 HandlePlayerDeath();
         }
+
+        protected virtual bool IsPlayerHealthDepleted() => GameService.Instance.playerService.PlayerController.PlayerModel.CurrentHealth <= 0;
 
         protected virtual void HandlePlayerDeath()
         {

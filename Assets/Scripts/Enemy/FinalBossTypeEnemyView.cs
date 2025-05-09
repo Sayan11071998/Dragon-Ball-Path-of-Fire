@@ -157,8 +157,17 @@ namespace DragonBall.Enemy
         private void FireSpreadPattern()
         {
             Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+
             if (playerTransform == null) return;
 
+            Vector3 firePosition = GetAdjustedFirePosition();
+            Vector2 baseDirection = ((Vector2)playerTransform.position - (Vector2)firePosition).normalized;
+            float baseAngle = Mathf.Atan2(baseDirection.y, baseDirection.x) * Mathf.Rad2Deg;
+            FireBulletsInSpread(firePosition, baseAngle);
+        }
+
+        private Vector3 GetAdjustedFirePosition()
+        {
             Vector3 firePosition = FirePointTransform.position;
 
             if (spriteRenderer.flipX)
@@ -170,9 +179,11 @@ namespace DragonBall.Enemy
                 );
             }
 
-            Vector2 baseDirection = ((Vector2)playerTransform.position - (Vector2)firePosition).normalized;
-            float baseAngle = Mathf.Atan2(baseDirection.y, baseDirection.x) * Mathf.Rad2Deg;
+            return firePosition;
+        }
 
+        private void FireBulletsInSpread(Vector3 firePosition, float baseAngle)
+        {
             float angleStep = bulletsPerSpread > 1 ? spreadAngle / (bulletsPerSpread - 1) : 0;
             float startAngle = baseAngle - spreadAngle / 2;
 
@@ -199,6 +210,7 @@ namespace DragonBall.Enemy
             {
                 isRapidFiring = false;
                 animator.SetBool("isAttacking", false);
+                SoundManager.Instance.StopSoundEffect(SoundType.FinalBossTypeEnemyFire);
             }
 
             if (isRegenerating && regenerationCoroutine != null)
@@ -214,6 +226,13 @@ namespace DragonBall.Enemy
                 animator.SetBool("isRegenerating", false);
                 isRegenerating = false;
                 spriteRenderer.color = originalColor;
+            }
+
+            if (isRapidFiring)
+            {
+                isRapidFiring = false;
+                animator.SetBool("isAttacking", false);
+                SoundManager.Instance.StopSoundEffect(SoundType.FinalBossTypeEnemyFire);
             }
         }
     }
