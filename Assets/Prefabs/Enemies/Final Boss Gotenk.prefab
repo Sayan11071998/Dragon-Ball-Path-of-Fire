@@ -215,6 +215,7 @@ MonoBehaviour:
   bulletsPerSpread: 3
   rapidFireAnimation: {fileID: 7400000, guid: da94ca3c7e36b784e9de647744b27899, type: 2}
   attackSelectionRandomness: 0.3
+  healthRegenarationClip: {fileID: 7400000, guid: 3be0a51acf95b294fa33e628ffba9726, type: 2}
   regenerationDuration: 2.5
   regenerationColor: {r: 0, g: 1, b: 0, a: 1}
   pulseFrequency: 2
