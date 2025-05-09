@@ -150,7 +150,7 @@ namespace DragonBall.Player
             if (playerModel.IsDead) return;
 
             playerModel.TakeDamage(damage);
-            GameService.Instance.cameraShakeService.ShakeCamera(1f, 0.5f);
+            GameService.Instance.cameraShakeService.ShakeCamera(0.1f, 0.5f);
             SoundManager.Instance.PlaySoundEffect(SoundType.GokuTakeDamage);
 
             if (playerModel.IsDead)

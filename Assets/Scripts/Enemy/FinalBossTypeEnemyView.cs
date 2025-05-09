@@ -22,6 +22,7 @@ namespace DragonBall.Enemy
         [SerializeField] private float attackSelectionRandomness = 0.3f;
 
         [Header("Health Regeneration Settings")]
+        [SerializeField] private AnimationClip healthRegenarationClip;
         [SerializeField] private float regenerationDuration = 2.5f;
         [SerializeField] private Color regenerationColor = Color.green;
         [SerializeField] private float pulseFrequency = 2f;
@@ -75,6 +76,7 @@ namespace DragonBall.Enemy
 
             isRegenerating = true;
             animator.SetBool("isRegenerating", true);
+            GameService.Instance.cameraShakeService.ShakeCamera(0.1f, healthRegenarationClip.length);
 
             regenerationCoroutine = StartCoroutineTracked(RegenerationCoroutine());
         }
