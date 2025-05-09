@@ -38,8 +38,8 @@ namespace DragonBall.Player
 
             stateMachine.Update();
 
-            if (playerView.EnableBoundsClamping)
-                playerView.transform.position = playerView.ClampPosition(playerView.transform.position);
+            // if (playerView.EnableBoundsClamping)
+            //     playerView.transform.position = playerView.ClampPosition(playerView.transform.position);
         }
 
         private void HandleGroundCheck()
