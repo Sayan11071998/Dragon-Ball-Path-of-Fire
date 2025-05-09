@@ -4,26 +4,22 @@ namespace DragonBall.Enemy
 {
     public class FinalBossAttackState : AttackState
     {
-        private FinalBossTypeEnemyController finalBossController;
         private FinalBossTypeEnemyModel finalBossModel;
-        private FinalBossTypeEnemyView finalBossView;
-        private FinalBossTypeEnemyScriptableObject bossData;
 
         public FinalBossAttackState(BaseEnemyController controllerToSet, EnemyStateMachine stateMachineToSet)
             : base(controllerToSet, stateMachineToSet)
         {
-            finalBossController = controllerToSet as FinalBossTypeEnemyController;
-            finalBossModel = finalBossController.BaseEnemyModel as FinalBossTypeEnemyModel;
-            finalBossView = finalBossController.BaseEnemyView as FinalBossTypeEnemyView;
-            bossData = controllerToSet.EnemyData as FinalBossTypeEnemyScriptableObject;
+            finalBossModel = controllerToSet.BaseEnemyModel as FinalBossTypeEnemyModel;
         }
 
-        protected override bool IsAttackCooldownComplete() => Time.time >= finalBossModel.lastAttackTime + finalBossModel.AttackCooldown;
-
-        protected override void ExecuteAttack()
+        protected override bool IsAttackCooldownComplete()
         {
-            finalBossView.StartAttack();
-            finalBossModel.lastAttackTime = Time.time;
+            if (finalBossModel != null && finalBossModel.IsEnraged)
+                return Time.time >= finalBossModel.lastAttackTime + finalBossModel.AttackCooldown;
+
+            return base.IsAttackCooldownComplete();
         }
+
+        protected override bool CanAttack() => base.CanAttack() && !finalBossModel.IsRegenerating;
     }
 }
