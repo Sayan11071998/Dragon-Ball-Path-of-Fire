@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b8db291cf0eb94782723771b70dd51, type: 3}
   m_Name: Gotenk
   m_EditorClassIdentifier: 
-  MaxHealth: 50
+  MaxHealth: 10
   MoveSpeed: 6
   DetectionRange: 15
   AttackRange: 7

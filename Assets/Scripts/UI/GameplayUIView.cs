@@ -122,7 +122,6 @@ namespace DragonBall.UI
                 shouldTransformToSuperSaiyan = true;
             }
 
-            // Load the scene
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
