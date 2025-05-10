@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using DragonBall.Core;
-using DragonBall.Bullet;
 using DragonBall.Sound;
+using DragonBall.Bullet.BulletData;
 
 namespace DragonBall.Player
 {

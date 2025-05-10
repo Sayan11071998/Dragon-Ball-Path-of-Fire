@@ -1,6 +1,9 @@
+using DragonBall.Bullet.BulletData;
+using DragonBall.Bullet.BulletUtilities;
+using DragonBall.Bullet.ParentMVC;
 using UnityEngine;
 
-namespace DragonBall.Bullet
+namespace DragonBall.Bullet.GuidedBulletMVC
 {
     public class GuidedBulletController : BulletController
     {
@@ -22,10 +25,10 @@ namespace DragonBall.Bullet
             guidedBulletView.SetGuidedController(this);
         }
 
-        public void Activate(Vector2 position, Vector2 direction, Transform target, BulletTargetType targetType = BulletTargetType.Player)
+        public void Activate(Vector2 position, Vector2 direction, Transform targetToSet, BulletTargetType targetType = BulletTargetType.Player)
         {
             base.Activate(position, direction, targetType);
-            this.target = target;
+            target = targetToSet;
             isGuided = true;
             guidanceDelay = guidedBulletModel.GuidanceDelay;
             maxGuidanceTime = guidedBulletModel.MaxGuidanceTime;

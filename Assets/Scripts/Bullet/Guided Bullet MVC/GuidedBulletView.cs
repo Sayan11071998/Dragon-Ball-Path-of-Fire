@@ -1,6 +1,7 @@
+using DragonBall.Bullet.ParentMVC;
 using UnityEngine;
 
-namespace DragonBall.Bullet
+namespace DragonBall.Bullet.GuidedBulletMVC
 {
     public class GuidedBulletView : BulletView
     {

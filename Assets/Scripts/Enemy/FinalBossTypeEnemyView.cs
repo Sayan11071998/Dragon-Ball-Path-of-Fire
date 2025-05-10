@@ -1,5 +1,5 @@
 using System.Collections;
-using DragonBall.Bullet;
+using DragonBall.Bullet.BulletData;
 using DragonBall.Core;
 using DragonBall.Sound;
 using UnityEngine;

@@ -1,17 +1,18 @@
+using DragonBall.Bullet.ParentMVC;
 using DragonBall.Utilities;
 using UnityEngine;
 
-namespace DragonBall.Bullet
+namespace DragonBall.Bullet.BulletUtilities
 {
     public class BulletPool : GenericObjectPool<BulletController>
     {
         protected BulletView bulletPrefab;
         protected BulletModel bulletModel;
 
-        public BulletPool(BulletView bulletPrefab, BulletModel bulletModel)
+        public BulletPool(BulletView bulletPrefabToSet, BulletModel bulletModelToSet)
         {
-            this.bulletPrefab = bulletPrefab;
-            this.bulletModel = bulletModel;
+            bulletPrefab = bulletPrefabToSet;
+            bulletModel = bulletModelToSet;
         }
 
         public BulletController GetBullet() => GetItem<BulletController>();

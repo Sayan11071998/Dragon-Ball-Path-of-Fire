@@ -1,4 +1,4 @@
-namespace DragonBall.Bullet
+namespace DragonBall.Bullet.BulletData
 {
     public enum BulletTargetType
     {

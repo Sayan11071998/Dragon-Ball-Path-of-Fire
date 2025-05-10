@@ -1,4 +1,7 @@
-namespace DragonBall.Bullet
+using DragonBall.Bullet.GuidedBulletMVC;
+using DragonBall.Bullet.ParentMVC;
+
+namespace DragonBall.Bullet.BulletUtilities
 {
     public class GuidedBulletPool : BulletPool
     {

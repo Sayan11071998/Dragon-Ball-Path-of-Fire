@@ -1,7 +1,7 @@
 using DragonBall.Core;
-using DragonBall.Bullet;
 using UnityEngine;
 using DragonBall.Sound;
+using DragonBall.Bullet.BulletData;
 
 namespace DragonBall.Enemy
 {

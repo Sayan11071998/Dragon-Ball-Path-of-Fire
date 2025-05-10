@@ -1,4 +1,6 @@
-namespace DragonBall.Bullet
+using DragonBall.Bullet.ParentMVC;
+
+namespace DragonBall.Bullet.GuidedBulletMVC
 {
     public class GuidedBulletModel : BulletModel
     {
