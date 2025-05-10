@@ -24,11 +24,19 @@ namespace DragonBall.Enemy
             }
 
             float distanceToPlayer = GetDistanceToPlayer();
+            bool canSeePlayer = HasLineOfSightToPlayer();
 
-            if (distanceToPlayer <= enemyScriptableObject.AttackRange - ATTACK_RANGE_BUFFER)
-                enemyStateMachine.ChangeState(EnemyStates.ATTACK);
-            else if (distanceToPlayer > enemyScriptableObject.DetectionRange)
+            if (distanceToPlayer > enemyScriptableObject.DetectionRange || !canSeePlayer)
+            {
                 enemyStateMachine.ChangeState(EnemyStates.IDLE);
+                return;
+            }
+
+            if (distanceToPlayer <= enemyScriptableObject.AttackRange - ATTACK_RANGE_BUFFER && canSeePlayer)
+            {
+                enemyStateMachine.ChangeState(EnemyStates.ATTACK);
+                return;
+            }
 
             if (!baseEnemyController.IsPlayerDead)
             {

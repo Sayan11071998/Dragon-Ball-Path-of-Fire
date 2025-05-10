@@ -67,5 +67,27 @@ namespace DragonBall.Enemy
 
             return Vector2.Distance(baseEnemyController.BaseEnemyView.transform.position, playerTransform.position);
         }
+
+        protected bool HasLineOfSightToPlayer(LayerMask? layerMask = null)
+        {
+            if (playerTransform == null)
+                return false;
+
+            Vector2 enemyPosition = baseEnemyController.BaseEnemyView.transform.position;
+            Vector2 playerPosition = playerTransform.position;
+            Vector2 direction = playerPosition - enemyPosition;
+            float distance = direction.magnitude;
+
+            LayerMask obstacleLayer = layerMask ?? LayerMask.GetMask("Ground", "Platform", "Obstacle");
+
+            RaycastHit2D hit = Physics2D.Raycast(
+                enemyPosition,
+                direction.normalized,
+                distance,
+                obstacleLayer
+            );
+
+            return hit.collider == null;
+        }
     }
 }

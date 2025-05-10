@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8c6766a6728514890f1b3974d2303f, type: 3}
   m_Name: Enemy Normal Power Ball
   m_EditorClassIdentifier: 
-  BulletSpeed: 15
+  BulletSpeed: 10
   BulletDamage: 12
   BulletLifetime: 1

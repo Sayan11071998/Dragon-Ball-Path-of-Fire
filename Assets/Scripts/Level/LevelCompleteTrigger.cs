@@ -9,6 +9,8 @@ namespace DragonBall.Level
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (!other.CompareTag("Player")) return;
+
             var playerController = GameService.Instance.playerService.PlayerController;
             var playerModel = playerController.PlayerModel;
             var playerView = playerController.PlayerView;

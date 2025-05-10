@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8ea77d3317253540a5bd00e3d8f39e5, type: 3}
   m_Name: FatBuu
   m_EditorClassIdentifier: 
-  MaxHealth: 10
-  MoveSpeed: 4
-  DetectionRange: 10
-  AttackRange: 8
-  AttackDamage: 20
+  MaxHealth: 70
+  MoveSpeed: 5
+  DetectionRange: 8
+  AttackRange: 6
+  AttackDamage: 15
   AttackCooldown: 2
   ExitAttackBuffer: 0.3

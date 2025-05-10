@@ -6,6 +6,7 @@ namespace DragonBall.Bullet
         PlayerSuperSaiyanPowerBall,
         PlayerKamehamehaPowerBall,
         EnemyRegularPowerBall,
-        EnemyGuidedPowerBall
+        EnemyGuidedPowerBall,
+        FinalBossEnemyGuidedPowerBall
     }
 }

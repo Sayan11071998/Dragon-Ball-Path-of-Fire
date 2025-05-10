@@ -57,6 +57,8 @@ MonoBehaviour:
   enemyNormalBulletSO: {fileID: 11400000, guid: a152883d84a0b314093cb3083d4b4eac, type: 2}
   enemyGuidedBullletPrefab: {fileID: 7960087552467250288, guid: b92104fabc776724b8f9b68a54aa2e3b, type: 3}
   enemyGuidedBulletSO: {fileID: 11400000, guid: 5b191a04f389b474e85bb3a50235d374, type: 2}
+  finalBossEnemyGuidedBullletPrefab: {fileID: 7960087552467250288, guid: 7b01697f44a3b9e4caff441391485283, type: 3}
+  finalBossEnemyGuidedBulletSO: {fileID: 11400000, guid: 87df3aa4e260b41419ddafc41a2b238b, type: 2}
   enemyConfigs:
   - type: 0
     prefab: {fileID: 1637688450260828064, guid: 4420220a5cf9878479e86c3ee56939cd, type: 3}
