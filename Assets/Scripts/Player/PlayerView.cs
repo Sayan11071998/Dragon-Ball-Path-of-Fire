@@ -225,6 +225,7 @@ namespace DragonBall.Player
 
             playerController.DisablePlayerController();
             PlayDeathAnimation();
+            RevertToNormal();
             GameStateUtility.ResetPlayerState();
 
             yield return new WaitForSeconds(freeFallDeathDelay);
@@ -239,6 +240,7 @@ namespace DragonBall.Player
 
             PlayDeathAnimation();
             SoundManager.Instance.PlaySoundEffect(SoundType.GokuDeath);
+            RevertToNormal();
             GameStateUtility.ResetPlayerState();
 
             yield return new WaitForSeconds(0.1f);
