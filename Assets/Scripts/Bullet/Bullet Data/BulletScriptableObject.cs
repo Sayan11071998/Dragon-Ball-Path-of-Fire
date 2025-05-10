@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DragonBall.Bullet
+namespace DragonBall.Bullet.BulletData
 {
     [CreateAssetMenu(fileName = "BulletScriptableObject", menuName = "Bullet/BulletScriptableObject")]
     public class BulletScriptableObject : ScriptableObject

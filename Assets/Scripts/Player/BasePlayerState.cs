@@ -1,4 +1,4 @@
-using DragonBall.Bullet;
+using DragonBall.Bullet.BulletData;
 using DragonBall.Core;
 using DragonBall.Enemy;
 using DragonBall.Sound;

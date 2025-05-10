@@ -1,8 +1,9 @@
 using DragonBall.Enemy;
 using DragonBall.Core;
 using UnityEngine;
+using DragonBall.Bullet.BulletData;
 
-namespace DragonBall.Bullet
+namespace DragonBall.Bullet.ParentMVC
 {
     public class BulletView : MonoBehaviour
     {

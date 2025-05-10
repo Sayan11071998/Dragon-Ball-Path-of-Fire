@@ -1,8 +1,10 @@
+using DragonBall.Bullet.BulletData;
+using DragonBall.Bullet.BulletUtilities;
 using DragonBall.Enemy;
 using DragonBall.Sound;
 using UnityEngine;
 
-namespace DragonBall.Bullet
+namespace DragonBall.Bullet.ParentMVC
 {
     public class BulletController
     {
