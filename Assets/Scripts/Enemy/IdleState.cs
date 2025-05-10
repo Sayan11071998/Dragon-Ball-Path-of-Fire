@@ -14,7 +14,7 @@ namespace DragonBall.Enemy
 
             float distanceToPlayer = GetDistanceToPlayer();
 
-            if (distanceToPlayer < enemyScriptableObject.DetectionRange)
+            if (distanceToPlayer < enemyScriptableObject.DetectionRange && HasLineOfSightToPlayer())
             {
                 if (distanceToPlayer < enemyScriptableObject.AttackRange)
                     enemyStateMachine.ChangeState(EnemyStates.ATTACK);

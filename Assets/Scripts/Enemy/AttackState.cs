@@ -20,15 +20,16 @@ namespace DragonBall.Enemy
         protected override void StateSpecificUpdate()
         {
             float distanceToPlayer = GetDistanceToPlayer();
+            bool canSeePlayer = HasLineOfSightToPlayer();
 
-            if (distanceToPlayer > enemyScriptableObject.DetectionRange)
+            if (distanceToPlayer > enemyScriptableObject.DetectionRange || !canSeePlayer)
             {
                 enemyStateMachine.ChangeState(EnemyStates.IDLE);
                 return;
             }
 
             if (distanceToPlayer > (enemyScriptableObject.AttackRange + exitAttackBuffer) &&
-                distanceToPlayer <= enemyScriptableObject.DetectionRange)
+                distanceToPlayer <= enemyScriptableObject.DetectionRange && canSeePlayer)
             {
                 enemyStateMachine.ChangeState(EnemyStates.RUNNING);
                 return;
@@ -47,7 +48,7 @@ namespace DragonBall.Enemy
                 ExecuteAttack();
         }
 
-        protected virtual bool CanAttack() => !baseEnemyController.IsPlayerDead && !baseEnemyController.IsDead && !baseEnemyController.BaseEnemyView.IsDying;
+        protected virtual bool CanAttack() => !baseEnemyController.IsPlayerDead && !baseEnemyController.IsDead && !baseEnemyController.BaseEnemyView.IsDying && HasLineOfSightToPlayer();
 
         protected virtual bool IsAttackCooldownComplete() => Time.time >= baseEnemyModel.lastAttackTime + baseEnemyModel.AttackCooldown;
 
