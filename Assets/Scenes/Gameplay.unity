@@ -1928,6 +1928,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Complete
       objectReference: {fileID: 0}
+    - target: {fileID: 4407034144321063550, guid: a967067f00a9fa1429ea29c8195682e7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4818633735363584528, guid: a967067f00a9fa1429ea29c8195682e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 368.9608
