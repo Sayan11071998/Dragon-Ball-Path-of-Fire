@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using DragonBall.Core;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace DragonBall.UI
 {
@@ -35,6 +36,9 @@ namespace DragonBall.UI
         [SerializeField] public GameObject gameCompletePanel;
         [SerializeField] public Button mainMenuButton;
 
+        // Flag to indicate player should transform to Super Saiyan after scene is loaded
+        private static bool shouldTransformToSuperSaiyan = false;
+
         private void Start()
         {
             if (GameService.Instance?.playerService != null)
@@ -50,6 +54,15 @@ namespace DragonBall.UI
                 notificationPanel.SetActive(false);
                 gameOverPanel.SetActive(false);
                 UpdateDragonBallCount(playerModel.DragonBallCount);
+
+                // Check if player should transform to Super Saiyan after scene reload
+                if (shouldTransformToSuperSaiyan)
+                {
+                    // Reset the flag
+                    shouldTransformToSuperSaiyan = false;
+                    // Wait a frame for everything to initialize
+                    StartCoroutine(TransformToSuperSaiyanDelayed());
+                }
             }
 
             if (restartButton != null)
@@ -60,6 +73,18 @@ namespace DragonBall.UI
 
             if (mainMenuButton != null)
                 mainMenuButton.onClick.AddListener(ExitToMainMenu);
+        }
+
+        private IEnumerator TransformToSuperSaiyanDelayed()
+        {
+            // Wait for two frames to ensure all objects are initialized
+            yield return null;
+            yield return null;
+
+            if (GameService.Instance?.playerService?.PlayerController != null)
+            {
+                GameService.Instance.playerService.PlayerController.PlayerStateMachine.ChangeState(Player.PlayerState.SUPER_SAIYAN);
+            }
         }
 
         public void UpdateHealthBar(float healthPercentage) => healthSlider.value = healthPercentage * healthSlider.maxValue;
@@ -89,7 +114,17 @@ namespace DragonBall.UI
 
         public void ShowGameCompletePanel() => gameCompletePanel.SetActive(true);
 
-        private void RestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        private void RestartGame()
+        {
+            // Set flag to transform player after scene reload if currently in Super Saiyan state
+            if (GameService.Instance?.playerService?.PlayerController?.PlayerView?.IsSuperSaiyan == true)
+            {
+                shouldTransformToSuperSaiyan = true;
+            }
+
+            // Load the scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
         private void ExitToMainMenu() => SceneManager.LoadScene(0);
     }

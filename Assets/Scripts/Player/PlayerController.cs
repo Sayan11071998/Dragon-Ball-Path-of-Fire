@@ -13,6 +13,7 @@ namespace DragonBall.Player
 
         public PlayerModel PlayerModel => playerModel;
         public PlayerView PlayerView => playerView;
+        public PlayerStateMachine PlayerStateMachine => stateMachine;
 
         private bool isInputEnabled = true;
 
