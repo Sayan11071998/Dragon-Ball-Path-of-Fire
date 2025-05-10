@@ -42,6 +42,12 @@ namespace DragonBall.Bullet
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (collision.CompareTag("Platform"))
+            {
+                bulletController.Deactivate();
+                return;
+            }
+
             if (targetType == BulletTargetType.Enemy && collision.gameObject.TryGetComponent<IDamageable>(out var target))
             {
                 bulletController.OnCollision(target);
@@ -51,7 +57,7 @@ namespace DragonBall.Bullet
             if (targetType == BulletTargetType.Player && collision.CompareTag("Player"))
             {
                 var playerController = GameService.Instance.playerService.PlayerController;
-                
+
                 if (!playerController.PlayerModel.IsDead)
                 {
                     playerController.TakeDamage(bulletController.GetDamage());
