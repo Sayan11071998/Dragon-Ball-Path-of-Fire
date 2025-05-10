@@ -43,7 +43,10 @@ namespace DragonBall.Bullet
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Platform"))
+            {
                 bulletController.Deactivate();
+                return;
+            }
 
             if (targetType == BulletTargetType.Enemy && collision.gameObject.TryGetComponent<IDamageable>(out var target))
             {
