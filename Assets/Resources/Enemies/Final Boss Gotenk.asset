@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Final Boss Gotenk
   m_EditorClassIdentifier: 
   MaxHealth: 500
-  MoveSpeed: 10
-  DetectionRange: 10
-  AttackRange: 6
+  MoveSpeed: 6
+  DetectionRange: 15
+  AttackRange: 10
   AttackDamage: 25
   AttackCooldown: 1
   ExitAttackBuffer: 0.3
