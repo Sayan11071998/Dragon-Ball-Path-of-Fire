@@ -31,6 +31,10 @@ namespace DragonBall.UI
         [SerializeField] public Button restartButton;
         [SerializeField] public Button exitButton;
 
+        [Header("Game Complete Panel")]
+        [SerializeField] public GameObject gameCompletePanel;
+        [SerializeField] public Button mainMenuButton;
+
         private void Start()
         {
             if (GameService.Instance?.playerService != null)
@@ -53,6 +57,9 @@ namespace DragonBall.UI
 
             if (exitButton != null)
                 exitButton.onClick.AddListener(ExitToMainMenu);
+
+            if (mainMenuButton != null)
+                mainMenuButton.onClick.AddListener(ExitToMainMenu);
         }
 
         public void UpdateHealthBar(float healthPercentage) => healthSlider.value = healthPercentage * healthSlider.maxValue;
@@ -79,6 +86,8 @@ namespace DragonBall.UI
         public void ActivateNotificationPanel() => notificationPanel.SetActive(true);
 
         public void ShowGameOverPanel() => gameOverPanel.SetActive(true);
+
+        public void ShowGameCompletePanel() => gameCompletePanel.SetActive(true);
 
         private void RestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 

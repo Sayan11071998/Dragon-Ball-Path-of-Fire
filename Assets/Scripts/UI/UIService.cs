@@ -34,6 +34,8 @@ namespace DragonBall.UI
 
         public void ShowGameOver() => gameplayUIView.ShowGameOverPanel();
 
+        public void ShowGameCompletePanel() => gameplayUIView.ShowGameCompletePanel();
+
         public IEnumerator ShowNotificationBeforeEnablingPlayer(PlayerController playerController)
         {
             bool isNotificationHandled = false;

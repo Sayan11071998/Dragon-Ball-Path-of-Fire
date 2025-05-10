@@ -9,7 +9,13 @@ namespace DragonBall.Level
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            GameService.Instance.playerService.PlayerController.DisablePlayerController();
+            var playerController = GameService.Instance.playerService.PlayerController;
+            var playerModel = playerController.PlayerModel;
+            var playerView = playerController.PlayerView;
+
+            GameStateUtility.SavePlayerState(playerView.IsSuperSaiyan, playerModel.DragonBallCount);
+
+            playerController.DisablePlayerController();
             StartCoroutine(LoadNextSceneAfterDelay(2f));
         }
 
