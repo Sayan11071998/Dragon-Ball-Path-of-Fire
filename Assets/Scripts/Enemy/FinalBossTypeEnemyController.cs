@@ -1,3 +1,4 @@
+using DragonBall.Core;
 using DragonBall.Sound;
 using UnityEngine;
 
@@ -7,7 +8,6 @@ namespace DragonBall.Enemy
     {
         private FinalBossTypeEnemyModel bossModel;
         private FinalBossTypeEnemyView bossView;
-        private float lastSpecialAttackTime = -Mathf.Infinity;
 
         public FinalBossTypeEnemyController(EnemyScriptableObject enemySO, BaseEnemyView view, EnemyPool pool)
             : base(enemySO, view, pool)
@@ -58,9 +58,14 @@ namespace DragonBall.Enemy
         public override void Reset()
         {
             base.Reset();
-
             bossModel.ResetEnragedState();
-            lastSpecialAttackTime = -Mathf.Infinity;
+        }
+
+        protected override void HandleDeath()
+        {
+            base.HandleDeath();
+            GameService.Instance.playerService.PlayerController.DisablePlayerController();
+            GameService.Instance.uiService.ShowGameCompletePanel();
         }
     }
 }

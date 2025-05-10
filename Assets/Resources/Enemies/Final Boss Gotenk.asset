@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9d2c659af43ad42a53359109a0a623, type: 3}
   m_Name: Final Boss Gotenk
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 10
   MoveSpeed: 7
   DetectionRange: 15
   AttackRange: 8
   AttackDamage: 10
   AttackCooldown: 1
+  ExitAttackBuffer: 0.3
   FloatAmplitude: 0.7
   FloatSpeed: 0.8
   AerialMoveSpeed: 3.5
