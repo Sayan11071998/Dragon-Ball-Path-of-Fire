@@ -37,9 +37,6 @@ namespace DragonBall.Player
                 HandleMovement();
 
             stateMachine.Update();
-
-            // if (playerView.EnableBoundsClamping)
-            //     playerView.transform.position = playerView.ClampPosition(playerView.transform.position);
         }
 
         private void HandleGroundCheck()
@@ -179,5 +176,7 @@ namespace DragonBall.Player
             playerView.EnableInput();
             return isInputEnabled;
         }
+
+        public PlayerStateMachine GetPlayerStateMachine() => stateMachine;
     }
 }
