@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e128543abc1c8248823fbf73568d8d4, type: 3}
   m_Name: Enemy Guided Power Ball
   m_EditorClassIdentifier: 
-  BulletSpeed: 15
+  BulletSpeed: 20
   BulletDamage: 20
   BulletLifetime: 2
   RotationSpeed: 120

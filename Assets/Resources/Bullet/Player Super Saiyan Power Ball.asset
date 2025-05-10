@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Player Super Saiyan Power Ball
   m_EditorClassIdentifier: 
   BulletSpeed: 25
-  BulletDamage: 20
+  BulletDamage: 30
   BulletLifetime: 1.5
