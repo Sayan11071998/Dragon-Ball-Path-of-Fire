@@ -20,7 +20,7 @@ namespace DragonBall.Player.PlayerMVC
 
         private bool isInputEnabled = true;
 
-        public PlayerController(PlayerModel _playerModel, PlayerView _playerView)
+        public PlayerController(PlayerModel _playerModel, PlayerView _playerView, PlayerState initialState = PlayerState.NORMAL)
         {
             playerModel = _playerModel;
             playerView = _playerView;
@@ -28,7 +28,7 @@ namespace DragonBall.Player.PlayerMVC
             playerView.SetPlayerController(this);
 
             stateMachine = new PlayerStateMachine(this);
-            stateMachine.ChangeState(PlayerState.NORMAL);
+            stateMachine.ChangeState(initialState);
         }
 
         public void Update()

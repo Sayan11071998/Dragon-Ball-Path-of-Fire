@@ -2,6 +2,7 @@ using UnityEngine;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerData;
 using DragonBall.GameStrings;
+using UnityEngine.SceneManagement;
 
 namespace DragonBall.Player.PlayerUtilities
 {
@@ -43,7 +44,18 @@ namespace DragonBall.Player.PlayerUtilities
                 _config.KamehamehaStaminaCost
             );
 
-            playerController = new PlayerController(playerModel, playerPrefab);
+            PlayerState initialState = DetermineInitialStateByScene();
+            playerController = new PlayerController(playerModel, playerPrefab, initialState);
+        }
+
+        private PlayerState DetermineInitialStateByScene()
+        {
+            string currentSceneName = SceneManager.GetActiveScene().name;
+
+            if (currentSceneName.Contains(GameString.SceneFinalBoss))
+                return PlayerState.SUPER_SAIYAN;
+
+            return PlayerState.NORMAL;
         }
 
         public void Update() => playerController.Update();
