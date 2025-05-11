@@ -1,4 +1,4 @@
-namespace DragonBall.Player
+namespace DragonBall.Player.PlayerData
 {
     public enum PlayerState
     {

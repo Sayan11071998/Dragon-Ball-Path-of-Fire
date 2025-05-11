@@ -1,6 +1,6 @@
 using UnityEngine;
-using DragonBall.Player;
 using DragonBall.Core;
+using DragonBall.Player.PlayerMVC;
 
 namespace DragonBall.Pickup
 {

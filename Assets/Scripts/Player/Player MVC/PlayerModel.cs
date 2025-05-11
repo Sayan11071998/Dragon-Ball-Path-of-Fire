@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DragonBall.Player
+namespace DragonBall.Player.PlayerMVC
 {
     public class PlayerModel
     {

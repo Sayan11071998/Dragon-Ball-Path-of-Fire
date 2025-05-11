@@ -6,7 +6,7 @@ using DragonBall.GameStrings;
 using DragonBall.Core;
 using DragonBall.Sound;
 
-namespace DragonBall.Player
+namespace DragonBall.Player.PlayerMVC
 {
     public class PlayerView : MonoBehaviour
     {

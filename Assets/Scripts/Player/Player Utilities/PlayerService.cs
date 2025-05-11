@@ -2,8 +2,10 @@ using UnityEngine;
 using DragonBall.GameStrings;
 using System.Collections;
 using DragonBall.Core;
+using DragonBall.Player.PlayerMVC;
+using DragonBall.Player.PlayerData;
 
-namespace DragonBall.Player
+namespace DragonBall.Player.PlayerUtilities
 {
     public class PlayerService
     {

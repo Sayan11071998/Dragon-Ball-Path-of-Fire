@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using DragonBall.Player.PlayerData;
+using DragonBall.Player.PlayerMVC;
+using DragonBall.Player.PlayerStates;
 using DragonBall.Utilities;
 using UnityEngine;
 
-namespace DragonBall.Player
+namespace DragonBall.Player.PlayerUtilities
 {
     public class PlayerStateMachine
     {

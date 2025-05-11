@@ -1,12 +1,14 @@
 using DragonBall.Bullet.BulletData;
 using DragonBall.Core;
 using DragonBall.Enemy.EnemyUtilities;
+using DragonBall.Player.PlayerMVC;
+using DragonBall.Player.PlayerUtilities;
 using DragonBall.Sound;
 using DragonBall.Utilities;
 using DragonBall.VFX;
 using UnityEngine;
 
-namespace DragonBall.Player
+namespace DragonBall.Player.PlayerStates
 {
     public abstract class BasePlayerState : IState
     {

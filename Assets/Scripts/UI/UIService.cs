@@ -2,6 +2,7 @@ using UnityEngine;
 using DragonBall.Player;
 using System.Collections;
 using DragonBall.GameStrings;
+using DragonBall.Player.PlayerMVC;
 
 namespace DragonBall.UI
 {

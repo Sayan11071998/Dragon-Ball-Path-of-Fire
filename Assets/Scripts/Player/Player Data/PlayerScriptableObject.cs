@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DragonBall.Player
+namespace DragonBall.Player.PlayerData
 {
     [CreateAssetMenu(fileName = "PlayerScriptableObject", menuName = "Player/PlayerScriptableObject")]
     public class PlayerScriptableObject : ScriptableObject

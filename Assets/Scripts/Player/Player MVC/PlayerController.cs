@@ -1,9 +1,11 @@
 using DragonBall.Core;
+using DragonBall.Player.PlayerData;
+using DragonBall.Player.PlayerUtilities;
 using DragonBall.Sound;
 using DragonBall.VFX;
 using UnityEngine;
 
-namespace DragonBall.Player
+namespace DragonBall.Player.PlayerMVC
 {
     public class PlayerController
     {

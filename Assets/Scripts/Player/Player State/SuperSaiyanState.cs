@@ -3,8 +3,10 @@ using System.Collections;
 using DragonBall.Core;
 using DragonBall.Sound;
 using DragonBall.Bullet.BulletData;
+using DragonBall.Player.PlayerMVC;
+using DragonBall.Player.PlayerUtilities;
 
-namespace DragonBall.Player
+namespace DragonBall.Player.PlayerStates
 {
     public class SuperSaiyanState : BasePlayerState
     {

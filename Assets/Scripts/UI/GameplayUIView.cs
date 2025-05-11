@@ -4,6 +4,7 @@ using DragonBall.Core;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using DragonBall.Player.PlayerData;
 
 namespace DragonBall.UI
 {
@@ -83,7 +84,7 @@ namespace DragonBall.UI
 
             if (GameService.Instance?.playerService?.PlayerController != null)
             {
-                GameService.Instance.playerService.PlayerController.PlayerStateMachine.ChangeState(Player.PlayerState.SUPER_SAIYAN);
+                GameService.Instance.playerService.PlayerController.PlayerStateMachine.ChangeState(PlayerState.SUPER_SAIYAN);
             }
         }
 

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using DragonBall.Player;
 using DragonBall.Utilities;
 using DragonBall.VFX;
 using DragonBall.UI;
@@ -13,6 +12,9 @@ using DragonBall.Bullet.GuidedBulletMVC;
 using DragonBall.Enemy.EnemyUtilities;
 using DragonBall.Enemy.EnemyData;
 using DragonBall.Enemy.ParentMVC;
+using DragonBall.Player.PlayerUtilities;
+using DragonBall.Player.PlayerMVC;
+using DragonBall.Player.PlayerData;
 
 namespace DragonBall.Core
 {

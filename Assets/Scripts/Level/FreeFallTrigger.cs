@@ -1,5 +1,5 @@
 using UnityEngine;
-using DragonBall.Player;
+using DragonBall.Player.PlayerMVC;
 
 namespace DragonBall.Level
 {

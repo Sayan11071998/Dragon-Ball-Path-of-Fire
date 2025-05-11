@@ -1,4 +1,8 @@
-namespace DragonBall.Player
+using DragonBall.Player.PlayerData;
+using DragonBall.Player.PlayerMVC;
+using DragonBall.Player.PlayerUtilities;
+
+namespace DragonBall.Player.PlayerStates
 {
     public class NormalState : BasePlayerState
     {
