@@ -1,8 +1,6 @@
 using UnityEngine;
-using System.Collections;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerData;
-using DragonBall.Utilities;
 using DragonBall.GameStrings;
 
 namespace DragonBall.Player.PlayerUtilities
@@ -46,37 +44,8 @@ namespace DragonBall.Player.PlayerUtilities
             );
 
             playerController = new PlayerController(playerModel, playerPrefab);
-            ApplyPersistedState();
         }
 
         public void Update() => playerController.Update();
-
-        private void ApplyPersistedState()
-        {
-            if (PlayerPrefs.HasKey(GameStateUtility.DRAGON_BALL_COUNT_KEY))
-            {
-                int dragonBallCount = PlayerPrefs.GetInt(GameStateUtility.DRAGON_BALL_COUNT_KEY, 0);
-
-                for (int i = 0; i < dragonBallCount; i++)
-                    playerModel.IncrementDragonBallCount();
-
-                bool isSuperSaiyan = PlayerPrefs.GetInt(GameStateUtility.SUPER_SAIYAN_KEY, 0) == 1;
-
-                if (isSuperSaiyan)
-                    playerPrefab.StartCoroutine(ApplySuperSaiyanStateWithDelay());
-            }
-        }
-
-        private IEnumerator ApplySuperSaiyanStateWithDelay()
-        {
-            yield return null;
-
-            if (playerController != null && !playerPrefab.IsSuperSaiyan)
-            {
-                var stateMachine = playerController.GetPlayerStateMachine();
-                if (stateMachine != null)
-                    stateMachine.ChangeState(PlayerState.SUPER_SAIYAN);
-            }
-        }
     }
 }

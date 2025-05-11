@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using DragonBall.Core;
-using DragonBall.Utilities;
 using DragonBall.GameStrings;
 
 namespace DragonBall.Level
@@ -14,12 +13,8 @@ namespace DragonBall.Level
             if (!other.CompareTag(GameString.PlayerTag)) return;
 
             var playerController = GameService.Instance.playerService.PlayerController;
-            var playerModel = playerController.PlayerModel;
-            var playerView = playerController.PlayerView;
-
-            GameStateUtility.SavePlayerState(playerView.IsSuperSaiyan, playerModel.DragonBallCount);
-
             playerController.DisablePlayerController();
+
             StartCoroutine(LoadNextSceneAfterDelay(2f));
         }
 
