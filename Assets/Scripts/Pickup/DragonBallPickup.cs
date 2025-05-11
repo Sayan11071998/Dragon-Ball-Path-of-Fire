@@ -1,6 +1,7 @@
 using UnityEngine;
 using DragonBall.Core;
 using DragonBall.Player.PlayerMVC;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Pickup
 {
@@ -8,7 +9,7 @@ namespace DragonBall.Pickup
     {
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.CompareTag("Player"))
+            if (collider.CompareTag(GameString.PlayerTag))
             {
                 PlayerView playerView = collider.GetComponent<PlayerView>();
 

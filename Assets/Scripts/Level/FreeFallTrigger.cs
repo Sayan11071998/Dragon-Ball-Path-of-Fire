@@ -1,5 +1,6 @@
 using UnityEngine;
 using DragonBall.Player.PlayerMVC;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Level
 {
@@ -7,7 +8,7 @@ namespace DragonBall.Level
     {
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag(GameString.PlayerTag))
             {
                 PlayerView playerView = collision.GetComponent<PlayerView>();
                 if (playerView != null)
