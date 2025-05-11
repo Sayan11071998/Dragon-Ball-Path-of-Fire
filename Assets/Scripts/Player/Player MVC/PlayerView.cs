@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using DragonBall.GameStrings;
 using DragonBall.Core;
-using DragonBall.Utilities;
 using DragonBall.Sound.SoundUtilities;
 using DragonBall.Sound.SoundData;
 
@@ -228,7 +227,6 @@ namespace DragonBall.Player.PlayerMVC
             playerController.DisablePlayerController();
             PlayDeathAnimation();
             RevertToNormal();
-            GameStateUtility.ResetPlayerState();
 
             yield return new WaitForSeconds(freeFallDeathDelay);
             GameService.Instance.uiService.ShowGameOver();
@@ -243,7 +241,6 @@ namespace DragonBall.Player.PlayerMVC
             PlayDeathAnimation();
             SoundManager.Instance.PlaySoundEffect(SoundType.GokuDeath);
             RevertToNormal();
-            GameStateUtility.ResetPlayerState();
 
             yield return new WaitForSeconds(0.1f);
 

@@ -108,13 +108,7 @@ namespace DragonBall.UI.UIView
 
         public void ShowGameCompletePanel() => gameCompletePanel.SetActive(true);
 
-        private void RestartGame()
-        {
-            if (GameService.Instance?.playerService?.PlayerController?.PlayerView?.IsSuperSaiyan == true)
-                shouldTransformToSuperSaiyan = true;
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        private void RestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         private void ExitToMainMenu() => SceneManager.LoadScene(0);
     }

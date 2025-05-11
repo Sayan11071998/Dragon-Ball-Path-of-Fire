@@ -36,5 +36,9 @@ namespace DragonBall.GameStrings
         #region UI
         public const string GameplayUIPrefabName = "GameplayUI";
         #endregion
+
+        #region Scene
+        public const string SceneFinalBoss = "Final Boss";
+        #endregion
     }
 }

@@ -56,7 +56,7 @@ namespace DragonBall.Player.PlayerStates
 
         protected void HandleKick()
         {
-            if (playerModel.IsDead || !playerView.KickInput) return;
+            if (playerModel.IsDead || !playerModel.IsGrounded || !playerView.KickInput) return;
 
             if (playerModel.IsKickOnCooldown)
             {
