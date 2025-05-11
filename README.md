@@ -1,4 +1,4 @@
-## 🚀 Project Spotlight
+# 🚀 Dragon Ball - Path to Fire
 
 I’m beyond excited to share **Dragon Ball Path to Fire**, my Unity passion project where every leap, blast, and transformation is backed by a rock-solid, data-driven codebase—built for fast iteration and epic scale.
 
