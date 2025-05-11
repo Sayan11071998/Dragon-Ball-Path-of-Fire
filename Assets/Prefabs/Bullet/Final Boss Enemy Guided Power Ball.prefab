@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 469067885124146360}
   - component: {fileID: 7960087552467250288}
   m_Layer: 10
-  m_Name: Final Boss Enemy Guided Power Ball 1
+  m_Name: Final Boss Enemy Guided Power Ball
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
