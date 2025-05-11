@@ -1,4 +1,8 @@
-namespace DragonBall.Enemy
+using DragonBall.Enemy.EnemyData;
+using DragonBall.Enemy.EnemyUtilities;
+using DragonBall.Enemy.ParentMVC;
+
+namespace DragonBall.Enemy.FlyingEnemyMVC
 {
     public class FlyingTypeEnemyController : BaseEnemyController
     {

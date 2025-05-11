@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.ParentMVC
 {
     public class BaseEnemyModel
     {

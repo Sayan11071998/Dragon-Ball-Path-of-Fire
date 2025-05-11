@@ -1,7 +1,7 @@
-using DragonBall.Enemy;
 using DragonBall.Core;
 using UnityEngine;
 using DragonBall.Bullet.BulletData;
+using DragonBall.Enemy.EnemyUtilities;
 
 namespace DragonBall.Bullet.ParentMVC
 {

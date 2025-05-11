@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using DragonBall.Core;
+using DragonBall.Enemy.EnemyUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.ParentMVC
 {
     public abstract class BaseEnemyView : MonoBehaviour, IDamageable
     {

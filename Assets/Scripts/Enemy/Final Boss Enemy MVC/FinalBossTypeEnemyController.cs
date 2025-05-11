@@ -1,8 +1,11 @@
 using DragonBall.Core;
+using DragonBall.Enemy.EnemyData;
+using DragonBall.Enemy.EnemyUtilities;
+using DragonBall.Enemy.ParentMVC;
 using DragonBall.Sound;
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.FinalBossEnemyMVC
 {
     public class FinalBossTypeEnemyController : BaseEnemyController
     {

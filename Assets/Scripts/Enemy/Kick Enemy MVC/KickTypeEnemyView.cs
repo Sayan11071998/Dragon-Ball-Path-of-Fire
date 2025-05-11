@@ -1,8 +1,9 @@
 using DragonBall.Core;
+using DragonBall.Enemy.ParentMVC;
 using DragonBall.Sound;
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.KickEnemyMVC
 {
     public class KickTypeEnemyView : BaseEnemyView
     {

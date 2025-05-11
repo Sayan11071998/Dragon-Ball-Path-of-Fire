@@ -1,6 +1,8 @@
 using DragonBall.Core;
+using DragonBall.Enemy.EnemyData;
+using DragonBall.Enemy.EnemyUtilities;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.ParentMVC
 {
     public abstract class BaseEnemyController
     {

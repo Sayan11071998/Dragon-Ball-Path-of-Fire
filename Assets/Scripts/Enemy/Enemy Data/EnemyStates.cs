@@ -1,4 +1,4 @@
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.EnemyData
 {
     public enum EnemyStates
     {

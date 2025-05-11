@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using DragonBall.Enemy.EnemyData;
+using DragonBall.Enemy.EnemyState;
+using DragonBall.Enemy.ParentMVC;
 using DragonBall.Utilities;
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.EnemyUtilities
 {
     public class EnemyStateMachine
     {

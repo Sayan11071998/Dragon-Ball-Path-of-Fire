@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.EnemyData
 {
     [CreateAssetMenu(fileName = "EnemyScriptableObject", menuName = "Enemy/EnemyScriptableObject")]
     public class EnemyScriptableObject : ScriptableObject

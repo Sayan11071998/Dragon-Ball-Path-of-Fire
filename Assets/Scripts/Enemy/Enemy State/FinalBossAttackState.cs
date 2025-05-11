@@ -1,6 +1,9 @@
+using DragonBall.Enemy.EnemyUtilities;
+using DragonBall.Enemy.FinalBossEnemyMVC;
+using DragonBall.Enemy.ParentMVC;
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.EnemyState
 {
     public class FinalBossAttackState : AttackState
     {

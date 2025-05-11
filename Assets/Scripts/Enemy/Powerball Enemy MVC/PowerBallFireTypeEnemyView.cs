@@ -1,10 +1,10 @@
 using DragonBall.Core;
-using DragonBall.Bullet;
 using UnityEngine;
 using DragonBall.Sound;
 using DragonBall.Bullet.BulletData;
+using DragonBall.Enemy.ParentMVC;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.PowerBallEnemyMVC
 {
     public class PowerBallFireTypeEnemyView : BaseEnemyView
     {

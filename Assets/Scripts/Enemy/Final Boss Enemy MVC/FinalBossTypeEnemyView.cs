@@ -1,10 +1,11 @@
 using System.Collections;
 using DragonBall.Bullet.BulletData;
 using DragonBall.Core;
+using DragonBall.Enemy.FlyingEnemyMVC;
 using DragonBall.Sound;
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.FinalBossEnemyMVC
 {
     public class FinalBossTypeEnemyView : FlyingTypeEnemyView
     {

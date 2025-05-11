@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using DragonBall.Enemy.EnemyData;
+using DragonBall.Enemy.ParentMVC;
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.EnemyUtilities
 {
     public class EnemyService
     {

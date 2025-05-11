@@ -1,7 +1,13 @@
+using DragonBall.Enemy.EnemyData;
+using DragonBall.Enemy.FinalBossEnemyMVC;
+using DragonBall.Enemy.FlyingEnemyMVC;
+using DragonBall.Enemy.KickEnemyMVC;
+using DragonBall.Enemy.ParentMVC;
+using DragonBall.Enemy.PowerBallEnemyMVC;
 using DragonBall.Utilities;
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.EnemyUtilities
 {
     public class EnemyPool : GenericObjectPool<BaseEnemyController>
     {

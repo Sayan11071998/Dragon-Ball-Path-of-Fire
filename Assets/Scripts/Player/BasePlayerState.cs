@@ -1,6 +1,7 @@
 using DragonBall.Bullet.BulletData;
 using DragonBall.Core;
 using DragonBall.Enemy;
+using DragonBall.Enemy.EnemyUtilities;
 using DragonBall.Sound;
 using DragonBall.Utilities;
 using DragonBall.VFX;

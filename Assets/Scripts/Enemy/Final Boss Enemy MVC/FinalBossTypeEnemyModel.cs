@@ -1,6 +1,7 @@
+using DragonBall.Enemy.ParentMVC;
 using UnityEngine;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.FinalBossEnemyMVC
 {
     public class FinalBossTypeEnemyModel : BaseEnemyModel
     {

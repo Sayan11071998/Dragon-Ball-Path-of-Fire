@@ -1,7 +1,9 @@
 using UnityEngine;
 using DragonBall.Core;
+using DragonBall.Enemy.EnemyData;
+using DragonBall.Enemy.ParentMVC;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.EnemyUtilities
 {
     public class EnemySpawner : MonoBehaviour
     {

@@ -2,8 +2,9 @@ using DragonBall.Core;
 using UnityEngine;
 using DragonBall.Sound;
 using DragonBall.Bullet.BulletData;
+using DragonBall.Enemy.ParentMVC;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.FlyingEnemyMVC
 {
     public class FlyingTypeEnemyView : BaseEnemyView
     {

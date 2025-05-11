@@ -1,6 +1,8 @@
+using DragonBall.Enemy.EnemyUtilities;
+using DragonBall.Enemy.ParentMVC;
 using DragonBall.Sound;
 
-namespace DragonBall.Enemy
+namespace DragonBall.Enemy.EnemyState
 {
     public class DeathState : BaseState
     {
