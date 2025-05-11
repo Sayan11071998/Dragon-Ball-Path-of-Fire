@@ -79,8 +79,36 @@ Working on **Dragon Ball Path to Fire** has been an incredible learning experien
 
 ---
 
-## 📦 Getting Started
+![Image](https://github.com/user-attachments/assets/07aa68e6-71ab-443b-934d-39e73b2a46d9)
 
-1. **Clone the repo**  
-   ```bash
-   git clone https://github.com/your-username/Dragon-Ball-Path-to-Fire.git
+![Image](https://github.com/user-attachments/assets/fa566fb4-27ee-49ab-8666-63a59a5ef257)
+
+![Image](https://github.com/user-attachments/assets/332ad6b4-3a66-422e-9eb4-8254559965f1)
+
+![Image](https://github.com/user-attachments/assets/8af0d613-48f4-45ad-ab99-76cb72aae2fa)
+
+![Image](https://github.com/user-attachments/assets/0f586e2a-a796-4da6-b2bc-b6df4a2284ef)
+
+![Image](https://github.com/user-attachments/assets/4d1c8bc7-8ef7-4f90-8c57-e28d8eab912f)
+
+![Image](https://github.com/user-attachments/assets/65d51667-40bb-4612-a221-6cedfa1f5cd0)
+
+![Image](https://github.com/user-attachments/assets/2fb1cefa-8d0d-427f-a3ec-791f0155e4a2)
+
+![Image](https://github.com/user-attachments/assets/23ce9ac5-c8b8-429b-a530-c6de78bb01bd)
+
+![Image](https://github.com/user-attachments/assets/3347cc60-e777-4c99-851a-88533ca390c1)
+
+![Image](https://github.com/user-attachments/assets/1c13384f-1e2c-4b23-a8cf-d2f292345fed)
+
+![Image](https://github.com/user-attachments/assets/2022a98c-8578-439d-b0ac-0c0368fac451)
+
+![Image](https://github.com/user-attachments/assets/0740669b-da24-46f0-9531-492d68ecb109)
+
+![Image](https://github.com/user-attachments/assets/0446fa49-e0e4-4125-8aa4-cbc20d577103)
+
+![Image](https://github.com/user-attachments/assets/2e24baab-8dcd-4f2d-9e69-2e0578e67944)
+
+![Image](https://github.com/user-attachments/assets/d95ee8c7-faf4-4973-b3c4-2488f2e963d7)
+
+![Image](https://github.com/user-attachments/assets/07bff7fb-4fa1-4dc6-b863-70e33e8033fb)
