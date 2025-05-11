@@ -1,9 +1,9 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UI;
-using DragonBall.Core;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using DragonBall.Core;
 using DragonBall.Player.PlayerData;
 
 namespace DragonBall.UI.UIView
@@ -37,7 +37,6 @@ namespace DragonBall.UI.UIView
         [SerializeField] public GameObject gameCompletePanel;
         [SerializeField] public Button mainMenuButton;
 
-        // Flag to indicate player should transform to Super Saiyan after scene is loaded
         private static bool shouldTransformToSuperSaiyan = false;
 
         private void Start()
@@ -56,12 +55,9 @@ namespace DragonBall.UI.UIView
                 gameOverPanel.SetActive(false);
                 UpdateDragonBallCount(playerModel.DragonBallCount);
 
-                // Check if player should transform to Super Saiyan after scene reload
                 if (shouldTransformToSuperSaiyan)
                 {
-                    // Reset the flag
                     shouldTransformToSuperSaiyan = false;
-                    // Wait a frame for everything to initialize
                     StartCoroutine(TransformToSuperSaiyanDelayed());
                 }
             }
@@ -78,14 +74,11 @@ namespace DragonBall.UI.UIView
 
         private IEnumerator TransformToSuperSaiyanDelayed()
         {
-            // Wait for two frames to ensure all objects are initialized
             yield return null;
             yield return null;
 
             if (GameService.Instance?.playerService?.PlayerController != null)
-            {
                 GameService.Instance.playerService.PlayerController.PlayerStateMachine.ChangeState(PlayerState.SUPER_SAIYAN);
-            }
         }
 
         public void UpdateHealthBar(float healthPercentage) => healthSlider.value = healthPercentage * healthSlider.maxValue;
@@ -117,11 +110,8 @@ namespace DragonBall.UI.UIView
 
         private void RestartGame()
         {
-            // Set flag to transform player after scene reload if currently in Super Saiyan state
             if (GameService.Instance?.playerService?.PlayerController?.PlayerView?.IsSuperSaiyan == true)
-            {
                 shouldTransformToSuperSaiyan = true;
-            }
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

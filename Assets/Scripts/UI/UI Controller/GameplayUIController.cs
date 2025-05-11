@@ -1,6 +1,6 @@
+using UnityEngine;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.UI.UIView;
-using UnityEngine;
 
 namespace DragonBall.UI.UIController
 {

@@ -1,8 +1,8 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using DragonBall.Sound.SoundUtilities;
 using DragonBall.Sound.SoundData;
@@ -201,9 +201,6 @@ namespace DragonBall.UI.UIController
                 SkipTypingAnimation();
         }
 
-        private void OnDestroy()
-        {
-            StopTypingSound();
-        }
+        private void OnDestroy() => StopTypingSound();
     }
 }
