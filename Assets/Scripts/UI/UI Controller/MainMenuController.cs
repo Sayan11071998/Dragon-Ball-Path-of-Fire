@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using DragonBall.Sound.SoundUtilities;
 using DragonBall.Sound.SoundData;
 
-namespace DragonBall.UI
+namespace DragonBall.UI.UIController
 {
     public class MainMenuController : MonoBehaviour
     {

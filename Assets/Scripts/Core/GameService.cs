@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DragonBall.Utilities;
 using DragonBall.VFX;
-using DragonBall.UI;
 using DragonBall.GameCamera;
 using DragonBall.Bullet.BulletUtilities.BulletUtilities;
 using DragonBall.Bullet.ParentMVC;
@@ -16,6 +15,8 @@ using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerData;
 using DragonBall.Sound.SoundUtilities;
 using DragonBall.Sound.SoundData;
+using DragonBall.UI.UIUtilities;
+using DragonBall.UI.UIView;
 
 namespace DragonBall.Core
 {

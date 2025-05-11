@@ -2,8 +2,10 @@ using UnityEngine;
 using System.Collections;
 using DragonBall.GameStrings;
 using DragonBall.Player.PlayerMVC;
+using DragonBall.UI.UIController;
+using DragonBall.UI.UIView;
 
-namespace DragonBall.UI
+namespace DragonBall.UI.UIUtilities
 {
     public class UIService
     {

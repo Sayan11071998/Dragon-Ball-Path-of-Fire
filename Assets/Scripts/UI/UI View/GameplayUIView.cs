@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using DragonBall.Player.PlayerData;
 
-namespace DragonBall.UI
+namespace DragonBall.UI.UIView
 {
     public class GameplayUIView : MonoBehaviour
     {

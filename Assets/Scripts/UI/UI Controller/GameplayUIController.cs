@@ -1,8 +1,8 @@
-using DragonBall.Player;
 using DragonBall.Player.PlayerMVC;
+using DragonBall.UI.UIView;
 using UnityEngine;
 
-namespace DragonBall.UI
+namespace DragonBall.UI.UIController
 {
     public class GameplayUIController
     {
