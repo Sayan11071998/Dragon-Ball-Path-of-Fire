@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using DragonBall.Enemy.EnemyData;
 using DragonBall.Enemy.ParentMVC;
-using UnityEngine;
 
 namespace DragonBall.Enemy.EnemyUtilities
 {
@@ -31,7 +30,6 @@ namespace DragonBall.Enemy.EnemyUtilities
             }
             else
             {
-                Debug.LogError($"No pool for enemy type {enemyType}");
                 return null;
             }
         }

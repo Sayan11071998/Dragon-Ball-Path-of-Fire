@@ -32,9 +32,7 @@ namespace DragonBall.Enemy.ParentMVC
 
             InitializeModel();
             UpdateHealthBar();
-
             InitializeStateMachine();
-
             CheckPlayerStatus();
             enemyStateMachine.ChangeState(EnemyStates.IDLE);
         }
@@ -50,10 +48,7 @@ namespace DragonBall.Enemy.ParentMVC
             );
         }
 
-        protected virtual void InitializeStateMachine()
-        {
-            enemyStateMachine = new EnemyStateMachine(this);
-        }
+        protected virtual void InitializeStateMachine() => enemyStateMachine = new EnemyStateMachine(this);
 
         public virtual void Update()
         {

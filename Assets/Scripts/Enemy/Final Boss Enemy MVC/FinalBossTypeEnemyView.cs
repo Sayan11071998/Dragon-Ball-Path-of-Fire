@@ -1,11 +1,11 @@
+using UnityEngine;
 using System.Collections;
 using DragonBall.Bullet.BulletData;
 using DragonBall.Core;
 using DragonBall.Enemy.FlyingEnemyMVC;
-using DragonBall.Sound;
 using DragonBall.Sound.SoundData;
 using DragonBall.Sound.SoundUtilities;
-using UnityEngine;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Enemy.FinalBossEnemyMVC
 {
@@ -90,8 +90,9 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
             CancelActiveCoroutines();
 
             isRapidFiring = true;
-            animator.SetBool("isAttacking", true);
+            animator.SetBool(GameString.EnemyAnimatorAttackBool, true);
             SoundManager.Instance.PlaySoundEffect(SoundType.FinalBossTypeEnemyFire, isRapidFiring);
+
             rapidFireCoroutine = StartCoroutineTracked(RapidFireCoroutine());
         }
 
@@ -102,7 +103,7 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
             CancelActiveCoroutines();
 
             isRegenerating = true;
-            animator.SetBool("isRegenerating", true);
+            animator.SetBool(GameString.EnemyAnimatorHealthRegenerationBool, true);
             GameService.Instance.cameraShakeService.ShakeCamera(0.1f, healthRegenarationClip.length);
 
             regenerationCoroutine = StartCoroutineTracked(RegenerationCoroutine());
@@ -125,7 +126,7 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
 
             spriteRenderer.color = originalColor;
 
-            animator.SetBool("isRegenerating", false);
+            animator.SetBool(GameString.EnemyAnimatorHealthRegenerationBool, false);
             isRegenerating = false;
 
             FinalBossTypeEnemyController finalBossController = baseEnemyController as FinalBossTypeEnemyController;
@@ -138,7 +139,7 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
         private IEnumerator RapidFireCoroutine()
         {
             float elapsedTime = 0f;
-            animator.SetBool("isAttacking", true);
+            animator.SetBool(GameString.EnemyAnimatorAttackBool, true);
 
             while (elapsedTime < rapidFireDuration)
             {
@@ -150,7 +151,7 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
                 elapsedTime += bulletFireInterval;
             }
 
-            animator.SetBool("isAttacking", false);
+            animator.SetBool(GameString.EnemyAnimatorAttackBool, false);
             isRapidFiring = false;
             SoundManager.Instance.StopSoundEffect(SoundType.FinalBossTypeEnemyFire);
 
@@ -159,7 +160,7 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
 
         private void FireSpreadPattern()
         {
-            Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+            Transform playerTransform = GameObject.FindGameObjectWithTag(GameString.PlayerTag)?.transform;
 
             if (playerTransform == null) return;
 
@@ -212,7 +213,7 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
             if (isRapidFiring)
             {
                 isRapidFiring = false;
-                animator.SetBool("isAttacking", false);
+                animator.SetBool(GameString.EnemyAnimatorAttackBool, false);
                 SoundManager.Instance.StopSoundEffect(SoundType.FinalBossTypeEnemyFire);
             }
 
@@ -226,7 +227,7 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
 
             if (isRegenerating)
             {
-                animator.SetBool("isRegenerating", false);
+                animator.SetBool(GameString.EnemyAnimatorHealthRegenerationBool, false);
                 isRegenerating = false;
                 spriteRenderer.color = originalColor;
             }
@@ -234,7 +235,7 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
             if (isRapidFiring)
             {
                 isRapidFiring = false;
-                animator.SetBool("isAttacking", false);
+                animator.SetBool(GameString.EnemyAnimatorAttackBool, false);
                 SoundManager.Instance.StopSoundEffect(SoundType.FinalBossTypeEnemyFire);
             }
         }

@@ -17,8 +17,6 @@ namespace DragonBall.Enemy.EnemyUtilities
 
             if (enemy != null)
                 enemy.BaseEnemyView.transform.position = transform.position;
-            else
-                Debug.LogError($"Failed to spawn enemy of type {enemyType}");
         }
     }
 }

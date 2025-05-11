@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DragonBall.Enemy.EnemyData
 {
-    [CreateAssetMenu(fileName = "FlyingTypeEnemy", menuName = "Enemy/FlyingTypeEnemy")]
+    [CreateAssetMenu(fileName = "FlyingTypeEnemyScriptableObject", menuName = "Enemy/FlyingTypeEnemyScriptableObject")]
     public class FlyingTypeEnemyScriptableObject : EnemyScriptableObject
     {
         [Header("Flying-Specific Settings")]

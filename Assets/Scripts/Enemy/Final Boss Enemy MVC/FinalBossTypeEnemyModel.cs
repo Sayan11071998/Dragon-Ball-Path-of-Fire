@@ -1,5 +1,5 @@
-using DragonBall.Enemy.ParentMVC;
 using UnityEngine;
+using DragonBall.Enemy.ParentMVC;
 
 namespace DragonBall.Enemy.FinalBossEnemyMVC
 {
@@ -28,7 +28,7 @@ namespace DragonBall.Enemy.FinalBossEnemyMVC
         public override void TakeDamage(float damage)
         {
             if (IsRegenerating) return;
-            
+
             CurrentHealth -= damage;
             if (CurrentHealth < 0)
                 CurrentHealth = 0;

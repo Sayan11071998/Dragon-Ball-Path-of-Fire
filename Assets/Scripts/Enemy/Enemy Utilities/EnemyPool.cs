@@ -1,11 +1,11 @@
+using UnityEngine;
+using DragonBall.Enemy.ParentMVC;
 using DragonBall.Enemy.EnemyData;
 using DragonBall.Enemy.FinalBossEnemyMVC;
 using DragonBall.Enemy.FlyingEnemyMVC;
 using DragonBall.Enemy.KickEnemyMVC;
-using DragonBall.Enemy.ParentMVC;
 using DragonBall.Enemy.PowerBallEnemyMVC;
 using DragonBall.Utilities;
-using UnityEngine;
 
 namespace DragonBall.Enemy.EnemyUtilities
 {
@@ -49,7 +49,6 @@ namespace DragonBall.Enemy.EnemyUtilities
                 case EnemyType.FinalBossType:
                     return new FinalBossTypeEnemyController(enemyScriptableObject, viewToSet, this);
                 default:
-                    Debug.LogError($"Unsupported enemy type: {enemyType}");
                     return null;
             }
         }

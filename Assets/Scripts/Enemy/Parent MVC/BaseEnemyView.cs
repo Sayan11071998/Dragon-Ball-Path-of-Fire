@@ -1,9 +1,10 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using DragonBall.Core;
 using DragonBall.Enemy.EnemyUtilities;
-using UnityEngine;
-using UnityEngine.UI;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Enemy.ParentMVC
 {
@@ -46,7 +47,7 @@ namespace DragonBall.Enemy.ParentMVC
             animator = GetComponent<Animator>();
             spriteRenderer = GetComponent<SpriteRenderer>();
 
-            animator.SetBool("isDead", false);
+            animator.SetBool(GameString.EnemyAnimatorDeathBool, false);
         }
 
         protected virtual void FixedUpdate() => baseEnemyController?.Update();
@@ -61,7 +62,7 @@ namespace DragonBall.Enemy.ParentMVC
         {
             if (isMoving == moving) return;
             isMoving = moving;
-            animator.SetBool("isMoving", isMoving);
+            animator.SetBool(GameString.EnemyAnimatorMoveBool, isMoving);
         }
 
         public virtual void MoveInDirection(Vector2 direction, float speed)
@@ -99,7 +100,7 @@ namespace DragonBall.Enemy.ParentMVC
             CancelActiveCoroutines();
 
             isAttacking = true;
-            animator.SetBool("isAttacking", true);
+            animator.SetBool(GameString.EnemyAnimatorAttackBool, true);
             attackCoroutine = StartCoroutineTracked(AttackCoroutine());
         }
 
@@ -112,7 +113,7 @@ namespace DragonBall.Enemy.ParentMVC
                 PerformAttack();
 
             yield return new WaitForSeconds(clipLength - attackHitTime);
-            animator.SetBool("isAttacking", false);
+            animator.SetBool(GameString.EnemyAnimatorAttackBool, false);
             isAttacking = false;
         }
 
@@ -135,7 +136,7 @@ namespace DragonBall.Enemy.ParentMVC
             CancelActiveCoroutines();
 
             isDying = true;
-            animator.SetBool("isDead", true);
+            animator.SetBool(GameString.EnemyAnimatorDeathBool, true);
 
             ApplyDeathForce();
             StartCoroutineTracked(DeathCoroutine());
@@ -154,7 +155,7 @@ namespace DragonBall.Enemy.ParentMVC
             if (isAttacking)
             {
                 isAttacking = false;
-                animator.SetBool("isAttacking", false);
+                animator.SetBool(GameString.EnemyAnimatorAttackBool, false);
             }
         }
 
@@ -184,13 +185,13 @@ namespace DragonBall.Enemy.ParentMVC
         public virtual void ResetDeathState()
         {
             isDying = false;
-            animator.SetBool("isDead", false);
+            animator.SetBool(GameString.EnemyAnimatorDeathBool, false);
         }
 
         public virtual void ResetAllInputs()
         {
-            animator.SetBool("isMoving", false);
-            animator.SetBool("isAttacking", false);
+            animator.SetBool(GameString.EnemyAnimatorMoveBool, false);
+            animator.SetBool(GameString.EnemyAnimatorAttackBool, false);
             isAttacking = false;
             isMoving = false;
         }

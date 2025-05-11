@@ -1,10 +1,10 @@
-using DragonBall.Core;
 using UnityEngine;
-using DragonBall.Sound;
-using DragonBall.Bullet.BulletData;
+using DragonBall.Core;
 using DragonBall.Enemy.ParentMVC;
+using DragonBall.Bullet.BulletData;
 using DragonBall.Sound.SoundUtilities;
 using DragonBall.Sound.SoundData;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Enemy.FlyingEnemyMVC
 {
@@ -74,7 +74,7 @@ namespace DragonBall.Enemy.FlyingEnemyMVC
             if (isMoving == moving) return;
 
             isMoving = moving;
-            animator.SetBool("isMoving", isMoving);
+            animator.SetBool(GameString.EnemyAnimatorMoveBool, isMoving);
 
             if (!moving)
                 initialPosition = transform.position;
@@ -86,7 +86,7 @@ namespace DragonBall.Enemy.FlyingEnemyMVC
         {
             if (baseEnemyController != null && (baseEnemyController.IsPlayerDead || baseEnemyController.IsDead)) return;
 
-            Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+            Transform playerTransform = GameObject.FindGameObjectWithTag(GameString.PlayerTag)?.transform;
 
             if (playerTransform == null) return;
 

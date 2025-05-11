@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DragonBall.Enemy.EnemyData
 {
-    [CreateAssetMenu(fileName = "FinalBossTypeEnemy", menuName = "Enemy/FinalBossTypeEnemy")]
+    [CreateAssetMenu(fileName = "FinalBossTypeEnemyScriptableObject", menuName = "Enemy/FinalBossTypeEnemyScriptableObject")]
     public class FinalBossTypeEnemyScriptableObject : EnemyScriptableObject
     {
         [Header("Boss-Specific Settings")]

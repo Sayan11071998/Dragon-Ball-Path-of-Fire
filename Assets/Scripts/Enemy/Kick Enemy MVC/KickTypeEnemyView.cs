@@ -1,8 +1,9 @@
+using UnityEngine;
 using DragonBall.Core;
 using DragonBall.Enemy.ParentMVC;
 using DragonBall.Sound.SoundData;
 using DragonBall.Sound.SoundUtilities;
-using UnityEngine;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Enemy.KickEnemyMVC
 {
@@ -25,7 +26,7 @@ namespace DragonBall.Enemy.KickEnemyMVC
             var hits = Physics2D.CircleCastAll(origin, attackRadius, Vector2.zero);
             foreach (var hit in hits)
             {
-                if (hit.collider.CompareTag("Player"))
+                if (hit.collider.CompareTag(GameString.PlayerTag))
                 {
                     var playerController = GameService.Instance.playerService.PlayerController;
                     if (!playerController.PlayerModel.IsDead)

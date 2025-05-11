@@ -3,7 +3,6 @@ using DragonBall.Enemy.EnemyData;
 using DragonBall.Enemy.EnemyState;
 using DragonBall.Enemy.ParentMVC;
 using DragonBall.Utilities;
-using UnityEngine;
 
 namespace DragonBall.Enemy.EnemyUtilities
 {
@@ -45,10 +44,6 @@ namespace DragonBall.Enemy.EnemyUtilities
                     currentEnemyStateEnum = newState;
                     ChangeState(states[newState]);
                 }
-            }
-            else
-            {
-                Debug.LogError($"State {newState} doesn't exist in the state machine.");
             }
         }
 

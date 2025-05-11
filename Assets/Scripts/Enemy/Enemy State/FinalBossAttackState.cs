@@ -1,7 +1,7 @@
+using UnityEngine;
 using DragonBall.Enemy.EnemyUtilities;
 using DragonBall.Enemy.FinalBossEnemyMVC;
 using DragonBall.Enemy.ParentMVC;
-using UnityEngine;
 
 namespace DragonBall.Enemy.EnemyState
 {

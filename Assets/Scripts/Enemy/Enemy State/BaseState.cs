@@ -1,8 +1,9 @@
+using UnityEngine;
 using DragonBall.Enemy.EnemyData;
 using DragonBall.Enemy.EnemyUtilities;
 using DragonBall.Enemy.ParentMVC;
 using DragonBall.Utilities;
-using UnityEngine;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Enemy.EnemyState
 {
@@ -19,18 +20,15 @@ namespace DragonBall.Enemy.EnemyState
             enemyStateMachine = stateMachineToSet;
             enemyScriptableObject = controllerToSet.EnemyData;
 
-            playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+            playerTransform = GameObject.FindGameObjectWithTag(GameString.PlayerTag)?.transform;
         }
 
         public virtual void OnStateEnter() { }
 
         public virtual void Update()
         {
-            if (ShouldExitDueToHealth())
-                return;
-
-            if (ShouldExitDueToPlayerDeath())
-                return;
+            if (ShouldExitDueToHealth()) return;
+            if (ShouldExitDueToPlayerDeath()) return;
 
             StateSpecificUpdate();
         }
@@ -81,7 +79,7 @@ namespace DragonBall.Enemy.EnemyState
             Vector2 direction = playerPosition - enemyPosition;
             float distance = direction.magnitude;
 
-            LayerMask obstacleLayer = layerMask ?? LayerMask.GetMask("Ground", "Platform", "Obstacle");
+            LayerMask obstacleLayer = layerMask ?? LayerMask.GetMask(GameString.GroundLayer, GameString.PlatformLayer, GameString.ObstacleLayer);
 
             RaycastHit2D hit = Physics2D.Raycast(
                 enemyPosition,

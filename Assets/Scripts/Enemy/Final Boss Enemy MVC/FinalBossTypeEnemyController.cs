@@ -2,10 +2,8 @@ using DragonBall.Core;
 using DragonBall.Enemy.EnemyData;
 using DragonBall.Enemy.EnemyUtilities;
 using DragonBall.Enemy.ParentMVC;
-using DragonBall.Sound;
 using DragonBall.Sound.SoundData;
 using DragonBall.Sound.SoundUtilities;
-using UnityEngine;
 
 namespace DragonBall.Enemy.FinalBossEnemyMVC
 {
