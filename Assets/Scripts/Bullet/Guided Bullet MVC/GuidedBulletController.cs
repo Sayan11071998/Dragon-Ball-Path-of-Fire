@@ -1,7 +1,7 @@
+using UnityEngine;
 using DragonBall.Bullet.BulletData;
 using DragonBall.Bullet.BulletUtilities;
 using DragonBall.Bullet.ParentMVC;
-using UnityEngine;
 
 namespace DragonBall.Bullet.GuidedBulletMVC
 {
@@ -41,37 +41,65 @@ namespace DragonBall.Bullet.GuidedBulletMVC
         {
             base.Update();
 
+            if (!ShouldGuide())
+                return;
+
+            UpdateGuidance();
+        }
+
+        private bool ShouldGuide()
+        {
             float elapsedTime = Time.time - creationTime;
 
             if (elapsedTime < guidanceDelay)
-                return;
+                return false;
 
             if (elapsedTime > maxGuidanceTime + guidanceDelay)
             {
                 DisableGuiding();
-                return;
+                return false;
             }
 
-            if (target != null && isGuided)
-            {
-                Vector3 targetPosition = target.position + targetOffset;
-                Vector2 targetPosition2D = new Vector2(targetPosition.x, targetPosition.y);
-                Vector2 currentPosition2D = new Vector2(guidedBulletView.transform.position.x, guidedBulletView.transform.position.y);
-                Vector2 direction = (targetPosition2D - currentPosition2D).normalized;
-                Vector2 currentVelocity = guidedBulletView.GetVelocity();
-                float currentSpeed = currentVelocity.magnitude;
+            if (target == null || !isGuided)
+                return false;
 
-                Vector2 newVelocity = Vector2.Lerp(
-                    currentVelocity.normalized,
-                    direction,
-                    guidedBulletModel.RotationSpeed * Time.deltaTime / 100f
-                ).normalized * currentSpeed;
+            return true;
+        }
 
-                guidedBulletView.SetVelocity(newVelocity);
+        private void UpdateGuidance()
+        {
+            Vector2 direction = CalculateDirectionToTarget();
+            Vector2 newVelocity = CalculateNewVelocity(direction);
 
-                float angle = Mathf.Atan2(newVelocity.y, newVelocity.x) * Mathf.Rad2Deg;
-                guidedBulletView.SetRotation(angle);
-            }
+            guidedBulletView.SetVelocity(newVelocity);
+            UpdateRotation(newVelocity);
+        }
+
+        private Vector2 CalculateDirectionToTarget()
+        {
+            Vector3 targetPosition = target.position + targetOffset;
+            Vector2 targetPosition2D = new Vector2(targetPosition.x, targetPosition.y);
+            Vector2 currentPosition2D = new Vector2(guidedBulletView.transform.position.x, guidedBulletView.transform.position.y);
+
+            return (targetPosition2D - currentPosition2D).normalized;
+        }
+
+        private Vector2 CalculateNewVelocity(Vector2 targetDirection)
+        {
+            Vector2 currentVelocity = guidedBulletView.GetVelocity();
+            float currentSpeed = currentVelocity.magnitude;
+
+            return Vector2.Lerp(
+                currentVelocity.normalized,
+                targetDirection,
+                guidedBulletModel.RotationSpeed * Time.deltaTime / 100f
+            ).normalized * currentSpeed;
+        }
+
+        private void UpdateRotation(Vector2 velocity)
+        {
+            float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+            guidedBulletView.SetRotation(angle);
         }
 
         public void DisableGuiding() => isGuided = false;

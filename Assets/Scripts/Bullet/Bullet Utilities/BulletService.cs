@@ -1,8 +1,8 @@
+using UnityEngine;
 using System.Collections.Generic;
 using DragonBall.Bullet.BulletData;
 using DragonBall.Bullet.GuidedBulletMVC;
 using DragonBall.Bullet.ParentMVC;
-using UnityEngine;
 
 namespace DragonBall.Bullet.BulletUtilities.BulletUtilities
 {

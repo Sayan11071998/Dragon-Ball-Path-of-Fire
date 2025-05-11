@@ -1,6 +1,6 @@
+using UnityEngine;
 using DragonBall.Bullet.ParentMVC;
 using DragonBall.Utilities;
-using UnityEngine;
 
 namespace DragonBall.Bullet.BulletUtilities
 {

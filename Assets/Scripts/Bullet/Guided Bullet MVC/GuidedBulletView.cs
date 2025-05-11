@@ -1,5 +1,5 @@
-using DragonBall.Bullet.ParentMVC;
 using UnityEngine;
+using DragonBall.Bullet.ParentMVC;
 
 namespace DragonBall.Bullet.GuidedBulletMVC
 {

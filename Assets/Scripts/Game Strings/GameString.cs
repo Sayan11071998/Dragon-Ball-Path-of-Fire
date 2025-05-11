@@ -2,6 +2,11 @@ namespace DragonBall.GameStrings
 {
     public static class GameString
     {
+        #region Tags
+        public const string PlatformTag = "Platform";
+        public const string PlayerTag = "Player";
+        #endregion
+
         #region Player
         public const string PlayerPrefabName = "Songoku";
         public const string PlayerAnimationRunBool = "isRunning";

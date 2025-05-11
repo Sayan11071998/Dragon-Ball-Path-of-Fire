@@ -1,7 +1,8 @@
-using DragonBall.Core;
 using UnityEngine;
 using DragonBall.Bullet.BulletData;
 using DragonBall.Enemy.EnemyUtilities;
+using DragonBall.Core;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Bullet.ParentMVC
 {
@@ -43,7 +44,7 @@ namespace DragonBall.Bullet.ParentMVC
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Platform"))
+            if (collision.CompareTag(GameString.PlatformTag))
             {
                 bulletController.Deactivate();
                 return;
@@ -55,7 +56,7 @@ namespace DragonBall.Bullet.ParentMVC
                 return;
             }
 
-            if (targetType == BulletTargetType.Player && collision.CompareTag("Player"))
+            if (targetType == BulletTargetType.Player && collision.CompareTag(GameString.PlayerTag))
             {
                 var playerController = GameService.Instance.playerService.PlayerController;
 
