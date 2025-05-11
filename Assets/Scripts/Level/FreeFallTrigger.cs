@@ -1,13 +1,14 @@
 using UnityEngine;
-using DragonBall.Player;
+using DragonBall.Player.PlayerMVC;
+using DragonBall.GameStrings;
 
-namespace DragonBall.Environment
+namespace DragonBall.Level
 {
     public class FreeFallTrigger : MonoBehaviour
     {
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag(GameString.PlayerTag))
             {
                 PlayerView playerView = collision.GetComponent<PlayerView>();
                 if (playerView != null)

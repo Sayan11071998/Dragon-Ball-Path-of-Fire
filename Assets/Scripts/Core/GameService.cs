@@ -1,13 +1,22 @@
-using System.Collections.Generic;
 using UnityEngine;
-using DragonBall.Player;
-using DragonBall.Utilities;
-using DragonBall.VFX;
-using DragonBall.Bullet;
-using DragonBall.Enemy;
-using DragonBall.UI;
-using DragonBall.Sound;
+using System.Collections.Generic;
+using DragonBall.Player.PlayerUtilities;
+using DragonBall.Player.PlayerMVC;
+using DragonBall.Player.PlayerData;
+using DragonBall.Bullet.BulletUtilities.BulletUtilities;
+using DragonBall.Bullet.ParentMVC;
+using DragonBall.Bullet.BulletData;
+using DragonBall.Bullet.GuidedBulletMVC;
+using DragonBall.Enemy.EnemyUtilities;
+using DragonBall.Enemy.EnemyData;
+using DragonBall.Enemy.ParentMVC;
 using DragonBall.GameCamera;
+using DragonBall.Utilities;
+using DragonBall.Sound.SoundUtilities;
+using DragonBall.Sound.SoundData;
+using DragonBall.UI.UIUtilities;
+using DragonBall.UI.UIView;
+using DragonBall.VFX;
 
 namespace DragonBall.Core
 {
@@ -98,8 +107,6 @@ namespace DragonBall.Core
         {
             if (gameplayUIViewPrefab != null)
                 uiService = new UIService(gameplayUIViewPrefab, playerService.PlayerController.PlayerModel);
-            else
-                Debug.LogError("GameplayUIView prefab reference is missing in GameService!");
         }
 
         private void Update()

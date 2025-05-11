@@ -1,7 +1,9 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using DragonBall.Core;
+using DragonBall.Utilities;
+using DragonBall.GameStrings;
 
 namespace DragonBall.Level
 {
@@ -9,7 +11,7 @@ namespace DragonBall.Level
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Player")) return;
+            if (!other.CompareTag(GameString.PlayerTag)) return;
 
             var playerController = GameService.Instance.playerService.PlayerController;
             var playerModel = playerController.PlayerModel;
