@@ -6,7 +6,6 @@ using DragonBall.Player.PlayerData;
 using DragonBall.Bullet.BulletUtilities.BulletUtilities;
 using DragonBall.Bullet.ParentMVC;
 using DragonBall.Bullet.BulletData;
-using DragonBall.Bullet.GuidedBulletMVC;
 using DragonBall.Enemy.EnemyUtilities;
 using DragonBall.Enemy.EnemyData;
 using DragonBall.Enemy.ParentMVC;
@@ -37,18 +36,7 @@ namespace DragonBall.Core
         [SerializeField] private VFXView vFXPrefab;
 
         [Header("Bullet")]
-        [SerializeField] private BulletView playerNormalBulletPrefab;
-        [SerializeField] private BulletScriptableObject playerNormalBulletSO;
-        [SerializeField] private BulletView playerSuperSaiyanBulletPrefab;
-        [SerializeField] private BulletScriptableObject playerSuperSaiyanBulletSO;
-        [SerializeField] private BulletView playerKamehamehaPrefab;
-        [SerializeField] private BulletScriptableObject playerKamehamehaSO;
-        [SerializeField] private BulletView enemyNormalBulletPrefab;
-        [SerializeField] private BulletScriptableObject enemyNormalBulletSO;
-        [SerializeField] private GuidedBulletView enemyGuidedBullletPrefab;
-        [SerializeField] private GuidedBulletScriptableObject enemyGuidedBulletSO;
-        [SerializeField] private GuidedBulletView finalBossEnemyGuidedBullletPrefab;
-        [SerializeField] private GuidedBulletScriptableObject finalBossEnemyGuidedBulletSO;
+        [SerializeField] private List<BulletConfig> bulletConfigs;
 
         [Header("Enemy")]
         [SerializeField] private List<EnemyConfig> enemyConfigs;
@@ -91,16 +79,10 @@ namespace DragonBall.Core
 
         private void InitializeBulletService()
         {
-            var bulletConfigs = new Dictionary<BulletType, (BulletView, BulletScriptableObject)>
-            {
-                { BulletType.PlayerNormalPowerBall, (playerNormalBulletPrefab, playerNormalBulletSO) },
-                { BulletType.PlayerSuperSaiyanPowerBall, (playerSuperSaiyanBulletPrefab, playerSuperSaiyanBulletSO) },
-                { BulletType.PlayerKamehamehaPowerBall, (playerKamehamehaPrefab, playerKamehamehaSO) },
-                { BulletType.EnemyRegularPowerBall, (enemyNormalBulletPrefab, enemyNormalBulletSO) },
-                { BulletType.EnemyGuidedPowerBall, (enemyGuidedBullletPrefab, enemyGuidedBulletSO) },
-                { BulletType.FinalBossEnemyGuidedPowerBall, (finalBossEnemyGuidedBullletPrefab, finalBossEnemyGuidedBulletSO) }
-            };
-            bulletService = new BulletService(bulletConfigs);
+            var bulletConfigsDict = new Dictionary<BulletType, (BulletView, BulletScriptableObject)>();
+            foreach (var config in bulletConfigs)
+                bulletConfigsDict[config.type] = (config.prefab, config.scriptableObject);
+            bulletService = new BulletService(bulletConfigsDict);
         }
 
         private void InitializeUIService()
@@ -122,5 +104,13 @@ namespace DragonBall.Core
         public EnemyType type;
         public BaseEnemyView prefab;
         public EnemyScriptableObject so;
+    }
+
+    [System.Serializable]
+    public class BulletConfig
+    {
+        public BulletType type;
+        public BulletView prefab;
+        public BulletScriptableObject scriptableObject;
     }
 }

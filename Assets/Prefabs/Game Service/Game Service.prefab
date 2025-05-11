@@ -47,18 +47,25 @@ MonoBehaviour:
   playerView: {fileID: -7997136349064081362, guid: dfd7fb31565fc3d40a0009adedb0b1ab, type: 3}
   playerScriptableObject: {fileID: 11400000, guid: 09fb821a8fb6cb94bbbbda45e410a423, type: 2}
   vFXPrefab: {fileID: 3632316703761638097, guid: fb9483b35bf18a54eac8ef68d5827bfc, type: 3}
-  playerNormalBulletPrefab: {fileID: 926417491160561663, guid: 5fd10a9fd0c312a479a17bc0c0b61278, type: 3}
-  playerNormalBulletSO: {fileID: 11400000, guid: f756d1ff24654764fa25002ca06a1f3f, type: 2}
-  playerSuperSaiyanBulletPrefab: {fileID: 926417491160561663, guid: 6ed8bd3660a3bab4e9accbaf18312ab9, type: 3}
-  playerSuperSaiyanBulletSO: {fileID: 11400000, guid: b13c33d6c545d6c4999191e2806eee10, type: 2}
-  playerKamehamehaPrefab: {fileID: 926417491160561663, guid: aeda240edb3b4cf48a43afd69f1a1ea9, type: 3}
-  playerKamehamehaSO: {fileID: 11400000, guid: f7f87b3c564c42e4183c85c2be5c54f8, type: 2}
-  enemyNormalBulletPrefab: {fileID: 926417491160561663, guid: 9658a81a1f44ebc4e9ff8287e281f352, type: 3}
-  enemyNormalBulletSO: {fileID: 11400000, guid: a152883d84a0b314093cb3083d4b4eac, type: 2}
-  enemyGuidedBullletPrefab: {fileID: 7960087552467250288, guid: b92104fabc776724b8f9b68a54aa2e3b, type: 3}
-  enemyGuidedBulletSO: {fileID: 11400000, guid: 5b191a04f389b474e85bb3a50235d374, type: 2}
-  finalBossEnemyGuidedBullletPrefab: {fileID: 7960087552467250288, guid: 7b01697f44a3b9e4caff441391485283, type: 3}
-  finalBossEnemyGuidedBulletSO: {fileID: 11400000, guid: 87df3aa4e260b41419ddafc41a2b238b, type: 2}
+  bulletConfigs:
+  - type: 0
+    prefab: {fileID: 926417491160561663, guid: 5fd10a9fd0c312a479a17bc0c0b61278, type: 3}
+    scriptableObject: {fileID: 11400000, guid: f756d1ff24654764fa25002ca06a1f3f, type: 2}
+  - type: 1
+    prefab: {fileID: 926417491160561663, guid: 6ed8bd3660a3bab4e9accbaf18312ab9, type: 3}
+    scriptableObject: {fileID: 11400000, guid: b13c33d6c545d6c4999191e2806eee10, type: 2}
+  - type: 2
+    prefab: {fileID: 926417491160561663, guid: aeda240edb3b4cf48a43afd69f1a1ea9, type: 3}
+    scriptableObject: {fileID: 11400000, guid: f7f87b3c564c42e4183c85c2be5c54f8, type: 2}
+  - type: 3
+    prefab: {fileID: 926417491160561663, guid: 9658a81a1f44ebc4e9ff8287e281f352, type: 3}
+    scriptableObject: {fileID: 11400000, guid: a152883d84a0b314093cb3083d4b4eac, type: 2}
+  - type: 4
+    prefab: {fileID: 7960087552467250288, guid: b92104fabc776724b8f9b68a54aa2e3b, type: 3}
+    scriptableObject: {fileID: 11400000, guid: 5b191a04f389b474e85bb3a50235d374, type: 2}
+  - type: 5
+    prefab: {fileID: 7960087552467250288, guid: 7b01697f44a3b9e4caff441391485283, type: 3}
+    scriptableObject: {fileID: 11400000, guid: 87df3aa4e260b41419ddafc41a2b238b, type: 2}
   enemyConfigs:
   - type: 0
     prefab: {fileID: 1637688450260828064, guid: 4420220a5cf9878479e86c3ee56939cd, type: 3}
