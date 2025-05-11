@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using DragonBall.Core;
+using DragonBall.Utilities;
 
 namespace DragonBall.Level
 {

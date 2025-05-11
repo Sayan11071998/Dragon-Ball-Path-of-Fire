@@ -1,7 +1,8 @@
 using DragonBall.Core;
 using DragonBall.Player.PlayerData;
 using DragonBall.Player.PlayerUtilities;
-using DragonBall.Sound;
+using DragonBall.Sound.SoundData;
+using DragonBall.Sound.SoundUtilities;
 using DragonBall.VFX;
 using UnityEngine;
 

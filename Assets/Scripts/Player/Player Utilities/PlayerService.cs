@@ -1,9 +1,9 @@
 using UnityEngine;
 using DragonBall.GameStrings;
 using System.Collections;
-using DragonBall.Core;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerData;
+using DragonBall.Utilities;
 
 namespace DragonBall.Player.PlayerUtilities
 {

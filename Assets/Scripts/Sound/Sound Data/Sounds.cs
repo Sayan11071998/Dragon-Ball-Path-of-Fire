@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DragonBall.Sound
+namespace DragonBall.Sound.SoundData
 {
     [Serializable]
     public struct Sounds

@@ -1,7 +1,8 @@
 using DragonBall.Bullet.BulletData;
 using DragonBall.Bullet.BulletUtilities;
 using DragonBall.Enemy.EnemyUtilities;
-using DragonBall.Sound;
+using DragonBall.Sound.SoundData;
+using DragonBall.Sound.SoundUtilities;
 using UnityEngine;
 
 namespace DragonBall.Bullet.ParentMVC

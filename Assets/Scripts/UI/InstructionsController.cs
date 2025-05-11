@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DragonBall.Sound;
+using DragonBall.Sound.SoundUtilities;
+using DragonBall.Sound.SoundData;
 
 namespace DragonBall.UI
 {

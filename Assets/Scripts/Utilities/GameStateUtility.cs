@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DragonBall.Core
+namespace DragonBall.Utilities
 {
     public static class GameStateUtility
     {

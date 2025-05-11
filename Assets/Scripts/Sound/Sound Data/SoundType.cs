@@ -1,4 +1,4 @@
-namespace DragonBall.Sound
+namespace DragonBall.Sound.SoundData
 {
     public enum SoundType
     {

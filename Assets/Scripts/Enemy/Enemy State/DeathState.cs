@@ -1,6 +1,7 @@
 using DragonBall.Enemy.EnemyUtilities;
 using DragonBall.Enemy.ParentMVC;
-using DragonBall.Sound;
+using DragonBall.Sound.SoundData;
+using DragonBall.Sound.SoundUtilities;
 
 namespace DragonBall.Enemy.EnemyState
 {

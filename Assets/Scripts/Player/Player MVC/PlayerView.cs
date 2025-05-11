@@ -4,7 +4,9 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using DragonBall.GameStrings;
 using DragonBall.Core;
-using DragonBall.Sound;
+using DragonBall.Utilities;
+using DragonBall.Sound.SoundUtilities;
+using DragonBall.Sound.SoundData;
 
 namespace DragonBall.Player.PlayerMVC
 {

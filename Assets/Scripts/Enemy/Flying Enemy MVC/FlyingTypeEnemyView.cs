@@ -3,6 +3,8 @@ using UnityEngine;
 using DragonBall.Sound;
 using DragonBall.Bullet.BulletData;
 using DragonBall.Enemy.ParentMVC;
+using DragonBall.Sound.SoundUtilities;
+using DragonBall.Sound.SoundData;
 
 namespace DragonBall.Enemy.FlyingEnemyMVC
 {

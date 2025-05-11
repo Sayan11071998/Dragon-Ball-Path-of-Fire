@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace DragonBall.Sound
+namespace DragonBall.Sound.SoundData
 {
     [CreateAssetMenu(fileName = "SoundConfig", menuName = "Sound/SoundConfig")]
     public class SoundScriptableObject : ScriptableObject

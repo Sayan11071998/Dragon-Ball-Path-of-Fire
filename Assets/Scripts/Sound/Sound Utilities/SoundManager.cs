@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 using DragonBall.Utilities;
+using DragonBall.Sound.SoundData;
 
-namespace DragonBall.Sound
+namespace DragonBall.Sound.SoundUtilities
 {
     public class SoundManager : GenericMonoSingleton<SoundManager>
     {

@@ -3,7 +3,6 @@ using UnityEngine;
 using DragonBall.Utilities;
 using DragonBall.VFX;
 using DragonBall.UI;
-using DragonBall.Sound;
 using DragonBall.GameCamera;
 using DragonBall.Bullet.BulletUtilities.BulletUtilities;
 using DragonBall.Bullet.ParentMVC;
@@ -15,6 +14,8 @@ using DragonBall.Enemy.ParentMVC;
 using DragonBall.Player.PlayerUtilities;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerData;
+using DragonBall.Sound.SoundUtilities;
+using DragonBall.Sound.SoundData;
 
 namespace DragonBall.Core
 {
