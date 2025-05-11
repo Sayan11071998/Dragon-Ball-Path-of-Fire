@@ -40,11 +40,7 @@ namespace DragonBall.Sound.SoundUtilities
 
             AudioSource audioSource = GetAudioSource();
 
-            if (audioSource == null)
-            {
-                Debug.LogWarning("No available audio sources to play sound effect: " + soundType);
-                return;
-            }
+            if (audioSource == null) return;
 
             audioSource.clip = clip;
             audioSource.loop = loop;

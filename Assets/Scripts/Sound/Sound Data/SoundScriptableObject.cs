@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DragonBall.Sound.SoundData
 {
-    [CreateAssetMenu(fileName = "SoundConfig", menuName = "Sound/SoundConfig")]
+    [CreateAssetMenu(fileName = "SoundScriptableObject", menuName = "Sound/SoundScriptableObject")]
     public class SoundScriptableObject : ScriptableObject
     {
         [System.Serializable]
@@ -23,7 +23,6 @@ namespace DragonBall.Sound.SoundData
                     return entry.audioClip;
             }
 
-            Debug.LogWarning($"Sound clip for {soundType} not found!");
             return null;
         }
     }
