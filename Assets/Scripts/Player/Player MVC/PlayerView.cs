@@ -178,7 +178,7 @@ namespace DragonBall.Player.PlayerMVC
             isKamehameha = false;
         }
 
-        public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        public bool IsTouchingGround() => capsuleCollider2D.IsTouchingLayers(LayerMask.GetMask(GameString.GroundLayer));
 
         public void FlipCharacter(bool isFacingRight)
         {

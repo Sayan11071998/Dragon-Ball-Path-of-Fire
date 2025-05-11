@@ -3,7 +3,6 @@ using DragonBall.Player.PlayerData;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerStates;
 using DragonBall.Utilities;
-using UnityEngine;
 
 namespace DragonBall.Player.PlayerUtilities
 {
@@ -41,10 +40,6 @@ namespace DragonBall.Player.PlayerUtilities
 
                 currentPlayerStateEnum = newState;
                 ChangeState(states[newState]);
-            }
-            else
-            {
-                Debug.LogError($"State {newState} doesn't exist in the state machine.");
             }
         }
 

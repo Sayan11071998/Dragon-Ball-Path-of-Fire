@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using DragonBall.Core;
-using DragonBall.Bullet.BulletData;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerUtilities;
+using DragonBall.Bullet.BulletData;
 using DragonBall.Sound.SoundUtilities;
 using DragonBall.Sound.SoundData;
 

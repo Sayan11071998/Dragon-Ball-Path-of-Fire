@@ -1,13 +1,13 @@
-using DragonBall.Bullet.BulletData;
+using UnityEngine;
 using DragonBall.Core;
-using DragonBall.Enemy.EnemyUtilities;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerUtilities;
+using DragonBall.Bullet.BulletData;
+using DragonBall.Enemy.EnemyUtilities;
 using DragonBall.Sound.SoundData;
 using DragonBall.Sound.SoundUtilities;
 using DragonBall.Utilities;
 using DragonBall.VFX;
-using UnityEngine;
 
 namespace DragonBall.Player.PlayerStates
 {
