@@ -1,8 +1,8 @@
-using System.Collections;
 using UnityEngine;
-using DragonBall.GameStrings;
+using System.Collections;
 using DragonBall.Core;
 using DragonBall.Player.PlayerMVC;
+using DragonBall.GameStrings;
 
 namespace DragonBall.GameCamera
 {
