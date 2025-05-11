@@ -2,22 +2,25 @@ using UnityEngine;
 using DragonBall.Player;
 using DragonBall.Core;
 
-public class DragonBallPickup : MonoBehaviour
+namespace DragonBall.Pickup
 {
-    private void OnTriggerEnter2D(Collider2D collider)
+    public class DragonBallPickup : MonoBehaviour
     {
-        if (collider.CompareTag("Player"))
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            PlayerView playerView = collider.GetComponent<PlayerView>();
-
-            if (playerView != null)
+            if (collider.CompareTag("Player"))
             {
-                PlayerController playerController = GameService.Instance.playerService?.PlayerController;
+                PlayerView playerView = collider.GetComponent<PlayerView>();
 
-                if (playerController != null)
+                if (playerView != null)
                 {
-                    playerController.CollectDragonBall();
-                    Destroy(gameObject);
+                    PlayerController playerController = GameService.Instance.playerService?.PlayerController;
+
+                    if (playerController != null)
+                    {
+                        playerController.CollectDragonBall();
+                        Destroy(gameObject);
+                    }
                 }
             }
         }

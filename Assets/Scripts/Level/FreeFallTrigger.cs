@@ -1,7 +1,7 @@
 using UnityEngine;
 using DragonBall.Player;
 
-namespace DragonBall.Environment
+namespace DragonBall.Level
 {
     public class FreeFallTrigger : MonoBehaviour
     {
