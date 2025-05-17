@@ -20,18 +20,14 @@ namespace DragonBall.Player.PlayerUtilities
             playerPrefab = Object.Instantiate(_playerPrefab);
             playerPrefab.name = GameString.PlayerPrefabName;
             playerModel = new PlayerModel(_config);
-            PlayerState initialState = DetermineInitialStateByScene();
-            playerController = new PlayerController(playerModel, playerPrefab, initialState);
+            bool shouldStartAsSuperSaiyan = ShouldStartAsSuperSaiyan();
+            playerController = new PlayerController(playerModel, playerPrefab, shouldStartAsSuperSaiyan);
         }
 
-        private PlayerState DetermineInitialStateByScene()
+        private bool ShouldStartAsSuperSaiyan()
         {
             string currentSceneName = SceneManager.GetActiveScene().name;
-
-            if (currentSceneName.Contains(GameString.SceneFinalBoss))
-                return PlayerState.SUPER_SAIYAN;
-
-            return PlayerState.NORMAL;
+            return currentSceneName.Contains(GameString.SceneFinalBoss);
         }
 
         public void Update() => playerController.Update();

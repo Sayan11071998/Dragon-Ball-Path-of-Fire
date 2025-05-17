@@ -1,10 +1,10 @@
 using UnityEngine;
 using DragonBall.Core;
-using DragonBall.Player.PlayerData;
-using DragonBall.Player.PlayerUtilities;
 using DragonBall.Sound.SoundData;
 using DragonBall.Sound.SoundUtilities;
 using DragonBall.VFX;
+using DragonBall.Player.PlayerUtilities;
+using DragonBall.Player.PlayerData;
 
 namespace DragonBall.Player.PlayerMVC
 {
@@ -16,128 +16,32 @@ namespace DragonBall.Player.PlayerMVC
 
         public PlayerModel PlayerModel => playerModel;
         public PlayerView PlayerView => playerView;
-        public PlayerStateMachine PlayerStateMachine => stateMachine;
+        public PlayerStateMachine StateMachine => stateMachine;
 
         private bool isInputEnabled = true;
 
-        public PlayerController(PlayerModel _playerModel, PlayerView _playerView, PlayerState initialState = PlayerState.NORMAL)
+        public PlayerController(PlayerModel _playerModel, PlayerView _playerView, bool startAsSuperSaiyan = false)
         {
             playerModel = _playerModel;
             playerView = _playerView;
 
             playerView.SetPlayerController(this);
-
             stateMachine = new PlayerStateMachine(this);
-            stateMachine.ChangeState(initialState);
+
+            if (startAsSuperSaiyan)
+                stateMachine.ChangeState(PlayerState.Transform);
         }
 
         public void Update()
         {
-            if (playerModel.IsDead) return;
-
-            HandleGroundCheck();
-
-            if (isInputEnabled)
-                HandleMovement();
+            if (playerModel.IsDead)
+            {
+                if (stateMachine.GetCurrentPlayerState() != PlayerState.Dead)
+                    stateMachine.ChangeState(PlayerState.Dead);
+                return;
+            }
 
             stateMachine.Update();
-        }
-
-        private void HandleGroundCheck()
-        {
-            playerModel.IsGrounded = playerView.IsTouchingGround();
-
-            if (playerModel.IsGrounded)
-                playerModel.JumpCount = 0;
-        }
-
-        private void HandleMovement()
-        {
-            float moveInput = playerView.MoveInput;
-            Vector2 moveDirection = playerView.MovementDirection;
-
-            if (playerModel.IsDodging) return;
-
-            var velocity = playerView.Rigidbody.linearVelocity;
-
-            if (playerModel.IsFlying)
-            {
-                if (Mathf.Abs(moveDirection.x) > 0.1f)
-                    velocity.x = moveDirection.x * playerModel.MoveSpeed;
-                else
-                    velocity.x = 0;
-
-                if (Mathf.Abs(moveDirection.y) > 0.1f)
-                    velocity.y = moveDirection.y * playerModel.FlySpeed;
-                else
-                    velocity.y = 0;
-            }
-            else
-            {
-                velocity.x = moveInput * playerModel.MoveSpeed;
-            }
-
-            playerView.Rigidbody.linearVelocity = velocity;
-
-            if (moveDirection.x > 0 && !playerModel.IsFacingRight)
-            {
-                playerModel.IsFacingRight = true;
-                playerView.FlipCharacter(true);
-            }
-            else if (moveDirection.x < 0 && playerModel.IsFacingRight)
-            {
-                playerModel.IsFacingRight = false;
-                playerView.FlipCharacter(false);
-            }
-        }
-
-        public void HandleJump()
-        {
-            if (!playerView.JumpInput) return;
-
-            var velocity = playerView.Rigidbody.linearVelocity;
-
-            if (playerModel.IsGrounded)
-            {
-                velocity.y = playerModel.JumpSpeed;
-                velocity.x *= playerModel.JumpHorizontalDampening;
-                playerModel.JumpCount++;
-                SoundManager.Instance.PlaySoundEffect(SoundType.GokuJump);
-            }
-            else if (!playerModel.IsGrounded && playerModel.JumpCount < 1)
-            {
-                velocity.y = playerModel.JumpSpeed;
-                velocity.x *= playerModel.JumpHorizontalDampening;
-                GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.JumpEffect, playerView.transform.position);
-                SoundManager.Instance.PlaySoundEffect(SoundType.GokuJump);
-                playerModel.JumpCount++;
-            }
-            playerView.Rigidbody.linearVelocity = velocity;
-            playerView.ResetJumpInput();
-        }
-
-        public void HandleFlight()
-        {
-            if (!playerView.FlyInput) return;
-
-            playerModel.IsFlying = !playerModel.IsFlying;
-            playerView.Rigidbody.linearVelocity = Vector2.zero;
-            playerView.ResetMovementDirection();
-
-            if (playerModel.IsFlying)
-            {
-                playerView.UpdateFlightAnimation(true);
-                playerView.Rigidbody.gravityScale = 0f;
-                playerView.StartFlightSound();
-            }
-            else
-            {
-                playerView.UpdateFlightAnimation(false);
-                playerView.Rigidbody.gravityScale = 1f;
-                playerView.StopFlightSound();
-            }
-
-            playerView.ResetFlyInput();
         }
 
         public void CollectDragonBall()
@@ -155,7 +59,10 @@ namespace DragonBall.Player.PlayerMVC
             SoundManager.Instance.PlaySoundEffect(SoundType.GokuTakeDamage);
 
             if (playerModel.IsDead)
+            {
+                stateMachine.ChangeState(PlayerState.Dead);
                 playerView.StartCoroutine(playerView.DeathSequence());
+            }
         }
 
         public bool DisablePlayerController()
@@ -181,6 +88,74 @@ namespace DragonBall.Player.PlayerMVC
             return isInputEnabled;
         }
 
-        public PlayerStateMachine GetPlayerStateMachine() => stateMachine;
+        public void RevertFromSuperSaiyan()
+        {
+            playerModel.RemoveSuperSaiyanBuffs();
+            playerView.RevertToNormal();
+
+            if (playerModel.IsFlying)
+            {
+                playerModel.IsFlying = false;
+                playerView.StopFlightSound();
+            }
+
+            stateMachine.ChangeState(PlayerState.Idle);
+        }
+
+        public void PerformKickAttack()
+        {
+            Vector2 origin = playerView.AttackTransform.position;
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, playerModel.KickAttackRange, Vector2.zero, 0f);
+
+            if (!playerModel.IsFlying)
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuKick);
+
+            foreach (var hit in hits)
+            {
+                if (hit.collider.TryGetComponent<DragonBall.Enemy.EnemyUtilities.IDamageable>(out var target))
+                    target.Damage(playerModel.KickAttackPower);
+            }
+
+            playerModel.LastKickTime = Time.time;
+        }
+
+        public void FireBullet()
+        {
+            Vector2 position = playerView.FireTransform.position;
+            Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
+            DragonBall.Bullet.BulletData.BulletType bulletType = playerModel.IsSuperSaiyan() ?
+                DragonBall.Bullet.BulletData.BulletType.PlayerSuperSaiyanPowerBall :
+                DragonBall.Bullet.BulletData.BulletType.PlayerNormalPowerBall;
+
+            GameService.Instance.bulletService.FireBullet(bulletType, position, direction);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuFire);
+
+            playerModel.LastFireTime = Time.time;
+        }
+
+        public void FireKamehameha()
+        {
+            Vector2 position = playerView.KamehamehaTransform.position;
+            Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
+            GameService.Instance.bulletService.FireBullet(
+                DragonBall.Bullet.BulletData.BulletType.PlayerKamehamehaPowerBall,
+                position,
+                direction
+            );
+        }
+
+        public void PerformVanish()
+        {
+            Vector2 originalPosition = playerView.transform.position;
+            Vector2 randomOffset = Random.insideUnitCircle * playerModel.VanishRange;
+
+            if (randomOffset.y < 0)
+                randomOffset.y = Mathf.Abs(randomOffset.y);
+
+            GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.VanishEffect, originalPosition);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuVanish);
+            Vector2 newPosition = originalPosition + randomOffset;
+            playerView.transform.position = new Vector3(newPosition.x, newPosition.y, playerView.transform.position.z);
+        }
     }
 }

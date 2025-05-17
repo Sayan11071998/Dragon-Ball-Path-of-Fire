@@ -2,7 +2,16 @@ namespace DragonBall.Player.PlayerData
 {
     public enum PlayerState
     {
-        NORMAL,
-        SUPER_SAIYAN
+        Idle,
+        Run,
+        Jump,
+        Fly,
+        Kick,
+        Fire,
+        Dodge,
+        Vanish,
+        Kamehameha,
+        Transform,
+        Dead
     }
 }

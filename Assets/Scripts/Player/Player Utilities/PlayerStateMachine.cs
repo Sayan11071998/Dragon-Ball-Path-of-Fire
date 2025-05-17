@@ -8,52 +8,68 @@ namespace DragonBall.Player.PlayerUtilities
 {
     public class PlayerStateMachine
     {
-        public Dictionary<PlayerState, IState> states;
+        private Dictionary<PlayerState, IState> states;
 
         private IState currentPlayerState;
         private PlayerState currentPlayerStateEnum;
         private PlayerController playerController;
-        private PlayerView playerView;
+        private bool isInitialized = false;
 
         public PlayerStateMachine(PlayerController controllerToSet)
         {
             playerController = controllerToSet;
-            playerView = controllerToSet.PlayerView;
 
-            CreateStates(controllerToSet);
+            InitializeStates();
+            ChangeState(PlayerState.Idle);
+            isInitialized = true;
         }
 
-        private void CreateStates(PlayerController playerController)
+        private void InitializeStates()
         {
             states = new Dictionary<PlayerState, IState>()
             {
-                { PlayerState.NORMAL, new NormalState(playerController, this) },
-                { PlayerState.SUPER_SAIYAN, new SuperSaiyanState(playerController, this) }
+                { PlayerState.Idle, new IdleState(playerController, this) },
+                { PlayerState.Run, new RunState(playerController, this) },
+                { PlayerState.Jump, new JumpState(playerController, this) },
+                { PlayerState.Fly, new FlyState(playerController, this) },
+                { PlayerState.Transform, new TransformState(playerController, this) },
+                { PlayerState.Kick, new KickState(playerController, this) },
+                { PlayerState.Fire, new FireState(playerController, this) },
+                { PlayerState.Dodge, new DodgeState(playerController, this) },
+                { PlayerState.Vanish, new VanishState(playerController, this) },
+                { PlayerState.Kamehameha, new KamehamehaState(playerController, this) },
+                { PlayerState.Dead, new DeadState(playerController, this) }
             };
         }
 
         public void ChangeState(PlayerState newState)
         {
-            if (states.ContainsKey(newState))
-            {
-                playerView.ResetAllInputs();
+            if (!states.ContainsKey(newState)) return;
+            if (currentPlayerStateEnum == newState && isInitialized) return;
 
-                currentPlayerStateEnum = newState;
-                ChangeState(states[newState]);
-            }
+            currentPlayerStateEnum = newState;
+            ChangeState(states[newState]);
         }
 
         private void ChangeState(IState newState)
         {
-            currentPlayerState?.OnStateExit();
+            if (currentPlayerState != null)
+                currentPlayerState.OnStateExit();
+
             currentPlayerState = newState;
-            currentPlayerState?.OnStateEnter();
+            currentPlayerState.OnStateEnter();
         }
 
-        public void Update() => currentPlayerState?.Update();
+        public void Update()
+        {
+            if (currentPlayerState != null)
+                currentPlayerState.Update();
+        }
 
         public IState GetCurrentState() => currentPlayerState;
+
         public PlayerState GetCurrentPlayerState() => currentPlayerStateEnum;
+
         public Dictionary<PlayerState, IState> GetStates() => states;
     }
 }

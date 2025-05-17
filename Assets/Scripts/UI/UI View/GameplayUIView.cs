@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using DragonBall.Core;
-using DragonBall.Player.PlayerData;
 
 namespace DragonBall.UI.UIView
 {
@@ -76,9 +75,6 @@ namespace DragonBall.UI.UIView
         {
             yield return null;
             yield return null;
-
-            if (GameService.Instance?.playerService?.PlayerController != null)
-                GameService.Instance.playerService.PlayerController.PlayerStateMachine.ChangeState(PlayerState.SUPER_SAIYAN);
         }
 
         public void UpdateHealthBar(float healthPercentage) => healthSlider.value = healthPercentage * healthSlider.maxValue;
