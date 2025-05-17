@@ -6,6 +6,7 @@ namespace DragonBall.Player.PlayerMVC
     public class PlayerModel
     {
         private PlayerScriptableObject config;
+        private bool isSuperSaiyanMode = false;
 
         public float CurrentHealth { get; private set; }
         public bool IsDead { get; private set; }
@@ -70,6 +71,8 @@ namespace DragonBall.Player.PlayerMVC
             DragonBallCount = 0;
         }
 
+        public bool IsSuperSaiyan() => isSuperSaiyanMode;
+
         public void IncrementDragonBallCount() => DragonBallCount++;
 
         public void ApplySuperSaiyanBuffs()
@@ -86,6 +89,8 @@ namespace DragonBall.Player.PlayerMVC
             KickAttackPower = (int)(config.KickAttackPower * SuperSaiyanPowerMultiplier);
 
             if (IsDead) IsDead = false;
+
+            isSuperSaiyanMode = true;
         }
 
         public void RemoveSuperSaiyanBuffs()
@@ -104,6 +109,8 @@ namespace DragonBall.Player.PlayerMVC
             CurrentStamina = MaxStamina * staminaPercentage;
 
             if (CurrentHealth <= 0) CurrentHealth = 1;
+
+            isSuperSaiyanMode = false;
         }
 
         public void TakeDamage(float damage)
