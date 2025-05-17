@@ -8,52 +8,63 @@ namespace DragonBall.Player.PlayerUtilities
 {
     public class PlayerStateMachine
     {
-        public Dictionary<PlayerState, IState> states;
-
-        private IState currentPlayerState;
-        private PlayerState currentPlayerStateEnum;
+        private Dictionary<PlayerState, IPlayerState> states;
+        private PowerStateManager powerStateManager;
+        private IPlayerState currentState;
         private PlayerController playerController;
-        private PlayerView playerView;
 
-        public PlayerStateMachine(PlayerController controllerToSet)
+        public PlayerStateMachine(PlayerController controller)
         {
-            playerController = controllerToSet;
-            playerView = controllerToSet.PlayerView;
+            playerController = controller;
+            InitializeStates();
+            powerStateManager = new PowerStateManager(controller);
 
-            CreateStates(controllerToSet);
+            ChangeState(PlayerState.Idle);
         }
 
-        private void CreateStates(PlayerController playerController)
+        private void InitializeStates()
         {
-            states = new Dictionary<PlayerState, IState>()
+            states = new Dictionary<PlayerState, IPlayerState>
             {
-                { PlayerState.NORMAL, new NormalState(playerController, this) },
-                { PlayerState.SUPER_SAIYAN, new SuperSaiyanState(playerController, this) }
+                { PlayerState.Idle, new IdleState(playerController, this) },
+                { PlayerState.Run, new RunState(playerController, this) },
+                { PlayerState.Jump, new JumpState(playerController, this) },
+                { PlayerState.Fall, new FallState(playerController, this) },
+                { PlayerState.Fly, new FlyState(playerController, this) },
+                { PlayerState.Dead, new DeadState(playerController, this) }
             };
         }
 
-        public void ChangeState(PlayerState newState)
+        public void ChangeState(PlayerState newStateType)
         {
-            if (states.ContainsKey(newState))
-            {
-                playerView.ResetAllInputs();
+            if (currentState != null && currentState.GetStateType() == newStateType)
+                return;
 
-                currentPlayerStateEnum = newState;
-                ChangeState(states[newState]);
-            }
+            IPlayerState newState = states[newStateType];
+
+            currentState?.OnStateExit();
+            currentState = newState;
+            currentState?.OnStateEnter();
         }
 
-        private void ChangeState(IState newState)
+        public void Update()
         {
-            currentPlayerState?.OnStateExit();
-            currentPlayerState = newState;
-            currentPlayerState?.OnStateEnter();
+            powerStateManager.Update();
+
+            if (!powerStateManager.IsTransforming)
+                currentState?.Update();
         }
 
-        public void Update() => currentPlayerState?.Update();
+        public bool CanFly() => powerStateManager.CanFly();
 
-        public IState GetCurrentState() => currentPlayerState;
-        public PlayerState GetCurrentPlayerState() => currentPlayerStateEnum;
-        public Dictionary<PlayerState, IState> GetStates() => states;
+        public bool CanVanish() => powerStateManager.CanVanish();
+
+        public bool CanUseKamehameha() => powerStateManager.CanUseKamehameha();
+
+        public bool CanDodge() => true;
+
+        public PlayerState GetCurrentStateType() => currentState.GetStateType();
+
+        public PlayerPowerState GetCurrentPowerState() => powerStateManager.CurrentPowerState;
     }
 }
