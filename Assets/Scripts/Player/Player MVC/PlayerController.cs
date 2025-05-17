@@ -1,10 +1,13 @@
 using UnityEngine;
+using System.Collections;
 using DragonBall.Core;
 using DragonBall.Player.PlayerData;
 using DragonBall.Player.PlayerUtilities;
 using DragonBall.Sound.SoundData;
 using DragonBall.Sound.SoundUtilities;
 using DragonBall.VFX;
+using DragonBall.Bullet.BulletData;
+using DragonBall.Enemy.EnemyUtilities;
 
 namespace DragonBall.Player.PlayerMVC
 {
@@ -12,13 +15,12 @@ namespace DragonBall.Player.PlayerMVC
     {
         private PlayerModel playerModel;
         private PlayerView playerView;
-        private PlayerStateMachine stateMachine;
 
         public PlayerModel PlayerModel => playerModel;
         public PlayerView PlayerView => playerView;
-        public PlayerStateMachine PlayerStateMachine => stateMachine;
 
         private bool isInputEnabled = true;
+        private bool isSuperSaiyanMode = false;
 
         public PlayerController(PlayerModel _playerModel, PlayerView _playerView, PlayerState initialState = PlayerState.NORMAL)
         {
@@ -26,9 +28,10 @@ namespace DragonBall.Player.PlayerMVC
             playerView = _playerView;
 
             playerView.SetPlayerController(this);
-
-            stateMachine = new PlayerStateMachine(this);
-            stateMachine.ChangeState(initialState);
+            
+            // Handle initial state
+            if (initialState == PlayerState.SUPER_SAIYAN)
+                StartSuperSaiyanTransformation();
         }
 
         public void Update()
@@ -40,7 +43,43 @@ namespace DragonBall.Player.PlayerMVC
             if (isInputEnabled)
                 HandleMovement();
 
-            stateMachine.Update();
+            // Handle various player abilities
+            playerModel.RegenerateStamina(Time.deltaTime);
+            
+            // Always available abilities
+            HandleKick();
+            HandleFire();
+            
+            if (isSuperSaiyanMode)
+            {
+                // Super Saiyan abilities
+                HandleFlight();
+                HandleDodge();
+                HandleVanish();
+                HandleKamehameha();
+            }
+            else
+            {
+                // Normal abilities
+                HandleJump();
+                
+                // Check for transformation
+                if (playerModel.DragonBallCount >= playerModel.DragonBallsRequiredForSuperSaiyan)
+                {
+                    StartSuperSaiyanTransformation();
+                }
+            }
+            
+            // Update animations
+            UpdateAnimations();
+        }
+
+        private void UpdateAnimations()
+        {
+            float moveInput = playerView.MoveInput;
+            playerView.UpdateRunAnimation(Mathf.Abs(moveInput) > 0.1f && !playerModel.IsDodging);
+            playerView.UpdateJumpAnimation(!playerModel.IsGrounded);
+            playerView.UpdateDodgeAnimation(playerModel.IsDodging);
         }
 
         private void HandleGroundCheck()
@@ -139,6 +178,137 @@ namespace DragonBall.Player.PlayerMVC
 
             playerView.ResetFlyInput();
         }
+        
+        private void HandleKick()
+        {
+            if (playerModel.IsDead || !playerModel.IsGrounded || !playerView.KickInput) return;
+
+            if (playerModel.IsKickOnCooldown)
+            {
+                playerView.ResetKickInput();
+                return;
+            }
+
+            playerModel.LastKickTime = Time.time;
+            playerView.PlayKickAnimation();
+            PerformKickAttack();
+            playerView.ResetKickInput();
+        }
+
+        private void PerformKickAttack()
+        {
+            Vector2 origin = playerView.AttackTransform.position;
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, playerModel.KickAttackRange, Vector2.zero, 0f);
+
+            if (!playerModel.IsFlying)
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuKick);
+
+            foreach (var hit in hits)
+            {
+                if (hit.collider.TryGetComponent<IDamageable>(out var target))
+                    target.Damage(playerModel.KickAttackPower);
+            }
+        }
+
+        private void HandleFire()
+        {
+            if (playerModel.IsDead || !playerView.FireInput) return;
+
+            if (playerModel.IsFireOnCooldown)
+            {
+                playerView.ResetFireInput();
+                return;
+            }
+
+            playerModel.LastFireTime = Time.time;
+            playerView.PlayFireAnimation();
+            FireBullet();
+            playerView.ResetFireInput();
+        }
+
+        private void FireBullet()
+        {
+            Vector2 position = playerView.FireTransform.position;
+            Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
+            BulletType bulletType = isSuperSaiyanMode ? 
+                BulletType.PlayerSuperSaiyanPowerBall : BulletType.PlayerNormalPowerBall;
+                
+            GameService.Instance.bulletService.FireBullet(bulletType, position, direction);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuFire);
+        }
+
+        private void HandleDodge()
+        {
+            if (playerModel.IsDead)
+            {
+                playerView.ResetDodgeInput();
+                return;
+            }
+
+            if (playerView.DodgeInput && playerModel.IsGrounded && Time.time > playerModel.LastDodgeTime + playerModel.DodgeCooldown)
+            {
+                playerModel.IsDodging = true;
+                playerModel.DodgeEndTime = Time.time + playerModel.DodgeDuration;
+                playerModel.LastDodgeTime = Time.time;
+                Vector2 dir = playerModel.IsFacingRight ? Vector2.left : Vector2.right;
+                playerView.Rigidbody.linearVelocity = new Vector2(dir.x * playerModel.DodgeSpeed, playerView.Rigidbody.linearVelocity.y);
+                SoundManager.Instance.PlaySoundEffect(SoundType.GokuDodge);
+                playerView.UpdateDodgeAnimation(true);
+            }
+
+            playerView.ResetDodgeInput();
+
+            if (playerModel.IsDodging && Time.time > playerModel.DodgeEndTime)
+            {
+                playerModel.IsDodging = false;
+                playerView.UpdateDodgeAnimation(false);
+            }
+        }
+
+        private void HandleVanish()
+        {
+            if (playerModel.IsDead || !playerView.VanishInput) return;
+
+            Vector2 originalPosition = playerView.transform.position;
+            Vector2 randomOffset = Random.insideUnitCircle * playerModel.VanishRange;
+
+            if (randomOffset.y < 0)
+                randomOffset.y = Mathf.Abs(randomOffset.y);
+
+            GameService.Instance.vFXService.PlayVFXAtPosition(VFXType.VanishEffect, originalPosition);
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuVanish);
+            Vector2 newPosition = originalPosition + randomOffset;
+            playerView.transform.position = new Vector3(newPosition.x, newPosition.y, playerView.transform.position.z);
+            playerView.ResetVanishInput();
+        }
+
+        private void HandleKamehameha()
+        {
+            if (playerModel.IsDead || !playerView.KamehamehaInput) return;
+
+            if (!playerModel.HasEnoughStaminaForKamehameha)
+            {
+                playerView.ResetKamehameha();
+                return;
+            }
+
+            if (playerModel.UseStaminaForKamehameha())
+            {
+                AnimationClip kamehamehaClip = playerView.KamehamehaAnimationClip;
+                playerView.PlayKamehamehaAnimation();
+                SoundManager.Instance.PlaySoundEffect(SoundType.Kamekameha);
+                playerView.StartFireCoroutine(kamehamehaClip.length, FireKamehameha);
+            }
+
+            playerView.ResetKamehameha();
+        }
+
+        private void FireKamehameha()
+        {
+            Vector2 position = playerView.KamehamehaTransform.position;
+            Vector2 direction = playerModel.IsFacingRight ? Vector2.right : Vector2.left;
+            GameService.Instance.bulletService.FireBullet(BulletType.PlayerKamehamehaPowerBall, position, direction);
+        }
 
         public void CollectDragonBall()
         {
@@ -180,7 +350,48 @@ namespace DragonBall.Player.PlayerMVC
             playerView.EnableInput();
             return isInputEnabled;
         }
+        
+        public void StartSuperSaiyanTransformation()
+        {
+            DisablePlayerController();
+            playerView.StopPlayerMovement();
+            playerView.PlaySuperSaiyanTransformationAnimation();
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuSuperSaiyanTransform);
+            playerModel.ApplySuperSaiyanBuffs();
+            playerView.StartCoroutine(WaitForSuperSaiyanTransformation());
+        }
+        
+        private IEnumerator WaitForSuperSaiyanTransformation()
+        {
+            AnimationClip transformClip = playerView.SuperSaiyanAnimationClip;
+            yield return new WaitForSeconds(transformClip.length * 0.8f);
 
-        public PlayerStateMachine GetPlayerStateMachine() => stateMachine;
+            playerView.TransformToSuperSaiyan();
+            isSuperSaiyanMode = true;
+
+            yield return new WaitForSeconds(transformClip.length * 0.2f);
+
+            playerView.StopPlayerMovement();
+            yield return new WaitForSeconds(0.1f);
+
+            bool isNotificationHandled = false;
+            GameService.Instance.uiService.ShowNotification(() => isNotificationHandled = true);
+            yield return new WaitUntil(() => isNotificationHandled);
+
+            EnablePlayerController();
+        }
+        
+        public void RevertFromSuperSaiyan()
+        {
+            isSuperSaiyanMode = false;
+            playerModel.RemoveSuperSaiyanBuffs();
+            playerView.RevertToNormal();
+
+            if (playerModel.IsFlying)
+            {
+                playerModel.IsFlying = false;
+                playerView.StopFlightSound();
+            }
+        }
     }
 }
