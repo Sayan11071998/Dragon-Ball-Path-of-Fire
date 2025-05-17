@@ -1,24 +1,23 @@
 using UnityEngine;
-using DragonBall.Player.PlayerMVC;
-using DragonBall.Utilities;
 using DragonBall.Player.PlayerData;
+using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerUtilities;
 
 namespace DragonBall.Player.PlayerStates
 {
-    public abstract class BasePlayerState : IState
+    public abstract class BasePlayerState : IPlayerState
     {
         protected PlayerController playerController;
         protected PlayerModel playerModel;
         protected PlayerView playerView;
         protected PlayerStateMachine stateMachine;
 
-        public BasePlayerState(PlayerController controller, PlayerStateMachine machine)
+        public BasePlayerState(PlayerController controllerToSet, PlayerStateMachine stateMachineToSet)
         {
-            playerController = controller;
-            playerModel = controller.PlayerModel;
-            playerView = controller.PlayerView;
-            stateMachine = machine;
+            playerController = controllerToSet;
+            playerModel = controllerToSet.PlayerModel;
+            playerView = controllerToSet.PlayerView;
+            stateMachine = stateMachineToSet;
         }
 
         public virtual void OnStateEnter() { }
