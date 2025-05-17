@@ -34,7 +34,7 @@ namespace DragonBall.Player.PlayerUtilities
                 { PlayerState.Jump, new JumpState(playerController, this) },
                 { PlayerState.Fly, new FlyState(playerController, this) },
                 { PlayerState.Transform, new TransformState(playerController, this) },
-                // { PlayerState.Kick, new KickState(playerController, this) },
+                { PlayerState.Kick, new KickState(playerController, this) },
                 // { PlayerState.Fire, new FireState(playerController, this) },
                 // { PlayerState.Dodge, new DodgeState(playerController, this) },
                 // { PlayerState.Vanish, new VanishState(playerController, this) },
