@@ -39,20 +39,13 @@ namespace DragonBall.Player.PlayerUtilities
                 { PlayerState.Dodge, new DodgeState(playerController, this) },
                 { PlayerState.Vanish, new VanishState(playerController, this) },
                 { PlayerState.Kamehameha, new KamehamehaState(playerController, this) },
-                // { PlayerState.Dead, new DeadState(playerController, this) }
+                { PlayerState.Dead, new DeadState(playerController, this) }
             };
         }
 
         public void ChangeState(PlayerState newState)
         {
-            Debug.Log($"Changing state from {currentPlayerStateEnum} to {newState}");
-
-            if (!states.ContainsKey(newState))
-            {
-                Debug.LogWarning($"Attempted to change to non-existent state: {newState}");
-                return;
-            }
-
+            if (!states.ContainsKey(newState)) return;
             if (currentPlayerStateEnum == newState && isInitialized) return;
 
             currentPlayerStateEnum = newState;
@@ -72,8 +65,6 @@ namespace DragonBall.Player.PlayerUtilities
         {
             if (currentPlayerState != null)
                 currentPlayerState.Update();
-            else if (isInitialized)
-                Debug.LogError("Current state is null in PlayerStateMachine.Update()");
         }
 
         public IState GetCurrentState() => currentPlayerState;

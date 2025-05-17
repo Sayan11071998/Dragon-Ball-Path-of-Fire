@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 using UnityEngine.InputSystem;
 using System.Collections;
 using DragonBall.GameStrings;
@@ -13,8 +12,6 @@ namespace DragonBall.Player.PlayerMVC
     {
         [Header("Attack Settings")]
         [SerializeField] private Transform attackTransform;
-        [SerializeField] private float attackRange = 1.5f;
-        [SerializeField] private LayerMask attackableLayer;
         [SerializeField] private Transform fireTransform;
         [SerializeField] private Transform kamehamehaTransform;
 
@@ -59,8 +56,6 @@ namespace DragonBall.Player.PlayerMVC
         public Rigidbody2D Rigidbody => rb;
         public Animator Animator => animator;
         public Transform AttackTransform => attackTransform;
-        public LayerMask AttackableLayer => attackableLayer;
-        public float AttackRange => attackRange;
         public Transform FireTransform => fireTransform;
         public Transform KamehamehaTransform => kamehamehaTransform;
 
@@ -196,19 +191,6 @@ namespace DragonBall.Player.PlayerMVC
         public void PlayDeathAnimation() => animator.SetTrigger(GameString.PlayerAnimationDeathTrigger);
         public void PlaySuperSaiyanTransformationAnimation() => animator.SetTrigger(GameString.PlayerAnimationTransformSuperSaiyanTrigger);
 
-        public void StartFireCoroutine(float delay, Action onComplete) => StartCoroutine(FireAfterDelay(delay, onComplete));
-
-        private IEnumerator FireAfterDelay(float delay, Action onComplete)
-        {
-            yield return new WaitForSeconds(delay);
-            onComplete?.Invoke();
-        }
-
-        public void Damage(int amount)
-        {
-            if (playerController != null)
-                playerController.TakeDamage(amount);
-        }
 
         public void TriggerFreeFallDeath()
         {
