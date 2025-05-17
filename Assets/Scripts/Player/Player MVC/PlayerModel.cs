@@ -1,133 +1,77 @@
 using UnityEngine;
+using DragonBall.Player.PlayerData;
 
 namespace DragonBall.Player.PlayerMVC
 {
     public class PlayerModel
     {
-        public float MaxHealth { get; private set; }
+        private PlayerScriptableObject config;
+
         public float CurrentHealth { get; private set; }
-        public float OriginalMaxHealth { get; private set; }
         public bool IsDead { get; private set; }
 
-        public float MaxStamina { get; private set; }
         public float CurrentStamina { get; private set; }
-        public float OriginalMaxStamina { get; private set; }
-        public float StaminaRegenRate { get; private set; }
-        public float KamehamehaStaminaCost { get; private set; }
-        public bool HasEnoughStaminaForKamehameha => CurrentStamina >= KamehamehaStaminaCost;
+        public bool HasEnoughStaminaForKamehameha => CurrentStamina >= config.KamehamehaStaminaCost;
 
+        public float MaxHealth { get; private set; }
+        public float MaxStamina { get; private set; }
         public float MoveSpeed { get; private set; }
-        public float OriginalMoveSpeed { get; private set; }
-
-        public float JumpSpeed { get; private set; }
-        public float JumpHorizontalDampening { get; private set; }
-
         public float FlySpeed { get; private set; }
-        public float OriginalFlySpeed { get; private set; }
+        public int KickAttackPower { get; private set; }
+
         public bool IsFlying { get; set; }
-
-        public float VanishRange { get; private set; }
-
-        public float DodgeSpeed { get; private set; }
-        public float DodgeDuration { get; private set; }
-        public float DodgeCooldown { get; private set; }
         public float LastDodgeTime { get; set; } = -10f;
         public bool IsDodging { get; set; }
         public float DodgeEndTime { get; set; }
-
-        public int KickAttackPower { get; private set; }
-        public int OriginalKickAttackPower { get; private set; }
-        public float KickAttackRange { get; private set; }
-        public float KickAttackCooldown { get; private set; }
         public float LastKickTime { get; set; } = -10f;
-        public bool IsKickOnCooldown => Time.time < LastKickTime + KickAttackCooldown;
-
-        public float FireCooldown { get; private set; }
+        public bool IsKickOnCooldown => Time.time < LastKickTime + config.KickAttackCooldown;
         public float LastFireTime { get; set; } = -10f;
-        public bool IsFireOnCooldown => Time.time < LastFireTime + FireCooldown;
-
+        public bool IsFireOnCooldown => Time.time < LastFireTime + config.FireCooldown;
         public bool IsGrounded { get; set; }
         public bool IsFacingRight { get; set; } = true;
         public int JumpCount { get; set; } = 0;
-
         public int DragonBallCount { get; private set; } = 0;
-        public int DragonBallsRequiredForSuperSaiyan { get; private set; }
 
-        public float SuperSaiyanHealthMultiplier { get; private set; }
-        public float SuperSaiyanStaminaMultiplier { get; private set; }
-        public float SuperSaiyanSpeedMultiplier { get; private set; }
-        public float SuperSaiyanPowerMultiplier { get; private set; }
 
-        public PlayerModel(
-            float _maxHealth,
-            float _maxStamina,
-            float _staminaRegenRate,
-            float _moveSpeed,
-            float _jumpSpeed,
-            float _jumpHorizontalDampening,
-            float _flySpeed,
-            float _vanishRange,
-            float _dodgeSpeed,
-            float _dodgeDuration,
-            float _dodgeCooldown,
-            int _kickAttackPower,
-            float _kickAttackRange,
-            float _kickAttackCooldown,
-            float _fireCooldown,
-            int _dragonBallsRequiredForSuperSaiyan,
-            float _superSaiyanHealthMultiplier,
-            float _superSaiyanStaminaMultiplier,
-            float _superSaiyanSpeedMultiplier,
-            float _superSaiyanPowerMultiplier,
-            float _kamehamehaStaminaCost
-        )
+        public float StaminaRegenRate => config.StaminaRegenRate;
+        public float KamehamehaStaminaCost => config.KamehamehaStaminaCost;
+        public float JumpSpeed => config.JumpSpeed;
+        public float JumpHorizontalDampening => config.JumpHorizontalDampening;
+        public float VanishRange => config.VanishRange;
+        public float DodgeSpeed => config.DodgeSpeed;
+        public float DodgeDuration => config.DodgeDuration;
+        public float DodgeCooldown => config.DodgeCooldown;
+        public float KickAttackRange => config.KickAttackRange;
+        public float KickAttackCooldown => config.KickAttackCooldown;
+        public float FireCooldown => config.FireCooldown;
+        public int DragonBallsRequiredForSuperSaiyan => config.DragonBallsRequiredForSuperSaiyan;
+
+        public float SuperSaiyanHealthMultiplier => config.SuperSaiyanHealthMultiplier;
+        public float SuperSaiyanStaminaMultiplier => config.SuperSaiyanStaminaMultiplier;
+        public float SuperSaiyanSpeedMultiplier => config.SuperSaiyanSpeedMultiplier;
+        public float SuperSaiyanPowerMultiplier => config.SuperSaiyanPowerMultiplier;
+
+        public PlayerModel(PlayerScriptableObject playerConfig)
         {
-            OriginalMaxHealth = _maxHealth;
-            MaxHealth = _maxHealth;
+            config = playerConfig;
+
+            MaxHealth = config.PlayerHealth;
             CurrentHealth = MaxHealth;
             IsDead = false;
 
-            OriginalMaxStamina = _maxStamina;
-            MaxStamina = _maxStamina;
+            MaxStamina = config.PlayerStamina;
             CurrentStamina = MaxStamina;
-            StaminaRegenRate = _staminaRegenRate;
-            KamehamehaStaminaCost = _kamehamehaStaminaCost;
 
-            OriginalMoveSpeed = _moveSpeed;
-            MoveSpeed = _moveSpeed;
-
-            JumpSpeed = _jumpSpeed;
-            JumpHorizontalDampening = _jumpHorizontalDampening;
-
-            OriginalFlySpeed = _flySpeed;
-            FlySpeed = _flySpeed;
+            MoveSpeed = config.MoveSpeed;
+            FlySpeed = config.FlySpeed;
             IsFlying = false;
 
-            VanishRange = _vanishRange;
-
-            DodgeSpeed = _dodgeSpeed;
-            DodgeDuration = _dodgeDuration;
-            DodgeCooldown = _dodgeCooldown;
             IsDodging = false;
-
-            KickAttackPower = _kickAttackPower;
-            OriginalKickAttackPower = _kickAttackPower;
-            KickAttackRange = _kickAttackRange;
-            KickAttackCooldown = _kickAttackCooldown;
-
-            FireCooldown = _fireCooldown;
-
-            DragonBallsRequiredForSuperSaiyan = _dragonBallsRequiredForSuperSaiyan;
-
-            SuperSaiyanHealthMultiplier = _superSaiyanHealthMultiplier;
-            SuperSaiyanStaminaMultiplier = _superSaiyanStaminaMultiplier;
-            SuperSaiyanSpeedMultiplier = _superSaiyanSpeedMultiplier;
-            SuperSaiyanPowerMultiplier = _superSaiyanPowerMultiplier;
+            KickAttackPower = config.KickAttackPower;
 
             IsGrounded = true;
             IsFacingRight = true;
             JumpCount = 0;
-
             DragonBallCount = 0;
         }
 
@@ -135,13 +79,13 @@ namespace DragonBall.Player.PlayerMVC
 
         public void ApplySuperSaiyanBuffs()
         {
-            MaxHealth = OriginalMaxHealth * SuperSaiyanHealthMultiplier;
+            MaxHealth = config.PlayerHealth * SuperSaiyanHealthMultiplier;
             CurrentHealth = MaxHealth;
-            MaxStamina = OriginalMaxStamina * SuperSaiyanStaminaMultiplier;
+            MaxStamina = config.PlayerStamina * SuperSaiyanStaminaMultiplier;
             CurrentStamina = MaxStamina;
-            MoveSpeed = OriginalMoveSpeed * SuperSaiyanSpeedMultiplier;
-            FlySpeed = OriginalFlySpeed * SuperSaiyanSpeedMultiplier;
-            KickAttackPower = (int)(OriginalKickAttackPower * SuperSaiyanPowerMultiplier);
+            MoveSpeed = config.MoveSpeed * SuperSaiyanSpeedMultiplier;
+            FlySpeed = config.FlySpeed * SuperSaiyanSpeedMultiplier;
+            KickAttackPower = (int)(config.KickAttackPower * SuperSaiyanPowerMultiplier);
 
             if (IsDead)
                 IsDead = false;
@@ -149,22 +93,21 @@ namespace DragonBall.Player.PlayerMVC
 
         public void RemoveSuperSaiyanBuffs()
         {
-            MoveSpeed = OriginalMoveSpeed;
-            KickAttackPower = OriginalKickAttackPower;
+            float healthPercentage = CurrentHealth / MaxHealth;
+            float staminaPercentage = CurrentStamina / MaxStamina;
+
+            MoveSpeed = config.MoveSpeed;
+            FlySpeed = config.FlySpeed;
+            KickAttackPower = config.KickAttackPower;
             IsFlying = false;
 
-            float healthPercentage = CurrentHealth / MaxHealth;
-            MaxHealth = OriginalMaxHealth;
+            MaxHealth = config.PlayerHealth;
             CurrentHealth = MaxHealth * healthPercentage;
+            MaxStamina = config.PlayerStamina;
+            CurrentStamina = MaxStamina * staminaPercentage;
 
             if (CurrentHealth <= 0)
                 CurrentHealth = 1;
-
-            float staminaPercentage = CurrentStamina / MaxStamina;
-            MaxStamina = OriginalMaxStamina;
-            CurrentStamina = MaxStamina * staminaPercentage;
-
-            FlySpeed = OriginalFlySpeed;
         }
 
         public void TakeDamage(float damage)
@@ -182,17 +125,17 @@ namespace DragonBall.Player.PlayerMVC
 
         public bool UseStaminaForKamehameha()
         {
-            if (CurrentStamina < KamehamehaStaminaCost)
+            if (CurrentStamina < config.KamehamehaStaminaCost)
                 return false;
 
-            CurrentStamina -= KamehamehaStaminaCost;
+            CurrentStamina -= config.KamehamehaStaminaCost;
             return true;
         }
 
         public void RegenerateStamina(float deltaTime)
         {
             if (CurrentStamina < MaxStamina)
-                CurrentStamina = Mathf.Min(MaxStamina, CurrentStamina + (StaminaRegenRate * deltaTime));
+                CurrentStamina = Mathf.Min(MaxStamina, CurrentStamina + (config.StaminaRegenRate * deltaTime));
         }
 
         public void Reset()
