@@ -23,12 +23,24 @@ namespace DragonBall.Sound.SoundUtilities
         {
             base.Awake();
             DontDestroyOnLoad(gameObject);
+            InitializeSoundService();
+        }
+
+        private void InitializeSoundService()
+        {
             CreateAdditionalAudioSources();
             soundService = new SoundService(soundScriptableObject, soundEffectsSource, backgroundMusicSource, availableAudioSources, activeSoundEffects);
+            PlayBackgroundMusic(SoundType.BackgroundMusic);
         }
 
         private void CreateAdditionalAudioSources()
         {
+            if (soundEffectsSource == null)
+            {
+                soundEffectsSource = gameObject.AddComponent<AudioSource>();
+                soundEffectsSource.playOnAwake = false;
+            }
+
             availableAudioSources.Enqueue(soundEffectsSource);
 
             for (int i = 0; i < additionalAudioSourcesCount; i++)
@@ -42,10 +54,10 @@ namespace DragonBall.Sound.SoundUtilities
             }
         }
 
-        public void PlaySoundEffect(SoundType soundType, bool loop = false) => soundService.PlaySoundEffects(soundType, loop);
+        public void PlaySoundEffect(SoundType soundType, bool loop = false) => soundService?.PlaySoundEffects(soundType, loop);
 
-        public void PlayBackgroundMusic(SoundType soundType, bool loop = true) => soundService.PlayBackgroundMusic(soundType, loop);
+        public void PlayBackgroundMusic(SoundType soundType, bool loop = true) => soundService?.PlayBackgroundMusic(soundType, loop);
 
-        public void StopSoundEffect(SoundType soundType) => soundService.StopSoundEffect(soundType);
+        public void StopSoundEffect(SoundType soundType) => soundService?.StopSoundEffect(soundType);
     }
 }
