@@ -265,12 +265,7 @@ namespace DragonBall.Player.PlayerMVC
         public void TransformToSuperSaiyan()
         {
             if (isSuperSaiyan) return;
-
-            if (superSaiyanAnimatorController == null)
-            {
-                Debug.LogError("Super Saiyan Animator Controller is not assigned in PlayerView!");
-                return;
-            }
+            if (!superSaiyanAnimatorController) return;
 
             animator.runtimeAnimatorController = superSaiyanAnimatorController;
             isSuperSaiyan = true;
@@ -279,16 +274,10 @@ namespace DragonBall.Player.PlayerMVC
         public void RevertToNormal()
         {
             if (!isSuperSaiyan) return;
-
-            if (normalAnimatorController == null)
-            {
-                Debug.LogError("Normal Animator Controller is not assigned in PlayerView!");
-                return;
-            }
+            if (!normalAnimatorController) return;
 
             animator.runtimeAnimatorController = normalAnimatorController;
             isSuperSaiyan = false;
-            Debug.Log("Reverted from Super Saiyan. Animator controller updated.");
         }
 
         public void ResetMovementDirection() => movementDirection = Vector2.zero;

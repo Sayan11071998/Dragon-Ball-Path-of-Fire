@@ -30,9 +30,7 @@ namespace DragonBall.Player.PlayerStates
             AnimationClip transformClip = playerView.SuperSaiyanAnimationClip;
 
             playerView.TransformToSuperSaiyan();
-            yield return new WaitForSeconds(transformClip.length * 0.8f);
-
-            yield return new WaitForSeconds(transformClip.length * 0.2f);
+            yield return new WaitForSeconds(transformClip.length);
 
             playerView.StopPlayerMovement();
             yield return new WaitForSeconds(0.1f);
