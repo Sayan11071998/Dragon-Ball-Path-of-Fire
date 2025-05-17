@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using DragonBall.Player.PlayerData;
-using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerStates;
-using DragonBall.Utilities;
 
 namespace DragonBall.Player.PlayerUtilities
 {
@@ -18,7 +16,6 @@ namespace DragonBall.Player.PlayerUtilities
             playerController = controller;
             InitializeStates();
             powerStateManager = new PowerStateManager(controller);
-
             ChangeState(PlayerState.Idle);
         }
 
@@ -37,8 +34,7 @@ namespace DragonBall.Player.PlayerUtilities
 
         public void ChangeState(PlayerState newStateType)
         {
-            if (currentState != null && currentState.GetStateType() == newStateType)
-                return;
+            if (currentState != null && currentState.GetStateType() == newStateType) return;
 
             IPlayerState newState = states[newStateType];
 
