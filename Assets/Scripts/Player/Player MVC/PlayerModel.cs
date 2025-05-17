@@ -32,9 +32,6 @@ namespace DragonBall.Player.PlayerMVC
         public int JumpCount { get; set; } = 0;
         public int DragonBallCount { get; private set; } = 0;
 
-
-        public float StaminaRegenRate => config.StaminaRegenRate;
-        public float KamehamehaStaminaCost => config.KamehamehaStaminaCost;
         public float JumpSpeed => config.JumpSpeed;
         public float JumpHorizontalDampening => config.JumpHorizontalDampening;
         public float VanishRange => config.VanishRange;
@@ -42,8 +39,6 @@ namespace DragonBall.Player.PlayerMVC
         public float DodgeDuration => config.DodgeDuration;
         public float DodgeCooldown => config.DodgeCooldown;
         public float KickAttackRange => config.KickAttackRange;
-        public float KickAttackCooldown => config.KickAttackCooldown;
-        public float FireCooldown => config.FireCooldown;
         public int DragonBallsRequiredForSuperSaiyan => config.DragonBallsRequiredForSuperSaiyan;
 
         public float SuperSaiyanHealthMultiplier => config.SuperSaiyanHealthMultiplier;
@@ -81,14 +76,16 @@ namespace DragonBall.Player.PlayerMVC
         {
             MaxHealth = config.PlayerHealth * SuperSaiyanHealthMultiplier;
             CurrentHealth = MaxHealth;
+
             MaxStamina = config.PlayerStamina * SuperSaiyanStaminaMultiplier;
             CurrentStamina = MaxStamina;
+
             MoveSpeed = config.MoveSpeed * SuperSaiyanSpeedMultiplier;
             FlySpeed = config.FlySpeed * SuperSaiyanSpeedMultiplier;
+
             KickAttackPower = (int)(config.KickAttackPower * SuperSaiyanPowerMultiplier);
 
-            if (IsDead)
-                IsDead = false;
+            if (IsDead) IsDead = false;
         }
 
         public void RemoveSuperSaiyanBuffs()
@@ -106,8 +103,7 @@ namespace DragonBall.Player.PlayerMVC
             MaxStamina = config.PlayerStamina;
             CurrentStamina = MaxStamina * staminaPercentage;
 
-            if (CurrentHealth <= 0)
-                CurrentHealth = 1;
+            if (CurrentHealth <= 0) CurrentHealth = 1;
         }
 
         public void TakeDamage(float damage)
