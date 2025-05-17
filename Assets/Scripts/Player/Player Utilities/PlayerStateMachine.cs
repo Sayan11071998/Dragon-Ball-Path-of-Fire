@@ -31,8 +31,8 @@ namespace DragonBall.Player.PlayerUtilities
             {
                 { PlayerState.Idle, new IdleState(playerController, this) },
                 { PlayerState.Run, new RunState(playerController, this) },
-                // Add other states as we implement them
-                // { PlayerState.Jump, new JumpState(playerController, this) },
+                { PlayerState.Jump, new JumpState(playerController, this) },
+
                 // { PlayerState.Fly, new FlyState(playerController, this) },
                 // { PlayerState.Kick, new KickState(playerController, this) },
                 // { PlayerState.Fire, new FireState(playerController, this) },
