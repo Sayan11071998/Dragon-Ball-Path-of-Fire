@@ -11,8 +11,6 @@ using DragonBall.Enemy.EnemyData;
 using DragonBall.Enemy.ParentMVC;
 using DragonBall.GameCamera;
 using DragonBall.Utilities;
-using DragonBall.Sound.SoundUtilities;
-using DragonBall.Sound.SoundData;
 using DragonBall.UI.UIUtilities;
 using DragonBall.UI.UIView;
 using DragonBall.VFX;
@@ -48,9 +46,6 @@ namespace DragonBall.Core
         {
             base.Awake();
             InitializeServices();
-
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.PlayBackgroundMusic(SoundType.BackgroundMusic);
         }
 
         private void InitializeServices()
