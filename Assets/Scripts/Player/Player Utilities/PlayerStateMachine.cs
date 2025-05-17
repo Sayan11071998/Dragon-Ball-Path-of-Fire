@@ -30,14 +30,14 @@ namespace DragonBall.Player.PlayerUtilities
             states = new Dictionary<PlayerState, IState>()
             {
                 { PlayerState.Idle, new IdleState(playerController, this) },
+                { PlayerState.Run, new RunState(playerController, this) },
                 // Add other states as we implement them
-                // { PlayerState.Run, new RunState(playerController, this) },
                 // { PlayerState.Jump, new JumpState(playerController, this) },
                 // { PlayerState.Fly, new FlyState(playerController, this) },
                 // { PlayerState.Kick, new KickState(playerController, this) },
                 // { PlayerState.Fire, new FireState(playerController, this) },
                 // { PlayerState.Dodge, new DodgeState(playerController, this) },
-                // { PlayerState.Vanishe, new VanishState(playerController, this) },
+                // { PlayerState.Vanish, new VanishState(playerController, this) },
                 // { PlayerState.Kamehameha, new KamehamehaState(playerController, this) },
                 // { PlayerState.Transform, new TransformState(playerController, this) },
                 // { PlayerState.Dead, new DeadState(playerController, this) }
