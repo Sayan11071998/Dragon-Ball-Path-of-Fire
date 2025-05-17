@@ -1,7 +1,10 @@
+using UnityEngine;
+using DragonBall.Player.PlayerData;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerUtilities;
 using DragonBall.Utilities;
-using UnityEngine;
+using DragonBall.Sound.SoundUtilities;
+using DragonBall.Sound.SoundData;
 
 namespace DragonBall.Player.PlayerStates
 {
@@ -29,10 +32,11 @@ namespace DragonBall.Player.PlayerStates
             HandleGroundCheck();
             HandleCharacterDirection();
             playerModel.RegenerateStamina(Time.deltaTime);
+
+            if (CheckCommonTransitions()) return;
         }
 
         public virtual void OnStateExit() { }
-
 
         protected void HandleGroundCheck()
         {
@@ -58,6 +62,71 @@ namespace DragonBall.Player.PlayerStates
             }
         }
 
+        protected bool CheckCommonTransitions()
+        {
+            if (playerModel.IsDead)
+            {
+                stateMachine.ChangeState(PlayerState.Dead);
+                return true;
+            }
+
+            if (CanTransformSuperSaiyan())
+            {
+                stateMachine.ChangeState(PlayerState.Transform);
+                return true;
+            }
+
+            if (playerModel.IsSuperSaiyan())
+            {
+                if (CanUseKamehameha())
+                {
+                    stateMachine.ChangeState(PlayerState.Kamehameha);
+                    playerView.ResetKamehameha();
+                    return true;
+                }
+
+                if (CanUseVanish())
+                {
+                    stateMachine.ChangeState(PlayerState.Vanish);
+                    playerView.ResetVanishInput();
+                    return true;
+                }
+
+                if (CanDodge())
+                {
+                    stateMachine.ChangeState(PlayerState.Dodge);
+                    playerView.ResetDodgeInput();
+                    return true;
+                }
+
+                if (CanToggleFlight())
+                {
+                    ToggleFlight();
+                    return true;
+                }
+            }
+
+            if (ShouldTransitionToJump())
+            {
+                HandleJump();
+                return true;
+            }
+
+            if (CanUseKick())
+            {
+                stateMachine.ChangeState(PlayerState.Kick);
+                return true;
+            }
+
+            if (CanUseFire())
+            {
+                stateMachine.ChangeState(PlayerState.Fire);
+                return true;
+            }
+
+            return false;
+        }
+
         protected bool ShouldTransitionToMove()
         {
             float moveInput = playerView.MoveInput;
@@ -67,11 +136,6 @@ namespace DragonBall.Player.PlayerStates
         protected bool ShouldTransitionToJump()
         {
             return playerView.JumpInput && playerModel.IsGrounded;
-        }
-
-        protected bool ShouldTransitionToDead()
-        {
-            return playerModel.IsDead;
         }
 
         protected bool CanUseKick()
@@ -124,6 +188,43 @@ namespace DragonBall.Player.PlayerStates
             return !playerModel.IsDead &&
                    playerModel.IsSuperSaiyan() &&
                    playerView.FlyInput;
+        }
+
+        protected void HandleJump()
+        {
+            var velocity = playerView.Rigidbody.linearVelocity;
+            velocity.y = playerModel.JumpSpeed;
+            velocity.x *= playerModel.JumpHorizontalDampening;
+            playerView.Rigidbody.linearVelocity = velocity;
+            playerModel.JumpCount++;
+
+            SoundManager.Instance.PlaySoundEffect(SoundType.GokuJump);
+            stateMachine.ChangeState(PlayerState.Jump);
+            playerView.ResetJumpInput();
+        }
+
+        protected void ToggleFlight()
+        {
+            playerModel.IsFlying = !playerModel.IsFlying;
+            playerView.Rigidbody.linearVelocity = Vector2.zero;
+            playerView.ResetMovementDirection();
+
+            if (playerModel.IsFlying)
+            {
+                playerView.UpdateFlightAnimation(true);
+                playerView.Rigidbody.gravityScale = 0f;
+                playerView.StartFlightSound();
+                stateMachine.ChangeState(PlayerState.Fly);
+            }
+            else
+            {
+                playerView.UpdateFlightAnimation(false);
+                playerView.Rigidbody.gravityScale = 1f;
+                playerView.StopFlightSound();
+                stateMachine.ChangeState(PlayerState.Idle);
+            }
+
+            playerView.ResetFlyInput();
         }
     }
 }

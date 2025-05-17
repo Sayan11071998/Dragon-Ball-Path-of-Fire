@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using System;
 using UnityEngine.InputSystem;
 using System.Collections;
 using DragonBall.GameStrings;
@@ -266,9 +266,13 @@ namespace DragonBall.Player.PlayerMVC
         {
             if (isSuperSaiyan) return;
 
-            if (superSaiyanAnimatorController != null)
-                animator.runtimeAnimatorController = superSaiyanAnimatorController;
+            if (superSaiyanAnimatorController == null)
+            {
+                Debug.LogError("Super Saiyan Animator Controller is not assigned in PlayerView!");
+                return;
+            }
 
+            animator.runtimeAnimatorController = superSaiyanAnimatorController;
             isSuperSaiyan = true;
         }
 
@@ -276,10 +280,15 @@ namespace DragonBall.Player.PlayerMVC
         {
             if (!isSuperSaiyan) return;
 
-            if (normalAnimatorController != null)
-                animator.runtimeAnimatorController = normalAnimatorController;
+            if (normalAnimatorController == null)
+            {
+                Debug.LogError("Normal Animator Controller is not assigned in PlayerView!");
+                return;
+            }
 
+            animator.runtimeAnimatorController = normalAnimatorController;
             isSuperSaiyan = false;
+            Debug.Log("Reverted from Super Saiyan. Animator controller updated.");
         }
 
         public void ResetMovementDirection() => movementDirection = Vector2.zero;

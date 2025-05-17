@@ -1,9 +1,9 @@
+using UnityEngine;
 using System.Collections.Generic;
 using DragonBall.Player.PlayerData;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerStates;
 using DragonBall.Utilities;
-using UnityEngine;
 
 namespace DragonBall.Player.PlayerUtilities
 {
@@ -34,13 +34,11 @@ namespace DragonBall.Player.PlayerUtilities
                 { PlayerState.Jump, new JumpState(playerController, this) },
                 { PlayerState.Fly, new FlyState(playerController, this) },
                 { PlayerState.Transform, new TransformState(playerController, this) },
-
                 // { PlayerState.Kick, new KickState(playerController, this) },
                 // { PlayerState.Fire, new FireState(playerController, this) },
                 // { PlayerState.Dodge, new DodgeState(playerController, this) },
                 // { PlayerState.Vanish, new VanishState(playerController, this) },
                 // { PlayerState.Kamehameha, new KamehamehaState(playerController, this) },
-                // { PlayerState.Transform, new TransformState(playerController, this) },
                 // { PlayerState.Dead, new DeadState(playerController, this) }
             };
         }

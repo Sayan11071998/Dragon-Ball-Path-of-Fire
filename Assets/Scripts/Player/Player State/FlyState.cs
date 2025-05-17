@@ -39,16 +39,11 @@ namespace DragonBall.Player.PlayerStates
         {
             base.Update();
 
-            if (playerModel.IsDead)
-            {
-                ExitFlyState();
-                return;
-            }
-
             HandleFlightMovement();
             PlayFlightEffects();
 
-            if (CheckStateTransitions()) return;
+            if (!playerModel.IsSuperSaiyan())
+                ExitFlyState();
         }
 
         public override void OnStateExit()
@@ -86,43 +81,6 @@ namespace DragonBall.Player.PlayerStates
                 lastFlightEffectTime = Time.time;
                 SoundManager.Instance.PlaySoundEffect(SoundType.GokuFly);
             }
-        }
-
-        private bool CheckStateTransitions()
-        {
-            if (CanToggleFlight())
-            {
-                ExitFlyState();
-                return true;
-            }
-
-            if (CanUseKamehameha())
-            {
-                stateMachine.ChangeState(PlayerState.Kamehameha);
-                playerView.ResetKamehameha();
-                return true;
-            }
-
-            if (CanUseFire())
-            {
-                stateMachine.ChangeState(PlayerState.Fire);
-                return true;
-            }
-
-            if (CanUseVanish())
-            {
-                stateMachine.ChangeState(PlayerState.Vanish);
-                playerView.ResetVanishInput();
-                return true;
-            }
-
-            if (!playerModel.IsSuperSaiyan())
-            {
-                ExitFlyState();
-                return true;
-            }
-
-            return false;
         }
 
         private void ExitFlyState() => stateMachine.ChangeState(PlayerState.Idle);

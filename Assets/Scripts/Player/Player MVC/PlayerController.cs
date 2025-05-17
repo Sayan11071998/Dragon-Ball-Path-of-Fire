@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using DragonBall.Core;
 using DragonBall.Sound.SoundData;
 using DragonBall.Sound.SoundUtilities;
@@ -30,7 +29,7 @@ namespace DragonBall.Player.PlayerMVC
             stateMachine = new PlayerStateMachine(this);
 
             if (startAsSuperSaiyan)
-                StartSuperSaiyanTransformation();
+                stateMachine.ChangeState(PlayerState.Transform);
         }
 
         public void Update()
@@ -87,38 +86,6 @@ namespace DragonBall.Player.PlayerMVC
             isInputEnabled = true;
             playerView.EnableInput();
             return isInputEnabled;
-        }
-
-        public void StartSuperSaiyanTransformation()
-        {
-            DisablePlayerController();
-            playerView.StopPlayerMovement();
-            stateMachine.ChangeState(PlayerState.Transform);
-
-            playerView.PlaySuperSaiyanTransformationAnimation();
-            SoundManager.Instance.PlaySoundEffect(SoundType.GokuSuperSaiyanTransform);
-            playerModel.ApplySuperSaiyanBuffs();
-            playerView.StartCoroutine(WaitForSuperSaiyanTransformation());
-        }
-
-        private IEnumerator WaitForSuperSaiyanTransformation()
-        {
-            AnimationClip transformClip = playerView.SuperSaiyanAnimationClip;
-            yield return new WaitForSeconds(transformClip.length * 0.8f);
-
-            playerView.TransformToSuperSaiyan();
-
-            yield return new WaitForSeconds(transformClip.length * 0.2f);
-
-            playerView.StopPlayerMovement();
-            yield return new WaitForSeconds(0.1f);
-
-            bool isNotificationHandled = false;
-            GameService.Instance.uiService.ShowNotification(() => isNotificationHandled = true);
-            yield return new WaitUntil(() => isNotificationHandled);
-
-            EnablePlayerController();
-            stateMachine.ChangeState(PlayerState.Idle);
         }
 
         public void RevertFromSuperSaiyan()

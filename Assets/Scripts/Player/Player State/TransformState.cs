@@ -1,11 +1,11 @@
 using UnityEngine;
+using System.Collections;
+using DragonBall.Core;
 using DragonBall.Player.PlayerData;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerUtilities;
-using System.Collections;
 using DragonBall.Sound.SoundData;
 using DragonBall.Sound.SoundUtilities;
-using DragonBall.Core;
 
 namespace DragonBall.Player.PlayerStates
 {
@@ -28,9 +28,9 @@ namespace DragonBall.Player.PlayerStates
         private IEnumerator WaitForSuperSaiyanTransformation()
         {
             AnimationClip transformClip = playerView.SuperSaiyanAnimationClip;
-            yield return new WaitForSeconds(transformClip.length * 0.8f);
 
             playerView.TransformToSuperSaiyan();
+            yield return new WaitForSeconds(transformClip.length * 0.8f);
 
             yield return new WaitForSeconds(transformClip.length * 0.2f);
 
@@ -61,7 +61,7 @@ namespace DragonBall.Player.PlayerStates
                 transformationCoroutine = null;
             }
 
-            base.OnStateExit();
+            playerController.EnablePlayerController();
         }
     }
 }

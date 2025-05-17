@@ -35,12 +35,18 @@ namespace DragonBall.Player.PlayerStates
         {
             base.Update();
 
-            if (playerModel.IsDead) return;
-
             ApplyHorizontalMovement();
             CheckForDoubleJump();
 
-            if (CheckStateTransitions()) return;
+            bool minJumpTimePassed = Time.time >= startJumpTime + minJumpDuration;
+
+            if (playerModel.IsGrounded && minJumpTimePassed)
+            {
+                if (ShouldTransitionToMove())
+                    stateMachine.ChangeState(PlayerState.Run);
+                else
+                    stateMachine.ChangeState(PlayerState.Idle);
+            }
         }
 
         private void ApplyHorizontalMovement()
@@ -73,75 +79,6 @@ namespace DragonBall.Player.PlayerStates
             SoundManager.Instance.PlaySoundEffect(SoundType.GokuJump);
 
             playerView.ResetJumpInput();
-        }
-
-        private bool CheckStateTransitions()
-        {
-            bool minJumpTimePassed = Time.time >= startJumpTime + minJumpDuration;
-
-            if (playerModel.IsGrounded && minJumpTimePassed)
-            {
-                if (ShouldTransitionToMove())
-                {
-                    stateMachine.ChangeState(PlayerState.Run);
-                    return true;
-                }
-                else
-                {
-                    stateMachine.ChangeState(PlayerState.Idle);
-                    return true;
-                }
-            }
-
-            if (CheckAbilityStateTransitions()) return true;
-
-            return false;
-        }
-
-        private bool CheckAbilityStateTransitions()
-        {
-            if (playerModel.IsSuperSaiyan())
-            {
-                if (CanUseKamehameha())
-                {
-                    stateMachine.ChangeState(PlayerState.Kamehameha);
-                    playerView.ResetKamehameha();
-                    return true;
-                }
-
-                if (CanUseVanish())
-                {
-                    stateMachine.ChangeState(PlayerState.Vanish);
-                    playerView.ResetVanishInput();
-                    return true;
-                }
-
-                if (CanToggleFlight())
-                {
-                    ToggleFlight();
-                    return true;
-                }
-            }
-
-            if (CanUseFire())
-            {
-                stateMachine.ChangeState(PlayerState.Fire);
-                return true;
-            }
-
-            return false;
-        }
-
-        private void ToggleFlight()
-        {
-            playerModel.IsFlying = true;
-            playerView.Rigidbody.linearVelocity = Vector2.zero;
-            playerView.ResetMovementDirection();
-            playerView.UpdateFlightAnimation(true);
-            playerView.Rigidbody.gravityScale = 0f;
-            playerView.StartFlightSound();
-            stateMachine.ChangeState(PlayerState.Fly);
-            playerView.ResetFlyInput();
         }
     }
 }
