@@ -43,6 +43,18 @@ namespace DragonBall.Player.PlayerStates
                 return;
             }
 
+            if (playerView.KamehamehaInput && playerModel.HasEnoughStaminaForKamehameha)
+            {
+                stateMachine.ChangeState(PlayerState.Kamehameha);
+                return;
+            }
+
+            if (playerView.VanishInput)
+            {
+                stateMachine.ChangeState(PlayerState.Vanish);
+                return;
+            }
+
             base.Update();
 
             HandleFlightMovement();
@@ -59,7 +71,8 @@ namespace DragonBall.Player.PlayerStates
             playerView.StopFlightSound();
 
             PlayerState nextState = stateMachine.GetCurrentPlayerState();
-            if (nextState != PlayerState.Fire)
+
+            if (nextState != PlayerState.Fire && nextState != PlayerState.Kamehameha && nextState != PlayerState.Vanish)
                 playerModel.IsFlying = false;
 
             base.OnStateExit();

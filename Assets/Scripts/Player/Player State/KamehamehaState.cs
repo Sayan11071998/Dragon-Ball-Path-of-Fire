@@ -13,6 +13,7 @@ namespace DragonBall.Player.PlayerStates
         private float kamehamehaStartTime;
         private float kamehamehaAnimationDuration;
         private bool hasFiredKamehameha = false;
+        private bool wasFlying = false;
 
         public KamehamehaState(PlayerController controller, PlayerStateMachine machine) : base(controller, machine)
         {
@@ -24,6 +25,8 @@ namespace DragonBall.Player.PlayerStates
             kamehamehaAnimationComplete = false;
             hasFiredKamehameha = false;
             kamehamehaStartTime = Time.time;
+
+            wasFlying = playerModel.IsFlying;
 
             if (playerModel.UseStaminaForKamehameha())
             {
@@ -54,7 +57,9 @@ namespace DragonBall.Player.PlayerStates
 
             if (kamehamehaAnimationComplete)
             {
-                if (ShouldTransitionToMove())
+                if (wasFlying && playerModel.IsSuperSaiyan())
+                    stateMachine.ChangeState(PlayerState.Fly);
+                else if (ShouldTransitionToMove())
                     stateMachine.ChangeState(PlayerState.Run);
                 else
                     stateMachine.ChangeState(PlayerState.Idle);

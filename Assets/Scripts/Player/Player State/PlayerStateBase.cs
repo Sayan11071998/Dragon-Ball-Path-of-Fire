@@ -87,35 +87,46 @@ namespace DragonBall.Player.PlayerStates
 
                 if (CanUseVanish())
                 {
-                    stateMachine.ChangeState(PlayerState.Vanish);
                     playerView.ResetVanishInput();
+                    stateMachine.ChangeState(PlayerState.Vanish);
                     return true;
                 }
 
-                if (CanDodge())
+                if (!playerModel.IsFlying)
                 {
-                    stateMachine.ChangeState(PlayerState.Dodge);
-                    playerView.ResetDodgeInput();
-                    return true;
-                }
+                    if (CanDodge())
+                    {
+                        stateMachine.ChangeState(PlayerState.Dodge);
+                        playerView.ResetDodgeInput();
+                        return true;
+                    }
 
-                if (CanToggleFlight())
+                    if (CanToggleFlight())
+                    {
+                        ToggleFlight();
+                        return true;
+                    }
+                }
+                else if (CanToggleFlight())
                 {
                     ToggleFlight();
                     return true;
                 }
             }
 
-            if (ShouldTransitionToJump())
+            if (!playerModel.IsFlying)
             {
-                HandleJump();
-                return true;
-            }
+                if (ShouldTransitionToJump())
+                {
+                    HandleJump();
+                    return true;
+                }
 
-            if (CanUseKick())
-            {
-                stateMachine.ChangeState(PlayerState.Kick);
-                return true;
+                if (CanUseKick())
+                {
+                    stateMachine.ChangeState(PlayerState.Kick);
+                    return true;
+                }
             }
 
             if (CanUseFire())
