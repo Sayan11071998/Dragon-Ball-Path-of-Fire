@@ -135,7 +135,7 @@ namespace DragonBall.Player.PlayerStates
 
         protected bool ShouldTransitionToJump()
         {
-            return playerView.JumpInput && playerModel.IsGrounded;
+            return playerView.JumpInput && playerModel.IsGrounded && !playerModel.IsSuperSaiyan();
         }
 
         protected bool CanUseKick()
