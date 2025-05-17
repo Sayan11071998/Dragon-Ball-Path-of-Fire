@@ -1,9 +1,9 @@
 using UnityEngine;
-using DragonBall.Player.PlayerData;
 using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerUtilities;
-using DragonBall.Sound.SoundData;
+using DragonBall.Player.PlayerData;
 using DragonBall.Sound.SoundUtilities;
+using DragonBall.Sound.SoundData;
 
 namespace DragonBall.Player.PlayerStates
 {
@@ -37,6 +37,12 @@ namespace DragonBall.Player.PlayerStates
 
         public override void Update()
         {
+            if (playerView.FireInput && !playerModel.IsFireOnCooldown)
+            {
+                stateMachine.ChangeState(PlayerState.Fire);
+                return;
+            }
+
             base.Update();
 
             HandleFlightMovement();
@@ -51,7 +57,11 @@ namespace DragonBall.Player.PlayerStates
             playerView.UpdateFlightAnimation(false);
             playerView.Rigidbody.gravityScale = 1f;
             playerView.StopFlightSound();
-            playerModel.IsFlying = false;
+
+            PlayerState nextState = stateMachine.GetCurrentPlayerState();
+            if (nextState != PlayerState.Fire)
+                playerModel.IsFlying = false;
+
             base.OnStateExit();
         }
 
