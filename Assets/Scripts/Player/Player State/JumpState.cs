@@ -1,86 +1,74 @@
+using UnityEngine;
+using DragonBall.Player.PlayerData;
+using DragonBall.Player.PlayerUtilities;
+using DragonBall.Sound.SoundUtilities;
+using DragonBall.Sound.SoundData;
+
 namespace DragonBall.Player.PlayerStates
 {
-    using UnityEngine;
-    using DragonBall.Player.PlayerMVC;
-    using DragonBall.Player.PlayerData;
-    using DragonBall.Player.PlayerUtilities;
-    using DragonBall.Sound.SoundUtilities;
-    using DragonBall.Sound.SoundData;
-    
     public class JumpState : BasePlayerState
     {
-        public JumpState(PlayerController controller, PlayerStateManager manager) 
-            : base(controller, manager) { }
-            
-        public override void Enter()
+        public JumpState(PlayerController controller, PlayerStateMachine machine) : base(controller, machine) { }
+
+        public override void OnStateEnter()
         {
             playerView.UpdateJumpAnimation(true);
-            
+
             Vector2 velocity = GetCurrentVelocity();
             velocity.y = playerModel.JumpSpeed;
             velocity.x *= playerModel.JumpHorizontalDampening;
             SetVelocity(velocity);
-            
+
             playerModel.JumpCount++;
             SoundManager.Instance.PlaySoundEffect(SoundType.GokuJump);
             playerView.ResetJumpInput();
         }
-        
+
         public override void Update()
         {
-            // Handle horizontal movement during jump
             float moveInput = playerView.MoveInput;
             Vector2 velocity = GetCurrentVelocity();
             velocity.x = moveInput * playerModel.MoveSpeed;
             SetVelocity(velocity);
-            
-            // Handle character direction
+
             if (moveInput > 0 && !IsFacingRight())
-            {
                 FlipCharacter(true);
-            }
             else if (moveInput < 0 && IsFacingRight())
-            {
                 FlipCharacter(false);
-            }
-            
-            // Check transitions
+
             if (GetCurrentVelocity().y < 0)
             {
-                stateManager.ChangeState(PlayerState.Fall);
+                stateMachine.ChangeState(PlayerState.Fall);
                 return;
             }
-            
-            if (playerView.FlyInput && stateManager.CanFly())
+
+            if (playerView.FlyInput && stateMachine.CanFly())
             {
-                stateManager.ChangeState(PlayerState.Fly);
+                stateMachine.ChangeState(PlayerState.Fly);
                 return;
             }
-            
-            if (playerView.VanishInput && stateManager.CanVanish())
+
+            if (playerView.VanishInput && stateMachine.CanVanish())
             {
-                stateManager.ChangeState(PlayerState.Vanish);
+                stateMachine.ChangeState(PlayerState.Vanish);
                 return;
             }
-            
+
             if (playerView.FireInput && !playerModel.IsFireOnCooldown)
             {
-                stateManager.ChangeState(PlayerState.Fire);
+                stateMachine.ChangeState(PlayerState.Fire);
                 return;
             }
-            
+
             if (playerModel.IsDead)
             {
-                stateManager.ChangeState(PlayerState.Dead);
+                stateMachine.ChangeState(PlayerState.Dead);
                 return;
             }
         }
-        
-        public override void Exit()
-        {
-            playerView.UpdateJumpAnimation(false);
-        }
-        
+
+        public override void OnStateExit() => playerView.UpdateJumpAnimation(false);
+
         public override PlayerState GetStateType() => PlayerState.Jump;
     }
 }
