@@ -1,5 +1,4 @@
 using UnityEngine;
-using DragonBall.Player.PlayerMVC;
 using DragonBall.Player.PlayerData;
 using DragonBall.Player.PlayerUtilities;
 
