@@ -82,6 +82,9 @@ Working on **Dragon Ball Path to Fire** has been an incredible learning experien
 
 ---
 
+[![Watch the video](https://img.youtube.com/vi/pTavSzk228w/maxresdefault.jpg)](https://youtu.be/pTavSzk228w)
+### [Gameplay Video](https://youtu.be/pTavSzk228w)
+
 ![Image](https://github.com/user-attachments/assets/07aa68e6-71ab-443b-934d-39e73b2a46d9)
 
 ![Image](https://github.com/user-attachments/assets/fa566fb4-27ee-49ab-8666-63a59a5ef257)
