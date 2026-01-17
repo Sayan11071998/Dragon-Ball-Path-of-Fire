@@ -54,67 +54,33 @@ flowchart TD
 
 * ### Generic Object Pooling
     - My initial implementation spawned/destroyed bullets and VFX on every action, causing spikes during boss fights. I built a generic pool system that pre-instantiates objects and reuses them:
-      ```mermard
-          classDiagram
-        class GenericObjectPool~T~ {
-            <<abstract>>
-        }
-        
-        class BulletPool {
-            (regular bullets)
-        }
-        
-        class GuidedBulletPool {
-            (homing projectiles)
-        }
-        
-        class EnemyPool {
-            (4 enemy types)
-        }
-        
-        class VFXPool {
-            (effects)
-        }
-        
-        GenericObjectPool~T~ <|-- BulletPool
-        GenericObjectPool~T~ <|-- GuidedBulletPool
-        GenericObjectPool~T~ <|-- EnemyPool
-        GenericObjectPool~T~ <|-- VFXPool
-      ```
+      ![Image](https://github.com/user-attachments/assets/187fad0f-a417-4ee5-8f1a-de2123affed8)
     - The pool tracks `PooledItem<T>` with an `isUsed` flag. When requesting an object, it searches for an unused instance matching the type. If none exist, it creates one. The key was making this work with inheritance - GuidedBulletPool extends BulletPool and overrides `CreateController()` to instantiate the correct subclass. This reduced frame allocations from ~800KB to near-zero during combat.
 
-### Hierarchical State Machines
-
-Both player and enemies use state machines, but I needed different transition logic for each. I created PlayerStateMachine and EnemyStateMachine that manage their own state dictionaries and transitions.
-
-The challenge was shared state checking. Initially, every state duplicated the death check:
-
-![State Machine Before](Screenshot 2025-12-23 230841.png)
-
-I refactored by creating a `PlayerStateBase` class that handles common transitions in its `Update()`:
-```csharp
-public abstract class PlayerStateBase
-{
-    public virtual void Update()
-    {
-        if (playerModel.IsDead)
-        {
-            stateMachine.ChangeState(PlayerStates.Death);
-            return;
+* ### Hierarchical State Machines
+    - Both player and enemies use state machines, but I needed different transition logic for each. I created PlayerStateMachine and EnemyStateMachine that manage their own state dictionaries and transitions.
+    - The challenge was shared state checking. Initially, every state duplicated the death check:
+      ```csharp
+      if (playerModel.IsDead)
+        stateMachine.ChangeState(Dead);
+      ```
+    - I refactored by creating a `PlayerStateBase` class that handles common transitions in its `Update()`:
+      ```csharp
+      protected virtual bool CheckCommonTransitions() {
+        if (playerModel.IsDead) {
+            stateMachine.ChangeState(Dead);
+            return true;
         }
-        
-        if (playerModel.IsTransforming)
-        {
-            stateMachine.ChangeState(PlayerStates.Transform);
-            return;
+
+        if (CanTransformSuperSaiyan()) {
+            stateMachine.ChangeState(Transform);
+            return true;
         }
-    }
-}
-```
 
-Each state calls `base.Update()` first, then handles state-specific logic. This eliminated 50+ lines of duplicate code and centralized transition priority (death > transform > attack).
-
-![State Pattern](State.png)
+        // ... other shared transition checks
+        }
+      ```
+    - Each state calls `base.Update()` first, then handles state-specific logic. This eliminated 50+ lines of duplicate code and centralized transition priority (death > transform > attack).
 
 ### Super Saiyan Transformation System
 
