@@ -40,7 +40,7 @@ flowchart TD
     
     BulletPool --> BulletController[BulletController]
     
-    classDef serviceStyle fill:#E6E6FA,stroke:#333,stroke-width:2px
+    classDef serviceStyle fill:#000000,stroke:#333,stroke-width:2px
     classDef controllerStyle fill:#E6E6FA,stroke:#333,stroke-width:2px
     classDef componentStyle fill:#E6E6FA,stroke:#333,stroke-width:2px
     
