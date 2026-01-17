@@ -124,61 +124,40 @@ flowchart TD
     ```
     - This creates a responsive feel where the player stops quickly but maintains momentum during active input.
 
-### Boss Enemy AI
-
-The final boss needed distinct phases without creating separate controllers. I extended `BaseEnemyModel` to `FinalBossTypeEnemyModel` with additional state:
-```csharp
-public bool HasRegeneratedOnce { get; set; }
-public bool IsRegenerating { get; private set; }
-public bool IsEnraged { get; set; }
-```
-
-When health drops below 50%, two things can happen:
-
-- **First time:** Boss plays regeneration animation, heals to full, gets enraged
-- **After that:** Boss just enters enraged mode (faster attacks, more damage)
-
-The regeneration was tricky because I needed to freeze all AI during the animation. I added `IsRegenerating` flag that:
-
-- **Blocks damage:** `if (IsRegenerating) return;` in `TakeDamage()`
-- **Pauses states:** AttackState checks `CanAttack()` which returns false if regenerating
-- **Locks movement:** `FinalBossView.MoveInDirection()` early-exits if regenerating
-
-The animation uses a coroutine that pulses the sprite color:
-```csharp
-IEnumerator RegenerationAnimation()
-{
-    for (int i = 0; i < 10; i++)
-    {
-        spriteRenderer.color = Color.yellow;
-        yield return new WaitForSeconds(0.1f);
-        spriteRenderer.color = Color.white;
-        yield return new WaitForSeconds(0.1f);
-    }
-    OnRegenerationComplete();
-}
-```
-
-After completion, it calls `FinalBossController.OnRegenerationAnimationComplete()` which sets `IsRegenerating = false` and updates health. This pattern let me add complex multi-stage behaviors without breaking the base state machine.
-
-### Rapid Fire Attack Pattern
-
-The boss fires spread patterns instead of single bullets. In FinalBossView, the attack state randomly chooses between:
-
-- **Regular fire:** One guided bullet
-- **Rapid fire:** 3 bullets per burst for 3 seconds at 0.2s intervals
-
-Each burst calculates spread angles:
-```csharp
-float[] angles = { -15f, 0f, 15f };
-foreach (float angle in angles)
-{
-    Vector2 direction = Quaternion.Euler(0, 0, angle) * targetDirection;
-    FireBullet(direction);
-}
-```
-
-This creates a cone of projectiles that force the player to dodge, making the boss more dynamic than standard enemies.
+* ### Boss Enemy AI
+    - The final boss needed distinct phases without creating separate controllers. I extended `BaseEnemyModel` to `FinalBossTypeEnemyModel` with additional state:
+    - When health drops below 50%, two things can happen:
+      - **First time:** Boss plays regeneration animation, heals to full, gets enraged
+      - **After that:** Boss just enters enraged mode (faster attacks, more damage)
+    - The regeneration was tricky because I needed to freeze all AI during the animation. I added `IsRegenerating` flag that:
+      - **Blocks damage:** `if (IsRegenerating) return;` in `TakeDamage()`
+      - **Pauses states:** AttackState checks `CanAttack()` which returns false if regenerating
+      - **Locks movement:** `FinalBossView.MoveInDirection()` early-exits if regenerating
+    - The animation uses a coroutine that pulses the sprite color:
+    ```csharp
+    float pulseValue = Sin(time * frequency) * intensity;
+    spriteRenderer.color = Lerp(
+        originalColor,
+        regenerationColor,
+        pulseValue
+    );
+    ```
+    - After completion, it calls `FinalBossController.OnRegenerationAnimationComplete()` which sets `IsRegenerating = false` and updates health. This pattern let me add complex multi-stage behaviors without breaking the base state machine.
+    - ### Rapid Fire Attack Pattern
+      - The boss fires spread patterns instead of single bullets. In FinalBossView, the attack state randomly chooses between:
+          - **Regular fire:** One guided bullet
+          - **Rapid fire:** 3 bullets per burst for 3 seconds at 0.2s intervals
+        - Each burst calculates spread angles:
+        ```csharp
+        float angleStep = spreadAngle / (bulletsPerSpread - 1);
+        float startAngle = baseAngle - spreadAngle / 2;
+        
+        for (int i = 0; i < bulletsPerSpread; i++) {
+            float currentAngle = startAngle + angleStep * i;
+            FireBullet(direction.FromAngle(currentAngle));
+        }
+        ```
+        - This creates a cone of projectiles that force the player to dodge, making the boss more dynamic than standard enemies.
 
 ---
 
