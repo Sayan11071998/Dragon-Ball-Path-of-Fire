@@ -52,30 +52,36 @@ flowchart TD
 
 ## Key Technical Systems
 
-### Generic Object Pooling
-
-My initial implementation spawned/destroyed bullets and VFX on every action, causing spikes during boss fights. I built a generic pool system that pre-instantiates objects and reuses them:
-```csharp
-public class GenericObjectPool<T> where T : IPoolable
-{
-    private List<PooledItem<T>> pool = new List<PooledItem<T>>();
-    
-    public T GetItem(System.Type type)
-    {
-        foreach (var item in pool)
-        {
-            if (!item.isUsed && item.controller.GetType() == type)
-            {
-                item.isUsed = true;
-                return item.controller;
-            }
+* ### Generic Object Pooling
+    - My initial implementation spawned/destroyed bullets and VFX on every action, causing spikes during boss fights. I built a generic pool system that pre-instantiates objects and reuses them:
+      ```mermard
+          classDiagram
+        class GenericObjectPool~T~ {
+            <<abstract>>
         }
-        return CreateController(type);
-    }
-}
-```
-
-The pool tracks `PooledItem<T>` with an `isUsed` flag. When requesting an object, it searches for an unused instance matching the type. If none exist, it creates one. The key was making this work with inheritance - GuidedBulletPool extends BulletPool and overrides `CreateController()` to instantiate the correct subclass. This reduced frame allocations from ~800KB to near-zero during combat.
+        
+        class BulletPool {
+            (regular bullets)
+        }
+        
+        class GuidedBulletPool {
+            (homing projectiles)
+        }
+        
+        class EnemyPool {
+            (4 enemy types)
+        }
+        
+        class VFXPool {
+            (effects)
+        }
+        
+        GenericObjectPool~T~ <|-- BulletPool
+        GenericObjectPool~T~ <|-- GuidedBulletPool
+        GenericObjectPool~T~ <|-- EnemyPool
+        GenericObjectPool~T~ <|-- VFXPool
+      ```
+    - The pool tracks `PooledItem<T>` with an `isUsed` flag. When requesting an object, it searches for an unused instance matching the type. If none exist, it creates one. The key was making this work with inheritance - GuidedBulletPool extends BulletPool and overrides `CreateController()` to instantiate the correct subclass. This reduced frame allocations from ~800KB to near-zero during combat.
 
 ### Hierarchical State Machines
 
