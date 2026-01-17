@@ -84,21 +84,20 @@ flowchart TD
 
 * ### Super Saiyan Transformation System
     - The transformation needed to modify multiple systems (health, stamina, speed, camera) without them knowing about each other. I solved this with multiplicative buffs in PlayerModel:
+      ```csharp
+      public void ApplySuperSaiyanBuffs() {
+        MaxHealth = baseHealth * SuperSaiyanHealthMultiplier;
+        CurrentHealth = MaxHealth; // Full heal
+        MoveSpeed = baseSpeed * SuperSaiyanSpeedMultiplier;
+        isSuperSaiyanMode = true;
+      }
+      ```
     - When the transformation triggers:
       - TransformState calls `PlayerModel.ApplySuperSaiyanBuffs()`
       - Model updates internally, UI reads the new values in its `Update()`
-- Camera checks `PlayerView.IsSuperSaiyan` and adjusts orthographic size
-- New abilities (Fly, Vanish, Kamehameha) become available through state checks
-
-Reverting works the same way - calculate percentage, apply base values, restore percentage. The key insight was storing both base and modified values so reversion doesn't lose precision:
-```csharp
-public void RemoveSuperSaiyanBuffs()
-{
-    float healthPercent = currentHealth / maxHealth;
-    maxHealth = baseMaxHealth;
-    currentHealth = maxHealth * healthPercent;
-}
-```
+      - Camera checks `PlayerView.IsSuperSaiyan` and adjusts orthographic size
+      - New abilities (Fly, Vanish, Kamehameha) become available through state checks
+    - Reverting works the same way - calculate percentage, apply base values, restore percentage. The key insight was storing both base and modified values so reversion doesn't lose precision:
 
 ### Flight Mode Mechanics
 
