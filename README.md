@@ -161,53 +161,40 @@ flowchart TD
 
 ---
 
-## Technical Challenges
+* ## Technical Challenges
+    - **Guided Bullet Physics:**
+      - Enemy bullets needed to home in on the player. I extended BulletController to GuidedBulletController that calculates target direction each frame:
+        ```csharp
+        Vector2 targetDirection = (targetPosition - currentPosition).normalized;
 
-**Guided Bullet Physics:** Enemy bullets needed to home in on the player. I extended BulletController to GuidedBulletController that calculates target direction each frame:
-```csharp
-void FixedUpdate()
-{
-    if (Time.time < spawnTime + guidanceDelay) return;
-    if (Time.time > spawnTime + maxGuidanceTime) return;
-    
-    Vector2 targetDir = (player.position - transform.position).normalized;
-    rb.velocity = targetDir * bulletSpeed;
-}
-```
+        Vector2 newVelocity = Lerp(
+            currentVelocity,
+            targetDirection,
+            rotationSpeed * deltaTime
+        );
+        ```
+      - The problem was bullets instantly snapping to face the player. I added a `GuidanceDelay` - bullets fly straight for 0.5s, then start homing. This gives players reaction time. Also added `MaxGuidanceTime` so bullets stop tracking after 5s and fly straight, preventing infinite chasing.
 
-The problem was bullets instantly snapping to face the player. I added a `GuidanceDelay` - bullets fly straight for 0.5s, then start homing. This gives players reaction time. Also added `MaxGuidanceTime` so bullets stop tracking after 5s and fly straight, preventing infinite chasing.
+    - **Animation Event Coupling:**
+      - Enemy attacks triggered damage through animation events, but this created tight coupling between animations and code. Moving to a time-based system was cleaner:
+        ```csharp
+        yield return WaitForSeconds(attackHitTime); // 0.3s into animation
+        PerformAttack();
+        yield return WaitForSeconds(animationLength - attackHitTime);
+        ```
+      - Now I can adjust animation length without updating code, and attacks always land at the right frame.
 
-**Animation Event Coupling:** Enemy attacks triggered damage through animation events, but this created tight coupling between animations and code. Moving to a time-based system was cleaner:
-```csharp
-if (stateTime >= attackWindup && !hasDealtDamage)
-{
-    DealDamage();
-    hasDealtDamage = true;
-}
-```
-
-Now I can adjust animation length without updating code, and attacks always land at the right frame.
-
-**Camera Shake During Combat:** I needed camera shake on hits without manually calling it everywhere. The solution was a CameraShakeService that applies shake as an offset:
-```csharp
-public void ShakeCamera(float intensity, float duration)
-{
-    shakeIntensity = intensity;
-    shakeDuration = duration;
-}
-
-void LateUpdate()
-{
-    if (shakeDuration > 0)
-    {
-        Vector3 offset = Random.insideUnitCircle * shakeIntensity;
-        transform.position += offset;
-        shakeDuration -= Time.deltaTime;
-    }
-}
-```
-
-The camera calls this in `LateUpdate()`, and any system triggers shake by calling `ShakeCamera(intensity, duration)`. This decoupled shake logic from damage calculation.
+    - **Camera Shake During Combat:**
+      - I needed camera shake on hits without manually calling it everywhere. The solution was a CameraShakeService that applies shake as an offset:
+      ```csharp
+      public Vector3 ApplyShake(Vector3 position) {
+            if (!isShaking) return position;
+        
+            Vector3 shakeOffset = Random.insideUnitSphere * intensity;
+            return position + shakeOffset;
+        }
+      ```
+      - The camera calls this in `LateUpdate()`, and any system triggers shake by calling `ShakeCamera(intensity, duration)`. This decoupled shake logic from damage calculation.
 
 ---
 
