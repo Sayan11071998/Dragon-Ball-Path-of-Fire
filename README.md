@@ -98,27 +98,31 @@ flowchart TD
       - Camera checks `PlayerView.IsSuperSaiyan` and adjusts orthographic size
       - New abilities (Fly, Vanish, Kamehameha) become available through state checks
     - Reverting works the same way - calculate percentage, apply base values, restore percentage. The key insight was storing both base and modified values so reversion doesn't lose precision:
+      ```csharp
+      float healthPercentage = CurrentHealth / MaxHealth;
 
-### Flight Mode Mechanics
+      MaxHealth = baseHealth;
+      CurrentHealth = MaxHealth * healthPercentage;
+      ```
 
-Flying required disabling gravity and controlling vertical movement. In `FlyState.OnStateEnter()`, I set `Rigidbody.gravityScale = 0` and use input direction for velocity:
-```csharp
-public override void Update()
-{
-    Vector2 input = playerController.GetMovementInput();
-    rb.velocity = new Vector2(input.x * flySpeed, input.y * flySpeed);
-}
-```
+* ### Flight Mode Mechanics
+    - Flying required disabling gravity and controlling vertical movement. In `FlyState.OnStateEnter()`, I set `Rigidbody.gravityScale = 0` and use input direction for velocity:
+    ```csharp
+    Vector2 movementDirection = playerView.MovementDirection;
 
-The issue was vertical momentum - when releasing the stick, the player kept drifting. I added exponential dampening when input is neutral:
-```csharp
-if (input.magnitude < 0.1f)
-{
-    rb.velocity *= 0.85f; // Exponential decay
-}
-```
-
-This creates a responsive feel where the player stops quickly but maintains momentum during active input.
+    velocity.x = movementDirection.x * FlySpeed;
+    velocity.y = Lerp(
+        velocity.y,
+        movementDirection.y * FlySpeed,
+        deltaTime * 5f
+    );
+    ```
+    - The issue was vertical momentum - when releasing the stick, the player kept drifting. I added exponential dampening when input is neutral:
+    ```csharp
+    if (Abs(movementDirection.y) < 0.1f)
+        velocity.y *= 0.92f; // Decay each frame
+    ```
+    - This creates a responsive feel where the player stops quickly but maintains momentum during active input.
 
 ### Boss Enemy AI
 
