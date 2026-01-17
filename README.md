@@ -41,8 +41,8 @@ flowchart TD
     BulletPool --> BulletController[BulletController]
     
     classDef serviceStyle fill:#000000,stroke:#333,stroke-width:2px
-    classDef controllerStyle fill:#E6E6FA,stroke:#333,stroke-width:2px
-    classDef componentStyle fill:#E6E6FA,stroke:#333,stroke-width:2px
+    classDef controllerStyle fill:#000000,stroke:#333,stroke-width:2px
+    classDef componentStyle fill:#000000,stroke:#333,stroke-width:2px
     
     class GameService,PlayerService,EnemyService,BulletService,VFXService,UIService serviceStyle
     class PlayerController,EnemyController,BulletController controllerStyle
