@@ -78,34 +78,15 @@ flowchart TD
         }
 
         // ... other shared transition checks
-        }
+      }
       ```
     - Each state calls `base.Update()` first, then handles state-specific logic. This eliminated 50+ lines of duplicate code and centralized transition priority (death > transform > attack).
 
-### Super Saiyan Transformation System
-
-The transformation needed to modify multiple systems (health, stamina, speed, camera) without them knowing about each other. I solved this with multiplicative buffs in PlayerModel:
-```csharp
-public void ApplySuperSaiyanBuffs()
-{
-    baseMaxHealth = maxHealth;
-    baseMaxStamina = maxStamina;
-    baseSpeed = speed;
-    
-    maxHealth *= 2f;
-    maxStamina *= 1.5f;
-    speed *= 1.3f;
-    
-    // Maintain percentage
-    float healthPercent = currentHealth / baseMaxHealth;
-    currentHealth = maxHealth * healthPercent;
-}
-```
-
-When the transformation triggers:
-
-- TransformState calls `PlayerModel.ApplySuperSaiyanBuffs()`
-- Model updates internally, UI reads the new values in its `Update()`
+* ### Super Saiyan Transformation System
+    - The transformation needed to modify multiple systems (health, stamina, speed, camera) without them knowing about each other. I solved this with multiplicative buffs in PlayerModel:
+    - When the transformation triggers:
+      - TransformState calls `PlayerModel.ApplySuperSaiyanBuffs()`
+      - Model updates internally, UI reads the new values in its `Update()`
 - Camera checks `PlayerView.IsSuperSaiyan` and adjusts orthographic size
 - New abilities (Fly, Vanish, Kamehameha) become available through state checks
 
